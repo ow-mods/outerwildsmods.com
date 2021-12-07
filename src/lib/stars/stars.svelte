@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { css } from '@emotion/css';
+
 	import { starLayer, starLayer1, starLayer2 } from './stars.styles';
 
 	type StarData = {
@@ -40,7 +42,7 @@
 </script>
 
 <svg
-	class={[starLayer, starLayer1].join(' ')}
+	class={css([starLayer, starLayer1])}
 	preserveAspectRatio="xMinYMin slice"
 	viewBox={`0 0 ${width} ${height}`}
 >
@@ -49,7 +51,7 @@
 	{/each}
 </svg>
 <svg
-	class={[starLayer, starLayer2].join(' ')}
+	class={css([starLayer, starLayer2])}
 	preserveAspectRatio="xMinYMin slice"
 	viewBox={`0 0 ${width} ${height}`}
 	fill="white"

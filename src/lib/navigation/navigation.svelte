@@ -5,7 +5,7 @@
 </script>
 
 <div class={Wrapper}>
-	<div class={[PageLayout(), Layout].join(' ')}>
+	<div class={Layout}>
 		<!-- <MenuButton htmlFor="navigation-menu-button">☰</MenuButton> -->
 		<!-- <HiddenInput type="checkbox" id="navigation-menu-button" /> -->
 		<nav class={NavWrapper}>

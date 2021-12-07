@@ -1,3 +1,4 @@
+import { PageLayout } from '$lib/page-layout';
 import { css } from '@emotion/css';
 import { transparentize } from 'polished';
 
@@ -35,12 +36,15 @@ export const MenuButton = css`
 	}
 `;
 
-export const Layout = css`
+export const Layout = css([
+	PageLayout(),
+	`
 	padding: 0;
 	${HiddenInput}:checked + ${NavWrapper} {
 		display: flex;
 	}
-`;
+`
+]);
 
 export const NavLinkWrapper = (isActive: boolean) => css`
 	color: ${isActive ? colors.light : colors.accent};
