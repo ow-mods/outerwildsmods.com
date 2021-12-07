@@ -27,14 +27,19 @@
 	export let description: string | undefined;
 	export let index: number;
 	export let imageUrl: string | undefined;
+	let hue = imageUrl ? 0 : stringToNumber(title);
 </script>
 
-<span class={ItemWrapper}>
-	<div class={ImageWrapper(imageUrl ? 0 : stringToNumber(title))}>
+<div class="flex-col bg-gray-800 w-72 m-2 rounded-md overflow-hidden hover:bg-gray-700">
+	<div style={`filter: hue-rotate(${hue}deg);`}>
 		{#if !imageUrl}
 			<div class={PlaceholderText}>{title}</div>
 		{/if}
-		<img class={ItemImage} alt={title} src={imageUrl || '/images/placeholder.jpg'} />
+		<img
+			class="h-24 w-full object-cover object-left"
+			alt={title}
+			src={imageUrl || '/images/placeholder.jpg'}
+		/>
 		<!-- layout="intrinsic"
 				height={200}
 				width={560}
@@ -52,4 +57,4 @@
 			</div>
 		{/if}
 	</div>
-</span>
+</div>

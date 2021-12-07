@@ -1,3 +1,7 @@
+/* Write your global styles here, in PostCSS syntax */
+
+@tailwind base;
+
 body {
 	padding: 0;
 	margin: 0;
@@ -29,3 +33,7 @@ a {
 	text-decoration: none;
 	font-weight: normal;
 }
+
+@tailwind components;
+
+@tailwind utilities;
