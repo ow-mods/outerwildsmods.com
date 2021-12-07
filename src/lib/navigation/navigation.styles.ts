@@ -64,12 +64,6 @@ export const NavLinkWrapper = (isActive: boolean) => css`
 	}
 `;
 
-export const NavLinkAdWrapper = (isActive: boolean) => css`
-	color: ${isActive ? colors.light : colors.cta};
-	font-weight: bold;
-	background-color: ${isActive ? colors.background : 'none'};
-`;
-
 export const WishlistLabel = css`
 	position: relative;
 	top: -42px;
