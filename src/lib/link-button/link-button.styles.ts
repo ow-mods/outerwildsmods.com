@@ -1,8 +1,7 @@
 import { css } from '@emotion/css';
 import { lighten, darken } from 'polished';
-
 import { colors, spacing, borderRadius } from '../../styles/variables';
-import type { ButtonVariant } from './link-button';
+import type { ButtonVariant } from './button-variant';
 
 export const Content = css`
 	height: 100%;
