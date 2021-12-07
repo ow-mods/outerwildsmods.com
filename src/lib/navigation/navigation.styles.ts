@@ -1,5 +1,5 @@
 import { css } from '@emotion/css';
-// import { transparentize } from 'polished';
+import { transparentize } from 'polished';
 
 import { mediaDown, textOutline } from '../../styles/mixins';
 import { colors, spacing, borderRadius } from '../../styles/variables';
@@ -53,9 +53,10 @@ export const NavLinkWrapper = (isActive: boolean) => css`
 	margin: 0px ${spacing.small};
 	border-radius: ${borderRadius.small} ${borderRadius.small} 0 0;
 	${textOutline(colors.background)};
+	-webkit-tap-highlight-color: ${transparentize(0.55)(colors.background)};
 	@media (hover: hover) {
 		&:hover {
-			background-color: ${colors.background};
+			background-color: ${transparentize(0.55)(colors.background)};
 		}
 	}
 `;
