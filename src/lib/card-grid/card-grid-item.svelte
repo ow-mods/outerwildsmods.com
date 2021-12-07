@@ -1,15 +1,4 @@
 <script lang="ts">
-	import {
-		ItemWrapper,
-		ImageWrapper,
-		Title,
-		DescriptionWrapper,
-		Description,
-		TextWrapper,
-		PlaceholderText,
-		ItemImage
-	} from './card-grid.styles';
-
 	const stringToNumber = function (str: string, seed = 3) {
 		let h1 = 0xdeadbeef ^ seed,
 			h2 = 0x41c6ce57 ^ seed;
@@ -30,10 +19,14 @@
 	let hue = imageUrl ? 0 : stringToNumber(title);
 </script>
 
-<div class="flex-col bg-gray-800 w-72 m-2 rounded-md overflow-hidden hover:bg-gray-700">
-	<div style={`filter: hue-rotate(${hue}deg);`}>
+<div class="flex-col bg-dark w-72 m-2 rounded-md overflow-hidden hover:bg-background">
+	<div class="relative" style={`filter: hue-rotate(${hue}deg);`}>
 		{#if !imageUrl}
-			<div class={PlaceholderText}>{title}</div>
+			<div
+				class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-2xl p-3 text-center"
+			>
+				{title}
+			</div>
 		{/if}
 		<img
 			class="h-24 w-full object-cover object-left"
@@ -47,11 +40,11 @@
 			priority={index <= 6}
 			quality={imageUrl ? 50 : 100} -->
 	</div>
-	<div class={TextWrapper}>
-		<span class={Title}>{title}</span>
+	<div class="p-3">
+		<span>{title}</span>
 		{#if description}
-			<div class={DescriptionWrapper}>
-				<span class={Description}>
+			<div class="leading-tight">
+				<span class="text-light">
 					<small>{description} </small>
 				</span>
 			</div>
