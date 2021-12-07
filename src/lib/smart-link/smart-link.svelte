@@ -7,7 +7,6 @@
 	export { className as class };
 </script>
 
-<!-- TODO: merge classes properly -->
 <a
 	{href}
 	class={twMerge('text-accent hover:text-accent-light', className)}
