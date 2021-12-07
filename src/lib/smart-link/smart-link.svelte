@@ -9,10 +9,10 @@
 	export { className as class };
 </script>
 
-<!-- class={css([TextLink, className])} -->
+<!-- TODO: merge classes properly -->
 <a
 	{href}
-	class={[TextLink, className].join(' ')}
+	class={['text-accent hover:text-accent-light', className].join(' ')}
 	target={isExternal ? '_blank' : undefined}
 	rel={isExternal ? 'noopener noreferrer' : undefined}
 >
