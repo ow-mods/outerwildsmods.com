@@ -38,7 +38,7 @@ export const Line = css`
 	}
 `;
 
-export const PageSectionColumns = css`
+export const PageSectionColumnsWrapper = css`
 	display: flex;
 
 	${mediaDown('small')} {

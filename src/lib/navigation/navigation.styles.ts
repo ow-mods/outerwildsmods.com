@@ -1,10 +1,9 @@
-import { PageLayout } from '$lib/page-layout';
+import { PageLayout } from '$lib/page-layout/page-layout.styles';
 import { css } from '@emotion/css';
 import { transparentize } from 'polished';
 
 import { mediaDown, textOutline } from '../../styles/mixins';
 import { colors, spacing, borderRadius } from '../../styles/variables';
-// import { PageLayout } from '../page-layout';
 
 export const Wrapper = css`
 	width: 100%;

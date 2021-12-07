@@ -3,7 +3,8 @@
 	import PageSectionTitle from './page-section-title.svelte';
 	import PageSectionImage from './page-section-image.svelte';
 
-	import { Wrapper, PageSectionColumns } from './page-section.styles';
+	import { Wrapper } from './page-section.styles';
+	import PageSectionColumns from './page-section-columns.svelte';
 
 	export let id: string;
 	export let title: string | undefined = undefined;

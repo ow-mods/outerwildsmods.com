@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { PageLayout } from '$lib/page-layout';
 	import NavigationLink from './navigation-link.svelte';
 	import { Wrapper, Layout, NavWrapper, HiddenInput, MenuButton } from './navigation.styles';
 </script>

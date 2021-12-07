@@ -1,7 +1,7 @@
-<script>
-	import { PageSectionColumns } from './page-section.styles';
+<script lang="ts">
+	import { PageSectionColumnsWrapper } from './page-section.styles';
 </script>
 
-<div class={PageSectionColumns}>
+<div class={PageSectionColumnsWrapper}>
 	<slot />
 </div>
