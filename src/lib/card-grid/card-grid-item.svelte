@@ -6,7 +6,8 @@
 		DescriptionWrapper,
 		Description,
 		TextWrapper,
-		PlaceholderText
+		PlaceholderText,
+		ItemImage
 	} from './card-grid.styles';
 
 	const stringToNumber = function (str: string, seed = 3) {
@@ -33,8 +34,10 @@
 		{#if !imageUrl}
 			<div class={PlaceholderText}>{title}</div>
 		{/if}
-		<img alt={title} src={imageUrl || '/images/placeholder.jpg'} height={200} width={560} />
+		<img class={ItemImage} alt={title} src={imageUrl || '/images/placeholder.jpg'} />
 		<!-- layout="intrinsic"
+				height={200}
+				width={560}
 			objectFit="cover"
 			priority={index <= 6}
 			quality={imageUrl ? 50 : 100} -->

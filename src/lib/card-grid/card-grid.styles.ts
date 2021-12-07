@@ -10,7 +10,7 @@ export const GridWrapper = css`
 export const ItemWrapper = css`
 	display: flex;
 	flex-direction: column;
-	max-width: 280px;
+	width: 280px;
 	height: calc(100% - 2 * ${spacing.small});
 	border-radius: ${borderRadius.medium};
 	margin: ${spacing.small};
@@ -26,6 +26,13 @@ export const ItemWrapper = css`
 
 export const ImageWrapper = (hue = 0) => css`
 	filter: hue-rotate(${hue}deg);
+`;
+
+export const ItemImage = css`
+	object-fit: cover;
+	height: 95px;
+	width: 100%;
+	object-position: 0%;
 `;
 
 export const PlaceholderText = css`

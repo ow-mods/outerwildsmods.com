@@ -1,33 +1,20 @@
 <script lang="ts">
 	import CardGridItem from '$lib/card-grid/card-grid-item.svelte';
-
 	import CardGrid from '$lib/card-grid/card-grid.svelte';
-
 	import { PageLayout } from '$lib/page-layout/page-layout.styles';
 	import PageSection from '$lib/page-section/page-section.svelte';
 	import SmartLink from '$lib/smart-link/smart-link.svelte';
-
-	type Mod = {
-		name: string;
-		uniqueName: string;
-		author: string;
-		description: string;
-		version: string;
-		repo: string;
-		downloadUrl: string;
-		downloadCount: number;
-		required?: boolean;
-	};
-
-	interface ModWithImage extends Mod {
-		imageUrl: string | null;
-	}
+	import axios from 'axios';
+	import type { ModWithImage } from '../mods.json';
 
 	export const getModPathName = (modName: string) => modName.replace(/ /g, '').toLowerCase();
 
 	const getModPath = (modName: string) => `/mods/${getModPathName(modName)}`;
 
 	export let mods: ModWithImage[] = [];
+	(async () => {
+		mods = (await axios.get<ModWithImage[]>('mods.json')).data;
+	})();
 </script>
 
 <svelte:head>
