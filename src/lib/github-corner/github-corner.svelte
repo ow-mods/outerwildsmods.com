@@ -1,8 +1,7 @@
-<script>
-	import { wrapper } from './github-corner.styles';
-</script>
-
-<a class={wrapper} href="https://github.com/Raicuparta/outer-wilds-mods">
+<a
+	class="absolute top-0 right-0 text-accent fill-current opacity-70 hover:opacity-100"
+	href="https://github.com/Raicuparta/outer-wilds-mods"
+>
 	<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 250 250">
 		<title>outerwildsmods.com source code</title>
 		<mask id="myMask">
