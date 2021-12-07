@@ -1,3 +1,24 @@
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async () => {
+		const result = await axios.get<ModWithImage[]>('mods.json');
+
+		if (result.status === 200) {
+			return {
+				props: {
+					mods: result.data
+				}
+			};
+		}
+
+		return {
+			status: result.status,
+			error: new Error(`Could not load mods`)
+		};
+	};
+</script>
+
 <script lang="ts">
 	import CardGridItem from '$lib/card-grid/card-grid-item.svelte';
 	import CardGrid from '$lib/card-grid/card-grid.svelte';
@@ -12,9 +33,6 @@
 	const getModPath = (modName: string) => `/mods/${getModPathName(modName)}`;
 
 	export let mods: ModWithImage[] = [];
-	(async () => {
-		mods = (await axios.get<ModWithImage[]>('mods.json')).data;
-	})();
 </script>
 
 <svelte:head>
