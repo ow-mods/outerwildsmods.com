@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { PageLayout } from '$lib/page-layout';
 	import NavigationLink from './navigation-link.svelte';
-
 	import { Wrapper, Layout, NavWrapper, HiddenInput, MenuButton } from './navigation.styles';
 </script>
 
 <div class={Wrapper}>
-	<div class={Layout}>
+	<div class={[PageLayout(), Layout].join(' ')}>
 		<!-- <MenuButton htmlFor="navigation-menu-button">☰</MenuButton> -->
 		<!-- <HiddenInput type="checkbox" id="navigation-menu-button" /> -->
 		<nav class={NavWrapper}>
