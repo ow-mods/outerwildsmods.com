@@ -1,8 +1,7 @@
 import { PageLayout } from '$lib/page-layout/page-layout.styles';
 import { css } from '@emotion/css';
-import { transparentize } from 'polished';
 
-import { mediaDown, textOutline } from '../../styles/mixins';
+import { mediaDown } from '../../styles/mixins';
 import { colors, spacing, borderRadius } from '../../styles/variables';
 
 export const Wrapper = css`
@@ -44,25 +43,6 @@ export const Layout = css([
 	}
 `
 ]);
-
-export const NavLinkWrapper = (isActive: boolean) => css`
-	color: ${isActive ? colors.light : colors.accent};
-	background-color: ${isActive ? colors.background : 'none'};
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: ${spacing.medium} 0;
-	margin: 0px ${spacing.small};
-	border-radius: ${borderRadius.small} ${borderRadius.small} 0 0;
-	${textOutline(colors.background)};
-	-webkit-tap-highlight-color: ${transparentize(0.55)(colors.background)};
-	@media (hover: hover) {
-		&:hover {
-			background-color: ${transparentize(0.55)(colors.background)};
-		}
-	}
-`;
 
 export const WishlistLabel = css`
 	position: relative;
