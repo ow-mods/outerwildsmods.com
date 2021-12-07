@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { css } from '@emotion/css';
-
-	import { TextLink } from './text-link.styles';
+	import { twMerge } from 'tailwind-merge';
 
 	export let href: string;
 	export let isExternal = false;
@@ -12,7 +10,7 @@
 <!-- TODO: merge classes properly -->
 <a
 	{href}
-	class={['text-accent hover:text-accent-light', className].join(' ')}
+	class={twMerge('text-accent hover:text-accent-light', className)}
 	target={isExternal ? '_blank' : undefined}
 	rel={isExternal ? 'noopener noreferrer' : undefined}
 >
