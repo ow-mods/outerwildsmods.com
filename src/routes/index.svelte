@@ -3,6 +3,8 @@
 </script>
 
 <script lang="ts">
+	import LinkButton from '$lib/link-button/link-button.svelte';
+
 	import { PageLayout } from '$lib/page-layout';
 	import PageSectionColumns from '$lib/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/page-section/page-section-description.svelte';
@@ -27,8 +29,6 @@
 				description="Use the Outer Wilds Mod Manager for downloading, installing, and managing mods."
 			/>
 		</PageSectionColumns>
-		<!-- <LinkButton href="/mod-manager" variant="main-download">
-			Outer Wilds Mod Manager
-		</LinkButton> -->
+		<LinkButton href="/mod-manager" variant="main-download">Outer Wilds Mod Manager</LinkButton>
 	</PageSection>
 </section>
