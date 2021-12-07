@@ -1,13 +1,13 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
 
-	export const load: Load = async () => {
-		const result = await axios.get<ModWithImage[]>('mods.json');
+	export const load: Load = async ({ fetch }) => {
+		const result = await fetch('mods.json');
 
-		if (result.status === 200) {
+		if (result.ok) {
 			return {
 				props: {
-					mods: result.data
+					mods: await result.json()
 				}
 			};
 		}
