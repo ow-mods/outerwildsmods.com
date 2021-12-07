@@ -3,14 +3,13 @@
 	import Navigation from '$lib/navigation/navigation.svelte';
 	import SmartLink from '$lib/smart-link/smart-link.svelte';
 	import Stars from '$lib/stars/stars.svelte';
-	import { wrapper, pageTitle } from './header.styles';
 </script>
 
-<header class={wrapper}>
+<header class="relative text-center">
 	<GithubCorner />
 	<Stars />
-	<h1 class={pageTitle}>
-		<SmartLink href="/">Outer Wilds Mods</SmartLink>
+	<h1 class="pt-4 pb-5 text-4xl">
+		<SmartLink class="font-thin text-white" href="/">Outer Wilds Mods</SmartLink>
 	</h1>
 	<Navigation />
 </header>

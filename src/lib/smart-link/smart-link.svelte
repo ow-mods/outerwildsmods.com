@@ -5,12 +5,14 @@
 
 	export let href: string;
 	export let isExternal = false;
-	export let className = '';
+	let className = '';
+	export { className as class };
 </script>
 
+<!-- class={css([TextLink, className])} -->
 <a
 	{href}
-	class={css([TextLink, className])}
+	class={[TextLink, className].join(' ')}
 	target={isExternal ? '_blank' : undefined}
 	rel={isExternal ? 'noopener noreferrer' : undefined}
 >
