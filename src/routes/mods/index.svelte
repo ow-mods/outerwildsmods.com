@@ -48,14 +48,14 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each mods as mod, index}
-				<!-- <SmartLink href={getModPath(mod.name)}> -->
-				<CardGridItem
-					{index}
-					title={mod.name}
-					description={mod.description}
-					imageUrl={mod.imageUrl || undefined}
-				/>
-				<!-- </SmartLink> -->
+				<SmartLink href={getModPath(mod.name)}>
+					<CardGridItem
+						{index}
+						title={mod.name}
+						description={mod.description}
+						imageUrl={mod.imageUrl || undefined}
+					/>
+				</SmartLink>
 			{/each}
 		</CardGrid>
 	</PageSection>
