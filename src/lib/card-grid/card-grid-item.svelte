@@ -19,7 +19,9 @@
 	let hue = imageUrl ? 0 : stringToNumber(title);
 </script>
 
-<div class="flex-col bg-dark w-72 m-2 rounded-md overflow-hidden hover:bg-background">
+<div
+	class="flex-col bg-dark w-72 m-2 rounded overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
+>
 	<div class="relative" style={`filter: hue-rotate(${hue}deg);`}>
 		{#if !imageUrl}
 			<div
