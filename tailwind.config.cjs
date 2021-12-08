@@ -19,7 +19,23 @@ const config = {
 				background: '#1f2122',
 				light: 'rgba(255, 255, 255, 0.65)',
 				dark: '#191a1b'
-			}
+			},
+			typography: (theme) => ({
+				DEFAULT: {
+					css: {
+						color: theme('colors.light'),
+						a: {
+							color: theme('colors.accent'),
+							'&:hover': {
+								color: theme('colors.accent-light')
+							}
+						},
+						'h1,h2,h3,h4,h5,h6,code,strong,thead': {
+							color: theme('colors.light')
+						}
+					}
+				}
+			})
 		}
 	},
 
