@@ -5,11 +5,39 @@
 <script lang="ts">
 	import LinkButton from '$lib/link-button.svelte';
 	import LinkList from '$lib/link-list.svelte';
+	import ListItemCard from '$lib/list-item-card.svelte';
 	import PageLayout from '$lib/page-layout.svelte';
 	import PageSectionColumns from '$lib/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/page-section/page-section-image.svelte';
 	import PageSection from '$lib/page-section/page-section.svelte';
+	import SmartLink from '$lib/smart-link.svelte';
+
+	const featuredMods = [
+		{
+			title: 'NomaiVR',
+			description: 'Adds support for VR devices. Full motion control support.',
+			path: 'nomaivr',
+			image: '/images/nomai-vr.png'
+		},
+		{
+			title: 'QSB',
+			description: 'Quantum Space Buddies. Adds online multiplayer to the game.',
+			path: 'quantumspacebuddies',
+			image: '/images/qsb.jpg'
+		},
+		{
+			title: 'Light Bramble',
+			description:
+				'Makes the Dark Bramble less scary. Options to remove scary elements individually.',
+			path: 'lightbramble',
+			image: '/images/light-bramble.jpg'
+		},
+		{
+			title: 'More mods',
+			path: ''
+		}
+	];
 
 	const infoLinks = [
 		{
@@ -63,6 +91,13 @@
 		<div class="mt-4">
 			<LinkButton href="/mod-manager" variant="main-download">Outer Wilds Mod Manager</LinkButton>
 		</div>
+	</PageSection>
+	<PageSection title="Some of the available mods" id="mods">
+		{#each featuredMods as mod}
+			<SmartLink href={`/mods/${mod.path}`}>
+				<ListItemCard title={mod.title} description={mod.description} imageUrl={mod.image} />
+			</SmartLink>
+		{/each}
 	</PageSection>
 	<PageSection
 		title="Outer Wilds?"
