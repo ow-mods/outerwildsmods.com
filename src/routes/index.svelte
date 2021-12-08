@@ -60,7 +60,9 @@
 				description="Use the Outer Wilds Mod Manager for downloading, installing, and managing mods."
 			/>
 		</PageSectionColumns>
-		<LinkButton href="/mod-manager" variant="main-download">Outer Wilds Mod Manager</LinkButton>
+		<div class="mt-2">
+			<LinkButton href="/mod-manager" variant="main-download">Outer Wilds Mod Manager</LinkButton>
+		</div>
 	</PageSection>
 	<PageSection
 		title="Outer Wilds?"
