@@ -3,7 +3,6 @@
 	import PageSectionTitle from './page-section-title.svelte';
 	import PageSectionImage from './page-section-image.svelte';
 
-	import { Wrapper } from './page-section.styles';
 	import PageSectionColumns from './page-section-columns.svelte';
 
 	export let id: string;
@@ -12,7 +11,7 @@
 	export let imageUrl: string | undefined = undefined;
 </script>
 
-<div class={Wrapper}>
+<div class="py-4">
 	{#if title}
 		<PageSectionTitle {id}>{title}</PageSectionTitle>
 	{/if}
