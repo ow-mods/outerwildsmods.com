@@ -13,7 +13,7 @@
 	import PageSection from '$lib/page-section/page-section.svelte';
 	import SmartLink from '$lib/smart-link.svelte';
 
-	const alphaMods: AlphaMod[] = [
+	const alphaMods = [
 		{
 			name: 'DIMOWA',
 			description: 'Mod installer and debugger for Outer Wilds Alpha',
