@@ -6,6 +6,6 @@
 	export let isWide = false;
 </script>
 
-<div class={twMerge(`max-w-screen-${isWide ? 'md' : 'sm'} p-4 mx-auto`, className)}>
+<div class={twMerge(`${isWide ? 'max-w-screen-md' : 'max-w-screen-sm'} p-4 mx-auto`, className)}>
 	<slot />
 </div>
