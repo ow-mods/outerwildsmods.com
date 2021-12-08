@@ -31,6 +31,7 @@ export const get: RequestHandler = async ({ params }) => {
 	const images = getAllMarkdownImages(readme);
 
 	const externalImages = await getImageMap(rawContentUrl, mod.name, images);
+	console.log('external images server', externalImages.length, rawContentUrl, mod.name, images);
 
 	return {
 		body: {

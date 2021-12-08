@@ -24,6 +24,8 @@
 	import type { Mod } from '../../services';
 	import type { ImageMap } from '$lib/helpers';
 	import SvelteMarkdown from 'svelte-markdown';
+	import ImageRenderer from '$lib/image-renderer.svelte';
+	import { setContext } from 'svelte';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;
@@ -43,6 +45,9 @@
 		`${modDescription}${getDescriptionTerminator(
 			modDescription
 		)}Download and install ${modName} mod for Outer Wilds using the Mod Manager.`;
+
+	setContext('externalImages', externalImages);
+	console.log('external images pre', externalImages?.length);
 </script>
 
 <svelte:head>
@@ -58,7 +63,12 @@
 			{#if readme}
 				<!-- {readme} -->
 				<div class="prose">
-					<SvelteMarkdown source={readme} />
+					<SvelteMarkdown
+						source={readme}
+						renderers={{
+							image: ImageRenderer
+						}}
+					/>
 				</div>
 				<!-- <ModDescription {readme} {externalImages} /> -->
 			{/if}
