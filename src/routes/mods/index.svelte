@@ -44,7 +44,7 @@
 		content="Full list of mods for Outer Wilds. Including mods for VR, multiplayer, and cheats."
 	/>
 </svelte:head>
-<PageLayout>
+<PageLayout isWide>
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each mods as mod, index}
