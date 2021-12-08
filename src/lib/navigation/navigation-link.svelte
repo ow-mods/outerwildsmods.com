@@ -9,14 +9,9 @@
 </script>
 
 <a
-	class={`
-	text-${isActive ? 'light' : 'accent'}
-	flex-1
-	bg-${isActive ? 'background' : 'transparent'}
-	hover:bg-background
-	py-1
-	rounded-t
-	mx-1
+	class={`flex-1 hover:bg-background py-1 rounded-t mx-1 ${
+		isActive ? 'text-light bg-background' : 'text-accent'
+	}
 `}
 	{href}
 >
