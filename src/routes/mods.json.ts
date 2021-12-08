@@ -1,15 +1,11 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getAllMarkdownImages, getImageMap, getRawContentUrl } from '../helpers';
-import { getModDatabase, getModReadme, Mod } from '../services';
+import { getAllMarkdownImages, getImageMap, getRawContentUrl } from '$lib/helpers';
+import { getModDatabase, getModReadme } from '../services';
 
 // TODO dont repeat in [mod].tsx.
 const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
 
-export interface ModWithImage extends Mod {
-	imageUrl: string | null;
-}
-
-export const get: RequestHandler<ModWithImage[]> = async () => {
+export const get: RequestHandler = async () => {
 	const modDatabase = await getModDatabase();
 
 	if (!modDatabase) {
