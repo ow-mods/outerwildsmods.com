@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { NavLinkWrapper } from './navigation.styles';
 	import { page } from '$app/stores';
 
 	export let href: string;
