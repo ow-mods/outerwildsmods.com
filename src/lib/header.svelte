@@ -2,7 +2,7 @@
 	import GithubCorner from '$lib/github-corner.svelte';
 	import Navigation from '$lib/navigation/navigation.svelte';
 	import SmartLink from '$lib/smart-link.svelte';
-	import Stars from '$lib/stars/stars.svelte';
+	import Stars from '$lib/stars.svelte';
 </script>
 
 <header class="relative text-center">
