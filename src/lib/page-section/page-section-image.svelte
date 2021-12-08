@@ -5,13 +5,7 @@
 </script>
 
 <div class="flex-1">
-	<img
-		class="object-cover rounded border-2 border-dark"
-		src={imageUrl}
-		alt={title}
-		{height}
-		width={280}
-	/>
+	<img class="object-cover rounded border-2 border-dark" src={imageUrl} alt={title} {height} />
 	<!-- priority -->
 	<!-- layout="responsive" -->
 </div>
