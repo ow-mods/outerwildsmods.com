@@ -10,8 +10,10 @@
 </script>
 
 <a
-	class={`block rounded p-1 font-bold mx-auto border-4 border-transparent hover:border-cta-dark active:bg-cta-dark ${
-		variant === 'secondary' ? 'bg-accent text-dark' : 'bg-cta text-white'
+	class={`block rounded p-1 font-bold mx-auto border-4 border-transparent ${
+		variant === 'secondary'
+			? 'bg-accent  hover:border-accent-light active:bg-accent-light text-dark'
+			: 'bg-cta hover:border-cta-dark active:bg-cta-dark  text-white'
 	}`}
 	{href}
 	target={isExternal ? '_blank' : undefined}
