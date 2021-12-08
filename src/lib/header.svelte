@@ -5,7 +5,7 @@
 	import Stars from '$lib/stars.svelte';
 </script>
 
-<header class="relative text-center">
+<header class="relative text-center overflow-hidden">
 	<GithubCorner />
 	<Stars />
 	<h1 class="pt-4 pb-5 text-4xl">
