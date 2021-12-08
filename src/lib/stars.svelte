@@ -65,6 +65,7 @@
 		z-index: -1;
 		height: calc(100% + 50px);
 		margin-top: -25px;
+		animation-delay: -5s;
 		animation-duration: 30s;
 		animation-iteration-count: infinite;
 		animation-direction: alternate;
