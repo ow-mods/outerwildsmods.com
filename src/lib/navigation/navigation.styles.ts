@@ -34,16 +34,6 @@ export const MenuButton = css`
 	}
 `;
 
-export const Layout = css([
-	PageLayout(),
-	`
-	padding: 0;
-	${HiddenInput}:checked + ${NavWrapper} {
-		display: flex;
-	}
-`
-]);
-
 export const WishlistLabel = css`
 	position: relative;
 	top: -42px;

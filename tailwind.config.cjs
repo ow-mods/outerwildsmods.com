@@ -3,6 +3,11 @@ const config = {
 	purge: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
+		screens: {
+			sm: '600.98px',
+			md: '1101.98px',
+			lg: '1999.98px'
+		},
 		extend: {
 			colors: {
 				white: '#ffffff',
