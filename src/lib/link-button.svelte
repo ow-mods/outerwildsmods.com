@@ -1,6 +1,8 @@
-<script lang="ts">
-	import type { ButtonVariant } from './button-variant';
+<script lang="ts" context="module">
+	export type ButtonVariant = 'primary' | 'secondary' | 'main-download';
+</script>
 
+<script lang="ts">
 	export let variant: ButtonVariant = 'secondary';
 	export let isExternal = false;
 	export let href: string | undefined = undefined;
