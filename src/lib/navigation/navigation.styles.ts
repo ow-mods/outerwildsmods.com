@@ -1,4 +1,3 @@
-import { PageLayout } from '$lib/page-layout/page-layout.styles';
 import { css } from '@emotion/css';
 
 import { mediaDown } from '../../styles/mixins';

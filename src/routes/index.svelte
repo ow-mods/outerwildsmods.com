@@ -5,7 +5,7 @@
 <script lang="ts">
 	import LinkButton from '$lib/link-button/link-button.svelte';
 	import LinkList from '$lib/link-list/link-list.svelte';
-	import { PageLayout } from '$lib/page-layout/page-layout.styles';
+	import PageLayout from '$lib/page-layout/page-layout.svelte';
 	import PageSectionColumns from '$lib/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/page-section/page-section-image.svelte';
@@ -52,7 +52,7 @@
 	<link rel="canonical" href="https://outerwildsmods.com" />
 </svelte:head>
 
-<section class={PageLayout()}>
+<PageLayout>
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager">
 		<PageSectionColumns>
 			<PageSectionImage imageUrl="/images/mod-manager-small.png" title="Outer Wilds Mod Manager" />
@@ -84,4 +84,4 @@
 	>
 		<LinkList links={forModdersLinks} />
 	</PageSection>
-</section>
+</PageLayout>
