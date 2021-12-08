@@ -26,8 +26,7 @@
 	import CardGrid from '$lib/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/page-layout.svelte';
 	import PageSection from '$lib/page-section/page-section.svelte';
-	import SmartLink from '$lib/smart-link/smart-link.svelte';
-	import axios from 'axios';
+	import SmartLink from '$lib/smart-link.svelte';
 	import type { ModWithImage } from '../mods.json';
 
 	export const getModPathName = (modName: string) => modName.replace(/ /g, '').toLowerCase();

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { TextLink } from '$lib/smart-link/text-link.styles';
+	import SmartLink from '$lib/smart-link.svelte';
 	import { LinkWrapper } from './link-list.styles';
 
 	type LinkItem = {
@@ -13,9 +13,9 @@
 <div>
 	{#each links as { href, text }}
 		<div class={LinkWrapper}>
-			<a class={TextLink} {href}>
+			<SmartLink {href} isExternal>
 				{text}
-			</a>
+			</SmartLink>
 		</div>
 	{/each}
 </div>
