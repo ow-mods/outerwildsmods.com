@@ -3,16 +3,15 @@
 
 	export let href: string;
 	let isActive = false;
-	page.subscribe(({ path }) => {
-		isActive = path === '/' ? href === path : href.startsWith(path);
-	});
+	$: {
+		isActive = $page.path === '/' ? href === $page.path : href.startsWith($page.path);
+	}
 </script>
 
 <a
-	class={`flex-1 hover:bg-background py-1 rounded-t mx-1 ${
-		isActive ? 'text-light bg-background' : 'text-accent'
-	}
-`}
+	class:text-light={isActive}
+	class:bg-background={isActive}
+	class={`flex-1 hover:bg-background py-1 rounded-t mx-1 text-accent`}
 	{href}
 >
 	<slot />
