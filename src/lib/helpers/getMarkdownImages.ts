@@ -51,5 +51,7 @@ export const getImageMap = async (baseUrl: string, modName: string, imageUrls: s
 		imageMap[url] = await getImageData(baseUrl, url);
 	}
 
+	console.log('get image map', imageMap);
+
 	return imageMap;
 };
