@@ -4,6 +4,7 @@
 
 <script lang="ts">
 	import LinkButton from '$lib/link-button.svelte';
+	import ListItemCard from '$lib/list-item-card.svelte';
 
 	import PageLayout from '$lib/page-layout.svelte';
 	import PageSectionColumns from '$lib/page-section/page-section-columns.svelte';
@@ -67,8 +68,7 @@
 		/>
 		{#each alphaMods as mod}
 			<SmartLink href={mod.href} isExternal>
-				<!-- <ListItemCard title={mod.name} description={mod.description} /> -->
-				{mod.name}
+				<ListItemCard title={mod.name} description={mod.description} />
 			</SmartLink>
 		{/each}
 	</PageSection>
