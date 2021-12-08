@@ -1,7 +1,7 @@
 <script lang="ts">
 	import GithubCorner from '$lib/github-corner.svelte';
 	import Navigation from '$lib/navigation/navigation.svelte';
-	import SmartLink from '$lib/smart-link/smart-link.svelte';
+	import SmartLink from '$lib/smart-link.svelte';
 	import Stars from '$lib/stars/stars.svelte';
 </script>
 
