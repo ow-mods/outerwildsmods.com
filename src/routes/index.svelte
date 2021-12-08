@@ -4,7 +4,7 @@
 
 <script lang="ts">
 	import LinkButton from '$lib/link-button/link-button.svelte';
-	import LinkList from '$lib/link-list/link-list.svelte';
+	import LinkList from '$lib/link-list.svelte';
 	import PageLayout from '$lib/page-layout.svelte';
 	import PageSectionColumns from '$lib/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/page-section/page-section-description.svelte';
