@@ -62,6 +62,8 @@ export const getOptimizedImage = async (
 	const imageMetadata = await sharpImage.metadata();
 	const width = resizeWidth ?? imageMetadata.width;
 	const height = resizeHeight ?? imageMetadata.height;
+	const format = imageMetadata.format;
+	const isSvg = format === 'svg';
 
 	if (!width || !height) {
 		throw new Error('failed to read image dimensions');
@@ -70,14 +72,19 @@ export const getOptimizedImage = async (
 	const staticDir = import.meta.env.PROD ? 'build' : 'static';
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
-	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.jpg`;
+	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.${isSvg ? 'svg' : 'webp'}`;
 	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
 
 	if (!fs.existsSync(fileOutputDir)) {
 		await fsp.mkdir(fileOutputDir, { recursive: true });
 	}
 
-	await sharpImage.resize({ width, height, fit, position: 'left' }).toFile(optimizedImagePath);
+	if (isSvg) {
+		// await sharpImage.toFile(optimizedImagePath);
+		await fsp.copyFile(downloadedImagePath, optimizedImagePath);
+	} else {
+		await sharpImage.resize({ width, height, fit, position: 'left' }).toFile(optimizedImagePath);
+	}
 
 	return {
 		imagePath: `${optimizedDir}/${fileName}`,
