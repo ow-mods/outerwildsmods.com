@@ -73,22 +73,20 @@ export const get: RequestHandler = async ({ query }) => {
 		};
 	}
 
+	const sharpImage = sharp(downloadedImagePath);
+	const imageMetadata = await sharpImage.metadata();
+	const width = widthParam ? parseInt(widthParam) : imageMetadata.width;
+	const height = heightParam ? parseInt(heightParam) : imageMetadata.height;
+
 	const staticDir = 'static';
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
-	const fileName = `${encodedImageUrl}.webp`;
+	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.webp`;
+	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
 
 	if (!fs.existsSync(fileOutputDir)) {
 		await fsp.mkdir(fileOutputDir, { recursive: true });
 	}
-
-	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
-
-	const sharpImage = sharp(downloadedImagePath);
-	const imageMetadata = await sharpImage.metadata();
-
-	const width = widthParam ? parseInt(widthParam) : imageMetadata.width;
-	const height = heightParam ? parseInt(heightParam) : imageMetadata.height;
 
 	await sharpImage.resize({ width, height, fit, position: 'left' }).toFile(optimizedImagePath);
 
