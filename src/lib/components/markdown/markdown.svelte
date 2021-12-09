@@ -4,7 +4,7 @@
 
 	import type { ImageMap } from '$lib/helpers';
 	import ImageRenderer from './image-renderer.svelte';
-	import SmartLink from './smart-link.svelte';
+	import SmartLink from '../smart-link.svelte';
 
 	export let readme: string;
 	export let externalImages: ImageMap;
