@@ -93,10 +93,10 @@ export const get: RequestHandler = async ({ query }) => {
 	await sharpImage.resize({ width, height, fit }).toFile(optimizedImagePath);
 
 	return {
-		body: {
+		body: JSON.stringify({
 			imagePath: `${optimizedDir}/${fileName}`,
 			width,
 			height
-		}
+		})
 	};
 };
