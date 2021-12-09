@@ -31,12 +31,25 @@ export const getAllMarkdownImages = (markdown?: string): string[] => {
 export const getImageData = async (baseUrl: string, url: string): Promise<ImageData | null> => {
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}/${url}`;
 	try {
-		const { height, width } = await probe(fullUrl);
+		const response = await fetch(
+			`http://localhost:3000/image.json?imageUrl=${encodeURIComponent(fullUrl)}`
+		);
+
+		const {
+			imagePath,
+			height,
+			width
+		}: {
+			// TODO move type
+			imagePath: string;
+			height: number;
+			width: number;
+		} = await response.json();
 
 		return {
 			height,
 			width,
-			url: fullUrl
+			url: imagePath
 		};
 	} catch (exception) {
 		console.error(`Failed to probe image dimensions for ${fullUrl}.`, exception);
