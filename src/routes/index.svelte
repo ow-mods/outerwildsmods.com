@@ -94,7 +94,7 @@
 	</PageSection>
 	<PageSection title="Some of the available mods" id="mods">
 		{#each featuredMods as mod}
-			<SmartLink href={`/mods/${mod.path}`}>
+			<SmartLink prefetch href={`/mods/${mod.path}`}>
 				<ListItemCard title={mod.title} description={mod.description} imageUrl={mod.image} />
 			</SmartLink>
 		{/each}
