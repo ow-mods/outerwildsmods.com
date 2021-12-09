@@ -7,7 +7,6 @@
 	export let text = '';
 	const externalImages = getContext<ImageMap | undefined>('externalImages');
 	let imageSource = (externalImages ? externalImages[href]?.url : href) || href;
-	console.log('external images context', externalImages);
 </script>
 
 <img src={imageSource} {title} alt={text} />

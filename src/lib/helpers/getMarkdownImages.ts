@@ -29,7 +29,6 @@ export const getAllMarkdownImages = (markdown?: string): string[] => {
 };
 
 export const getImageData = async (
-	host: string,
 	baseUrl: string,
 	url: string,
 	resizeWidth?: number,
@@ -58,7 +57,6 @@ export const getImageData = async (
 };
 
 export const getImageMap = async (
-	host: string,
 	baseUrl: string,
 	modName: string,
 	imageUrls: string[],
@@ -68,7 +66,7 @@ export const getImageMap = async (
 	const imageMap: ImageMap = {};
 
 	for (const url of imageUrls) {
-		imageMap[url] = await getImageData(host, baseUrl, url, width, height);
+		imageMap[url] = await getImageData(baseUrl, url, width, height);
 	}
 
 	return imageMap;

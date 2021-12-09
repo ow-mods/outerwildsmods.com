@@ -47,7 +47,6 @@
 		)}Download and install ${modName} mod for Outer Wilds using the Mod Manager.`;
 
 	setContext('externalImages', externalImages);
-	console.log('external images pre', externalImages?.length);
 </script>
 
 <svelte:head>
