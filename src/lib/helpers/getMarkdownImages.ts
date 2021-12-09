@@ -28,12 +28,24 @@ export const getAllMarkdownImages = (markdown?: string): string[] => {
 	return uniqueSrcList;
 };
 
-export const getImageData = async (baseUrl: string, url: string): Promise<ImageData | null> => {
+export const getImageData = async (
+	baseUrl: string,
+	url: string,
+	width?: number,
+	height?: number
+): Promise<ImageData | null> => {
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}/${url}`;
+
+	// TODO obviously not localhost
+	const urlObject = new URL('http://localhost:3000/image.json');
+	urlObject.search = new URLSearchParams({
+		imageUrl: fullUrl,
+		width: width?.toString() ?? '',
+		height: height?.toString() ?? ''
+	}).toString();
+
 	try {
-		const response = await fetch(
-			`http://localhost:3000/image.json?imageUrl=${encodeURIComponent(fullUrl)}`
-		);
+		const response = await fetch(urlObject.href);
 
 		const {
 			imagePath,
@@ -57,14 +69,18 @@ export const getImageData = async (baseUrl: string, url: string): Promise<ImageD
 	}
 };
 
-export const getImageMap = async (baseUrl: string, modName: string, imageUrls: string[]) => {
+export const getImageMap = async (
+	baseUrl: string,
+	modName: string,
+	imageUrls: string[],
+	width?: number,
+	height?: number
+): Promise<ImageMap> => {
 	const imageMap: ImageMap = {};
 
 	for (const url of imageUrls) {
-		imageMap[url] = await getImageData(baseUrl, url);
+		imageMap[url] = await getImageData(baseUrl, url, width, height);
 	}
-
-	console.log('get image map', imageMap);
 
 	return imageMap;
 };
