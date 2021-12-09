@@ -16,8 +16,8 @@ const config = {
 			// TODO maybe not
 			onError: 'continue'
 		},
-		hydrate: false,
-		router: false,
+		// hydrate: false,
+		// router: false,
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte'
 	}
