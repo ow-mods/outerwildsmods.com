@@ -47,5 +47,5 @@ export const get: RequestHandler = async () => {
 		})
 	);
 
-	return { body: mods };
+	return { body: JSON.stringify(mods) };
 };

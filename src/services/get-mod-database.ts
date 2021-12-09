@@ -1,5 +1,4 @@
 const DATABASE_URL = 'https://raw.githubusercontent.com/Raicuparta/ow-mod-db/master/database.json';
-import axios from 'axios';
 
 export type Mod = {
 	name: string;
@@ -30,16 +29,17 @@ export type ModDatabase = {
 	releases: Mod[];
 };
 
-export async function getModDatabase() {
-	const response = await axios.get<ModDatabase>(DATABASE_URL);
+export async function getModDatabase(): Promise<ModDatabase> {
+	const response = await fetch(DATABASE_URL);
 	if (response.status !== 200) {
-		console.error('Response not OK, status:', response.status, response.statusText);
-		return;
+		throw new Error(`Response not OK, status: ${response.status} ${response.statusText}`);
 	}
 
+	const database: ModDatabase = await response.json();
+
 	return {
-		...response.data,
-		releases: response.data.releases.sort(
+		...database,
+		releases: database.releases.sort(
 			(releaseA, releaseB) => releaseB.downloadCount - releaseA.downloadCount
 		)
 	};

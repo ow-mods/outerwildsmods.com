@@ -33,10 +33,10 @@ export const get: RequestHandler = async ({ params }) => {
 	const externalImages = await getImageMap(rawContentUrl, mod.name, images);
 
 	return {
-		body: {
+		body: JSON.stringify({
 			...(readme ? { readme } : undefined),
 			externalImages,
 			mod
-		}
+		})
 	};
 };
