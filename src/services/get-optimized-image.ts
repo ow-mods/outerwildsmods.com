@@ -1,6 +1,7 @@
 import sharp, { FitEnum } from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
+import type { ImageInfo } from '$lib/helpers';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
@@ -44,12 +45,7 @@ export const getOptimizedImage = async (
 	resizeWidth?: number,
 	resizeHeight?: number,
 	fit: keyof FitEnum = 'cover'
-): Promise<{
-	// TODO type
-	imagePath: string;
-	width: number;
-	height: number;
-} | null> => {
+): Promise<ImageInfo | null> => {
 	const encodedImageUrl = hash(imageUrl).toString();
 
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
@@ -87,8 +83,9 @@ export const getOptimizedImage = async (
 	}
 
 	return {
-		imagePath: `${optimizedDir}/${fileName}`,
+		url: `${optimizedDir}/${fileName}`,
 		width,
-		height
+		height,
+		format
 	};
 };

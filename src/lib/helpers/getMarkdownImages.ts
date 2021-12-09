@@ -1,13 +1,15 @@
 import { Parser } from 'commonmark';
+import type { FormatEnum } from 'sharp';
 import { getOptimizedImage } from '../../services/get-optimized-image';
 
-type ImageData = {
+export type ImageInfo = {
 	width: number;
 	height: number;
 	url: string;
+	format: keyof FormatEnum | undefined;
 };
 
-export type ImageMap = Record<string, ImageData | null>;
+export type ImageMap = Record<string, ImageInfo | null>;
 
 export const getAllMarkdownImages = (markdown?: string): string[] => {
 	if (!markdown) return [];
@@ -33,27 +35,10 @@ export const getImageData = async (
 	url: string,
 	resizeWidth?: number,
 	resizeHeight?: number
-): Promise<ImageData | null> => {
+): Promise<ImageInfo | null> => {
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}/${url}`;
 
-	try {
-		const optimizedImage = await getOptimizedImage(fullUrl, resizeWidth, resizeHeight);
-
-		if (!optimizedImage) {
-			throw new Error('Failed to optimize image');
-		}
-
-		const { imagePath, height, width } = optimizedImage;
-
-		return {
-			height,
-			width,
-			url: imagePath
-		};
-	} catch (exception) {
-		console.error(`Failed to probe image dimensions for ${fullUrl}.`, exception);
-		return null;
-	}
+	return await getOptimizedImage(fullUrl, resizeWidth, resizeHeight);
 };
 
 export const getImageMap = async (

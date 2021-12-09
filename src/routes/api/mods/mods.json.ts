@@ -1,9 +1,20 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { getAllMarkdownImages, getImageMap, getRawContentUrl } from '$lib/helpers';
 import { getModDatabase, getModReadme } from '../../../services';
+import type sharp from 'sharp';
 
 // TODO dont repeat in [mod].tsx.
 const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
+const supportedTypes: (keyof sharp.FormatEnum)[] = [
+	'png',
+	'jpg',
+	'jpeg',
+	'gif',
+	'webp',
+	'raw',
+	'tif',
+	'tiff'
+];
 
 export const get: RequestHandler = async () => {
 	const modDatabase = await getModDatabase();
@@ -25,9 +36,13 @@ export const get: RequestHandler = async () => {
 			const externalImages =
 				images.length > 0 ? await getImageMap(rawContentUrl, mod.name, [images[0]], 300, 100) : {};
 
+			const firstExternalImage = Object.values(externalImages).filter(
+				(image) => image?.format && supportedTypes.includes(image.format)
+			)[0];
+
 			return {
 				...mod,
-				imageUrl: Object.values(externalImages)[0]?.url || images[0] || null
+				imageUrl: firstExternalImage?.url || null
 			};
 		})
 	);
