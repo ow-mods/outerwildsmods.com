@@ -20,7 +20,7 @@
 </script>
 
 <div
-	class="flex-col bg-dark w-72 m-2 rounded overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
+	class="bg-dark w-72 m-2 rounded-lg overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
 >
 	<div class="relative" style={`filter: hue-rotate(${hue}deg);`}>
 		{#if !imageUrl}
