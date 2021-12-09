@@ -8,9 +8,6 @@ import {
 	getRawContentUrl
 } from '$lib/helpers';
 
-// TODO dont repeat in [mod].tsx.
-const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
-
 export const get: RequestHandler = async ({ params }) => {
 	const modDatabase = await getModDatabase();
 
@@ -31,8 +28,7 @@ export const get: RequestHandler = async ({ params }) => {
 	}
 
 	const rawContentUrl = getRawContentUrl(mod.repo);
-	const readmePaths = readmeNames.map((readmeName) => `${rawContentUrl}/${readmeName}`);
-	const readme = await getModReadme(readmePaths);
+	const readme = await getModReadme(rawContentUrl);
 
 	const images = getAllMarkdownImages(readme);
 

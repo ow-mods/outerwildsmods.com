@@ -1,17 +1,19 @@
-export const getModReadme = async (urls: string[]): Promise<string | null> => {
-	try {
-		const response = await fetch(urls[0]);
-		if (response.status !== 200) {
-			throw new Error(`Response not OK, status: ${(response.status, response.statusText)}`);
-		}
+const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
 
-		return response.text();
-	} catch {
-		if (urls.length > 1) {
-			return getModReadme(urls.slice(1, urls.length));
-		} else {
-			console.error('Could not find readme for this mod');
-			return null;
+export const getModReadme = async (rawContentUrl: string): Promise<string | null> => {
+	const readmePaths = readmeNames.map((readmeName) => `${rawContentUrl}/${readmeName}`);
+
+	for (const readmePath of readmePaths) {
+		const readme = await tryGetModReadme(readmePath);
+		if (readme) {
+			return readme;
 		}
 	}
+
+	return null;
+};
+
+const tryGetModReadme = async (readmePath: string) => {
+	const response = await fetch(readmePath);
+	return response.status === 200 ? response.text() : null;
 };

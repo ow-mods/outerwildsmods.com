@@ -9,7 +9,6 @@ import {
 import type sharp from 'sharp';
 
 // TODO dont repeat in [mod].tsx.
-const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',
 	'jpg',
@@ -33,8 +32,7 @@ export const get: RequestHandler = async () => {
 	const mods = await Promise.all(
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
-			const readmePaths = readmeNames.map((readmeName) => `${rawContentUrl}/${readmeName}`);
-			const readme = await getModReadme(readmePaths);
+			const readme = await getModReadme(rawContentUrl);
 
 			const images = getAllMarkdownImages(readme);
 
