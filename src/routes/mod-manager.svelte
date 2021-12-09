@@ -3,12 +3,12 @@
 </script>
 
 <script lang="ts">
-	import LinkButton from '$lib/link-button.svelte';
+	import LinkButton from '$lib/components/link-button.svelte';
 
-	import PageLayout from '$lib/page-layout.svelte';
-	import PageSectionImage from '$lib/page-section/page-section-image.svelte';
-	import PageSection from '$lib/page-section/page-section.svelte';
-	import SmartLink from '$lib/smart-link.svelte';
+	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
+	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import SmartLink from '$lib/components/smart-link.svelte';
 
 	const repoUrl = 'https://github.com/Raicuparta/ow-mod-manager';
 	const downloadUrl = `${repoUrl}/releases/latest/download`;

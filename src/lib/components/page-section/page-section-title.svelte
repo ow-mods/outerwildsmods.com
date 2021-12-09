@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HrLine from '$lib/hr-line.svelte';
+	import HrLine from '$lib/components/hr-line.svelte';
 
 	export let id: string;
 </script>

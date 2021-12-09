@@ -20,15 +20,11 @@
 </script>
 
 <script lang="ts">
-	import PageLayout from '$lib/page-layout.svelte';
+	import PageLayout from '$lib/components/page-layout.svelte';
 	import type { Mod } from '../../services';
 	import type { ImageMap } from '$lib/helpers';
-	import SvelteMarkdown from 'svelte-markdown';
-	import ImageRenderer from '$lib/image-renderer.svelte';
-	import { setContext } from 'svelte';
-	import SmartLink from '$lib/smart-link.svelte';
-	import ModActions from '$lib/mod-actions.svelte';
-	import Markdown from '$lib/markdown.svelte';
+	import ModActions from '$lib/components/mod-actions.svelte';
+	import Markdown from '$lib/components/markdown.svelte';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;

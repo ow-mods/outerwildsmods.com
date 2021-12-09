@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SmartLink from '$lib/smart-link.svelte';
+	import SmartLink from './smart-link.svelte';
 
 	type LinkItem = {
 		text: string;

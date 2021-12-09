@@ -22,11 +22,11 @@
 </script>
 
 <script lang="ts">
-	import CardGridItem from '$lib/card-grid/card-grid-item.svelte';
-	import CardGrid from '$lib/card-grid/card-grid.svelte';
-	import PageLayout from '$lib/page-layout.svelte';
-	import PageSection from '$lib/page-section/page-section.svelte';
-	import SmartLink from '$lib/smart-link.svelte';
+	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
+	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import SmartLink from '$lib/components/smart-link.svelte';
 
 	export const getModPathName = (modName: string) => modName.replace(/ /g, '').toLowerCase();
 

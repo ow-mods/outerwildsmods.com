@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { setContext } from 'svelte';
-	import type { ImageMap } from '$lib/helpers';
 	import SvelteMarkdown from 'svelte-markdown';
-	import ImageRenderer from '$lib/image-renderer.svelte';
-	import SmartLink from '$lib/smart-link.svelte';
+
+	import type { ImageMap } from '$lib/helpers';
+	import ImageRenderer from './image-renderer.svelte';
+	import SmartLink from './smart-link.svelte';
 
 	export let readme: string;
 	export let externalImages: ImageMap;

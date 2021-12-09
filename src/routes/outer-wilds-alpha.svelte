@@ -3,15 +3,15 @@
 </script>
 
 <script lang="ts">
-	import LinkButton from '$lib/link-button.svelte';
-	import ListItemCard from '$lib/list-item-card.svelte';
+	import LinkButton from '$lib/components/link-button.svelte';
+	import ListItemCard from '$lib/components/list-item-card.svelte';
 
-	import PageLayout from '$lib/page-layout.svelte';
-	import PageSectionColumns from '$lib/page-section/page-section-columns.svelte';
-	import PageSectionDescription from '$lib/page-section/page-section-description.svelte';
-	import PageSectionImage from '$lib/page-section/page-section-image.svelte';
-	import PageSection from '$lib/page-section/page-section.svelte';
-	import SmartLink from '$lib/smart-link.svelte';
+	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
+	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
+	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
+	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import SmartLink from '$lib/components/smart-link.svelte';
 
 	const alphaMods = [
 		{

@@ -8,7 +8,6 @@
 	{#if imageUrl}
 		<div class="image-wrapper">
 			<img class="rounded-full w-full h-full" alt={title} src={imageUrl} width="50" height="50" />
-			<!-- layout="fixed" priority  -->
 		</div>
 	{:else}
 		<span class="bullet m-2 bg-dark rounded-full border-2 border-background" />
