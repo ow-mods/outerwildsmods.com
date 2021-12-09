@@ -61,7 +61,7 @@
 		<div class="flex">
 			{#if readme}
 				<!-- {readme} -->
-				<div class="markdown">
+				<div>
 					<SvelteMarkdown
 						source={readme}
 						renderers={{
