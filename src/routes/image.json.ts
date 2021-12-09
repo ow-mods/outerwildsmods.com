@@ -73,13 +73,16 @@ export const get: RequestHandler = async ({ query }) => {
 		};
 	}
 
-	const optimizedDir = 'static/images/optimized';
+	const staticDir = 'static';
+	const optimizedDir = 'images/optimized';
+	const fileOutputDir = `${staticDir}/${optimizedDir}`;
+	const fileName = `${encodedImageUrl}.jpg`;
 
-	if (!fs.existsSync(optimizedDir)) {
-		await fsp.mkdir(optimizedDir, { recursive: true });
+	if (!fs.existsSync(fileOutputDir)) {
+		await fsp.mkdir(fileOutputDir, { recursive: true });
 	}
 
-	const optimizedImagePath = `${optimizedDir}/${encodedImageUrl}.jpg`;
+	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
 
 	const sharpImage = sharp(downloadedImagePath);
 	const imageMetadata = await sharpImage.metadata();
@@ -87,11 +90,11 @@ export const get: RequestHandler = async ({ query }) => {
 	const width = widthParam ? parseInt(widthParam) : imageMetadata.width;
 	const height = heightParam ? parseInt(heightParam) : imageMetadata.height;
 
-	const image = await sharpImage.resize({ width, height, fit }).toFile(optimizedImagePath);
+	await sharpImage.resize({ width, height, fit }).toFile(optimizedImagePath);
 
 	return {
 		body: {
-			imagePath: optimizedImagePath
+			imagePath: `${optimizedDir}/${fileName}`
 		}
 	};
 };
