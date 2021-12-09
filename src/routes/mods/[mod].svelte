@@ -61,7 +61,7 @@
 		<div class="flex">
 			{#if readme}
 				<!-- {readme} -->
-				<div class="prose">
+				<div class="markdown">
 					<SvelteMarkdown
 						source={readme}
 						renderers={{
@@ -75,3 +75,52 @@
 		</div>
 	{/if}
 </PageLayout>
+
+<style>
+	/* {
+		font-size: 1rem;
+		border-radius: theme('spacing.2');
+	} */
+	:global(a) {
+		color: theme('colors.accent');
+	}
+	:global(a):hover {
+		color: theme('colors.accent-light');
+	}
+	:global(pre) {
+		padding: theme('spacing.4');
+		overflow: auto;
+	}
+
+	:global(pre),
+	:global(code) {
+		background: theme('colors.dark');
+		border-radius: theme('borderRadius.DEFAULT');
+		padding: theme('spacing.2');
+		white-space: pre-wrap;
+		word-break: break-all;
+	}
+
+	:global(table) {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	:global(table),
+	:global(th),
+	:global(td) {
+		border: 1px solid theme('colors.light');
+	}
+
+	:global(td) {
+		padding: theme('spacing.4');
+	}
+
+	:global(img) {
+		max-width: 100%;
+		object-fit: scale-down;
+	}
+	:global(li) {
+		padding: theme('spacing.2') 0;
+	}
+</style>
