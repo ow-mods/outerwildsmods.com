@@ -28,10 +28,11 @@
 	import { setContext } from 'svelte';
 	import SmartLink from '$lib/smart-link.svelte';
 	import ModActions from '$lib/mod-actions.svelte';
+	import Markdown from '$lib/markdown.svelte';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;
-	export let externalImages: ImageMap | undefined = undefined;
+	export let externalImages: ImageMap;
 
 	const getDescriptionTerminator = (modDescription: string) => {
 		if (modDescription === '') {
@@ -47,8 +48,6 @@
 		`${modDescription}${getDescriptionTerminator(
 			modDescription
 		)}Download and install ${modName} mod for Outer Wilds using the Mod Manager.`;
-
-	setContext('externalImages', externalImages);
 </script>
 
 <svelte:head>
@@ -62,56 +61,9 @@
 	{#if mod}
 		<div class="flex flex-col sm:flex-row gap-4">
 			{#if readme}
-				<div>
-					<SvelteMarkdown
-						source={readme}
-						renderers={{
-							image: ImageRenderer,
-							link: SmartLink
-						}}
-					/>
-				</div>
+				<Markdown {readme} {externalImages} />
 			{/if}
 			<ModActions {mod} isFullWidth={!Boolean(readme)} />
 		</div>
 	{/if}
 </PageLayout>
-
-<style>
-	:global(h1) {
-		margin: 0;
-	}
-
-	:global(pre) {
-		padding: theme('spacing.4');
-		overflow: auto;
-	}
-
-	:global(pre),
-	:global(code) {
-		background: theme('colors.dark');
-		border-radius: theme('borderRadius.DEFAULT');
-		padding: theme('spacing.1');
-		white-space: pre-wrap;
-		word-break: break-all;
-	}
-
-	:global(table) {
-		border-collapse: collapse;
-		width: 100%;
-	}
-
-	:global(table),
-	:global(th),
-	:global(td) {
-		border: 1px solid theme('colors.light');
-	}
-
-	:global(td) {
-		padding: theme('spacing.2');
-	}
-
-	:global(li) {
-		padding: theme('spacing.1') 0;
-	}
-</style>
