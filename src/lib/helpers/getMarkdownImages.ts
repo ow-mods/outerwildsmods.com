@@ -1,5 +1,4 @@
 import { Parser } from 'commonmark';
-import probe from 'probe-image-size';
 
 type ImageData = {
 	width: number;
@@ -29,6 +28,7 @@ export const getAllMarkdownImages = (markdown?: string): string[] => {
 };
 
 export const getImageData = async (
+	host: string,
 	baseUrl: string,
 	url: string,
 	width?: number,
@@ -37,7 +37,7 @@ export const getImageData = async (
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}/${url}`;
 
 	// TODO obviously not localhost
-	const urlObject = new URL('http://localhost:3000/api/image.json');
+	const urlObject = new URL(`http://${host}/api/image.json`);
 	urlObject.search = new URLSearchParams({
 		imageUrl: fullUrl,
 		width: width?.toString() ?? '',
@@ -70,6 +70,7 @@ export const getImageData = async (
 };
 
 export const getImageMap = async (
+	host: string,
 	baseUrl: string,
 	modName: string,
 	imageUrls: string[],
@@ -79,7 +80,7 @@ export const getImageMap = async (
 	const imageMap: ImageMap = {};
 
 	for (const url of imageUrls) {
-		imageMap[url] = await getImageData(baseUrl, url, width, height);
+		imageMap[url] = await getImageData(host, baseUrl, url, width, height);
 	}
 
 	return imageMap;

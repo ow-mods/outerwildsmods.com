@@ -5,7 +5,7 @@ import { getModDatabase, getModReadme } from '../../../services';
 // TODO dont repeat in [mod].tsx.
 const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
 
-export const get: RequestHandler = async () => {
+export const get: RequestHandler = async ({ host }) => {
 	const modDatabase = await getModDatabase();
 
 	if (!modDatabase) {
@@ -23,7 +23,9 @@ export const get: RequestHandler = async () => {
 			const images = getAllMarkdownImages(readme);
 
 			const externalImages =
-				images.length > 0 ? await getImageMap(rawContentUrl, mod.name, [images[0]], 300, 100) : {};
+				images.length > 0
+					? await getImageMap(host, rawContentUrl, mod.name, [images[0]], 300, 100)
+					: {};
 
 			return {
 				...mod,
