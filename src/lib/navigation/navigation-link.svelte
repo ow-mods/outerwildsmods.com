@@ -13,6 +13,7 @@
 	class:bg-background={isActive}
 	class={`flex-1 hover:bg-background py-1 rounded-t mx-1 text-accent`}
 	{href}
+	sveltekit:prefetch
 >
 	<slot />
 </a>
