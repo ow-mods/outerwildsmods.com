@@ -60,7 +60,7 @@
 
 <PageLayout isWide>
 	{#if mod}
-		<div class="flex gap-4">
+		<div class="flex flex-col sm:flex-row gap-4">
 			{#if readme}
 				<div>
 					<SvelteMarkdown
@@ -78,6 +78,10 @@
 </PageLayout>
 
 <style>
+	:global(h1) {
+		margin: 0;
+	}
+
 	:global(pre) {
 		padding: theme('spacing.4');
 		overflow: auto;
