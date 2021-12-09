@@ -5,6 +5,19 @@ import path from 'path';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
+const hash = (input: string) => {
+	let hash = 0,
+		i,
+		chr;
+	if (input.length === 0) return hash;
+	for (i = 0; i < input.length; i++) {
+		chr = input.charCodeAt(i);
+		hash = (hash << 5) - hash + chr;
+		hash |= 0; // Convert to 32bit integer
+	}
+	return hash;
+};
+
 export const downloadImage = async (imageUrl: string, fileName: string): Promise<string | null> => {
 	const response = await fetch(imageUrl);
 
@@ -37,7 +50,7 @@ export const get: RequestHandler = async ({ query }) => {
 		};
 	}
 
-	const encodedImageUrl = encodeURIComponent(imageUrl);
+	const encodedImageUrl = hash(imageUrl).toString();
 
 	console.log('11');
 
@@ -53,19 +66,22 @@ export const get: RequestHandler = async ({ query }) => {
 
 	console.log('13');
 
-	const optimizedDir = 'tmp/optimized';
+	const optimizedDir = 'static/images/optimized';
 
 	if (!fs.existsSync(optimizedDir)) {
 		await fsp.mkdir(optimizedDir, { recursive: true });
 	}
 
+	const optimizedImagePath = `${optimizedDir}/${encodedImageUrl}.jpg`;
 	const image = await sharp(downloadedImagePath)
 		.resize({ width: 10, height: 10 })
-		.toFile(`${optimizedDir}/${encodedImageUrl}.jpg`);
+		.toFile(optimizedImagePath);
 
 	console.log('image', image);
 
 	return {
-		body: {}
+		body: {
+			imagePath: optimizedImagePath
+		}
 	};
 };
