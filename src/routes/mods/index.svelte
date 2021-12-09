@@ -46,7 +46,7 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each mods as mod, index}
-				<SmartLink href={getModPath(mod.name)}>
+				<SmartLink prefetch href={getModPath(mod.name)}>
 					<CardGridItem
 						{index}
 						title={mod.name}
