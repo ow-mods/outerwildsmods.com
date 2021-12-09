@@ -67,7 +67,7 @@ export const getOptimizedImage = async (
 		throw new Error('failed to read image dimensions');
 	}
 
-	const staticDir = 'build';
+	const staticDir = import.meta.env.PROD ? 'build' : 'static';
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
 	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.jpg`;
