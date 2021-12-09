@@ -26,6 +26,7 @@
 	import SvelteMarkdown from 'svelte-markdown';
 	import ImageRenderer from '$lib/image-renderer.svelte';
 	import { setContext } from 'svelte';
+	import SmartLink from '$lib/smart-link.svelte';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;
@@ -60,16 +61,15 @@
 	{#if mod}
 		<div class="flex">
 			{#if readme}
-				<!-- {readme} -->
 				<div>
 					<SvelteMarkdown
 						source={readme}
 						renderers={{
-							image: ImageRenderer
+							image: ImageRenderer,
+							link: SmartLink
 						}}
 					/>
 				</div>
-				<!-- <ModDescription {readme} {externalImages} /> -->
 			{/if}
 			<!-- <ModActions {mod} isFullWidth={!Boolean(readme)} /> -->
 		</div>
@@ -77,16 +77,6 @@
 </PageLayout>
 
 <style>
-	/* {
-		font-size: 1rem;
-		border-radius: theme('spacing.2');
-	} */
-	:global(a) {
-		color: theme('colors.accent');
-	}
-	:global(a):hover {
-		color: theme('colors.accent-light');
-	}
 	:global(pre) {
 		padding: theme('spacing.4');
 		overflow: auto;
@@ -96,7 +86,7 @@
 	:global(code) {
 		background: theme('colors.dark');
 		border-radius: theme('borderRadius.DEFAULT');
-		padding: theme('spacing.2');
+		padding: theme('spacing.1');
 		white-space: pre-wrap;
 		word-break: break-all;
 	}
@@ -113,14 +103,10 @@
 	}
 
 	:global(td) {
-		padding: theme('spacing.4');
+		padding: theme('spacing.2');
 	}
 
-	:global(img) {
-		max-width: 100%;
-		object-fit: scale-down;
-	}
 	:global(li) {
-		padding: theme('spacing.2') 0;
+		padding: theme('spacing.1') 0;
 	}
 </style>
