@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { getAllMarkdownImages, getImageMap, getModPathName, getRawContentUrl } from '$lib/helpers';
-import { getModDatabase, getModReadme } from '../../services';
+import { getModDatabase, getModReadme } from '../../../services';
 
 // TODO dont repeat in [mod].tsx.
 const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
