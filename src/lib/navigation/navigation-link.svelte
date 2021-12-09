@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { prefetch } from '$app/navigation';
 
 	export let href: string;
 	let isActive = false;
 	$: {
 		isActive = $page.path === '/' ? href === $page.path : href.startsWith($page.path);
 	}
+
+	prefetch(href);
 </script>
 
 <a
