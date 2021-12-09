@@ -67,10 +67,10 @@ export const getOptimizedImage = async (
 		throw new Error('failed to read image dimensions');
 	}
 
-	const staticDir = 'static';
+	const staticDir = 'build';
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
-	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.webp`;
+	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.jpg`;
 	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
 
 	if (!fs.existsSync(fileOutputDir)) {
