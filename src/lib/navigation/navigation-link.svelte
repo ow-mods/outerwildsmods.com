@@ -7,8 +7,6 @@
 	$: {
 		isActive = $page.path === '/' ? href === $page.path : href.startsWith($page.path);
 	}
-
-	prefetch(href);
 </script>
 
 <a
