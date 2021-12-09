@@ -13,6 +13,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		prerender: {
+			// TODO maybe not
 			onError: 'continue'
 		},
 		// hydrate the <div id="svelte"> element in src/app.html
