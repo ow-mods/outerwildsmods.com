@@ -5,48 +5,45 @@ import path from 'path';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
-export const downloadImage = async (
-	baseUrl: string,
-	modName: string,
-	imageUrl: string
-): Promise<string | null> => {
-	const response = await fetch(`${baseUrl}/${imageUrl}`);
+export const downloadImage = async (imageUrl: string, fileName: string): Promise<string | null> => {
+	const response = await fetch(imageUrl);
 
 	if (!response.ok) {
 		return null;
 	}
 
-	const image = await response.arrayBuffer();
-	const filePath = `/${encodeURIComponent(`images/external/${modName}/${imageUrl}`)}`;
-	const publicPath = `public${filePath}`;
+	const temporaryDirectory = 'tmp/original';
 
-	const publicDirectory = path.dirname(publicPath);
-	if (!fs.existsSync(publicDirectory)) {
-		await fsp.mkdir(publicDirectory, { recursive: true });
+	if (!fs.existsSync(temporaryDirectory)) {
+		await fsp.mkdir(temporaryDirectory, { recursive: true });
 	}
 
-	const fullPath = getPath(publicPath);
-	await fsp.writeFile(fullPath, Buffer.from(image));
+	const relativeImagePath = `${temporaryDirectory}/${fileName}`;
+	const fullImagePath = getPath(relativeImagePath);
 
-	return fullPath;
+	const image = await response.arrayBuffer();
+	await fsp.writeFile(fullImagePath, Buffer.from(image));
+
+	return fullImagePath;
 };
 
 export const get: RequestHandler = async ({ query }) => {
-	const imageSource = query.get('src');
+	const imageUrl = query.get('src');
 
-	if (!imageSource) {
+	if (!imageUrl) {
 		return {
 			status: 400,
 			body: 'Missing src query parameter'
 		};
 	}
 
-	const downloadedImagePath = await downloadImage(
-		'https://outerwildsmods.com',
-		'test',
-		'_next/image/?url=%2Fimages%2Fmod-manager-small.png&w=1200&q=75'
-	);
+	const encodedImageUrl = encodeURIComponent(imageUrl);
 
+	console.log('11');
+
+	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
+
+	console.log('12');
 	if (!downloadedImagePath) {
 		return {
 			status: 500,
@@ -54,9 +51,17 @@ export const get: RequestHandler = async ({ query }) => {
 		};
 	}
 
+	console.log('13');
+
+	const optimizedDir = 'tmp/optimized';
+
+	if (!fs.existsSync(optimizedDir)) {
+		await fsp.mkdir(optimizedDir, { recursive: true });
+	}
+
 	const image = await sharp(downloadedImagePath)
 		.resize({ width: 10, height: 10 })
-		.toFile('static/converted.jpg');
+		.toFile(`${optimizedDir}/${encodedImageUrl}.jpg`);
 
 	console.log('image', image);
 
