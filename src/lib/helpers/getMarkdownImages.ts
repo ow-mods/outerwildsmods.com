@@ -37,7 +37,7 @@ export const getImageData = async (
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}/${url}`;
 
 	// TODO obviously not localhost
-	const urlObject = new URL('http://localhost:3000/image.json');
+	const urlObject = new URL('http://localhost:3000/api/image.json');
 	urlObject.search = new URLSearchParams({
 		imageUrl: fullUrl,
 		width: width?.toString() ?? '',
