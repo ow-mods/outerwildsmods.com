@@ -74,8 +74,8 @@ export const get: RequestHandler = async ({ query }) => {
 	}
 
 	const staticDir = 'static';
-	const optimizedDir = 'images/optimized';
-	const fileOutputDir = `${staticDir}/${optimizedDir}`;
+	const optimizedDir = '/images/optimized';
+	const fileOutputDir = `${staticDir}${optimizedDir}`;
 	const fileName = `${encodedImageUrl}.jpg`;
 
 	if (!fs.existsSync(fileOutputDir)) {
@@ -94,7 +94,9 @@ export const get: RequestHandler = async ({ query }) => {
 
 	return {
 		body: {
-			imagePath: `${optimizedDir}/${fileName}`
+			imagePath: `${optimizedDir}/${fileName}`,
+			width,
+			height
 		}
 	};
 };
