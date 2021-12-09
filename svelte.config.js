@@ -10,10 +10,11 @@ const config = {
 			postcss: true
 		})
 	],
-
 	kit: {
 		adapter: adapter(),
-
+		prerender: {
+			onError: 'continue'
+		},
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte'
 	}
