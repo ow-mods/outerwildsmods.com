@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import sharp from 'sharp';
+import sharp, { FitEnum } from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
 
@@ -40,31 +40,38 @@ export const downloadImage = async (imageUrl: string, fileName: string): Promise
 	return fullImagePath;
 };
 
+const validFits: (keyof FitEnum)[] = ['contain', 'cover', 'fill', 'inside', 'outside'];
+
 export const get: RequestHandler = async ({ query }) => {
-	const imageUrl = query.get('src');
+	const imageUrl = query.get('imageUrl');
+	const widthParam = query.get('width');
+	const heightParam = query.get('height');
+	const fit = (query.get('fit') || 'cover') as keyof FitEnum;
 
 	if (!imageUrl) {
 		return {
 			status: 400,
-			body: 'Missing src query parameter'
+			body: 'Missing imageUrl query parameter'
+		};
+	}
+
+	if (!validFits.includes(fit)) {
+		return {
+			status: 400,
+			body: `Invalid fit. Must be one of ${validFits}`
 		};
 	}
 
 	const encodedImageUrl = hash(imageUrl).toString();
 
-	console.log('11');
-
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
 
-	console.log('12');
 	if (!downloadedImagePath) {
 		return {
 			status: 500,
 			body: 'Failed to download image'
 		};
 	}
-
-	console.log('13');
 
 	const optimizedDir = 'static/images/optimized';
 
@@ -73,11 +80,14 @@ export const get: RequestHandler = async ({ query }) => {
 	}
 
 	const optimizedImagePath = `${optimizedDir}/${encodedImageUrl}.jpg`;
-	const image = await sharp(downloadedImagePath)
-		.resize({ width: 10, height: 10 })
-		.toFile(optimizedImagePath);
 
-	console.log('image', image);
+	const sharpImage = sharp(downloadedImagePath);
+	const imageMetadata = await sharpImage.metadata();
+
+	const width = widthParam ? parseInt(widthParam) : imageMetadata.width;
+	const height = heightParam ? parseInt(heightParam) : imageMetadata.height;
+
+	const image = await sharpImage.resize({ width, height, fit }).toFile(optimizedImagePath);
 
 	return {
 		body: {
