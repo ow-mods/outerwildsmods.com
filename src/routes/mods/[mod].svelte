@@ -27,6 +27,7 @@
 	import ImageRenderer from '$lib/image-renderer.svelte';
 	import { setContext } from 'svelte';
 	import SmartLink from '$lib/smart-link.svelte';
+	import ModActions from '$lib/mod-actions.svelte';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;
@@ -59,7 +60,7 @@
 
 <PageLayout isWide>
 	{#if mod}
-		<div class="flex">
+		<div class="flex gap-4">
 			{#if readme}
 				<div>
 					<SvelteMarkdown
@@ -71,7 +72,7 @@
 					/>
 				</div>
 			{/if}
-			<!-- <ModActions {mod} isFullWidth={!Boolean(readme)} /> -->
+			<ModActions {mod} isFullWidth={!Boolean(readme)} />
 		</div>
 	{/if}
 </PageLayout>
