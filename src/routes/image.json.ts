@@ -76,7 +76,7 @@ export const get: RequestHandler = async ({ query }) => {
 	const staticDir = 'static';
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
-	const fileName = `${encodedImageUrl}.jpg`;
+	const fileName = `${encodedImageUrl}.webp`;
 
 	if (!fs.existsSync(fileOutputDir)) {
 		await fsp.mkdir(fileOutputDir, { recursive: true });
@@ -90,7 +90,7 @@ export const get: RequestHandler = async ({ query }) => {
 	const width = widthParam ? parseInt(widthParam) : imageMetadata.width;
 	const height = heightParam ? parseInt(heightParam) : imageMetadata.height;
 
-	await sharpImage.resize({ width, height, fit }).toFile(optimizedImagePath);
+	await sharpImage.resize({ width, height, fit, position: 'left' }).toFile(optimizedImagePath);
 
 	return {
 		body: JSON.stringify({

@@ -23,7 +23,7 @@ export const get: RequestHandler = async () => {
 			const images = getAllMarkdownImages(readme);
 
 			const externalImages =
-				images.length > 0 ? await getImageMap(rawContentUrl, mod.name, [images[0]]) : {};
+				images.length > 0 ? await getImageMap(rawContentUrl, mod.name, [images[0]], 300, 100) : {};
 
 			return {
 				...mod,
