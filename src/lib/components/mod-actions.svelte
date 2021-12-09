@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Mod } from 'src/services';
+	import type { Mod } from '$lib/helpers';
 	import LinkButton from './link-button.svelte';
 	import SmartLink from './smart-link.svelte';
 

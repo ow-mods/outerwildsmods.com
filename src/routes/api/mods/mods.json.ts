@@ -1,6 +1,11 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getAllMarkdownImages, getImageMap, getRawContentUrl } from '$lib/helpers';
-import { getModDatabase, getModReadme } from '../../../services';
+import {
+	getAllMarkdownImages,
+	getImageMap,
+	getRawContentUrl,
+	getModDatabase,
+	getModReadme
+} from '$lib/helpers';
 import type sharp from 'sharp';
 
 // TODO dont repeat in [mod].tsx.

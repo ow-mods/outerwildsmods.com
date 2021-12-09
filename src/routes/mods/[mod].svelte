@@ -21,8 +21,7 @@
 
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import type { Mod } from '../../services';
-	import type { ImageMap } from '$lib/helpers';
+	import type { ImageMap, Mod } from '$lib/helpers';
 	import ModActions from '$lib/components/mod-actions.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 
