@@ -1,8 +1,8 @@
 <script lang="ts">
-	import GithubCorner from '$lib/components/github-corner.svelte';
+	import GithubCorner from '$lib/components/header/github-corner.svelte';
 	import Navigation from '$lib/components/navigation/navigation.svelte';
 	import SmartLink from '$lib/components/smart-link.svelte';
-	import Stars from '$lib/components/stars.svelte';
+	import Stars from '$lib/components/header/stars.svelte';
 </script>
 
 <header class="relative text-center overflow-hidden">

@@ -1,6 +1,6 @@
 import { Parser } from 'commonmark';
 import type { FormatEnum } from 'sharp';
-import { getOptimizedImage } from '../../services/get-optimized-image';
+import { getOptimizedImage } from './get-optimized-image';
 
 export type ImageInfo = {
 	width: number;

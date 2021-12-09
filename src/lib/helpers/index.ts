@@ -1,3 +1,3 @@
 export * from './getRawContentUrl';
-export * from './getMarkdownImages';
+export * from '../../services/get-markdown-images';
 export * from './getModPathName';
