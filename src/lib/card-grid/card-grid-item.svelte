@@ -30,17 +30,13 @@
 				{title}
 			</div>
 		{/if}
+		<!-- TODO pass static image size here -->
 		<img
 			class="h-24 w-full object-cover object-left"
 			alt={title}
 			src={imageUrl || '/images/placeholder.jpg'}
+			loading={index > 3 ? 'lazy' : 'eager'}
 		/>
-		<!-- layout="intrinsic"
-				height={200}
-				width={560}
-			objectFit="cover"
-			priority={index <= 6}
-			quality={imageUrl ? 50 : 100} -->
 	</div>
 	<div class="p-3">
 		<span>{title}</span>
