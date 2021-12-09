@@ -1,4 +1,5 @@
 import { Parser } from 'commonmark';
+import { getOptimizedImage } from '../../services/get-optimized-image';
 
 type ImageData = {
 	width: number;
@@ -31,32 +32,19 @@ export const getImageData = async (
 	host: string,
 	baseUrl: string,
 	url: string,
-	width?: number,
-	height?: number
+	resizeWidth?: number,
+	resizeHeight?: number
 ): Promise<ImageData | null> => {
 	const fullUrl = url.startsWith('http') ? url : `${baseUrl}/${url}`;
 
-	// TODO obviously not localhost
-	const urlObject = new URL(`http://${host}/api/image.json`);
-	urlObject.search = new URLSearchParams({
-		imageUrl: fullUrl,
-		width: width?.toString() ?? '',
-		height: height?.toString() ?? ''
-	}).toString();
-
 	try {
-		const response = await fetch(urlObject.href);
+		const optimizedImage = await getOptimizedImage(fullUrl, resizeWidth, resizeHeight);
 
-		const {
-			imagePath,
-			height,
-			width
-		}: {
-			// TODO move type
-			imagePath: string;
-			height: number;
-			width: number;
-		} = await response.json();
+		if (!optimizedImage) {
+			throw new Error('Failed to optimize image');
+		}
+
+		const { imagePath, height, width } = optimizedImage;
 
 		return {
 			height,

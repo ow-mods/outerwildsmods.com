@@ -1,4 +1,3 @@
-import type { RequestHandler } from '@sveltejs/kit';
 import sharp, { FitEnum } from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
@@ -40,43 +39,33 @@ export const downloadImage = async (imageUrl: string, fileName: string): Promise
 	return fullImagePath;
 };
 
-const validFits: (keyof FitEnum)[] = ['contain', 'cover', 'fill', 'inside', 'outside'];
-
-export const get: RequestHandler = async ({ query }) => {
-	const imageUrl = query.get('imageUrl');
-	const widthParam = query.get('width');
-	const heightParam = query.get('height');
-	const fit = (query.get('fit') || 'cover') as keyof FitEnum;
-
-	if (!imageUrl) {
-		return {
-			status: 400,
-			body: 'Missing imageUrl query parameter'
-		};
-	}
-
-	if (!validFits.includes(fit)) {
-		return {
-			status: 400,
-			body: `Invalid fit. Must be one of ${validFits}`
-		};
-	}
-
+export const getOptimizedImage = async (
+	imageUrl: string,
+	resizeWidth?: number,
+	resizeHeight?: number,
+	fit: keyof FitEnum = 'cover'
+): Promise<{
+	// TODO type
+	imagePath: string;
+	width: number;
+	height: number;
+} | null> => {
 	const encodedImageUrl = hash(imageUrl).toString();
 
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
 
 	if (!downloadedImagePath) {
-		return {
-			status: 500,
-			body: 'Failed to download image'
-		};
+		throw new Error('Failed to download image');
 	}
 
 	const sharpImage = sharp(downloadedImagePath);
 	const imageMetadata = await sharpImage.metadata();
-	const width = widthParam ? parseInt(widthParam) : imageMetadata.width;
-	const height = heightParam ? parseInt(heightParam) : imageMetadata.height;
+	const width = resizeWidth ?? imageMetadata.width;
+	const height = resizeHeight ?? imageMetadata.height;
+
+	if (!width || !height) {
+		throw new Error('failed to read image dimensions');
+	}
 
 	const staticDir = 'static';
 	const optimizedDir = '/images/optimized';
@@ -91,10 +80,8 @@ export const get: RequestHandler = async ({ query }) => {
 	await sharpImage.resize({ width, height, fit, position: 'left' }).toFile(optimizedImagePath);
 
 	return {
-		body: JSON.stringify({
-			imagePath: `${optimizedDir}/${fileName}`,
-			width,
-			height
-		})
+		imagePath: `${optimizedDir}/${fileName}`,
+		width,
+		height
 	};
 };
