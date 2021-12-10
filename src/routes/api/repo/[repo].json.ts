@@ -1,12 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import {
-	getAllMarkdownImages,
-	getImageMap,
-	getModDatabase,
-	getModPathName,
-	getModReadme,
-	getRawContentUrl
-} from '$lib/helpers';
+import { getModRepo } from '$lib/helpers/get-mod-repo';
+import { getModDatabase } from '$lib/helpers/api/get-mod-database';
+import { getRawContentUrl } from '$lib/helpers/getRawContentUrl';
+import { getModReadme } from '$lib/helpers/api/get-mod-readme';
+import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
 
 export const get: RequestHandler = async ({ params }) => {
 	const modDatabase = await getModDatabase();
@@ -18,10 +15,7 @@ export const get: RequestHandler = async ({ params }) => {
 		};
 	}
 
-	const mod = modDatabase.releases.find((mod) => {
-		const repoParts = mod.repo.split('/');
-		return repoParts[repoParts.length - 1].toLowerCase() === params.repo.toLowerCase();
-	});
+	const mod = modDatabase.releases.find((mod) => getModRepo(mod) === params.repo.toLowerCase());
 
 	if (!mod) {
 		return {

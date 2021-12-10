@@ -1,12 +1,9 @@
+import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
+import { getModDatabase } from '$lib/helpers/api/get-mod-database';
+import { getModReadme } from '$lib/helpers/api/get-mod-readme';
+import { getModPathName } from '$lib/helpers/getModPathName';
+import { getRawContentUrl } from '$lib/helpers/getRawContentUrl';
 import type { RequestHandler } from '@sveltejs/kit';
-import {
-	getAllMarkdownImages,
-	getImageMap,
-	getModDatabase,
-	getModPathName,
-	getModReadme,
-	getRawContentUrl
-} from '$lib/helpers';
 
 export const get: RequestHandler = async ({ params }) => {
 	const modDatabase = await getModDatabase();

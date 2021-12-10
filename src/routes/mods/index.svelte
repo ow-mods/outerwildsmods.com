@@ -27,10 +27,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import SmartLink from '$lib/components/smart-link.svelte';
-
-	export const getModPathName = (modName: string) => modName.replace(/ /g, '').toLowerCase();
-
-	const getModPath = (modName: string) => `/mods/${getModPathName(modName)}`;
+	import { getModRepo } from '$lib/helpers/get-mod-repo';
 
 	export let mods: any[] = [];
 </script>
@@ -46,7 +43,7 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each mods as mod, index}
-				<SmartLink prefetch href={getModPath(mod.name)}>
+				<SmartLink prefetch href={getModRepo(mod)}>
 					<CardGridItem
 						{index}
 						title={mod.name}

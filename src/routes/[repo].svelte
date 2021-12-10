@@ -21,9 +21,10 @@
 
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import type { ImageMap, Mod } from '$lib/helpers';
 	import ModActions from '$lib/components/mod-actions.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
+	import type { ImageMap } from '$lib/helpers/api/get-markdown-images';
+	import type { Mod } from '$lib/helpers/api/get-mod-database';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;

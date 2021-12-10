@@ -1,7 +1,7 @@
 import sharp, { FitEnum } from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
-import type { ImageInfo } from '$lib/helpers';
+import type { ImageInfo } from './get-markdown-images';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
