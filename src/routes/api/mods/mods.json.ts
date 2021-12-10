@@ -7,8 +7,8 @@ import {
 	getModReadme
 } from '$lib/helpers';
 import type sharp from 'sharp';
+import { listedImageSize } from '$lib/helpers/constants';
 
-// TODO dont repeat in [mod].tsx.
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',
 	'jpg',
@@ -37,7 +37,15 @@ export const get: RequestHandler = async () => {
 			const images = getAllMarkdownImages(readme);
 
 			const externalImages =
-				images.length > 0 ? await getImageMap(rawContentUrl, mod.name, [images[0]], 300, 100) : {};
+				images.length > 0
+					? await getImageMap(
+							rawContentUrl,
+							mod.name,
+							[images[0]],
+							listedImageSize.width,
+							listedImageSize.height
+					  )
+					: {};
 
 			const firstExternalImage = Object.values(externalImages).filter(
 				(image) => image?.format && supportedTypes.includes(image.format)

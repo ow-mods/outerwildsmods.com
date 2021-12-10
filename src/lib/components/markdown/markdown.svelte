@@ -12,7 +12,7 @@
 	setContext('externalImages', externalImages);
 </script>
 
-<div class="flex-1">
+<div class="flex-1 markdown">
 	<SvelteMarkdown
 		source={readme}
 		renderers={{
@@ -23,17 +23,17 @@
 </div>
 
 <style>
-	:global(h1) {
+	.markdown :global(h1) {
 		margin: 0;
 	}
 
-	:global(pre) {
+	.markdown :global(pre) {
 		padding: theme('spacing.4');
 		overflow: auto;
 	}
 
-	:global(pre),
-	:global(code) {
+	.markdown :global(pre),
+	.markdown :global(code) {
 		background: theme('colors.dark');
 		border-radius: theme('borderRadius.DEFAULT');
 		padding: theme('spacing.1');
@@ -41,22 +41,27 @@
 		word-break: break-all;
 	}
 
-	:global(table) {
+	.markdown :global(table) {
 		border-collapse: collapse;
 		width: 100%;
 	}
 
-	:global(table),
-	:global(th),
-	:global(td) {
+	.markdown :global(table),
+	.markdown :global(th),
+	.markdown :global(td) {
 		border: 1px solid theme('colors.light');
 	}
 
-	:global(td) {
+	.markdown :global(td) {
 		padding: theme('spacing.2');
 	}
 
-	:global(li) {
+	.markdown :global(li) {
 		padding: theme('spacing.1') 0;
+	}
+
+	.markdown :global(img) {
+		display: inline-block;
+		height: auto;
 	}
 </style>

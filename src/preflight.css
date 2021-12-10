@@ -313,13 +313,13 @@ Make sure disabled buttons don't get the pointer cursor.
 	}
 
 	/*
-Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+Constrain images and videos to the parent width. (https://github.com/mozdevs/cssremedy/issues/14)
 */
 
 	img,
 	video {
 		max-width: 100%;
-		height: auto;
+		display: block;
 	}
 
 	/*
