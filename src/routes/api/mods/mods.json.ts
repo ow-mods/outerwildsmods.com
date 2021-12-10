@@ -25,7 +25,8 @@ export const get: RequestHandler = async () => {
 
 	if (!modDatabase) {
 		return {
-			status: 500
+			status: 500,
+			body: 'Failed to retrieve database'
 		};
 	}
 
@@ -33,7 +34,6 @@ export const get: RequestHandler = async () => {
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
 			const readme = await getModReadme(rawContentUrl);
-
 			const images = getAllMarkdownImages(readme);
 
 			const externalImages =

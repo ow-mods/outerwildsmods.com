@@ -29,7 +29,6 @@ export const get: RequestHandler = async ({ params }) => {
 
 	const rawContentUrl = getRawContentUrl(mod.repo);
 	const readme = await getModReadme(rawContentUrl);
-
 	const images = getAllMarkdownImages(readme);
 
 	const externalImages = await getImageMap(rawContentUrl, mod.name, images);

@@ -6,7 +6,14 @@
 	export let title: string | undefined = undefined;
 	export let text = '';
 	const externalImages = getContext<ImageMap | undefined>('externalImages');
-	let imageSource = (externalImages ? externalImages[href]?.url : href) || href;
+
+	const imageInfo = externalImages && externalImages[href];
 </script>
 
-<img src={imageSource} {title} alt={text} />
+<img
+	src={imageInfo?.url ?? href}
+	{title}
+	alt={text}
+	height={imageInfo?.height}
+	width={imageInfo?.width}
+/>
