@@ -10,7 +10,7 @@
 </script>
 
 <div
-	class="bg-dark w-72 m-2 rounded-lg overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
+	class="bg-dark w-full h-full rounded-lg overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
 >
 	<div class="relative" style={imageUrl ? undefined : getHueFromText(title)}>
 		{#if !imageUrl}
@@ -21,7 +21,7 @@
 			</div>
 		{/if}
 		<img
-			class="object-cover object-left"
+			class="w-full object-cover"
 			alt={title}
 			src={imageUrl || '/images/placeholder.jpg'}
 			loading={!imageUrl || index <= 3 ? 'eager' : 'lazy'}
