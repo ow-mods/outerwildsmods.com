@@ -4,7 +4,7 @@
 	export const prerender = true;
 
 	export const load: Load = async ({ fetch }) => {
-		const result = await fetch('api/mods/mods.json');
+		const result = await fetch('/api/mods/mods.json');
 
 		if (result.ok) {
 			return {
