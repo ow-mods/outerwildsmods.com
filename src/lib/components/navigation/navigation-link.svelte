@@ -19,7 +19,9 @@
 <a
 	class:text-light={isActive}
 	class:bg-background={isActive}
-	class={`flex-1 hover:bg-background py-1 rounded-t mx-1 text-accent`}
+	class:outline-background={isActive}
+	class:hover:outline-background={!isActive}
+	class={`flex-1 py-1 rounded-t mx-1 text-accent outline outline-transparent`}
 	{href}
 	sveltekit:prefetch
 >
