@@ -11,7 +11,7 @@
 	setContext('externalImages', externalImages);
 </script>
 
-<div class="flex-1 markdown">
+<div class="flex-1 markdown text-sm">
 	<SvelteMarkdown
 		source={readme}
 		renderers={{
@@ -56,7 +56,7 @@
 	}
 
 	.markdown :global(li) {
-		padding: theme('spacing.1') 0;
+		padding-bottom: theme('spacing.1');
 	}
 
 	.markdown :global(img) {

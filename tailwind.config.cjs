@@ -1,8 +1,9 @@
+/** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 const config = {
 	mode: 'jit',
 	purge: ['./src/**/*.{html,js,svelte,ts}'],
 	corePlugins: {
-		preflight: false
+		preflight: false,
 	},
 	theme: {
 		colors: {
@@ -15,10 +16,15 @@ const config = {
 			background: '#1f2122',
 			light: 'rgba(255, 255, 255, 0.65)',
 			dark: '#191a1b',
-			transparent: 'transparent'
-		}
+			transparent: 'transparent',
+		},
+		extend: {
+			fontSize: {
+				sm: '0.85em',
+			},
+		},
 	},
-	plugins: []
+	plugins: [],
 };
 
 module.exports = config;
