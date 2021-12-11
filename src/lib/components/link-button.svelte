@@ -11,10 +11,10 @@
 	class:bg-accent={!primary}
 	class:text-dark={!primary}
 	class:font-medium={!primary}
-	class="block rounded p-2 bg-opacity-80 hover:bg-opacity-100"
+	class="flex items-center justify-center rounded p-2 bg-opacity-80 hover:bg-opacity-100"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
 >
-	<div class="text-center"><slot /></div>
+	<slot />
 </a>

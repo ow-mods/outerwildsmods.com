@@ -4,6 +4,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import WindowsIcon from '$lib/components/windows-icon.svelte';
 
 	const repoUrl = 'https://github.com/Raicuparta/ow-mod-manager';
 	const downloadUrl = `${repoUrl}/releases/latest/download`;
@@ -30,7 +31,7 @@
 		</div>
 		<div class="my-4">
 			<LinkButton href={installerDownloadUrl} rel="noopener noreferrer" primary>
-				<!-- <WindowsIcon /> -->
+				<WindowsIcon />
 				Download the Outer Wilds Mod Manager for Windows
 			</LinkButton>
 		</div>
