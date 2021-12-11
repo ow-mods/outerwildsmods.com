@@ -9,12 +9,10 @@
 	export let links: LinkItem[];
 </script>
 
-<div>
+<div class="flex flex-col gap-2 mt-4">
 	{#each links as { href, text }}
-		<div class="mt-2">
-			<SmartLink {href} isExternal>
-				{text}
-			</SmartLink>
-		</div>
+		<SmartLink {href} isExternal>
+			{text}
+		</SmartLink>
 	{/each}
 </div>

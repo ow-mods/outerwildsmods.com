@@ -4,7 +4,7 @@
 
 <div class="flex-1">
 	{#if description}
-		<p>{description}</p>
+		<p class="m-0">{description}</p>
 	{/if}
 	<slot />
 </div>
