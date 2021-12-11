@@ -10,7 +10,8 @@
 	class:text-white={primary}
 	class:bg-accent={!primary}
 	class:text-dark={!primary}
-	class="font-medium block rounded p-2 bg-opacity-80 hover:bg-opacity-100"
+	class:font-medium={!primary}
+	class="block rounded p-2 bg-opacity-80 hover:bg-opacity-100"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
