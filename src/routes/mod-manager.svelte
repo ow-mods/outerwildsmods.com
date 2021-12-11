@@ -30,7 +30,7 @@
 			<PageSectionImage
 				imageUrl="/images/mod-manager.png"
 				title="Outer Wilds Mod Manager"
-				height={140}
+				height={300}
 			/>
 		</div>
 		<div class="my-4">

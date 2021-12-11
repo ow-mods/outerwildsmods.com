@@ -48,7 +48,7 @@
 <PageLayout>
 	<PageSection title="Outer Wilds Alpha" id="alpha">
 		<PageSectionColumns>
-			<PageSectionImage imageUrl="/images/alpha.jpg" title="Outer Wilds Alpha" />
+			<PageSectionImage imageUrl="/images/alpha.jpg" title="Outer Wilds Alpha" height={200} />
 			<PageSectionDescription
 				description="While Outer Wilds was still in development, an Alpha release was made available for download. The files are no longer available on the official website, but can be obtained using the Wayback Machine."
 			/>
