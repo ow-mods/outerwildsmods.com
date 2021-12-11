@@ -16,7 +16,12 @@ const config = {
 			// TODO maybe not
 			onError: 'continue'
 		},
-		target: '#svelte'
+		target: '#svelte',
+		vite: {
+			optimizeDeps: {
+				exclude: ['marked']
+			}
+		}
 	}
 };
 
