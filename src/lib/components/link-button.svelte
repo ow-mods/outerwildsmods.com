@@ -15,5 +15,5 @@
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
 >
-	<div class="pointer-events-none text-center"><slot /></div>
+	<div class="text-center"><slot /></div>
 </a>
