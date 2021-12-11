@@ -21,7 +21,8 @@
 	class:bg-background={isActive}
 	class:outline-background={isActive}
 	class:hover:outline-background={!isActive}
-	class={`flex-1 py-1 rounded-t mx-1 text-accent outline outline-transparent`}
+	class:link={!isActive}
+	class={`flex-1 py-1 rounded-t mx-1  outline outline-transparent`}
 	{href}
 	sveltekit:prefetch
 >

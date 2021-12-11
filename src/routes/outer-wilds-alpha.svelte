@@ -11,29 +11,28 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import SmartLink from '$lib/components/smart-link.svelte';
 
 	const alphaMods = [
 		{
 			name: 'DIMOWA',
 			description: 'Mod installer and debugger for Outer Wilds Alpha',
-			href: 'https://github.com/ShoosGun/DIMOWA'
+			href: 'https://github.com/ShoosGun/DIMOWA',
 		},
 		{
 			name: 'OWBA',
 			description: 'Adds features from the final Outer Wilds release to the Alpha.',
-			href: 'https://github.com/ShoosGun/OWBA'
+			href: 'https://github.com/ShoosGun/OWBA',
 		},
 		{
 			name: 'Free Cam Mod',
 			description: 'Allows for free camera movement.',
-			href: 'https://github.com/ShoosGun/FreeCamMod'
+			href: 'https://github.com/ShoosGun/FreeCamMod',
 		},
 		{
 			name: 'Probe Grapple Mod',
 			description: 'Adds a grappling hook mechanic.',
-			href: 'https://github.com/ShoosGun/ProbeGrapleMod'
-		}
+			href: 'https://github.com/ShoosGun/ProbeGrapleMod',
+		},
 	];
 </script>
 
@@ -67,9 +66,9 @@
 			description="Using DIMOWA, it is possible to install some mods in the Alpha version of Outer Wilds."
 		/>
 		{#each alphaMods as mod}
-			<SmartLink href={mod.href} isExternal>
+			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
 				<ListItemCard title={mod.name} description={mod.description} />
-			</SmartLink>
+			</a>
 		{/each}
 	</PageSection>
 </PageLayout>

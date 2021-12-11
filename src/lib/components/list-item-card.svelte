@@ -7,13 +7,19 @@
 <span class="flex items-center rounded p-2 hover:bg-dark">
 	{#if imageUrl}
 		<div class="image-wrapper">
-			<img class="rounded-full w-full h-full" alt={title} src={imageUrl} width="50" height="50" />
+			<img
+				class="rounded-full w-full h-full"
+				alt="{title}"
+				src="{imageUrl}"
+				width="50"
+				height="50"
+			/>
 		</div>
 	{:else}
-		<span class="bullet m-2 bg-dark rounded-full border-2 border-background" />
+		<span class="bullet m-2 bg-dark rounded-full border-2 border-background"></span>
 	{/if}
 	<div class="ml-4">
-		<span class="text-accent">{title}</span>
+		<span>{title}</span>
 		{#if description}
 			<div class="leading-normal">
 				<span class="text-light">

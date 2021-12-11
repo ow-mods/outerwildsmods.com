@@ -11,63 +11,62 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import SmartLink from '$lib/components/smart-link.svelte';
 
 	const featuredMods = [
 		{
 			title: 'NomaiVR',
 			description: 'Adds support for VR devices. Full motion control support.',
 			path: 'nomaivr',
-			image: '/images/nomai-vr.png'
+			image: '/images/nomai-vr.png',
 		},
 		{
 			title: 'QSB',
 			description: 'Quantum Space Buddies. Adds online multiplayer to the game.',
 			path: 'quantumspacebuddies',
-			image: '/images/qsb.jpg'
+			image: '/images/qsb.jpg',
 		},
 		{
 			title: 'Light Bramble',
 			description:
 				'Makes the Dark Bramble less scary. Options to remove scary elements individually.',
 			path: 'lightbramble',
-			image: '/images/light-bramble.jpg'
+			image: '/images/light-bramble.jpg',
 		},
 		{
 			title: 'More mods',
-			path: ''
-		}
+			path: '',
+		},
 	];
 
 	const infoLinks = [
 		{
 			text: 'Steam',
-			href: 'https://store.steampowered.com/app/753640/Outer_Wilds'
+			href: 'https://store.steampowered.com/app/753640/Outer_Wilds',
 		},
 		{
 			text: 'Epic',
-			href: 'https://www.epicgames.com/store/en-US/product/outerwilds'
+			href: 'https://www.epicgames.com/store/en-US/product/outerwilds',
 		},
 		{
 			text: 'Official website',
-			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html'
-		}
+			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html',
+		},
 	];
 
 	const forModdersLinks = [
 		{
 			text: 'Info for modders in OWML docs',
-			href: 'https://github.com/amazingalek/owml/wiki/For-modders'
+			href: 'https://github.com/amazingalek/owml/wiki/For-modders',
 		},
 		{
 			text: 'Outer Wilds mod template',
-			href: 'https://github.com/Raicuparta/ow-mod-template'
-		}
+			href: 'https://github.com/Raicuparta/ow-mod-template',
+		},
 	];
 
 	const communityLinks = [
 		{ text: 'Reddit', href: 'https://reddit.com/r/outerwilds' },
-		{ text: 'Discord', href: 'https://discord.gg/RaSjRbm' }
+		{ text: 'Discord', href: 'https://discord.gg/RaSjRbm' },
 	];
 </script>
 
@@ -94,9 +93,9 @@
 	</PageSection>
 	<PageSection title="Some of the available mods" id="mods">
 		{#each featuredMods as mod}
-			<SmartLink prefetch href={`/mods/${mod.path}`}>
+			<a class="link" sveltekit:prefetch href={`/mods/${mod.path}`}>
 				<ListItemCard title={mod.title} description={mod.description} imageUrl={mod.image} />
-			</SmartLink>
+			</a>
 		{/each}
 	</PageSection>
 	<PageSection

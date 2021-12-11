@@ -2,7 +2,7 @@
 	import { setContext } from 'svelte';
 	import SvelteMarkdown from 'svelte-markdown';
 	import ImageRenderer from './image-renderer.svelte';
-	import SmartLink from '../smart-link.svelte';
+	import LinkRenderer from './link-renderer.svelte';
 	import type { ImageMap } from '$lib/helpers/api/get-markdown-images';
 
 	export let readme: string;
@@ -16,7 +16,7 @@
 		source={readme}
 		renderers={{
 			image: ImageRenderer,
-			link: SmartLink
+			link: LinkRenderer, // TODO HeadingRenderer
 		}}
 	/>
 </div>

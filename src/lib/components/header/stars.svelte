@@ -25,14 +25,14 @@
 			y: random(0, height, 1),
 			opacity: random(0.1, 0.8, 10),
 			radius: random(0.1, 1.2, 10),
-			id: i
+			id: i,
 		});
 		starData2.push({
 			x: random(0, width, 1),
 			y: random(0, height, 1),
 			opacity: random(0.1, 0.8, 10),
 			radius: random(0.1, 1.2, 10),
-			id: i
+			id: i,
 		});
 	}
 </script>
@@ -40,20 +40,20 @@
 <svg
 	class="starLayer starLayer1"
 	preserveAspectRatio="xMinYMin slice"
-	viewBox={`0 0 ${width} ${height}`}
+	viewBox="{`0 0 ${width} ${height}`}"
 >
 	{#each starData1 as star}
-		<circle cx={star.x} cy={star.y} r={star.radius} opacity={star.opacity} />
+		<circle cx="{star.x}" cy="{star.y}" r="{star.radius}" opacity="{star.opacity}"></circle>
 	{/each}
 </svg>
 <svg
 	class="starLayer starLayer2"
 	preserveAspectRatio="xMinYMin slice"
-	viewBox={`0 0 ${width} ${height}`}
+	viewBox="{`0 0 ${width} ${height}`}"
 	fill="white"
 >
 	{#each starData2 as star}
-		<circle cx={star.x} cy={star.y} r={star.radius} opacity={star.opacity} />
+		<circle cx="{star.x}" cy="{star.y}" r="{star.radius}" opacity="{star.opacity}"></circle>
 	{/each}
 </svg>
 

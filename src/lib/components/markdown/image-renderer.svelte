@@ -11,9 +11,9 @@
 </script>
 
 <img
-	src={imageInfo?.url ?? href}
-	{title}
-	alt={text}
-	height={imageInfo?.height}
-	width={imageInfo?.width}
+	src="{imageInfo?.url ?? href}"
+	title="{title}"
+	alt="{text}"
+	height="{imageInfo?.height}"
+	width="{imageInfo?.width}"
 />

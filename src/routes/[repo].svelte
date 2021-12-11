@@ -9,12 +9,12 @@
 		if (!result.ok) {
 			return {
 				status: result.status,
-				error: new Error(`Could not load mod. ${result.body}`)
+				error: new Error(`Could not load mod. ${result.body}`),
 			};
 		}
 
 		return {
-			props: await result.json()
+			props: await result.json(),
 		};
 	};
 </script>

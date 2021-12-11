@@ -14,7 +14,7 @@ const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'webp',
 	'raw',
 	'tif',
-	'tiff'
+	'tiff',
 ];
 
 export const get: RequestHandler = async () => {
@@ -23,7 +23,7 @@ export const get: RequestHandler = async () => {
 	if (!modDatabase) {
 		return {
 			status: 500,
-			body: 'Failed to retrieve database'
+			body: 'Failed to retrieve database',
 		};
 	}
 
@@ -50,7 +50,7 @@ export const get: RequestHandler = async () => {
 
 			return {
 				...mod,
-				imageUrl: firstExternalImage?.url || null
+				imageUrl: firstExternalImage?.url || null,
 			};
 		})
 	);

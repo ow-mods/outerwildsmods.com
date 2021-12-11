@@ -8,7 +8,6 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import SmartLink from '$lib/components/smart-link.svelte';
 
 	const repoUrl = 'https://github.com/Raicuparta/ow-mod-manager';
 	const downloadUrl = `${repoUrl}/releases/latest/download`;
@@ -41,9 +40,9 @@
 		</div>
 		<p>
 			or{' '}
-			<SmartLink href={portableDownloadUrl} rel="noopener noreferrer">
+			<a class="link" href={portableDownloadUrl} rel="noopener noreferrer">
 				download the portable version instead
-			</SmartLink>
+			</a>
 		</p>
 		<p class="mt-4">For all your modding needs! With access to features such as:</p>
 		<ul class="list-disc ml-8 my-4">
@@ -55,7 +54,7 @@
 		</ul>
 		<p>
 			It also lets you install / update the{' '}
-			<SmartLink href="/mods/owml">Outer Wilds Mod Loader</SmartLink> from within the app, so you don't
+			<a class="link" href="/mods/owml">Outer Wilds Mod Loader</a> from within the app, so you don't
 			need to deal with that yourself.
 		</p>
 	</PageSection>
@@ -87,9 +86,14 @@
 	<PageSection title="More information" id="more-info">
 		<p>
 			For more information, check the{' '}
-			<SmartLink isExternal href="https://github.com/Raicuparta/ow-mod-manager#readme">
+			<a
+				class="link"
+				target="_blank"
+				rel="noopener noreferrer"
+				href="https://github.com/Raicuparta/ow-mod-manager#readme"
+			>
 				readme on GitHub
-			</SmartLink>
+			</a>
 		</p>
 	</PageSection>
 </PageLayout>

@@ -33,3 +33,9 @@ a {
 @tailwind components;
 
 @tailwind utilities;
+
+@layer components {
+	.link {
+		@apply text-accent hover:text-opacity-100 text-opacity-80;
+	}
+}

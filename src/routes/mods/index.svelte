@@ -9,14 +9,14 @@
 		if (result.ok) {
 			return {
 				props: {
-					mods: await result.json()
-				}
+					mods: await result.json(),
+				},
 			};
 		}
 
 		return {
 			status: result.status,
-			error: new Error(`Could not load mods`)
+			error: new Error(`Could not load mods`),
 		};
 	};
 </script>
@@ -26,7 +26,6 @@
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import SmartLink from '$lib/components/smart-link.svelte';
 	import { getModRepo } from '$lib/helpers/get-mod-repo';
 
 	export let mods: any[] = [];
@@ -43,14 +42,14 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each mods as mod, index}
-				<SmartLink prefetch href={getModRepo(mod)}>
+				<a sveltekit:prefetch href={getModRepo(mod)}>
 					<CardGridItem
 						{index}
 						title={mod.name}
 						description={mod.description}
 						imageUrl={mod.imageUrl || undefined}
 					/>
-				</SmartLink>
+				</a>
 			{/each}
 		</CardGrid>
 	</PageSection>

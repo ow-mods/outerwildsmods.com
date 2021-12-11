@@ -11,7 +11,7 @@ export const get: RequestHandler = async ({ params }) => {
 	if (!modDatabase) {
 		return {
 			status: 500,
-			body: 'Failed to retrieve database'
+			body: 'Failed to retrieve database',
 		};
 	}
 
@@ -20,7 +20,7 @@ export const get: RequestHandler = async ({ params }) => {
 	if (!mod) {
 		return {
 			status: 404,
-			body: 'Mod not found'
+			body: 'Mod not found',
 		};
 	}
 
@@ -34,7 +34,7 @@ export const get: RequestHandler = async ({ params }) => {
 		body: JSON.stringify({
 			...(readme ? { readme } : undefined),
 			externalImages,
-			mod
-		})
+			mod,
+		}),
 	};
 };

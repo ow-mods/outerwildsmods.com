@@ -1,6 +1,4 @@
 <script lang="ts">
-	import SmartLink from './smart-link.svelte';
-
 	type LinkItem = {
 		text: string;
 		href: string;
@@ -11,8 +9,8 @@
 
 <div class="flex flex-col gap-2 mt-4">
 	{#each links as { href, text }}
-		<SmartLink {href} isExternal>
+		<a class="link" href="{href}" target="_blank" rel="noopener noreferrer">
 			{text}
-		</SmartLink>
+		</a>
 	{/each}
 </div>
