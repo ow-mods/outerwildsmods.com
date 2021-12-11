@@ -1,8 +1,6 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
 
-	export const prerender = true;
-
 	export const load: Load = async ({ fetch }) => {
 		const result = await fetch('/api/mods/mods.json');
 

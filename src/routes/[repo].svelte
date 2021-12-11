@@ -1,8 +1,6 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
 
-	export const prerender = true;
-
 	export const load: Load = async ({ fetch, page }) => {
 		const result = await fetch(`/api/repo/${page.params.repo}.json`);
 
