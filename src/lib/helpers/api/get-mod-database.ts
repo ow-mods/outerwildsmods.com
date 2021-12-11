@@ -10,6 +10,7 @@ export type Mod = {
 	downloadUrl: string;
 	downloadCount: number;
 	required?: boolean;
+	utility?: boolean;
 };
 
 export interface ModWithImage extends Mod {
@@ -41,6 +42,6 @@ export async function getModDatabase(): Promise<ModDatabase> {
 		...database,
 		releases: database.releases.sort(
 			(releaseA, releaseB) => releaseB.downloadCount - releaseA.downloadCount
-		)
+		),
 	};
 }

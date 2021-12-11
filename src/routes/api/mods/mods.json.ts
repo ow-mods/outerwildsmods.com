@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import type sharp from 'sharp';
 import { listedImageSize } from '$lib/helpers/constants';
-import { getModDatabase } from '$lib/helpers/api/get-mod-database';
+import { getModDatabase, Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/getRawContentUrl';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
 import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
@@ -16,6 +16,15 @@ const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'tif',
 	'tiff',
 ];
+
+export interface ModsRequestItem extends Mod {
+	imageUrl: string | null;
+}
+
+export type ModsRequestResult = {
+	standardMods: ModsRequestItem[];
+	utilityMods: ModsRequestItem[];
+};
 
 export const get: RequestHandler = async () => {
 	const modDatabase = await getModDatabase();
@@ -55,5 +64,10 @@ export const get: RequestHandler = async () => {
 		})
 	);
 
-	return { body: JSON.stringify(mods) };
+	const standardMods = mods.filter((mod) => !mod.utility);
+	const utilityMods = mods.filter((mod) => mod.utility);
+
+	const result: ModsRequestResult = { standardMods, utilityMods };
+
+	return { body: JSON.stringify(result) };
 };

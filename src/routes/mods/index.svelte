@@ -6,9 +6,7 @@
 
 		if (result.ok) {
 			return {
-				props: {
-					mods: await result.json(),
-				},
+				props: await result.json(),
 			};
 		}
 
@@ -25,8 +23,10 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { getModRepo } from '$lib/helpers/get-mod-repo';
+	import type { ModsRequestItem } from '../api/mods/mods.json';
 
-	export let mods: any[] = [];
+	export let standardMods: ModsRequestItem[] = [];
+	export let utilityMods: ModsRequestItem[] = [];
 </script>
 
 <svelte:head>
@@ -39,7 +39,24 @@
 <PageLayout isWide>
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
-			{#each mods as mod, index}
+			{#each standardMods as mod, index}
+				<a class="link" sveltekit:prefetch href={getModRepo(mod)}>
+					<CardGridItem
+						{index}
+						title={mod.name}
+						description={mod.description}
+						imageUrl={mod.imageUrl || undefined}
+					/>
+				</a>
+			{/each}
+		</CardGrid>
+	</PageSection>
+	<PageSection title="Utility mods" id="mods">
+		<p>
+			These aren't usually useful by themselves, but contain common resources used by other mods.
+		</p>
+		<CardGrid>
+			{#each utilityMods as mod, index}
 				<a class="link" sveltekit:prefetch href={getModRepo(mod)}>
 					<CardGridItem
 						{index}
