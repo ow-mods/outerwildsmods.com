@@ -41,7 +41,7 @@
 			</a>
 		</p>
 		<p class="mt-4">For all your modding needs! With access to features such as:</p>
-		<ul class="list-disc ml-8 my-4">
+		<ul class="my-4">
 			<li>Downloading mods;</li>
 			<li>Updating mods;</li>
 			<li>Enabling / disabling mods;</li>
@@ -55,7 +55,7 @@
 		</p>
 	</PageSection>
 	<PageSection title="How do I use this?" id="how-to-use">
-		<ul class="list-disc ml-8">
+		<ul>
 			<li>Download the Outer Wilds Mod Manager installer;</li>
 			<li>Run the downloaded .exe (you might need to ignore some Chrome / Windows warnings);</li>
 			<li>The Mod Manager should start automatically;</li>
