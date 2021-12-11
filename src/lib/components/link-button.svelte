@@ -1,23 +1,19 @@
-<script lang="ts" context="module">
-	export type ButtonVariant = 'primary' | 'secondary' | 'main-download';
-</script>
-
 <script lang="ts">
-	export let variant: ButtonVariant = 'secondary';
-	export let isExternal = false;
+	export let primary = false;
 	export let href: string | undefined = undefined;
 	export let rel: string | undefined = undefined;
+	export let isExternal = false;
 </script>
 
 <a
-	class="{`block rounded p-1 font-bold mx-auto border-4 border-transparent ${
-		variant === 'secondary'
-			? 'bg-accent  hover:border-accent-light active:bg-accent-light text-dark'
-			: 'bg-cta hover:border-cta-dark active:bg-cta-dark  text-white'
-	}`}"
-	href="{href}"
-	target="{isExternal ? '_blank' : undefined}"
-	rel="{rel ?? (isExternal ? 'noopener noreferrer' : undefined)}"
+	class:bg-cta={primary}
+	class:text-white={primary}
+	class:bg-accent={!primary}
+	class:text-dark={!primary}
+	class="font-medium block rounded p-2 bg-opacity-80 hover:bg-opacity-100"
+	{href}
+	target={isExternal ? '_blank' : undefined}
+	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
 >
-	<div class="h-full w-full pointer-events-none text-center"><slot /></div>
+	<div class="pointer-events-none text-center"><slot /></div>
 </a>

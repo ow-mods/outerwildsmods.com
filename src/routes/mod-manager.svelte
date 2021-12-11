@@ -33,7 +33,7 @@
 			/>
 		</div>
 		<div class="my-4">
-			<LinkButton href={installerDownloadUrl} rel="noopener noreferrer" variant="main-download">
+			<LinkButton href={installerDownloadUrl} rel="noopener noreferrer" primary>
 				<!-- <WindowsIcon /> -->
 				Download the Outer Wilds Mod Manager for Windows
 			</LinkButton>

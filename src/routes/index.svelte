@@ -88,7 +88,7 @@
 			/>
 		</PageSectionColumns>
 		<div class="mt-4">
-			<LinkButton href="/mod-manager" variant="main-download">Outer Wilds Mod Manager</LinkButton>
+			<LinkButton href="/mod-manager" primary>Outer Wilds Mod Manager</LinkButton>
 		</div>
 	</PageSection>
 	<PageSection title="Some of the available mods" id="mods">

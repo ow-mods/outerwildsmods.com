@@ -42,7 +42,7 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each mods as mod, index}
-				<a sveltekit:prefetch href={getModRepo(mod)}>
+				<a class="link" sveltekit:prefetch href={getModRepo(mod)}>
 					<CardGridItem
 						{index}
 						title={mod.name}
