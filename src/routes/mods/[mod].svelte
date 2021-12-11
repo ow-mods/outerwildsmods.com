@@ -46,7 +46,7 @@
 
 <svelte:head>
 	{#if mod}
-		<title>{mod.name} - Download and install Outer Wilds mods</title>
+		<title>{mod.name} - {mod.description}</title>
 		<meta name="description" content={getPageDescription(mod.description, mod.name)} />
 	{/if}
 </svelte:head>

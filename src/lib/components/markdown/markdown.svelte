@@ -16,7 +16,7 @@
 		source={readme}
 		renderers={{
 			image: ImageRenderer,
-			link: LinkRenderer, // TODO HeadingRenderer
+			link: LinkRenderer,
 		}}
 	/>
 </div>
