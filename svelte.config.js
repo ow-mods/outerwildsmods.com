@@ -17,8 +17,8 @@ const config = {
 			onError: 'continue',
 		},
 		target: '#svelte',
-		hydrate: false,
-		router: false,
+		// hydrate: false,
+		// router: false,
 		vite: {
 			optimizeDeps: {
 				exclude: ['marked'],
