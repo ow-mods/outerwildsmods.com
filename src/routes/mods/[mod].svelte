@@ -3,8 +3,6 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { modsStore } from '$lib/store';
 
-	export const hydrate = false;
-
 	const getModRepoName = (mod: Mod): string => {
 		const repoParts = mod.repo.split('/');
 		return repoParts[repoParts.length - 1].toLowerCase();

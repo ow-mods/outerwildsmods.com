@@ -1,15 +1,13 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
+	import { modsStore } from '$lib/store';
 
 	export const load: Load = async ({ fetch }) => {
 		const result = await fetch('/api/mods.json');
 
 		if (result.ok) {
-			return {
-				props: {
-					mods: await result.json(),
-				},
-			};
+			modsStore.set(await result.json());
+			return {};
 		}
 
 		return {
@@ -24,12 +22,6 @@
 	import Footer from '$lib/components/footer.svelte';
 	import '../preflight.css';
 	import '../app.css';
-	import type { ModsRequestItem } from './api/mods.json';
-	import { modsStore } from '$lib/store';
-
-	export let mods: ModsRequestItem[];
-
-	$modsStore = mods;
 </script>
 
 <Header />
