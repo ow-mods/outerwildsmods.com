@@ -9,7 +9,7 @@ export const get: RequestHandler = async ({ params }) => {
 	const rawContentUrl = getRawContentUrl(`https://github.com/${userName}/${repoName}`);
 	const readme = await getModReadme(rawContentUrl);
 	const images = getAllMarkdownImages(readme);
-	const externalImages = await getImageMap(rawContentUrl, '', images);
+	const externalImages = await getImageMap(rawContentUrl, images);
 
 	return {
 		body: JSON.stringify({

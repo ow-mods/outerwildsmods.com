@@ -42,7 +42,6 @@ export const get: RequestHandler = async () => {
 				images.length > 0
 					? await getImageMap(
 							rawContentUrl,
-							mod.name,
 							[images[0]],
 							listedImageSize.width,
 							listedImageSize.height
