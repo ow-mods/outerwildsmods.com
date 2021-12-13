@@ -41,6 +41,7 @@ export const getImageData = async (
 	return await getOptimizedImage(fullUrl, resizeWidth, resizeHeight);
 };
 
+// todo get rid of modname
 export const getImageMap = async (
 	baseUrl: string,
 	modName: string,

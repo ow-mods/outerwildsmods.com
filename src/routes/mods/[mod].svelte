@@ -19,11 +19,7 @@
 			};
 
 		const result = await fetch(
-			`/api/mod.json?` +
-				new URLSearchParams({
-					repo: mod.repo,
-					name: mod.name,
-				})
+			`/api/${encodeURIComponent(mod.repo)}.json`
 		);
 
 		if (!result.ok) {
