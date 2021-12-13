@@ -56,7 +56,8 @@ export const getOptimizedImage = async (
 	const sharpImage = sharp(downloadedImagePath);
 	const imageMetadata = await sharpImage.metadata();
 	const width = Math.min(800, resizeWidth ?? imageMetadata.width ?? 0);
-	const height = resizeHeight ?? imageMetadata.height;
+	const resizeRatio = imageMetadata.width ? width / imageMetadata.width : 1;
+	const height = resizeHeight ?? imageMetadata.height ?? 0 * resizeRatio;
 	const format = imageMetadata.format;
 	const isSvg = format === 'svg';
 
@@ -69,6 +70,8 @@ export const getOptimizedImage = async (
 	const staticDir = import.meta.env.PROD ? 'build' : 'static';
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
+
+	// TODO file name doesnt reflect real size. Maybe it shouldn't 🤷‍♂️
 	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.${isSvg ? 'svg' : 'webp'}`;
 	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
 
@@ -78,14 +81,23 @@ export const getOptimizedImage = async (
 
 	if (isSvg) {
 		await fsp.copyFile(downloadedImagePath, optimizedImagePath);
-	} else {
-		await sharpImage.resize({ width, height, fit, position: 'left' }).toFile(optimizedImagePath);
-	}
 
-	return {
-		url: `${optimizedDir}/${fileName}`,
-		width,
-		height,
-		format,
-	};
+		return {
+			url: `${optimizedDir}/${fileName}`,
+			width,
+			height,
+			format,
+		};
+	} else {
+		const resizedImage = await sharpImage
+			.resize({ width, height, fit, position: 'left' })
+			.toFile(optimizedImagePath);
+
+		return {
+			url: `${optimizedDir}/${fileName}`,
+			width: resizedImage.width,
+			height: resizedImage.height,
+			format,
+		};
+	}
 };
