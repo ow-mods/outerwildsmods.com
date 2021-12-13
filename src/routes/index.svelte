@@ -1,38 +1,19 @@
+<script lang="ts" context="module">
+	export const hydrate = false;
+</script>
+
 <script lang="ts">
+	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+
 	import LinkButton from '$lib/components/link-button.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
-	import ListItemCard from '$lib/components/list-item-card.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-
-	const featuredMods = [
-		{
-			title: 'NomaiVR',
-			description: 'Adds support for VR devices. Full motion control support.',
-			path: 'nomaivr',
-			image: '/images/nomai-vr.png',
-		},
-		{
-			title: 'QSB',
-			description: 'Quantum Space Buddies. Adds online multiplayer to the game.',
-			path: 'quantumspacebuddies',
-			image: '/images/qsb.jpg',
-		},
-		{
-			title: 'Light Bramble',
-			description:
-				'Makes the Dark Bramble less scary. Options to remove scary elements individually.',
-			path: 'lightbramble',
-			image: '/images/light-bramble.jpg',
-		},
-		{
-			title: 'More mods',
-			path: '',
-		},
-	];
+	import { getModRepo } from '$lib/helpers/get-mod-repo';
+	import { modsStore } from '$lib/store';
 
 	const infoLinks = [
 		{
@@ -64,6 +45,11 @@
 		{ text: 'Reddit', href: 'https://reddit.com/r/outerwilds' },
 		{ text: 'Discord', href: 'https://discord.gg/RaSjRbm' },
 	];
+
+	let randomFeaturedMods = $modsStore.standardMods
+		.filter((mod) => mod.imageUrl)
+		.sort(() => Math.random() * 2 - 1)
+		.slice(0, 4);
 </script>
 
 <svelte:head>
@@ -88,11 +74,18 @@
 		</div>
 	</PageSection>
 	<PageSection title="Some of the available mods" id="mods">
-		{#each featuredMods as mod}
-			<a class="link" sveltekit:prefetch href={`/mods/${mod.path}`}>
-				<ListItemCard title={mod.title} description={mod.description} imageUrl={mod.image} />
-			</a>
-		{/each}
+		<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+			{#each randomFeaturedMods as mod, index}
+				<a class="link" sveltekit:prefetch href={getModRepo(mod)}>
+					<CardGridItem
+						{index}
+						title={mod.name}
+						description={mod.description}
+						imageUrl={mod.imageUrl || undefined}
+					/>
+				</a>
+			{/each}
+		</div>
 	</PageSection>
 	<PageSection
 		title="Outer Wilds?"

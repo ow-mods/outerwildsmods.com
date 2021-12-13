@@ -13,17 +13,17 @@
 
 <div class="py-4">
 	{#if title}
-		<PageSectionTitle id="{id}">{title}</PageSectionTitle>
+		<PageSectionTitle {id}>{title}</PageSectionTitle>
 	{/if}
 	{#if imageUrl || description}
 		<PageSectionColumns>
 			{#if description}
-				<PageSectionDescription description="{description}">
+				<PageSectionDescription {description}>
 					<slot />
 				</PageSectionDescription>
 			{/if}
 			{#if imageUrl}
-				<PageSectionImage imageUrl="{imageUrl}" title="{title}" />
+				<PageSectionImage {imageUrl} {title} />
 			{/if}
 		</PageSectionColumns>
 	{:else}

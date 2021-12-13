@@ -12,7 +12,7 @@
 <div
 	class="bg-dark w-full h-full rounded-lg overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
 >
-	<div class="relative" style="{imageUrl ? undefined : getHueFromText(title)}">
+	<div class="relative" style={imageUrl ? undefined : getHueFromText(title)}>
 		{#if !imageUrl}
 			<div
 				class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-2xl p-3 text-center"
@@ -22,11 +22,11 @@
 		{/if}
 		<img
 			class="w-full object-cover"
-			alt="{title}"
-			src="{imageUrl || '/images/placeholder.jpg'}"
-			loading="{!imageUrl || index <= 3 ? 'eager' : 'lazy'}"
-			width="{listedImageSize.width}"
-			height="{listedImageSize.height}"
+			alt={title}
+			src={imageUrl || '/images/placeholder.jpg'}
+			loading={!imageUrl || index <= 3 ? 'eager' : 'lazy'}
+			width={listedImageSize.width}
+			height={listedImageSize.height}
 		/>
 	</div>
 	<div class="p-3">

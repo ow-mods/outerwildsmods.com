@@ -1,13 +1,15 @@
 <script lang="ts" context="module">
 	import type { ErrorLoad } from '@sveltejs/kit';
 
+	export const hydrate = false;
+
 	export const load: ErrorLoad = ({ error, status }) => {
 		return {
 			props: {
-				message: `${status}: ${error?.message}`
-			}
+				message: `${status}: ${error?.message}`,
+			},
 		};
-	}
+	};
 </script>
 
 <script lang="ts">
