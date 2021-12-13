@@ -3,7 +3,10 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { modsStore } from '$lib/store';
 
-	export const hydrate = false;
+ const getModRepoName = (mod: Mod): string => {
+	const repoParts = mod.repo.split('/');
+	return repoParts[repoParts.length - 1].toLowerCase();
+};
 
 	export const load: Load = async ({ fetch, page }) => {
 		const mods = await readFromStore(modsStore);
@@ -19,13 +22,13 @@
 			};
 
 		const result = await fetch(
-			`/api/${encodeURIComponent(mod.repo)}.json`
+			`/api/${mod.author}/${getModRepoName(mod)}.json`
 		);
 
 		if (!result.ok) {
 			return {
 				status: result.status,
-				error: new Error(`Could not load mod. ${result.body}`),
+				error: new Error(`Could not load mod. ${await result.text()}`),
 			};
 		}
 

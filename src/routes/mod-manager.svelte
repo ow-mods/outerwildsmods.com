@@ -1,7 +1,3 @@
-<script lang="ts" context="module">
-	export const hydrate = false;
-</script>
-
 <script lang="ts">
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 import LinkButton from '$lib/components/button/link-button.svelte';
