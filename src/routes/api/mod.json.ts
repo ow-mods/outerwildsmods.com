@@ -1,11 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getModRepo } from '$lib/helpers/get-mod-repo';
-import { getModDatabase } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
 import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
 
-export const get: RequestHandler = async ({ params, query }) => {
+export const get: RequestHandler = async ({ query }) => {
 	const repo = query.get('repo');
 	const name = query.get('name');
 

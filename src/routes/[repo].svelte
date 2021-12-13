@@ -16,7 +16,7 @@
 			error: new Error(`Could not find mod ${page.params.repo}. ${JSON.stringify(store)}`),
 		};
 
-		const result = await fetch(`/api/repo/${page.params.repo}.json?` + new URLSearchParams({
+		const result = await fetch(`/api/mod.json?` + new URLSearchParams({
 			repo: mod.repo,
 			name: mod.name,
 		}));
