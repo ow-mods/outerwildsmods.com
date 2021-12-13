@@ -5,7 +5,7 @@
 </script>
 
 <a
-	class="flex outline outline-background text-center items-center justify-center rounded p-2 bg-cta text-white bg-opacity-80 hover:bg-opacity-100"
+	class="button bg-cta text-white bg-opacity-80 hover:bg-opacity-100"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
