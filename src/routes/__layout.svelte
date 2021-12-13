@@ -1,11 +1,38 @@
+<script lang="ts" context="module">
+	import type { Load } from '@sveltejs/kit';
+	export const load: Load = async ({ fetch }) => {
+		console.log('loading in layout');
+
+		const result = await fetch('/api/mods.json');
+
+		if (result.ok) {
+			return {
+				props: await result.json(),
+			};
+		}
+
+		return {
+			status: result.status,
+			error: new Error(`Could not load mods`),
+		};
+	};
+</script>
+
 <script lang="ts">
-	import { writable } from 'svelte/store';
 	import Header from '$lib/components/header/header.svelte';
 	import Footer from '$lib/components/footer.svelte';
 	import '../preflight.css';
 	import '../app.css';
+	import type { ModsRequestItem, ModsRequestResult } from './api/mods.json';
+	import { modsStore } from '$lib/store';
 
-	export const store = writable('hello boy');
+	export let standardMods: ModsRequestItem[];
+	export let utilityMods: ModsRequestItem[];
+
+	modsStore.set({
+		standardMods,
+		utilityMods,
+	});
 </script>
 
 <Header />

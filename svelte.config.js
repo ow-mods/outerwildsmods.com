@@ -7,22 +7,22 @@ const config = {
 	// for more information about preprocessors
 	preprocess: [
 		preprocess({
-			postcss: true
-		})
+			postcss: true,
+		}),
 	],
 	kit: {
 		adapter: adapter(),
 		prerender: {
 			// TODO maybe not
-			onError: 'continue'
+			onError: 'continue',
 		},
 		target: '#svelte',
 		vite: {
 			optimizeDeps: {
-				exclude: ['marked']
-			}
-		}
-	}
+				exclude: ['marked'],
+			},
+		},
+	},
 };
 
 export default config;

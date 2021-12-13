@@ -1,3 +1,7 @@
+<script lang="ts" context="module">
+	export const hydrate = false;
+</script>
+
 <script lang="ts">
 	import LinkButton from '$lib/components/link-button.svelte';
 	import ListItemCard from '$lib/components/list-item-card.svelte';

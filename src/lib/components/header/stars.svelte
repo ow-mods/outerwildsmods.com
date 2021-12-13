@@ -40,20 +40,20 @@
 <svg
 	class="starLayer starLayer1"
 	preserveAspectRatio="xMinYMin slice"
-	viewBox="{`0 0 ${width} ${height}`}"
+	viewBox={`0 0 ${width} ${height}`}
 >
 	{#each starData1 as star}
-		<circle cx="{star.x}" cy="{star.y}" r="{star.radius}" opacity="{star.opacity}"></circle>
+		<circle cx={star.x} cy={star.y} r={star.radius} opacity={star.opacity} />
 	{/each}
 </svg>
 <svg
 	class="starLayer starLayer2"
 	preserveAspectRatio="xMinYMin slice"
-	viewBox="{`0 0 ${width} ${height}`}"
+	viewBox={`0 0 ${width} ${height}`}
 	fill="white"
 >
 	{#each starData2 as star}
-		<circle cx="{star.x}" cy="{star.y}" r="{star.radius}" opacity="{star.opacity}"></circle>
+		<circle cx={star.x} cy={star.y} r={star.radius} opacity={star.opacity} />
 	{/each}
 </svg>
 
