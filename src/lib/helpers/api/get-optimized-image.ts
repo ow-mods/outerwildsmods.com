@@ -86,6 +86,6 @@ export const getOptimizedImage = async (
 		url: `${optimizedDir}/${fileName}`,
 		width,
 		height,
-		format
+		format,
 	};
 };

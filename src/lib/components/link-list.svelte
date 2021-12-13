@@ -9,7 +9,7 @@
 
 <div class="flex flex-col gap-2 mt-4">
 	{#each links as { href, text }}
-		<a class="link" href="{href}" target="_blank" rel="noopener noreferrer">
+		<a class="link" {href} target="_blank" rel="noopener noreferrer">
 			{text}
 		</a>
 	{/each}

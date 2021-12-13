@@ -1,3 +1,7 @@
+<script lang="ts" context="module">
+	export const hydrate = false;
+</script>
+
 <script lang="ts">
 	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';

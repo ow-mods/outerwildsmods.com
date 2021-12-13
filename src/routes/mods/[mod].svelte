@@ -8,17 +8,23 @@
 	export const load: Load = async ({ fetch, page }) => {
 		const store = await readFromStore(modsStore);
 
-		const mod = store.standardMods.find((mod) => getModPathName(mod.name) === page.params.mod.toLowerCase());
+		const mod = store.standardMods.find(
+			(mod) => getModPathName(mod.name) === page.params.mod.toLowerCase()
+		);
 
-		if (!mod) return {
-			status: 404,
-			error: new Error(`Could not find mod ${page.params.repo}. ${JSON.stringify(store)}`),
-		};
+		if (!mod)
+			return {
+				status: 404,
+				error: new Error(`Could not find mod ${page.params.repo}. ${JSON.stringify(store)}`),
+			};
 
-		const result = await fetch(`/api/mod.json?` + new URLSearchParams({
-			repo: mod.repo,
-			name: mod.name,
-		}));
+		const result = await fetch(
+			`/api/mod.json?` +
+				new URLSearchParams({
+					repo: mod.repo,
+					name: mod.name,
+				})
+		);
 
 		if (!result.ok) {
 			return {
@@ -27,10 +33,7 @@
 			};
 		}
 
-		const {
-			readme,
-			externalImages,
-		} = await result.json();
+		const { readme, externalImages } = await result.json();
 
 		return {
 			props: {
@@ -48,7 +51,7 @@
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import type { ImageMap } from '$lib/helpers/api/get-markdown-images';
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
-import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;
