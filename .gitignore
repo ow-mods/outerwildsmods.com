@@ -8,6 +8,7 @@ node_modules
 .vercel
 .output
 tmp
+.pnpm-debug.log
 
 # Optimized images generated from external sources
 static/images/optimized
