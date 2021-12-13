@@ -1,8 +1,6 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
 	export const load: Load = async ({ fetch }) => {
-		console.log('loading in layout');
-
 		const result = await fetch('/api/mods.json');
 
 		if (result.ok) {
