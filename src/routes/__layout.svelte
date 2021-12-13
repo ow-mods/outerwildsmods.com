@@ -3,7 +3,7 @@
 	export const load: Load = async ({ fetch }) => {
 		console.log('loading in layout');
 
-		const result = await fetch('/api/mods/mods.json');
+		const result = await fetch('/api/mods.json');
 
 		if (result.ok) {
 			return {
@@ -23,7 +23,7 @@
 	import Footer from '$lib/components/footer.svelte';
 	import '../preflight.css';
 	import '../app.css';
-	import type { ModsRequestItem, ModsRequestResult } from './api/mods/mods.json';
+	import type { ModsRequestItem, ModsRequestResult } from './api/mods.json';
 	import { modsStore } from '$lib/store';
 
 	export let standardMods: ModsRequestItem[];
