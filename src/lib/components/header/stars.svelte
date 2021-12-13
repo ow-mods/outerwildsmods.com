@@ -42,7 +42,7 @@
 	preserveAspectRatio="xMinYMin slice"
 	viewBox={`0 0 ${width} ${height}`}
 >
-	{#each starData1 as star}
+	{#each starData1 as star (star.id)}
 		<circle cx={star.x} cy={star.y} r={star.radius} opacity={star.opacity} />
 	{/each}
 </svg>
@@ -52,7 +52,7 @@
 	viewBox={`0 0 ${width} ${height}`}
 	fill="white"
 >
-	{#each starData2 as star}
+	{#each starData2 as star (star.id)}
 		<circle cx={star.x} cy={star.y} r={star.radius} opacity={star.opacity} />
 	{/each}
 </svg>

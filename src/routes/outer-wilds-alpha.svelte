@@ -65,7 +65,7 @@
 		<PageSectionDescription
 			description="Using DIMOWA, it is possible to install some mods in the Alpha version of Outer Wilds."
 		/>
-		{#each alphaMods as mod}
+		{#each alphaMods as mod (mod.href)}
 			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
 				<ListItemCard title={mod.name} description={mod.description} />
 			</a>

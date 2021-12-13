@@ -76,7 +76,7 @@
 	</PageSection>
 	<PageSection title="Some of the available mods" id="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 my-4">
-			{#each randomFeaturedMods as mod, index}
+			{#each randomFeaturedMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}

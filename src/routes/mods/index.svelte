@@ -21,7 +21,7 @@
 <PageLayout isWide>
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
-			{#each $modsStore.standardMods as mod, index}
+			{#each $modsStore.standardMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}
@@ -38,7 +38,7 @@
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>
 		<CardGrid>
-			{#each $modsStore.utilityMods as mod, index}
+			{#each $modsStore.utilityMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}
