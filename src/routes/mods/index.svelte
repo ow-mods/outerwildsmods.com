@@ -7,7 +7,7 @@
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { getModRepo } from '$lib/helpers/get-mod-repo';
+	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import { modsStore } from '$lib/store';
 </script>
 
@@ -22,7 +22,7 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each $modsStore.standardMods as mod, index}
-				<a class="link" sveltekit:prefetch href={`/${getModRepo(mod)}`}>
+				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}
 						title={mod.name}
@@ -39,7 +39,7 @@
 		</p>
 		<CardGrid>
 			{#each $modsStore.utilityMods as mod, index}
-				<a class="link" sveltekit:prefetch href={getModRepo(mod)}>
+				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}
 						title={mod.name}

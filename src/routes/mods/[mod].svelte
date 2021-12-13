@@ -15,7 +15,7 @@
 		if (!mod)
 			return {
 				status: 404,
-				error: new Error(`Could not find mod ${page.params.repo}. ${JSON.stringify(store)}`),
+				error: new Error(`Could not find mod ${page.params.mod}. ${JSON.stringify(store)}`),
 			};
 
 		const result = await fetch(

@@ -7,15 +7,14 @@
 
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
-import ListItemCard from '$lib/components/list-item-card.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { getModRepo } from '$lib/helpers/get-mod-repo';
 	import { modsStore } from '$lib/store';
-import CtaButton from '$lib/components/button/cta-button.svelte';
+	import CtaButton from '$lib/components/button/cta-button.svelte';
+	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 
 	const infoLinks = [
 		{
@@ -78,7 +77,7 @@ import CtaButton from '$lib/components/button/cta-button.svelte';
 	<PageSection title="Some of the available mods" id="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 my-4">
 			{#each randomFeaturedMods as mod, index}
-				<a class="link" sveltekit:prefetch href={getModRepo(mod)}>
+				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}
 						title={mod.name}
