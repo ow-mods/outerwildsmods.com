@@ -83,9 +83,7 @@
 				</a>
 			{/each}
 		</div>
-		<LinkButton href="/mods">
-			More Mods...
-		</LinkButton>
+		<LinkButton href="/mods">More Mods...</LinkButton>
 	</PageSection>
 	<PageSection
 		title="Outer Wilds?"

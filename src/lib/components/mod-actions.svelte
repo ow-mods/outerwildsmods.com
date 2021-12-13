@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
-import CtaButton from './button/cta-button.svelte';
+	import CtaButton from './button/cta-button.svelte';
 	import LinkButton from './button/link-button.svelte';
 
 	export let mod: Mod;

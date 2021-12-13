@@ -8,7 +8,7 @@
 			return {
 				props: {
 					mods: await result.json(),
-				}
+				},
 			};
 		}
 

@@ -3,17 +3,15 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { modsStore } from '$lib/store';
 
- const getModRepoName = (mod: Mod): string => {
-	const repoParts = mod.repo.split('/');
-	return repoParts[repoParts.length - 1].toLowerCase();
-};
+	const getModRepoName = (mod: Mod): string => {
+		const repoParts = mod.repo.split('/');
+		return repoParts[repoParts.length - 1].toLowerCase();
+	};
 
 	export const load: Load = async ({ fetch, page }) => {
 		const mods = await readFromStore(modsStore);
 
-		const mod = mods.find(
-			(mod) => getModPathName(mod.name) === page.params.mod.toLowerCase()
-		);
+		const mod = mods.find((mod) => getModPathName(mod.name) === page.params.mod.toLowerCase());
 
 		if (!mod)
 			return {
@@ -21,9 +19,7 @@
 				error: new Error(`Could not find mod ${page.params.mod}.`),
 			};
 
-		const result = await fetch(
-			`/api/${mod.author}/${getModRepoName(mod)}.json`
-		);
+		const result = await fetch(`/api/${mod.author}/${getModRepoName(mod)}.json`);
 
 		if (!result.ok) {
 			return {
