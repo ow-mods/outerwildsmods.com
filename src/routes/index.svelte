@@ -47,8 +47,8 @@
 		{ text: 'Discord', href: 'https://discord.gg/RaSjRbm' },
 	];
 
-	let randomFeaturedMods = $modsStore.standardMods
-		.filter((mod) => mod.imageUrl)
+	let randomFeaturedMods = $modsStore
+		.filter((mod) => mod.imageUrl && !mod.utility)
 		.sort(() => Math.random() * 2 - 1)
 		.slice(0, 4);
 </script>

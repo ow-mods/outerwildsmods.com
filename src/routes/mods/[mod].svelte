@@ -6,16 +6,16 @@
 	export const hydrate = false;
 
 	export const load: Load = async ({ fetch, page }) => {
-		const store = await readFromStore(modsStore);
+		const mods = await readFromStore(modsStore);
 
-		const mod = store.standardMods.find(
+		const mod = mods.find(
 			(mod) => getModPathName(mod.name) === page.params.mod.toLowerCase()
 		);
 
 		if (!mod)
 			return {
 				status: 404,
-				error: new Error(`Could not find mod ${page.params.mod}. ${JSON.stringify(store)}`),
+				error: new Error(`Could not find mod ${page.params.mod}.`),
 			};
 
 		const result = await fetch(

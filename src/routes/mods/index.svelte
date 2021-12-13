@@ -9,6 +9,9 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import { modsStore } from '$lib/store';
+
+	const standardMods = $modsStore.filter((mod) => !mod.utility);
+	const utilityMods = $modsStore.filter((mod) => mod.utility);
 </script>
 
 <svelte:head>
@@ -21,7 +24,7 @@
 <PageLayout isWide>
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
-			{#each $modsStore.standardMods as mod, index (mod.uniqueName)}
+			{#each standardMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}
@@ -38,7 +41,7 @@
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>
 		<CardGrid>
-			{#each $modsStore.utilityMods as mod, index (mod.uniqueName)}
+			{#each utilityMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
 						{index}

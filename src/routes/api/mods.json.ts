@@ -22,11 +22,6 @@ export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
 }
 
-export type ModsRequestResult = {
-	standardMods: ModsRequestItem[];
-	utilityMods: ModsRequestItem[];
-};
-
 export const get: RequestHandler = async () => {
 	const modDatabase = await getModDatabase();
 
@@ -37,7 +32,7 @@ export const get: RequestHandler = async () => {
 		};
 	}
 
-	const mods = await Promise.all(
+	const mods: ModsRequestItem[] = await Promise.all(
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
 			const readme = await getModReadme(rawContentUrl);
@@ -65,10 +60,5 @@ export const get: RequestHandler = async () => {
 		})
 	);
 
-	const standardMods = mods.filter((mod) => !mod.utility);
-	const utilityMods = mods.filter((mod) => mod.utility);
-
-	const result: ModsRequestResult = { standardMods, utilityMods };
-
-	return { body: JSON.stringify(result) };
+	return { body: JSON.stringify(mods) };
 };

@@ -5,7 +5,9 @@
 
 		if (result.ok) {
 			return {
-				props: await result.json(),
+				props: {
+					mods: await result.json(),
+				}
 			};
 		}
 
@@ -21,16 +23,12 @@
 	import Footer from '$lib/components/footer.svelte';
 	import '../preflight.css';
 	import '../app.css';
-	import type { ModsRequestItem, ModsRequestResult } from './api/mods.json';
+	import type { ModsRequestItem } from './api/mods.json';
 	import { modsStore } from '$lib/store';
 
-	export let standardMods: ModsRequestItem[];
-	export let utilityMods: ModsRequestItem[];
+	export let mods: ModsRequestItem[];
 
-	modsStore.set({
-		standardMods,
-		utilityMods,
-	});
+	$modsStore = mods;
 </script>
 
 <Header />
