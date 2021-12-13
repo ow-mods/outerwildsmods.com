@@ -6,7 +6,7 @@
 
 <header class="relative text-center overflow-hidden">
 	<GithubCorner />
-	<Stars />
+	<!-- <Stars /> -->
 	<h1 class="p-4 text-4xl m-0">
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
 	</h1>
