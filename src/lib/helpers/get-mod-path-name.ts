@@ -1,1 +1,1 @@
-export const getModPathName = (modName: string) => modName.replace(/ /g, '').toLowerCase();
+export const getModPathName = (modName: string) => modName.replace(/\W/g, '').toLowerCase();
