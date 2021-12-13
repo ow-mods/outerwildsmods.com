@@ -1,8 +1,23 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
+	import { readFromStore } from '$lib/helpers/read-from-store';
+	import { modsStore } from '$lib/store';
+	import { getModRepo } from '$lib/helpers/get-mod-repo';
 
 	export const load: Load = async ({ fetch, page }) => {
-		const result = await fetch(`/api/repo/${page.params.repo}.json`);
+		const store = await readFromStore(modsStore);
+
+		const mod = store.standardMods.find((mod) => getModRepo(mod) === page.params.repo.toLowerCase());
+
+		if (!mod) return {
+			status: 404,
+			error: new Error(`Could not find mod ${page.params.repo}. ${JSON.stringify(store)}`),
+		};
+
+		const result = await fetch(`/api/repo/${page.params.repo}.json?` + new URLSearchParams({
+			repo: mod.repo,
+			name: mod.name,
+		}));
 
 		if (!result.ok) {
 			return {
@@ -11,8 +26,17 @@
 			};
 		}
 
+		const {
+			readme,
+			externalImages,
+		} = await result.json();
+
 		return {
-			props: await result.json(),
+			props: {
+				mod,
+				readme,
+				externalImages,
+			},
 		};
 	};
 </script>
