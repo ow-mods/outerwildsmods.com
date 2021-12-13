@@ -1,3 +1,17 @@
+<script context="module" lang="ts">
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async ({ fetch }) => {
+		const featuredModNames: string[] = await (await fetch('/api/featured-mods.json')).json();
+
+		return {
+			props: {
+				featuredModNames,
+			},
+		};
+	}
+</script>
+
 <script lang="ts">
 	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
 
@@ -8,9 +22,9 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { modsStore } from '$lib/store';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import { modsStore } from '$lib/store';
 
 	const infoLinks = [
 		{
@@ -43,10 +57,8 @@
 		{ text: 'Discord', href: 'https://discord.gg/RaSjRbm' },
 	];
 
-	let randomFeaturedMods = $modsStore
-		.filter((mod) => mod.imageUrl && !mod.utility)
-		.sort(() => Math.random() * 2 - 1)
-		.slice(0, 4);
+	export let featuredModNames: string[] = [];
+	const featuredMods = featuredModNames.map(name => $modsStore.find(mod => mod.uniqueName === name));
 </script>
 
 <svelte:head>
@@ -72,10 +84,9 @@
 	</PageSection>
 	<PageSection title="Some of the available mods" id="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 my-4">
-			{#each randomFeaturedMods as mod, index (mod.uniqueName)}
+			{#each featuredMods as mod (mod?.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
-						{index}
 						title={mod.name}
 						description={mod.description}
 						imageUrl={mod.imageUrl || undefined}
