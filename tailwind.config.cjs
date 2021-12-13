@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss/tailwind-config').TailwindConfig} */
 const config = {
 	mode: 'jit',
-	purge: ['./src/**/*.{html,js,svelte,ts}'],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 	corePlugins: {
 		preflight: false,
 	},
