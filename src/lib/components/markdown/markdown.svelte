@@ -56,7 +56,7 @@
 	}
 
 	.markdown :global(li) {
-		padding-bottom: theme('spacing.1');
+		padding: theme('spacing.1') 0;
 	}
 
 	.markdown :global(img) {
