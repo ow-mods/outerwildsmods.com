@@ -1,6 +1,5 @@
 import type { ModsRequestResult } from '../routes/api/mods.json';
-import { derived, writable } from 'svelte/store';
-import { getModRepo } from './helpers/get-mod-repo';
+import { writable } from 'svelte/store';
 
 export const modsStore = writable<ModsRequestResult>({
 	standardMods: [],
