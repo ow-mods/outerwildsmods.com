@@ -5,8 +5,8 @@
 
 	export let title: string;
 	export let description: string | undefined;
-	export let index: number;
 	export let imageUrl: string | undefined;
+	export let lazy = false;
 </script>
 
 <div
@@ -24,7 +24,7 @@
 			class="w-full object-cover"
 			alt={title}
 			src={imageUrl || '/images/placeholder.jpg'}
-			loading={!imageUrl || index <= 3 ? 'eager' : 'lazy'}
+			loading={lazy ? 'lazy' : 'eager'}
 			width={listedImageSize.width}
 			height={listedImageSize.height}
 		/>

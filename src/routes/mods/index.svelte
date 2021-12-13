@@ -23,7 +23,7 @@
 			{#each standardMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
-						{index}
+						lazy={index > 3}
 						title={mod.name}
 						description={mod.description}
 						imageUrl={mod.imageUrl || undefined}
@@ -40,7 +40,7 @@
 			{#each utilityMods as mod, index (mod.uniqueName)}
 				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
 					<CardGridItem
-						{index}
+						lazy={true}
 						title={mod.name}
 						description={mod.description}
 						imageUrl={mod.imageUrl || undefined}
