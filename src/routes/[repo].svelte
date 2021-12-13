@@ -4,6 +4,8 @@
 	import { modsStore } from '$lib/store';
 	import { getModRepo } from '$lib/helpers/get-mod-repo';
 
+	export const hydrate = false;
+
 	export const load: Load = async ({ fetch, page }) => {
 		const store = await readFromStore(modsStore);
 
