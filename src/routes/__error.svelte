@@ -1,6 +1,20 @@
+<script lang="ts" context="module">
+	import type { ErrorLoad } from '@sveltejs/kit';
+
+	export const load: ErrorLoad = ({ error, status }) => {
+		return {
+			props: {
+				message: `${status}: ${error?.message}`
+			}
+		};
+	}
+</script>
+
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+
+	export let message = '';
 </script>
 
 <PageLayout>
@@ -10,4 +24,7 @@
 		id="not-foud"
 		imageUrl="/images/error.png"
 	/>
+	<p>
+		{message}
+	</p>
 </PageLayout>

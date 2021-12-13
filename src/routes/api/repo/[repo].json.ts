@@ -5,36 +5,24 @@ import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
 import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
 
-export const get: RequestHandler = async ({ params }) => {
-	const modDatabase = await getModDatabase();
+export const get: RequestHandler = async ({ params, query }) => {
+	const repo = query.get('repo');
+	const name = query.get('name');
 
-	if (!modDatabase) {
-		return {
-			status: 500,
-			body: 'Failed to retrieve database',
-		};
+	if (!repo || !name) {
+		return;
 	}
 
-	const mod = modDatabase.releases.find((mod) => getModRepo(mod) === params.repo.toLowerCase());
-
-	if (!mod) {
-		return {
-			status: 404,
-			body: 'Mod not found',
-		};
-	}
-
-	const rawContentUrl = getRawContentUrl(mod.repo);
+	const rawContentUrl = getRawContentUrl(repo);
 	const readme = await getModReadme(rawContentUrl);
 	const images = getAllMarkdownImages(readme);
 
-	const externalImages = await getImageMap(rawContentUrl, mod.name, images);
+	const externalImages = await getImageMap(rawContentUrl, name, images);
 
 	return {
 		body: JSON.stringify({
 			...(readme ? { readme } : undefined),
 			externalImages,
-			mod,
 		}),
 	};
 };
