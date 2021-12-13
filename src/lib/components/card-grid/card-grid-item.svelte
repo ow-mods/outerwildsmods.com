@@ -10,7 +10,7 @@
 </script>
 
 <div
-	class="bg-dark w-full h-full rounded-lg overflow-hidden hover:bg-background border-4 border-background hover:border-dark"
+	class="bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline"
 >
 	<div class="relative" style={imageUrl ? undefined : getHueFromText(title)}>
 		{#if !imageUrl}

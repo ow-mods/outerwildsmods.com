@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
-	import LinkButton from './link-button.svelte';
+import CtaButton from './button/cta-button.svelte';
+	import LinkButton from './button/link-button.svelte';
 
 	export let mod: Mod;
 	export let isFullWidth = false;
@@ -20,7 +21,7 @@
 		</div>
 		<div class="buttonsWrapper">
 			<div class="h-8" />
-			<LinkButton href="/mod-manager" primary>Install mod using Mod Manager</LinkButton>
+			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
 			<div class="h-8" />
 			<LinkButton href={mod.downloadUrl}>
 				<small>

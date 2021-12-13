@@ -3,7 +3,8 @@
 </script>
 
 <script lang="ts">
-	import LinkButton from '$lib/components/link-button.svelte';
+	import CtaButton from '$lib/components/button/cta-button.svelte';
+import LinkButton from '$lib/components/button/link-button.svelte';
 
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
@@ -34,10 +35,10 @@
 			/>
 		</div>
 		<div class="my-4">
-			<LinkButton href={installerDownloadUrl} rel="noopener noreferrer" primary>
+			<CtaButton href={installerDownloadUrl} rel="noopener noreferrer">
 				<WindowsIcon />
 				Download the Outer Wilds Mod Manager for Windows
-			</LinkButton>
+			</CtaButton>
 		</div>
 		<p>
 			or{' '}

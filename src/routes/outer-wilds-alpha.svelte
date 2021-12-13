@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import LinkButton from '$lib/components/link-button.svelte';
+	import LinkButton from '$lib/components/button/link-button.svelte';
 	import ListItemCard from '$lib/components/list-item-card.svelte';
 
 	import PageLayout from '$lib/components/page-layout.svelte';
