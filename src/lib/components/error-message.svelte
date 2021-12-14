@@ -5,7 +5,6 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 </script>
 
-
 <PageSection id="not-found" title="Page not found">
 	<PageSectionColumns>
 		<PageSectionDescription
