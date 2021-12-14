@@ -9,7 +9,7 @@
 				featuredModNames,
 			},
 		};
-	}
+	};
 </script>
 
 <script lang="ts">
@@ -58,7 +58,9 @@
 	];
 
 	export let featuredModNames: string[] = [];
-	const featuredMods = featuredModNames.map(name => $modsStore.find(mod => mod.uniqueName === name));
+	const featuredMods = featuredModNames.map((name) =>
+		$modsStore.find((mod) => mod.uniqueName === name)
+	);
 </script>
 
 <svelte:head>
