@@ -1,0 +1,3 @@
+body {
+	@apply text-light font-light text-base bg-darker overflow-y-scroll;
+}

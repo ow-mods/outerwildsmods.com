@@ -14,11 +14,12 @@ const config = {
 			background: '#1f2122',
 			light: 'rgba(255, 255, 255, 0.65)',
 			dark: '#191a1b',
+			darker: '#121416',
 			transparent: 'transparent',
 		},
 		extend: {
 			fontSize: {
-				sm: '0.85em',
+				base: '1.1rem',
 			},
 		},
 	},

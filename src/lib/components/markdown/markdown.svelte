@@ -11,7 +11,7 @@
 	setContext('externalImages', externalImages);
 </script>
 
-<div class="flex-1 markdown text-sm">
+<div class="flex-1 markdown">
 	<SvelteMarkdown
 		source={readme}
 		renderers={{

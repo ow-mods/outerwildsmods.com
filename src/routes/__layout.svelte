@@ -20,8 +20,10 @@
 <script lang="ts">
 	import Header from '$lib/components/header/header.svelte';
 	import Footer from '$lib/components/footer.svelte';
-	import '../preflight.css';
-	import '../app.css';
+	import '../styles/base.css';
+	import '../styles/components.css';
+	import '../styles/utilities.css';
+	import '../styles/app.css';
 </script>
 
 <Header />
