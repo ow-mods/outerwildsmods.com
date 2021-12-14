@@ -8,27 +8,23 @@
 </script>
 
 <div class:wrapper={!isFullWidth} class:flex-1={isFullWidth} class="flex-0 p-4 bg-dark rounded">
-	<div class="sticky top-2 w-52 m-auto">
-		<div>
+	<div class="sticky top-2 lg:w-52 m-auto">
+		<div class="flex flex-col gap-2">
 			<h1 class="m-0 text-2xl">{mod.name}</h1>
 			<a class="link" href={mod.repo} target="_blank" rel="noopener noreferrer">
 				by {mod.author}
 			</a>
-			<p>{mod.description}</p>
-			<div>
-				<small>Downloaded {mod.downloadCount} times</small>
+			<p class="m-0">{mod.description}</p>
+			<small>Downloaded {mod.downloadCount} times</small>
+			<div class="flex flex-col gap-4">
+				<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
+				<LinkButton href={mod.downloadUrl}>
+					<small>
+						<div>Download mod files</div>
+						<div>Version {mod.version}</div>
+					</small>
+				</LinkButton>
 			</div>
-		</div>
-		<div class="buttonsWrapper">
-			<div class="h-8" />
-			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
-			<div class="h-8" />
-			<LinkButton href={mod.downloadUrl}>
-				<small>
-					<div>Download mod files</div>
-					<div>Version {mod.version}</div>
-				</small>
-			</LinkButton>
 		</div>
 	</div>
 </div>
