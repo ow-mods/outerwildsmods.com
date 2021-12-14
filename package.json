@@ -13,6 +13,7 @@
 		"@typescript-eslint/parser": "^5.6.0",
 		"autoprefixer": "^10.4.0",
 		"commonmark": "^0.30.0",
+		"cpy-cli": "^3.1.1",
 		"cssnano": "^5.0.12",
 		"eslint": "^8.4.1",
 		"eslint-config-prettier": "^8.3.0",
@@ -33,13 +34,14 @@
 	},
 	"scripts": {
 		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
+		"build": "svelte-kit build && pnpm run copy404",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"deploy": "gh-pages -t -d build",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"package": "svelte-kit package",
-		"preview": "svelte-kit preview"
+		"preview": "svelte-kit preview",
+		"copy404": "cpy build/404/index.html build --rename=404.html"
 	}
 }
