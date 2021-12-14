@@ -1,6 +1,6 @@
 <a
 	class="absolute top-0 right-0 fill-accent opacity-70 hover:opacity-100"
-	href="https://github.com/Raicuparta/outer-wilds-mods"
+	href="https://github.com/Raicuparta/outerwildsmods.com"
 >
 	<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 250 250">
 		<title>outerwildsmods.com source code</title>
