@@ -24,7 +24,7 @@
 			class="w-full object-cover"
 			alt={title}
 			src={imageUrl || '/images/placeholder.jpg'}
-			loading={lazy ? 'lazy' : 'eager'}
+			loading={imageUrl && lazy ? 'lazy' : 'eager'}
 			width={listedImageSize.width}
 			height={listedImageSize.height}
 		/>
