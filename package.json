@@ -32,7 +32,7 @@
 	},
 	"scripts": {
 		"dev": "svelte-kit dev",
-		"build": "svelte-kit build && pnpm",
+		"build": "svelte-kit build && pnpm run post:build",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"deploy": "gh-pages -t -d build",
@@ -40,7 +40,6 @@
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
-		"copy404": "cpy build/404/index.html build --rename=404.html",
-		"postbuild": "node post-build.mjs"
+		"post:build": "node post-build.mjs"
 	}
 }
