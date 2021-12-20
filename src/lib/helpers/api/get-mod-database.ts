@@ -11,6 +11,7 @@ export type Mod = {
 	downloadCount: number;
 	required?: boolean;
 	utility?: boolean;
+	parent?: string;
 };
 
 export interface ModWithImage extends Mod {

@@ -2,13 +2,23 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import CtaButton from './button/cta-button.svelte';
 	import LinkButton from './button/link-button.svelte';
+	import { modsStore } from '$lib/store';
+	import CardGridItem from './card-grid/card-grid-item.svelte';
+	import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import PageSectionTitle from './page-section/page-section-title.svelte';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
 	export let mod: Mod;
 	export let isFullWidth = false;
+
+	let childMods: ModsRequestItem[] = [];
+	$: {
+		childMods = $modsStore.filter((otherMod) => otherMod.parent === mod.uniqueName);
+	}
 </script>
 
-<div class:wrapper={!isFullWidth} class:flex-1={isFullWidth} class="flex-0 p-4 bg-dark rounded">
-	<div class="sticky top-2 lg:w-52 m-auto">
+<div class:wrapper={!isFullWidth} class:flex-1={isFullWidth} class="flex-0 md:w-52 mx-auto">
+	<div class="bg-dark rounded p-4 mb-4">
 		<div class="flex flex-col gap-2">
 			<h1 class="m-0 text-2xl">{mod.name}</h1>
 			<a class="link" href={mod.repo} target="_blank" rel="noopener noreferrer">
@@ -27,4 +37,18 @@
 			</div>
 		</div>
 	</div>
+	{#if childMods.length > 0}
+		<PageSectionTitle id="child-mods">Addons</PageSectionTitle>
+		<div class="flex flex-col gap-4">
+			{#each childMods as childMod (childMod.uniqueName)}
+				<a class="link" href="/mods/{getModPathName(childMod.name)}/">
+					<CardGridItem
+						description={childMod.description}
+						imageUrl={childMod.imageUrl || undefined}
+						title={childMod.name}
+					/>
+				</a>
+			{/each}
+		</div>
+	{/if}
 </div>

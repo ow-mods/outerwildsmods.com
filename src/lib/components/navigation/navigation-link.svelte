@@ -4,7 +4,7 @@
 	export let href: string;
 	let isActive = false;
 	$: {
-		isActive = $page.path === '/' ? href === $page.path : href.startsWith($page.path);
+		isActive = href === $page.path;
 	}
 </script>
 

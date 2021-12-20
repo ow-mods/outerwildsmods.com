@@ -77,7 +77,7 @@
 
 <PageLayout isWide>
 	{#if mod}
-		<div class="flex flex-col-reverse lg:flex-row gap-4">
+		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme}
 				<Markdown {readme} {externalImages} />
 			{/if}
