@@ -15,6 +15,8 @@
 	$: {
 		childMods = $modsStore.filter((otherMod) => otherMod.parent === mod.uniqueName);
 	}
+
+	const addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
 </script>
 
 <div class:wrapper={!isFullWidth} class:flex-1={isFullWidth} class="flex-0 md:w-52 mx-auto">
@@ -40,6 +42,7 @@
 	{#if childMods.length > 0}
 		<PageSectionTitle id="child-mods">Addons</PageSectionTitle>
 		<div class="flex flex-col gap-4">
+			<LinkButton href={addonsPath}>All Addons...</LinkButton>
 			{#each childMods as childMod (childMod.uniqueName)}
 				<a class="link" href="/mods/{getModPathName(childMod.name)}/">
 					<CardGridItem
@@ -49,6 +52,7 @@
 					/>
 				</a>
 			{/each}
+			<LinkButton href={addonsPath}>All Addons...</LinkButton>
 		</div>
 	{/if}
 </div>
