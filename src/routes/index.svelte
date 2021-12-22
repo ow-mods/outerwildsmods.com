@@ -14,7 +14,6 @@
 
 <script lang="ts">
 	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
-
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
@@ -23,7 +22,6 @@
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
-	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import { modsStore } from '$lib/store';
 
 	const infoLinks = [

@@ -3,7 +3,6 @@
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import { modsStore } from '$lib/store';
 
 	const standardMods = $modsStore.filter((mod) => !mod.utility);
