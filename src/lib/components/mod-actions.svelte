@@ -13,12 +13,12 @@
 
 	let childMods: ModsRequestItem[] = [];
 	let parentMod: ModsRequestItem | undefined;
+	let addonsPath = '';
 	$: {
 		childMods = $modsStore.filter((otherMod) => otherMod.parent === mod.uniqueName);
 		parentMod = $modsStore.find((otherMod) => otherMod.uniqueName === mod.parent);
+		addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
 	}
-
-	const addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
 </script>
 
 <div class:wrapper={!isFullWidth} class:flex-1={isFullWidth} class="flex-0 md:w-52 mx-auto">
