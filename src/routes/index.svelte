@@ -87,13 +87,7 @@
 	<PageSection title="Some of the available mods" id="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 my-4">
 			{#each featuredMods as mod (mod?.uniqueName)}
-				<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(mod.name)}`}>
-					<CardGridItem
-						title={mod.name}
-						description={mod.description}
-						imageUrl={mod.imageUrl || undefined}
-					/>
-				</a>
+				<CardGridItem {mod} />
 			{/each}
 		</div>
 		<LinkButton href="/mods">More Mods...</LinkButton>

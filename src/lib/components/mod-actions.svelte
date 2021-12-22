@@ -43,26 +43,14 @@
 	</div>
 	{#if parentMod}
 		<PageSectionTitle id="child-mods">Parent mod</PageSectionTitle>
-		<a class="link block max-w-sm mx-auto" href="/mods/{getModPathName(parentMod.name)}/">
-			<CardGridItem
-				description={parentMod.description}
-				imageUrl={parentMod.imageUrl || undefined}
-				title={parentMod.name}
-			/>
-		</a>
+		<CardGridItem mod={parentMod} />
 	{/if}
 	{#if childMods.length > 0}
 		<PageSectionTitle id="child-mods">Addons</PageSectionTitle>
 		<div class="flex flex-col gap-4">
 			<LinkButton href={addonsPath}>All Addons...</LinkButton>
 			{#each childMods as childMod (childMod.uniqueName)}
-				<a class="link block max-w-sm mx-auto" href="/mods/{getModPathName(childMod.name)}/">
-					<CardGridItem
-						description={childMod.description}
-						imageUrl={childMod.imageUrl || undefined}
-						title={childMod.name}
-					/>
-				</a>
+				<CardGridItem mod={childMod} />
 			{/each}
 			<LinkButton href={addonsPath}>All Addons...</LinkButton>
 		</div>

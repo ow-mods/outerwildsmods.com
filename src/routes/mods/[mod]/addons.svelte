@@ -20,28 +20,11 @@
 </svelte:head>
 <PageLayout isWide>
 	{#if mod}
-		<a
-			class="link mx-auto max-w-sm block"
-			sveltekit:prefetch
-			href={`/mods/${getModPathName(mod.name)}`}
-		>
-			<CardGridItem
-				title={mod.name}
-				description={mod.description}
-				imageUrl={mod.imageUrl || undefined}
-			/>
-		</a>
+		<CardGridItem {mod} />
 		<PageSection title="Addons for {mod.name}" id="mods">
 			<CardGrid>
 				{#each addons as addon, index (addon.uniqueName)}
-					<a class="link" sveltekit:prefetch href={`/mods/${getModPathName(addon.name)}`}>
-						<CardGridItem
-							lazy={index > 3}
-							title={addon.name}
-							description={addon.description}
-							imageUrl={addon.imageUrl || undefined}
-						/>
-					</a>
+					<CardGridItem lazy={index > 3} mod={addon} />
 				{/each}
 			</CardGrid>
 		</PageSection>
