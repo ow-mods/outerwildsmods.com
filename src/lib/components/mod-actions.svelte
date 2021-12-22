@@ -12,8 +12,10 @@
 	export let isFullWidth = false;
 
 	let childMods: ModsRequestItem[] = [];
+	let parentMod: ModsRequestItem | undefined;
 	$: {
 		childMods = $modsStore.filter((otherMod) => otherMod.parent === mod.uniqueName);
+		parentMod = $modsStore.find((otherMod) => otherMod.uniqueName === mod.parent);
 	}
 
 	const addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
@@ -39,12 +41,22 @@
 			</div>
 		</div>
 	</div>
+	{#if parentMod}
+		<PageSectionTitle id="child-mods">Parent mod</PageSectionTitle>
+		<a class="link block max-w-sm mx-auto" href="/mods/{getModPathName(parentMod.name)}/">
+			<CardGridItem
+				description={parentMod.description}
+				imageUrl={parentMod.imageUrl || undefined}
+				title={parentMod.name}
+			/>
+		</a>
+	{/if}
 	{#if childMods.length > 0}
 		<PageSectionTitle id="child-mods">Addons</PageSectionTitle>
 		<div class="flex flex-col gap-4">
 			<LinkButton href={addonsPath}>All Addons...</LinkButton>
 			{#each childMods as childMod (childMod.uniqueName)}
-				<a class="link" href="/mods/{getModPathName(childMod.name)}/">
+				<a class="link block max-w-sm mx-auto" href="/mods/{getModPathName(childMod.name)}/">
 					<CardGridItem
 						description={childMod.description}
 						imageUrl={childMod.imageUrl || undefined}
