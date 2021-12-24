@@ -7,7 +7,11 @@
 	$: {
 		const rawContentUrl = getContext<string | undefined>('rawContentUrl');
 		// TODO: figure out how to get the blobl/master url instead of using rawContentUrl.
-		processedHref = href.startsWith('http') ? href : `${rawContentUrl}/${href}`;
+		processedHref = href.startsWith('http')
+			? href
+			: href.startsWith('#')
+			? href
+			: `${rawContentUrl}/${href}`;
 	}
 </script>
 
