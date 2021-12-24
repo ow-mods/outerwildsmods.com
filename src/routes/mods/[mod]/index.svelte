@@ -42,11 +42,13 @@
 
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import ModActions from '$lib/components/mod-actions.svelte';
+	import ModActions from '$lib/components/mod-info/mod-actions.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import type { ImageMap } from '$lib/helpers/api/get-markdown-images';
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
+	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 
 	export let readme: string | undefined = undefined;
 	export let mod: Mod | undefined = undefined;
@@ -81,7 +83,11 @@
 			{#if readme}
 				<Markdown {readme} {externalImages} />
 			{/if}
-			<ModActions {mod} isFullWidth={!Boolean(readme)} />
+			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
+				<ModActions {mod} />
+				<ChildMods {mod} />
+				<ParentMod parentUniqueName={mod.parent} />
+			</div>
 		</div>
 	{/if}
 </PageLayout>
