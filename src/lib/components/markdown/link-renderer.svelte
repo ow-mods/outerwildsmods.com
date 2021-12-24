@@ -7,11 +7,14 @@
 	$: {
 		const rawContentUrl = getContext<string | undefined>('rawContentUrl');
 		// TODO: figure out how to get the blobl/master url instead of using rawContentUrl.
-		processedHref = href.startsWith('http')
-			? href
-			: href.startsWith('#')
-			? href
-			: `${rawContentUrl}/${href}`;
+		if (!href.startsWith('http') && !href.startsWith('#')) {
+			processedHref = `${rawContentUrl}/${href}`;
+		} else {
+			const match = href.match(/^(?:https?:\/\/)?(www\.)?outerwildsmods\.com(\/.*)?$/);
+			if (match && match[2]) {
+				processedHref = match[2];
+			}
+		}
 	}
 </script>
 
