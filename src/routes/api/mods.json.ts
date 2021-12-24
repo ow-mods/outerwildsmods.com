@@ -22,6 +22,7 @@ const supportedTypes: (keyof sharp.FormatEnum)[] = [
 export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
 	formattedDownloadCount: string;
+	rawContentUrl: string;
 }
 
 export const get: RequestHandler = async () => {
@@ -58,6 +59,7 @@ export const get: RequestHandler = async () => {
 				...mod,
 				imageUrl: firstExternalImage?.url || null,
 				formattedDownloadCount: formatNumber(mod.downloadCount),
+				rawContentUrl,
 			};
 		})
 	);

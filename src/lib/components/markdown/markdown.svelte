@@ -7,7 +7,9 @@
 
 	export let readme: string;
 	export let externalImages: ImageMap;
+	export let rawContentUrl: string;
 
+	setContext('rawContentUrl', rawContentUrl);
 	setContext('externalImages', externalImages);
 </script>
 

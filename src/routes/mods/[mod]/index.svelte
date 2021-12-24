@@ -49,9 +49,10 @@
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
 	export let readme: string | undefined = undefined;
-	export let mod: Mod | undefined = undefined;
+	export let mod: ModsRequestItem | undefined = undefined;
 	export let externalImages: ImageMap;
 
 	const getDescriptionTerminator = (modDescription: string) => {
@@ -81,7 +82,7 @@
 	{#if mod}
 		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme}
-				<Markdown {readme} {externalImages} />
+				<Markdown {readme} {externalImages} rawContentUrl={mod.rawContentUrl} />
 			{/if}
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
 				<ModActions {mod} />
