@@ -1,4 +1,4 @@
-import { writeFileSync, renameSync } from 'fs';
+import { writeFileSync, renameSync, existsSync } from 'fs';
 import { globby } from 'globby';
 
 const urlBase = 'https://outerwildsmods.com';
@@ -19,7 +19,10 @@ const generateSitemap = async () => {
 };
 
 const move404 = () => {
-	renameSync('build/404/index.html', 'build/404.html');
+	const path404 = 'build/404/index.html';
+	if (existsSync(path404)) {
+		renameSync(path404, 'build/404.html');
+	}
 };
 
 generateSitemap();
