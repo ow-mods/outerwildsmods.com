@@ -15,11 +15,6 @@ const config = {
 			onError: 'continue',
 		},
 		target: '#svelte',
-		vite: {
-			optimizeDeps: {
-				exclude: ['marked', 'millify'],
-			},
-		},
 	},
 };
 
