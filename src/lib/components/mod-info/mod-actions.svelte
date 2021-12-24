@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-database';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import CtaButton from '../button/cta-button.svelte';
 	import LinkButton from '../button/link-button.svelte';
 
-	export let mod: Mod;
+	export let mod: ModsRequestItem;
 </script>
 
 <div class="bg-dark rounded p-4 mb-4">
@@ -13,7 +13,7 @@
 			by {mod.author}
 		</a>
 		<p class="m-0">{mod.description}</p>
-		<small>Downloaded {mod.downloadCount} times</small>
+		<small>↓ {mod.formattedDownloadCount}</small>
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
 			<LinkButton href={mod.downloadUrl}>
