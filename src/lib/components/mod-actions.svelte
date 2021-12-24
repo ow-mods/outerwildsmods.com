@@ -42,8 +42,10 @@
 		</div>
 	</div>
 	{#if parentMod}
-		<PageSectionTitle id="child-mods">Parent mod</PageSectionTitle>
-		<CardGridItem mod={parentMod} />
+		<div>
+			<PageSectionTitle id="child-mods">Parent mod</PageSectionTitle>
+			<CardGridItem mod={parentMod} />
+		</div>
 	{/if}
 	{#if childMods.length > 0}
 		<PageSectionTitle id="child-mods">Addons</PageSectionTitle>
