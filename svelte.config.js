@@ -17,7 +17,7 @@ const config = {
 		target: '#svelte',
 		vite: {
 			optimizeDeps: {
-				exclude: ['marked'],
+				exclude: ['marked', 'millify'],
 			},
 		},
 	},

@@ -20,6 +20,11 @@
 				{mod.name}
 			</div>
 		{/if}
+		<span
+			class="absolute right-0 top-0 text-xs opacity-50 text-opacity-80 text-white bg-dark px-1 rounded-bl-md"
+		>
+			↓ {mod.formattedDownloadCount}
+		</span>
 		<img
 			class="w-full object-cover"
 			alt={mod.name}

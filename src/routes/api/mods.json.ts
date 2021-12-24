@@ -6,6 +6,7 @@ import type { Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
 import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
+import millify from 'millify';
 
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',
@@ -20,6 +21,7 @@ const supportedTypes: (keyof sharp.FormatEnum)[] = [
 
 export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
+	formattedDownloadCount: string;
 }
 
 export const get: RequestHandler = async () => {
@@ -55,6 +57,7 @@ export const get: RequestHandler = async () => {
 			return {
 				...mod,
 				imageUrl: firstExternalImage?.url || null,
+				formattedDownloadCount: millify(mod.downloadCount),
 			};
 		})
 	);
