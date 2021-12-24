@@ -9,6 +9,7 @@
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
+	sveltekit:prefetch={isExternal ? null : true}
 >
 	<slot />
 </a>

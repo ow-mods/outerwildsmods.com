@@ -10,6 +10,7 @@
 
 <a
 	href="/mods/{getModPathName(mod.name)}/"
+	sveltekit:prefetch
 	class="link block max-w-sm mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline"
 >
 	<div class="relative" style={mod.imageUrl ? undefined : getHueFromText(mod.name)}>
