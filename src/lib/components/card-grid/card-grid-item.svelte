@@ -32,10 +32,8 @@
 	<div class="p-3">
 		<span>{mod.name}</span>
 		{#if mod.description}
-			<div class="leading-tight">
-				<span class="text-light">
-					<small>{mod.description} </small>
-				</span>
+			<div class="text-light text-sm">
+				{mod.description}
 			</div>
 		{/if}
 	</div>
