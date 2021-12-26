@@ -11,7 +11,7 @@ export type ImageInfo = {
 
 export type ImageMap = Record<string, ImageInfo | null>;
 
-export const getAllMarkdownImages = (markdown: string | null): string[] => {
+export const getAllMarkdownImages = (markdown?: string): string[] => {
 	if (!markdown) return [];
 
 	const parsed = new Parser().parse(markdown);
