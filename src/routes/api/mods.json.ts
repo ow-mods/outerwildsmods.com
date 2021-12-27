@@ -38,7 +38,7 @@ export const get: RequestHandler = async () => {
 	const mods: ModsRequestItem[] = await Promise.all(
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
-			const readme = await getModReadme(mod);
+			const readme = await getModReadme(rawContentUrl);
 			const images = getAllMarkdownImages(readme);
 
 			const externalImages =

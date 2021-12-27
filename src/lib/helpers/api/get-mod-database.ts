@@ -12,10 +12,6 @@ export type Mod = {
 	required?: boolean;
 	utility?: boolean;
 	parent?: string;
-	readme?: {
-		htmlUrl?: string;
-		downloadUrl?: string;
-	};
 };
 
 export interface ModWithImage extends Mod {
