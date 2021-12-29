@@ -41,5 +41,8 @@
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"post:build": "node post-build.mjs"
+	},
+	"dependencies": {
+		"octokit": "^1.7.1"
 	}
 }

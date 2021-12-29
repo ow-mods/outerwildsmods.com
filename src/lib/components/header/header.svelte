@@ -16,5 +16,6 @@
 		<NavigationLink href="/mod-manager">Mod Manager</NavigationLink>
 		<NavigationLink href="/mods">Mods</NavigationLink>
 		<NavigationLink href="/outer-wilds-alpha">Outer Wilds Alpha</NavigationLink>
+		<NavigationLink href="/upload-mod">Upload Mod</NavigationLink>
 	</Navigation>
 </header>

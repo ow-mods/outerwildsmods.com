@@ -1,7 +1,3 @@
-<script lang="ts">
-	import NavigationLink from './navigation-link.svelte';
-</script>
-
 <div class="navigation-wrapper max-w-screen-sm mx-auto px-4">
 	<label
 		class="block text-2xl p-1 mb-2 bg-background rounded sm:hidden"
