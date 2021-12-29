@@ -10,7 +10,7 @@
 	let errorMessage: string;
 	let modRepos: OctokitRepoArray = [];
 
-	let githubToken = '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';
+	let githubToken = '';
 	let interval: NodeJS.Timer;
 
 	onMount(() => {
@@ -99,9 +99,9 @@
 		<h2>Select a repo</h2>
 		<div class="flex flex-col gap-2">
 			{#each modRepos as repo (repo.id)}
-				<div class="bg-dark rounded p-2">
+				<button class="link button bg-dark rounded p-2">
 					{repo.name}
-				</div>
+				</button>
 			{/each}
 		</div>
 	{/if}
