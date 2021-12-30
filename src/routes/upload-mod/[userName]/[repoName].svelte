@@ -20,6 +20,11 @@
 	const handleFilesChange = (event: any) => {
 		if (!event.target?.files) return;
 
+		const droppedFile: File = event.target.files[0];
+
+		console.log('type', droppedFile.type);
+		if (!droppedFile.name.endsWith('.zip')) return;
+
 		file = event.target.files[0];
 	};
 </script>
