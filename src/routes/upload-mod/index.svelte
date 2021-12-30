@@ -1,13 +1,12 @@
 <script lang="ts">
 	import type { OctokitRepoArray } from '$lib/octokit';
-	import { octokitStore } from '$lib/store';
+	import { githubUserStore, octokitStore } from '$lib/store';
 
 	let errorMessage: string;
 	let modRepos: OctokitRepoArray = [];
 
 	$: (async () => {
-		console.log('hello');
-		if (!$octokitStore) return;
+		if (!$octokitStore || !$githubUserStore) return;
 
 		try {
 			const repos = await $octokitStore.paginate(
@@ -17,7 +16,18 @@
 				}
 			);
 
-			modRepos = repos.filter((repo) => repo.topics?.includes('outer-wilds'));
+			modRepos = repos
+				.filter(
+					(repo) =>
+						repo.topics?.includes('outer-wilds') &&
+						!repo.disabled &&
+						repo.owner.login === $githubUserStore?.login
+				)
+				.sort(
+					(repoA, repoB) =>
+						new Date(repoB.updated_at || repoB.created_at || 0).valueOf() -
+						new Date(repoA.updated_at || repoA.created_at || 0).valueOf()
+				);
 		} catch (error) {
 			errorMessage = `Error fetching repo list: ${error}`;
 		}
@@ -28,9 +38,9 @@
 	<h2>Select a repo</h2>
 	<div class="flex flex-col gap-2">
 		{#each modRepos as repo (repo.id)}
-			<button class="link button bg-dark rounded p-2">
+			<a href="upload-mod/{repo.owner.login}/{repo.name}" class="link button bg-dark rounded p-2">
 				{repo.name}
-			</button>
+			</a>
 		{/each}
 	</div>
 {/if}

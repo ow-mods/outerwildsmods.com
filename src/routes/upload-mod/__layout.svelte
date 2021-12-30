@@ -1,14 +1,13 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import type { Octokit, OctokitAuthenticatedUser, OctokitRepoArray } from '$lib/octokit';
+	import type { Octokit } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
-
 	import { onDestroy, onMount } from 'svelte';
 
 	let Octokit: Octokit | undefined;
 	let errorMessage: string;
 
-	let githubToken = '';
+	let githubToken = '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';
 	let interval: NodeJS.Timer;
 
 	onMount(() => {
@@ -38,7 +37,13 @@
 
 			octokitStore.set(octokit);
 
-			githubUserStore.set((await octokit.rest.users.getAuthenticated()).data);
+			const authResponse = await octokit.rest.users.getAuthenticated();
+
+			if (!authResponse.data) {
+				throw new Error('Missing auth response data');
+			}
+
+			githubUserStore.set(authResponse.data);
 		} catch (error) {
 			errorMessage = `Error authenticating: ${error}`;
 		}
@@ -48,7 +53,6 @@
 <svelte:head>
 	<script type="module">
 		import { Octokit } from 'https://cdn.skypack.dev/octokit';
-
 		window.Octokit = Octokit;
 	</script>
 </svelte:head>
