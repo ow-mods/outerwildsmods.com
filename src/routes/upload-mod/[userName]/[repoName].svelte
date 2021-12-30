@@ -2,10 +2,13 @@
 	import { page } from '$app/stores';
 	import type { OctokitRelease, OctokitRepo } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
+	import { parse, stringify } from 'semver-utils';
 
 	let repo: OctokitRepo | undefined;
 	let file: File | undefined;
 	let release: OctokitRelease | undefined;
+	let currentVersion = '';
+	let nextVersion = '';
 
 	$: (async () => {
 		const repoParameters = {
@@ -19,6 +22,16 @@
 		// TODO: handle errors. Maybe using a custom error page for this level?
 		let releaseResponse = await $octokitStore?.rest.repos.getLatestRelease(repoParameters);
 		release = releaseResponse?.data;
+
+		if (release) {
+			currentVersion = release.tag_name;
+			const versionObject = parse(currentVersion);
+			versionObject.minor = (
+				Number.parseInt(versionObject.minor || versionObject.major || '0') + 1
+			).toString();
+			versionObject.patch = '0';
+			nextVersion = stringify(versionObject);
+		}
 	})();
 
 	const handleFilesChange = (event: any) => {
@@ -35,10 +48,14 @@
 
 {#if repo && release}
 	<h2>{repo.name}</h2>
-	<p>
-		Latest release: {release.name}
-		{release.tag_name}
-	</p>
+	<div class="flex justify-between">
+		<p>
+			Latest release: {currentVersion}
+		</p>
+		<p>
+			Next release: {nextVersion}
+		</p>
+	</div>
 
 	<div class="link relative bg-dark rounded p-4 h-48">
 		<!-- <label for="upload-input">

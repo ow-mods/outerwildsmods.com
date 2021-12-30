@@ -43,6 +43,8 @@
 		"post:build": "node post-build.mjs"
 	},
 	"dependencies": {
-		"octokit": "^1.7.1"
+		"@types/semver-utils": "^1.1.1",
+		"octokit": "^1.7.1",
+		"semver-utils": "^1.1.4"
 	}
 }
