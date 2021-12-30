@@ -1,6 +1,7 @@
 import type { Octokit as OctokitInstance } from 'octokit';
 import { Octokit as OctokitClass } from 'octokit';
 
+export type OctokitInstance = OctokitInstance;
 export type Octokit = typeof OctokitClass;
 export type OctokitAuthenticatedUser = Awaited<
 	ReturnType<OctokitInstance['rest']['users']['getAuthenticated']>

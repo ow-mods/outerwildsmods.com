@@ -1,14 +1,12 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import type { Octokit, OctokitAuthenticatedUser, OctokitRepoArray } from '$lib/octokit';
+	import { githubUserStore, octokitStore } from '$lib/store';
 
 	import { onDestroy, onMount } from 'svelte';
-	import A4 from './404.svelte';
 
 	let Octokit: Octokit | undefined;
-	let user: OctokitAuthenticatedUser;
 	let errorMessage: string;
-	let modRepos: OctokitRepoArray = [];
 
 	let githubToken = '';
 	let interval: NodeJS.Timer;
@@ -35,28 +33,12 @@
 	const handleClickAuthenticate = async () => {
 		if (!Octokit) return;
 
-		const octokit = new Octokit({ auth: githubToken });
-
 		try {
-			user = (await octokit.rest.users.getAuthenticated()).data;
+			const octokit = new Octokit({ auth: githubToken });
 
-			const repos = await octokit.paginate(octokit.rest.repos.listForAuthenticatedUser, {
-				per_page: 100,
-			});
+			octokitStore.set(octokit);
 
-			// TODO deal with the type.
-			modRepos = repos.filter((repo) => repo.topics?.includes('outer-wilds'));
-
-			console.log('repos', JSON.stringify(modRepos));
-
-			// modRepos = repos.filter(repo => repo.template_repository.)
-
-			// const a = await octokit.rest.repos.createUsingTemplate({
-			// 	template_owner: 'Raicuparta',
-			// 	template_repo: 'ow-mod-template',
-			// 	name: 'ow-new-mod-test',
-			// 	private: true,
-			// });
+			githubUserStore.set((await octokit.rest.users.getAuthenticated()).data);
 		} catch (error) {
 			errorMessage = `Error authenticating: ${error}`;
 		}
@@ -73,10 +55,10 @@
 
 <PageLayout>
 	<p>
-		{#if user}
+		{#if $githubUserStore}
 			Authenticated as
-			<a class="link" href={user.html_url}>
-				{user.login}
+			<a class="link" href={$githubUserStore.html_url}>
+				{$githubUserStore.login}
 			</a>
 		{:else}
 			Please authenticate
@@ -95,14 +77,5 @@
 			{errorMessage}
 		</p>
 	{/if}
-	{#if modRepos.length > 0}
-		<h2>Select a repo</h2>
-		<div class="flex flex-col gap-2">
-			{#each modRepos as repo (repo.id)}
-				<button class="link button bg-dark rounded p-2">
-					{repo.name}
-				</button>
-			{/each}
-		</div>
-	{/if}
+	<slot />
 </PageLayout>
