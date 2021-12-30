@@ -7,7 +7,7 @@
 	let Octokit: Octokit | undefined;
 	let errorMessage: string;
 
-	let githubToken = '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';
+	let githubToken = (import.meta.env['VITE_GITHUB_TOKEN'] as string) || '';
 	let interval: NodeJS.Timer;
 
 	onMount(() => {
