@@ -25,7 +25,7 @@
 
 		if (release) {
 			currentVersion = release.tag_name;
-			const versionObject = parseSemver(currentVersion);
+			const versionObject = parseSemver(currentVersion) || parseSemver('0.0.0');
 			versionObject.minor = (
 				Number.parseInt(versionObject.minor || versionObject.major || '0') + 1
 			).toString();
