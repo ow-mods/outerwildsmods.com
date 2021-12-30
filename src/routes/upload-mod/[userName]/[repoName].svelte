@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import type { OctokitRelease, OctokitRepo } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
-	import { parse, stringify } from 'semver-utils';
+	import { parse as parseSemver, stringify as stringifySemver } from 'semver-utils';
 
 	let repo: OctokitRepo | undefined;
 	let file: File | undefined;
@@ -25,12 +25,12 @@
 
 		if (release) {
 			currentVersion = release.tag_name;
-			const versionObject = parse(currentVersion);
+			const versionObject = parseSemver(currentVersion);
 			versionObject.minor = (
 				Number.parseInt(versionObject.minor || versionObject.major || '0') + 1
 			).toString();
 			versionObject.patch = '0';
-			nextVersion = stringify(versionObject);
+			nextVersion = stringifySemver(versionObject);
 		}
 	})();
 
