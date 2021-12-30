@@ -40,78 +40,40 @@
 	const handleFilesChange = (event: any) => {
 		if (!event.target?.files) return;
 		const droppedFile: File = event.target.files[0];
-		if (!droppedFile.name.endsWith('.zip')) return;
 		file = event.target.files[0];
 	};
 
 	const handleUploadClick = async () => {
 		if (!file || !$octokitStore) return;
 
-		const releaseName = `${repoParameters.repo}-${nextVersion}`;
-
-		let foundRelease: OctokitRelease | undefined;
-
-		try {
-			foundRelease = (
-				await $octokitStore.rest.repos.getReleaseByTag({
-					...repoParameters,
-					tag: nextVersion,
-				})
-			)?.data;
-		} catch {
-			// TODO handle.
-		}
-
-		const release =
-			foundRelease ||
-			(
-				await $octokitStore.rest.repos.createRelease({
-					...repoParameters,
-					tag_name: nextVersion,
-					draft: false,
-					name: releaseName,
-				})
-			)?.data;
-
-		if (!release) return; // TODO error
-
 		const fileText = await file.text();
 
-		console.log('filetext', fileText);
-
-		console.log(
-			'${release.upload_url}?name=${releaseName}.zip',
-			`${release.upload_url}?name=${releaseName}.zip`
-		);
-		console.log('release.upload_url', release.upload_url);
-
-		// fetch(`${release.upload_url.replace('{?name,label}', '')}?name=${releaseName}.zip`, {
-		// 	headers: {
-		// 		accept: 'application/vnd.github.v3.raw',
-		// 		'accept-language': 'en-US,en;q=0.9',
-		// 		authorization: 'token xxx',
-		// 		'content-type': 'application/json; charset=utf-8',
-		// 		'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
-		// 		'sec-ch-ua-mobile': '?0',
-		// 		'sec-ch-ua-platform': '"Windows"',
-		// 		'sec-fetch-dest': 'empty',
-		// 		'sec-fetch-mode': 'no-cors',
-		// 		'sec-fetch-site': 'cross-site',
-		// 	},
-		// 	referrer: 'http://localhost:3000/',
-		// 	referrerPolicy: 'strict-origin-when-cross-origin',
-		// 	body: fileText,
-		// 	method: 'POST',
-		// 	mode: 'cors',
-		// 	credentials: 'include',
-		// });
-
 		if (repo) {
-			$octokitStore.rest.pulls.create({
+			const pullRequest = await $octokitStore.createPullRequest({
 				...repoParameters,
-				base: repo.default_branch,
-				head: repo.default_branch,
-				body: 'hello',
+				title: 'PR title',
+				body: 'PR body',
+				base: 'master',
+				head: 'pr-branch-test',
+				changes: [
+					{
+						files: {
+							[file.name]: {
+								content: fileText,
+								encoding: 'utf-8',
+							},
+						},
+						commit: 'Update',
+					},
+				],
+			});
+
+			if (!pullRequest?.data) return; //TODO error
+
+			$octokitStore.rest.pulls.merge({
+				...repoParameters,
+				pull_number: pullRequest.data.number,
+				merge_method: 'squash',
 			});
 		}
 
@@ -152,7 +114,6 @@
 			id="upload-input"
 			class="h-full w-full absolute left-0 top-0 opacity-0"
 			type="file"
-			accept=".zip"
 			on:change={handleFilesChange}
 		/>
 	</div>

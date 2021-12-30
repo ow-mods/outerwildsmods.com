@@ -1,9 +1,10 @@
-import type { Octokit as OctokitInstance } from 'octokit';
 import { Octokit as OctokitClass } from 'octokit';
+import { createPullRequest } from 'octokit-plugin-create-pull-request';
 
-export type OctokitInstance = OctokitInstance;
+const OctokitClassWithPlugins = OctokitClass.plugin(createPullRequest);
 
-export type Octokit = typeof OctokitClass;
+export type Octokit = typeof OctokitClassWithPlugins;
+export type OctokitInstance = InstanceType<typeof OctokitClassWithPlugins>;
 
 export type OctokitAuthenticatedUser = Awaited<
 	ReturnType<OctokitInstance['rest']['users']['getAuthenticated']>

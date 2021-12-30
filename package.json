@@ -45,6 +45,7 @@
 	"dependencies": {
 		"@types/semver-utils": "^1.1.1",
 		"octokit": "^1.7.1",
+		"octokit-plugin-create-pull-request": "^3.10.0",
 		"semver-utils": "^1.1.4"
 	}
 }

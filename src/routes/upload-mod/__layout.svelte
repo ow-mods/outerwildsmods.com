@@ -53,7 +53,9 @@
 <svelte:head>
 	<script type="module">
 		import { Octokit } from 'https://cdn.skypack.dev/octokit';
-		window.Octokit = Octokit;
+		import { createPullRequest } from 'https://cdn.skypack.dev/octokit-plugin-create-pull-request';
+
+		window.Octokit = Octokit.plugin(createPullRequest);
 	</script>
 </svelte:head>
 

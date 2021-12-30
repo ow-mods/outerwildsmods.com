@@ -17,6 +17,7 @@ specifiers:
   gh-pages: ^3.2.3
   globby: ^12.0.2
   octokit: ^1.7.1
+  octokit-plugin-create-pull-request: ^3.10.0
   postcss: ^8.4.5
   postcss-load-config: ^3.1.0
   prettier: ^2.5.1
@@ -34,6 +35,7 @@ specifiers:
 dependencies:
   '@types/semver-utils': 1.1.1
   octokit: 1.7.1
+  octokit-plugin-create-pull-request: 3.10.0
   semver-utils: 1.1.4
 
 devDependencies:
@@ -2225,6 +2227,12 @@ packages:
     resolution: {integrity: sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==}
     engines: {node: '>= 6'}
     dev: true
+
+  /octokit-plugin-create-pull-request/3.10.0:
+    resolution: {integrity: sha512-QU3nk62+OimV7ki+pV90cXoqqbUAQLdbqccS7/cNajdjQ2KYmaakz21FL1y78a5N0mA2P4WOs0o2+aunvbWI0w==}
+    dependencies:
+      '@octokit/types': 6.34.0
+    dev: false
 
   /octokit/1.7.1:
     resolution: {integrity: sha512-1b7eRgU8uWetHOWr8f9ptnVo2EKbrkOfocMeQdpgCt7tl/LK67HptFsy2Xg4fMjsJ/+onoBJW0hy/fO0In3/uA==}
