@@ -1,20 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { OctokitRepo } from '$lib/octokit';
+	import type { OctokitRelease, OctokitRepo } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
 
 	let repo: OctokitRepo | undefined;
-	let file: File | undefined = undefined;
+	let file: File | undefined;
+	let release: OctokitRelease | undefined;
 
 	$: (async () => {
-		let repoResponse = await $octokitStore?.rest.repos.get({
+		const repoParameters = {
 			owner: $page.params.userName,
 			repo: $page.params.repoName,
-		});
+		};
+
+		let repoResponse = await $octokitStore?.rest.repos.get(repoParameters);
+		repo = repoResponse?.data;
 
 		// TODO: handle errors. Maybe using a custom error page for this level?
-
-		repo = repoResponse?.data;
+		let releaseResponse = await $octokitStore?.rest.repos.getLatestRelease(repoParameters);
+		release = releaseResponse?.data;
 	})();
 
 	const handleFilesChange = (event: any) => {
@@ -29,8 +33,12 @@
 	};
 </script>
 
-{#if repo}
-	<h2>{repo?.name}</h2>
+{#if repo && release}
+	<h2>{repo.name}</h2>
+	<p>
+		Latest release: {release.name}
+		{release.tag_name}
+	</p>
 
 	<div class="link relative bg-dark rounded p-4 h-48">
 		<!-- <label for="upload-input">
@@ -51,6 +59,7 @@
 			on:change={handleFilesChange}
 		/>
 	</div>
+	<button />
 {:else}
 	<p>
 		Please authenticate with an access token that has access to {$page.params.userName}/{$page

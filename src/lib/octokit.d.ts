@@ -14,3 +14,7 @@ export type OctokitRepoArray = Awaited<
 >['data'];
 
 export type OctokitRepo = Awaited<ReturnType<OctokitInstance['rest']['repos']['get']>>['data'];
+
+export type OctokitRelease = Awaited<
+	ReturnType<OctokitInstance['rest']['repos']['getLatestRelease']>
+>['data'];
