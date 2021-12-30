@@ -89,7 +89,7 @@
 		// 	headers: {
 		// 		accept: 'application/vnd.github.v3.raw',
 		// 		'accept-language': 'en-US,en;q=0.9',
-		// 		authorization: 'token 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',
+		// 		authorization: 'token xxx',
 		// 		'content-type': 'application/json; charset=utf-8',
 		// 		'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
 		// 		'sec-ch-ua-mobile': '?0',
