@@ -2,7 +2,7 @@
 
 @layer components {
 	.link {
-		@apply text-accent hover:text-opacity-100 text-opacity-80;
+		@apply text-accent hover:text-opacity-100 text-opacity-80 cursor-pointer;
 	}
 	.button {
 		@apply flex items-center text-center justify-center rounded p-2;
