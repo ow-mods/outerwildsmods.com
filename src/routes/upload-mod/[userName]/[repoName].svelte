@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { OctokitRelease, OctokitRepo } from '$lib/octokit';
+	import type { OctokitPrFile, OctokitRelease, OctokitRepo } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
 	import { parse as parseSemver, stringify as stringifySemver } from 'semver-utils';
 
 	let repo: OctokitRepo | undefined;
-	let file: File | undefined;
+	let files: File[] = [];
 	let release: OctokitRelease | undefined;
 	let currentVersion = '0.0.0';
 	let nextVersion = '1.0.0';
@@ -36,17 +36,39 @@
 		}
 	})();
 
-	// TODO type if possible.
-	const handleFilesChange = (event: any) => {
-		if (!event.target?.files) return;
-		const droppedFile: File = event.target.files[0];
-		file = event.target.files[0];
+	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
+		if (!event.currentTarget.files) return;
+		files = Array.from(event.currentTarget.files);
 	};
 
-	const handleUploadClick = async () => {
-		if (!file || !$octokitStore) return;
+	function getBase64(file: File) {
+		return new Promise<string>((resolve, reject) => {
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function () {
+				console.log('result', reader.result);
+				console.log('type', typeof reader.result);
+				resolve((reader.result as string).split(',')[1]);
+			};
+			reader.onerror = function (error) {
+				reject(error);
+			};
+		});
+	}
 
-		const fileText = await file.text();
+	const handleUploadClick = async () => {
+		if (files.length === 0 || !$octokitStore) return;
+
+		const changeFiles = await files.reduce(
+			async (fileMap, file) => ({
+				...fileMap,
+				[file.name]: {
+					content: await getBase64(file),
+					encoding: 'base64',
+				},
+			}),
+			Promise.resolve({} as Record<string, OctokitPrFile>)
+		);
 
 		if (repo) {
 			const pullRequest = await $octokitStore.createPullRequest({
@@ -57,12 +79,7 @@
 				head: 'pr-branch-test',
 				changes: [
 					{
-						files: {
-							[file.name]: {
-								content: fileText,
-								encoding: 'utf-8',
-							},
-						},
+						files: changeFiles,
 						commit: 'Update',
 					},
 				],
@@ -75,17 +92,12 @@
 				pull_number: pullRequest.data.number,
 				merge_method: 'squash',
 			});
-		}
 
-		// $octokitStore.rest.repos.uploadReleaseAsset({
-		// 	...repoParameters,
-		// 	release_id: release.id,
-		// 	data: fileText,
-		// 	mediaType: {
-		// 		format: 'raw',
-		// 	},
-		// 	name: `${releaseName}.zip`,
-		// });
+			$octokitStore.rest.git.deleteRef({
+				...repoParameters,
+				ref: `heads/${pullRequest.data.head.ref}`,
+			});
+		}
 	};
 </script>
 
@@ -104,8 +116,10 @@
 
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
 		<div class="flex flex-col justify-center items-center h-full">
-			{#if file}
-				{file.name}
+			{#if files.length > 0}
+				{#each files as file (file.name)}
+					{file.name}{', '}
+				{/each}
 			{:else}
 				Drop a .zip file in this box, or click here to browse for the file.
 			{/if}
@@ -115,6 +129,7 @@
 			class="h-full w-full absolute left-0 top-0 opacity-0"
 			type="file"
 			on:change={handleFilesChange}
+			multiple
 		/>
 	</div>
 	<button on:click={handleUploadClick} class="button link bg-dark mt-4 w-full">Upload</button>

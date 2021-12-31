@@ -1,5 +1,6 @@
 import { Octokit as OctokitClass } from 'octokit';
 import { createPullRequest } from 'octokit-plugin-create-pull-request';
+export type { File as OctokitPrFile } from 'octokit-plugin-create-pull-request/dist-types/types';
 
 const OctokitClassWithPlugins = OctokitClass.plugin(createPullRequest);
 
