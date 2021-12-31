@@ -11,8 +11,15 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		prerender: {
-			// TODO maybe not
-			onError: 'continue',
+			onError: ({ status, path, referrer, referenceType }) => {
+				if (path.startsWith('/images/optimized/')) {
+					console.log(`Failed to find path, but presuming that's ok: ${path}`);
+					return;
+				}
+				throw new Error(
+					`Failed to find path. status: ${status}, path: ${path}, referrer: ${referrer}, referenceType: ${referenceType}`
+				);
+			},
 		},
 		target: '#svelte',
 	},
