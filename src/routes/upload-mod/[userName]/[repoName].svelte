@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { OctokitPrFile, OctokitRelease, OctokitRepo } from '$lib/octokit';
+	import type { OctokitRelease, OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
 	import { parse as parseSemver, stringify as stringifySemver } from 'semver-utils';
 
@@ -55,64 +55,68 @@
 	}
 
 	const handleUploadClick = async () => {
+		repo = (await $octokitStore?.rest.repos.get(repoParameters))?.data;
+
 		if (files.length === 0 || !$octokitStore || !repo) return;
 
 		// TODO catch errors.
-		const repoFiles = (
+		const currentTree = (
 			await $octokitStore.rest.git.getTree({
 				...repoParameters,
 				tree_sha: repo.default_branch,
 				recursive: 'true',
 			})
-		).data.tree;
+		).data;
 
-		const changeFiles: Record<string, OctokitPrFile> = {};
+		const newTree: OctokitTree = [];
 
-		// Delete all existing files.
-		for (const repoFile of repoFiles) {
-			if (!repoFile.path || repoFile.type !== 'blob') continue;
-			// null deletes files but isn't in the type definition.
-			changeFiles[repoFile.path] = null as unknown as OctokitPrFile;
-		}
-
-		// Add new files.
 		for (const file of files) {
-			changeFiles[file.name] = {
-				content: await getBase64(file),
-				encoding: 'base64',
-			};
-		}
+			const blob = (
+				await $octokitStore.rest.git.createBlob({
+					...repoParameters,
+					content: await getBase64(file),
+					encoding: 'base64',
+				})
+			).data;
 
-		console.log('changefiles', changeFiles);
-
-		if (repo) {
-			const pullRequest = await $octokitStore.createPullRequest({
-				...repoParameters,
-				title: 'PR title',
-				body: 'PR body',
-				base: 'master',
-				head: 'pr-branch-test',
-				changes: [
-					{
-						files: changeFiles,
-						commit: 'Update',
-					},
-				],
-			});
-
-			if (!pullRequest?.data) return; //TODO error
-
-			$octokitStore.rest.pulls.merge({
-				...repoParameters,
-				pull_number: pullRequest.data.number,
-				merge_method: 'squash',
-			});
-
-			$octokitStore.rest.git.deleteRef({
-				...repoParameters,
-				ref: `heads/${pullRequest.data.head.ref}`,
+			newTree.push({
+				path: file.name,
+				sha: blob.sha,
+				type: 'blob',
+				mode: '100644',
 			});
 		}
+
+		const createdTree = (
+			await $octokitStore.rest.git.createTree({
+				...repoParameters,
+				tree: newTree,
+			})
+		).data;
+
+		const ref = (
+			await $octokitStore.rest.git.getRef({
+				...repoParameters,
+				ref: `heads/${repo.default_branch}`,
+			})
+		).data;
+
+		const commit = (
+			await $octokitStore.rest.git.createCommit({
+				...repoParameters,
+				message: 'Update',
+				tree: createdTree.sha,
+				baseTree: currentTree.sha,
+				parents: [ref.object.sha],
+			})
+		).data;
+
+		$octokitStore.rest.git.updateRef({
+			...repoParameters,
+			force: true,
+			sha: commit.sha,
+			ref: `heads/${repo.default_branch}`,
+		});
 	};
 </script>
 

@@ -1,22 +1,16 @@
-import { Octokit as OctokitClass } from 'octokit';
-import { createPullRequest } from 'octokit-plugin-create-pull-request';
-export type { File as OctokitPrFile } from 'octokit-plugin-create-pull-request/dist-types/types';
+import type { Octokit as OctokitInstance } from 'octokit/dist-types/octokit';
 
-const OctokitClassWithPlugins = OctokitClass.plugin(createPullRequest);
-
-export type Octokit = typeof OctokitClassWithPlugins;
-export type OctokitInstance = InstanceType<typeof OctokitClassWithPlugins>;
+type OctokitRepos<T> = Awaited<ReturnType<OctokitInstance['rest']['repos'][T]>>['data'];
+type OctokitGit<T> = Awaited<ReturnType<OctokitInstance['rest']['git'][T]>>['data'];
 
 export type OctokitAuthenticatedUser = Awaited<
 	ReturnType<OctokitInstance['rest']['users']['getAuthenticated']>
 >['data'];
 
-export type OctokitRepoArray = Awaited<
-	ReturnType<OctokitInstance['rest']['repos']['listForAuthenticatedUser']>
->['data'];
+export type OctokitRepoArray = OctokitRepos<'listForAuthenticatedUser'>;
+export type OctokitRepo = OctokitRepos<'get'>;
+export type OctokitRelease = OctokitRepos<'getLatestRelease'>;
 
-export type OctokitRepo = Awaited<ReturnType<OctokitInstance['rest']['repos']['get']>>['data'];
-
-export type OctokitRelease = Awaited<
-	ReturnType<OctokitInstance['rest']['repos']['getLatestRelease']>
->['data'];
+type OctokitCreateTreeParams = Parameters<OctokitInstance['rest']['git']['createTree']>[0];
+const treeParams: OctokitCreateTreeParams;
+export type OctokitTree = typeof treeParams.tree;

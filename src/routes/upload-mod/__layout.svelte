@@ -1,11 +1,11 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import { createPullRequest } from '$lib/helpers/create-pr';
-	import type { Octokit } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
+	import type { Octokit } from 'octokit';
 	import { onDestroy, onMount } from 'svelte';
 
-	let Octokit: Octokit | undefined;
+	// TODO Octokit type;
+	let Octokit: any | undefined;
 	let errorMessage: string;
 
 	let githubToken = (import.meta.env['VITE_GITHUB_TOKEN'] as string) || '';
@@ -34,8 +34,7 @@
 		if (!Octokit) return;
 
 		try {
-			const OctokitWithPlugin = Octokit.plugin(createPullRequest as any);
-			const octokit = new OctokitWithPlugin({ auth: githubToken });
+			const octokit = new Octokit({ auth: githubToken }) as Octokit;
 
 			octokitStore.set(octokit);
 
