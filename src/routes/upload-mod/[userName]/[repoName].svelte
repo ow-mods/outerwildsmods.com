@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import type { OctokitPrFile, OctokitRelease, OctokitRepo } from '$lib/octokit';
-	import { githubUserStore, octokitStore } from '$lib/store';
+	import { octokitStore } from '$lib/store';
 	import { parse as parseSemver, stringify as stringifySemver } from 'semver-utils';
 
 	let repo: OctokitRepo | undefined;
@@ -55,16 +55,35 @@
 	}
 
 	const handleUploadClick = async () => {
-		if (files.length === 0 || !$octokitStore) return;
+		if (files.length === 0 || !$octokitStore || !repo) return;
+
+		// TODO catch errors.
+		const repoFiles = (
+			await $octokitStore.rest.git.getTree({
+				...repoParameters,
+				tree_sha: repo.default_branch,
+				recursive: 'true',
+			})
+		).data.tree;
 
 		const changeFiles: Record<string, OctokitPrFile> = {};
 
+		// Delete all existing files.
+		for (const repoFile of repoFiles) {
+			if (!repoFile.path) continue;
+			// null deletes files but isn't in the type definition.
+			changeFiles[repoFile.path] = null as unknown as OctokitPrFile;
+		}
+
+		// Add new files.
 		for (const file of files) {
 			changeFiles[file.name] = {
 				content: await getBase64(file),
 				encoding: 'base64',
 			};
 		}
+
+		console.log('changefiles', changeFiles);
 
 		if (repo) {
 			const pullRequest = await $octokitStore.createPullRequest({
