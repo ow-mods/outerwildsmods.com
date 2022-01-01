@@ -70,7 +70,7 @@
 
 		// Delete all existing files.
 		for (const repoFile of repoFiles) {
-			if (!repoFile.path) continue;
+			if (!repoFile.path || repoFile.type !== 'blob') continue;
 			// null deletes files but isn't in the type definition.
 			changeFiles[repoFile.path] = null as unknown as OctokitPrFile;
 		}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
+	import { createPullRequest } from '$lib/helpers/create-pr';
 	import type { Octokit } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
 	import { onDestroy, onMount } from 'svelte';
@@ -33,7 +34,8 @@
 		if (!Octokit) return;
 
 		try {
-			const octokit = new Octokit({ auth: githubToken });
+			const OctokitWithPlugin = Octokit.plugin(createPullRequest as any);
+			const octokit = new OctokitWithPlugin({ auth: githubToken });
 
 			octokitStore.set(octokit);
 
@@ -53,9 +55,8 @@
 <svelte:head>
 	<script type="module">
 		import { Octokit } from 'https://cdn.skypack.dev/octokit';
-		import { createPullRequest } from 'https://cdn.skypack.dev/octokit-plugin-create-pull-request';
 
-		window.Octokit = Octokit.plugin(createPullRequest);
+		window.Octokit = Octokit;
 	</script>
 </svelte:head>
 
