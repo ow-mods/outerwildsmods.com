@@ -46,8 +46,6 @@
 			var reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onload = function () {
-				console.log('result', reader.result);
-				console.log('type', typeof reader.result);
 				resolve((reader.result as string).split(',')[1]);
 			};
 			reader.onerror = function (error) {
@@ -59,16 +57,14 @@
 	const handleUploadClick = async () => {
 		if (files.length === 0 || !$octokitStore) return;
 
-		const changeFiles = await files.reduce(
-			async (fileMap, file) => ({
-				...fileMap,
-				[file.name]: {
-					content: await getBase64(file),
-					encoding: 'base64',
-				},
-			}),
-			Promise.resolve({} as Record<string, OctokitPrFile>)
-		);
+		const changeFiles: Record<string, OctokitPrFile> = {};
+
+		for (const file of files) {
+			changeFiles[file.name] = {
+				content: await getBase64(file),
+				encoding: 'base64',
+			};
+		}
 
 		if (repo) {
 			const pullRequest = await $octokitStore.createPullRequest({
