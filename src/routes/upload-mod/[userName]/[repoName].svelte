@@ -172,7 +172,7 @@
 			<TextInput
 				bind:value={modName}
 				buttonText="Save"
-				on:click={handleSaveModNameClick}
+				on:submit={handleSaveModNameClick}
 				label="Mod name"
 				id="mod-name"
 				placeholder={manifest.name || 'My Mod'}

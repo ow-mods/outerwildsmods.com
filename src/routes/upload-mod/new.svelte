@@ -71,7 +71,7 @@
 		id="mod-name"
 		placeholder="My Mod"
 		bind:value={modName}
-		on:click={handleClickCreate}
+		on:submit={handleClickCreate}
 		buttonText="Create"
 	/>
 {:else}

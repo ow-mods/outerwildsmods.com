@@ -103,10 +103,14 @@
 			<li>
 				Copy the newly generated token. The format is something like <code
 					class="text-sm bg-dark p-1">ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code
-				>.
+				>. I recommend saving the token in a password manager for easier access later. If you lose
+				your token, you can always just generate another one.
 			</li>
-			<li>Paste the token in this page.</li>
-			<li>Press "Authenticate"</li>
+			<li>Paste the token in this page and press "Authenticate".</li>
+			<li>
+				Note that if you leave or refresh this page, you'll be logged out, and you'll have to insert
+				your token again. So again, saving the token in a password manager would help.
+			</li>
 		</ul>
 		<div class="flex w-full gap-4 mb-4">
 			<TextInput
@@ -115,7 +119,7 @@
 				id="gh-access-token"
 				placeholder="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 				buttonText="Authenticate"
-				on:click={handleClickAuthenticate}
+				on:submit={handleClickAuthenticate}
 				password
 			/>
 		</div>

@@ -9,7 +9,14 @@
 	export let password = false;
 </script>
 
-<div class="flex-1">
+<form class="flex-1" on:submit|preventDefault>
+	<input
+		class="absolute opacity-0"
+		value="placeholder@outerwildsmods.com"
+		name="email"
+		type="email"
+		autocomplete="username"
+	/>
 	<label for={id} class="text-sm">
 		{label}
 	</label>
@@ -20,13 +27,13 @@
 			class:font-mono={password}
 			{value}
 			{placeholder}
+			name={password ? 'password' : label}
 			on:change={(event) => (value = event.currentTarget.value)}
 			type={password ? 'password' : 'text'}
+			autocomplete={password ? 'current-password' : undefined}
 		/>
 		{#if buttonText}
-			<LinkButton on:click>
-				{buttonText}
-			</LinkButton>
+			<button class="link button" type="submit">{buttonText}</button>
 		{/if}
 	</div>
-</div>
+</form>
