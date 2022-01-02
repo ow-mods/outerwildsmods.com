@@ -1,3 +1,10 @@
 body {
-	@apply text-light font-light text-base bg-darker overflow-y-scroll;
+	@apply text-light
+	font-light
+	text-base
+	bg-darker
+	overflow-y-scroll
+	selection:text-dark
+	selection:bg-accent
+	selection:bg-opacity-60;
 }
