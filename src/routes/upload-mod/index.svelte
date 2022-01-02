@@ -1,4 +1,5 @@
 <script lang="ts">
+	import LinkButton from '$lib/components/button/link-button.svelte';
 	import type { OctokitRepoArray } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
 
@@ -35,13 +36,16 @@
 </script>
 
 {#if modRepos.length > 0}
-	<h2>Select a repo</h2>
-	<div class="flex flex-col gap-2">
-		{#each modRepos as repo (repo.id)}
-			<a href="upload-mod/{repo.owner.login}/{repo.name}" class="link button bg-dark rounded p-2">
-				{repo.name}
-			</a>
-		{/each}
+	<div class="mt-4">
+		<LinkButton href="/upload-mod/new">Create new mod</LinkButton>
+		<h2 class="my-4">Select a repo</h2>
+		<div class="flex flex-col gap-2">
+			{#each modRepos as repo (repo.id)}
+				<LinkButton href="upload-mod/{repo.owner.login}/{repo.name}">
+					{repo.name}
+				</LinkButton>
+			{/each}
+		</div>
 	</div>
 {/if}
 {#if errorMessage}

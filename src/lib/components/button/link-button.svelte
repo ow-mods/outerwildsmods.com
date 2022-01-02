@@ -10,6 +10,7 @@
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
 	sveltekit:prefetch={isExternal ? null : true}
+	on:click
 >
 	<slot />
 </a>
