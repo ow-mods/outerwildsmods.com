@@ -76,9 +76,10 @@
 			bind:value={githubToken}
 			label="GitHub user access token"
 			id="gh-access-token"
-			placeholder="Insert GitHub access token here"
+			placeholder="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 			buttonText="Authenticate"
 			on:click={handleClickAuthenticate}
+			monoSpace
 		/>
 	</div>
 	{#if errorMessage}

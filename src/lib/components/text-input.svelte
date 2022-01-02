@@ -6,6 +6,7 @@
 	export let label: string;
 	export let id: string;
 	export let buttonText: string = '';
+	export let monoSpace = false;
 </script>
 
 <div class="flex-1">
@@ -16,6 +17,7 @@
 		<input
 			{id}
 			class="flex-1 rounded bg-dark py-1 px-2 placeholder:opacity-40 placeholder:text-light"
+			class:font-mono={monoSpace}
 			bind:value
 			{placeholder}
 		/>

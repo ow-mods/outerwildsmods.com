@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import LinkButton from '$lib/components/button/link-button.svelte';
+	import TextInput from '$lib/components/text-input.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import { githubUserStore, octokitStore } from '$lib/store';
 
@@ -66,10 +67,14 @@
 </script>
 
 {#if $githubUserStore}
-	<div class="flex gap-4">
-		<input class="text-input" placeholder="Mod name" bind:value={modName} />
-		<LinkButton on:click={handleClickCreate}>Create</LinkButton>
-	</div>
+	<TextInput
+		label="Mod name"
+		id="mod-name"
+		placeholder="My Mod"
+		bind:value={modName}
+		on:click={handleClickCreate}
+		buttonText="Create"
+	/>
 {:else}
 	Please authenticate before creating a new mod
 {/if}
