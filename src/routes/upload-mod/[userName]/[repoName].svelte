@@ -164,8 +164,7 @@
 
 {#if repo}
 	<div class="mb-4 text-sm">
-		Hint: bookmark this page so that you don't need to select the mod from the list every time your
-		log in.
+		Hint: bookmark this page so that you don't need to select the mod every time you authenticate.
 	</div>
 	{#if manifest}
 		<a href={repo.html_url} class="link">
