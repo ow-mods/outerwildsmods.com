@@ -71,7 +71,7 @@
 			<div class="flex-1">
 				<slot />
 			</div>
-			<div class="w-40 rounded bg-dark p-4 flex flex-col gap-4">
+			<div class="w-52 rounded bg-dark p-4 flex flex-col gap-4">
 				<div class="pr-4">
 					<a class="link" href={$githubUserStore.html_url}>
 						{$githubUserStore.login}
