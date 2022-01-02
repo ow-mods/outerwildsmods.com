@@ -3,7 +3,6 @@
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
-	import { parse as parseSemver, stringify as stringifySemver } from 'semver-utils';
 
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
@@ -41,9 +40,26 @@
 			})
 		).data;
 
-		const newTree: OctokitTree = [];
+		// Start the tree by marking some files for deletion
+		const newTree: OctokitTree = currentTree.tree
+			.filter(
+				(currentTreeItem) =>
+					// Select files within the planets directory.
+					currentTreeItem.path?.startsWith('planets/') &&
+					// Select files that are gonna be uploaded, don't wanna delete those.
+					!files.find((file) => file.name === currentTreeItem.path)
+			)
+			.map((planetsTreeItem) => ({
+				// Null sha means the file will be deleted.
+				sha: null,
+				path: planetsTreeItem.path,
+				mode: '100644',
+				type: 'commit',
+			}));
 
+		// Then add the remaining new files.
 		for (const file of files) {
+			// Text files (maybe only <1MB) don't need this step, but for now I'm just treating all files as blobs for simplicity.
 			const blob = (
 				await $octokitStore.rest.git.createBlob({
 					...repoParameters,
@@ -53,7 +69,7 @@
 			).data;
 
 			newTree.push({
-				path: file.name,
+				path: `planets/${file.name}`,
 				sha: blob.sha,
 				type: 'blob',
 				mode: '100644',
@@ -64,6 +80,7 @@
 			await $octokitStore.rest.git.createTree({
 				...repoParameters,
 				tree: newTree,
+				base_tree: currentTree.sha,
 			})
 		).data;
 
