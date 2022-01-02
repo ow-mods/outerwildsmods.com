@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
+	import TextInput from '$lib/components/text-input.svelte';
 	import { githubUserStore, octokitStore } from '$lib/store';
 	import type { Octokit } from 'octokit';
 	import { onDestroy, onMount } from 'svelte';
@@ -71,12 +72,14 @@
 		{/if}
 	</p>
 	<div class="flex w-full gap-4 mb-4">
-		<input
-			class="text-input"
-			placeholder="Insert GitHub access token here"
+		<TextInput
 			bind:value={githubToken}
+			label="GitHub user access token"
+			id="gh-access-token"
+			placeholder="Insert GitHub access token here"
+			buttonText="Authenticate"
+			on:click={handleClickAuthenticate}
 		/>
-		<button class="button link bg-dark" on:click={handleClickAuthenticate}> Authenticate </button>
 	</div>
 	{#if errorMessage}
 		<p>
