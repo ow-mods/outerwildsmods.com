@@ -7,7 +7,11 @@
 	let modRepos: OctokitRepoArray = [];
 
 	$: (async () => {
-		if (!$octokitStore || !$githubUserStore) return;
+		if (!$octokitStore || !$githubUserStore) {
+			modRepos = [];
+
+			return;
+		}
 
 		try {
 			const repos = await $octokitStore.paginate(

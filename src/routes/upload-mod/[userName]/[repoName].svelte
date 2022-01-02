@@ -3,7 +3,7 @@
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
-	import { octokitStore } from '$lib/store';
+	import { githubUserStore, octokitStore } from '$lib/store';
 
 	type Manifest = {
 		name: string;
@@ -23,8 +23,15 @@
 	};
 
 	$: (async () => {
-		let repoResponse = await $octokitStore?.rest.repos.get(repoParameters);
-		repo = repoResponse?.data;
+		if (!$octokitStore || !$githubUserStore) {
+			repo = undefined;
+			files = [];
+			manifest = undefined;
+			modName = '';
+			manifestSha = undefined;
+			return;
+		}
+		repo = (await $octokitStore.rest.repos.get(repoParameters)).data;
 
 		// The type definitions here suck, have to use any.
 		const manifestResponse: any = (
