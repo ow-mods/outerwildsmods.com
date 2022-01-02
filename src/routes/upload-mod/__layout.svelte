@@ -72,7 +72,7 @@
 	</p>
 	<div class="flex w-full gap-4 mb-4">
 		<input
-			class="flex-1 rounded bg-dark py-1 px-2"
+			class="text-input"
 			placeholder="Insert GitHub access token here"
 			bind:value={githubToken}
 		/>

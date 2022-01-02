@@ -7,4 +7,7 @@
 	.button {
 		@apply flex items-center text-center justify-center rounded p-2;
 	}
+	.text-input {
+		@apply flex-1 rounded bg-dark py-1 px-2;
+	}
 }

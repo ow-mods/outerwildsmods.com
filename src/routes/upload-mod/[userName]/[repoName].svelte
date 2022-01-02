@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import LinkButton from '$lib/components/button/link-button.svelte';
+	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
@@ -8,6 +10,7 @@
 	let files: File[] = [];
 	let currentVersion = '0.0.0';
 	let nextVersion = '1.0.0';
+	let modName = '';
 
 	const repoParameters = {
 		owner: $page.params.userName,
@@ -122,7 +125,9 @@
 			Next release: {nextVersion}
 		</p>
 	</div>
-
+	<div class="mb-4">
+		<TextInput bind:value={modName} label="Mod name" id="mod-name" placeholder="My Mod" />
+	</div>
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
 		<div class="flex flex-col justify-center items-center h-full">
 			{#if files.length > 0}

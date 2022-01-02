@@ -67,7 +67,7 @@
 
 {#if $githubUserStore}
 	<div class="flex gap-4">
-		<input class="flex-1 rounded bg-dark py-1 px-2" placeholder="Mod name" bind:value={modName} />
+		<input class="text-input" placeholder="Mod name" bind:value={modName} />
 		<LinkButton on:click={handleClickCreate}>Create</LinkButton>
 	</div>
 {:else}
