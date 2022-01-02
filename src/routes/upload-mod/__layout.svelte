@@ -79,7 +79,7 @@
 			placeholder="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 			buttonText="Authenticate"
 			on:click={handleClickAuthenticate}
-			monoSpace
+			password
 		/>
 	</div>
 	{#if errorMessage}

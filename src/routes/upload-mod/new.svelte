@@ -26,7 +26,7 @@
 		await $octokitStore.rest.repos.replaceAllTopics({
 			repo: repoName,
 			owner: repo.owner.login,
-			names: ['outer-wilds'],
+			names: ['outer-wilds', 'outer-wilds-planets'],
 		});
 
 		// Typed as any because the types for this are useless.

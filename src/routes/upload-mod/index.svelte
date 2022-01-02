@@ -20,7 +20,7 @@
 			modRepos = repos
 				.filter(
 					(repo) =>
-						repo.topics?.includes('outer-wilds') &&
+						repo.topics?.includes('outer-wilds-planets') &&
 						!repo.disabled &&
 						repo.owner.login === $githubUserStore?.login
 				)
@@ -35,10 +35,13 @@
 	})();
 </script>
 
-{#if modRepos.length > 0}
-	<div class="mt-4">
+<div class="mt-4 pt-4">
+	{#if $githubUserStore}
+		<p class="text-xl mt-0">Start with a new mod</p>
 		<LinkButton href="/upload-mod/new">Create new mod</LinkButton>
-		<h2 class="my-4">Select a repo</h2>
+	{/if}
+	{#if modRepos.length > 0}
+		<p class="text-xl">Select a mod to edit</p>
 		<div class="flex flex-col gap-2">
 			{#each modRepos as repo (repo.id)}
 				<LinkButton href="upload-mod/{repo.owner.login}/{repo.name}">
@@ -46,8 +49,8 @@
 				</LinkButton>
 			{/each}
 		</div>
-	</div>
-{/if}
+	{/if}
+</div>
 {#if errorMessage}
 	<p>
 		{errorMessage}
