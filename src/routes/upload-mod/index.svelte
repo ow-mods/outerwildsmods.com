@@ -5,6 +5,7 @@
 
 	let errorMessage: string;
 	let modRepos: OctokitRepoArray = [];
+	let loadingRepos = false;
 
 	$: (async () => {
 		if (!$octokitStore || !$githubUserStore) {
@@ -14,6 +15,7 @@
 		}
 
 		try {
+			loadingRepos = true;
 			const repos = await $octokitStore.paginate(
 				$octokitStore.rest.repos.listForAuthenticatedUser,
 				{
@@ -35,6 +37,8 @@
 				);
 		} catch (error) {
 			errorMessage = `Error fetching repo list: ${error}`;
+		} finally {
+			loadingRepos = false;
 		}
 	})();
 </script>
@@ -43,8 +47,12 @@
 	<p class="text-xl mt-0">Start with a new mod</p>
 	<LinkButton href="/upload-mod/new">Create new mod</LinkButton>
 {/if}
-{#if modRepos.length > 0}
-	<p class="text-xl">Select a mod to edit</p>
+<p class="text-xl">Select a mod to edit</p>
+{#if loadingRepos}
+	<div class="outline outline-4 outline-dark rounded p-2 text-center">Loading mod list...</div>
+{:else if modRepos.length === 0 || true}
+	<div class="outline outline-4 outline-dark rounded p-2 text-center">No planet mods found.</div>
+{:else}
 	<div class="flex flex-col gap-2">
 		{#each modRepos as repo (repo.id)}
 			<LinkButton href="upload-mod/{repo.owner.login}/{repo.name}">
