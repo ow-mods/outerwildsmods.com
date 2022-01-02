@@ -13,8 +13,6 @@
 
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
-	let currentVersion = '0.0.0';
-	let nextVersion = '1.0.0';
 	let manifest: Manifest | undefined;
 
 	const repoParameters = {
@@ -136,18 +134,11 @@
 </script>
 
 {#if repo}
-	<a href={repo.html_url}>
-		<h2 class="link">{repo.name}</h2>
-	</a>
-	<div class="flex justify-between">
-		<p>
-			Latest release: {currentVersion}
-		</p>
-		<p>
-			Next release: {nextVersion}
-		</p>
-	</div>
 	{#if manifest}
+		<a href={repo.html_url} class="link">
+			{manifest.name}
+		</a>
+		{manifest.version}
 		<div class="mb-4">
 			<TextInput bind:value={manifest.name} label="Mod name" id="mod-name" placeholder="My Mod" />
 		</div>
