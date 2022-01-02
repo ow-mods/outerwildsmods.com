@@ -5,11 +5,17 @@
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
 
+	type Manifest = {
+		name: string;
+		version: string;
+		[key: string]: unknown;
+	};
+
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
 	let currentVersion = '0.0.0';
 	let nextVersion = '1.0.0';
-	let modName = '';
+	let manifest: Manifest | undefined;
 
 	const repoParameters = {
 		owner: $page.params.userName,
@@ -20,7 +26,7 @@
 		let repoResponse = await $octokitStore?.rest.repos.get(repoParameters);
 		repo = repoResponse?.data;
 
-		const manifest: any = (
+		const manifestResponse = (
 			await $octokitStore?.rest.repos.getContent({
 				...repoParameters,
 				path: 'manifest.json',
@@ -28,16 +34,14 @@
 					format: 'raw',
 				},
 			})
-		)?.data;
+		)?.data as unknown as string | undefined;
 
-		console.log('manifest', manifest);
-
-		if (!manifest) {
+		if (!manifestResponse) {
 			// TODO: handle missing manifest
 			return;
 		}
 
-		modName = JSON.parse(manifest).name;
+		manifest = JSON.parse(manifestResponse);
 
 		// TODO: handle errors. Maybe using a custom error page for this level?
 	})();
@@ -143,9 +147,11 @@
 			Next release: {nextVersion}
 		</p>
 	</div>
-	<div class="mb-4">
-		<TextInput bind:value={modName} label="Mod name" id="mod-name" placeholder="My Mod" />
-	</div>
+	{#if manifest}
+		<div class="mb-4">
+			<TextInput bind:value={manifest.name} label="Mod name" id="mod-name" placeholder="My Mod" />
+		</div>
+	{/if}
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
 		<div class="flex flex-col justify-center items-center h-full">
 			{#if files.length > 0}
