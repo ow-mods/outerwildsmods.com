@@ -50,7 +50,7 @@
 <p class="text-xl">Select a mod to edit</p>
 {#if loadingRepos}
 	<div class="outline outline-4 outline-dark rounded p-2 text-center">Loading mod list...</div>
-{:else if modRepos.length === 0 || true}
+{:else if modRepos.length === 0}
 	<div class="outline outline-4 outline-dark rounded p-2 text-center">No planet mods found.</div>
 {:else}
 	<div class="flex flex-col gap-2">
