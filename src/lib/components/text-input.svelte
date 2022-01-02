@@ -34,7 +34,7 @@
 		/>
 		{#if buttonText}
 			<button
-				class="button link outline outline-4 outline-background hover:outline-dark hover:bg-background bg-dark justify-center"
+				class="button link outline outline-4 outline-background hover:outline-dark hover:bg-background bg-dark"
 				type="submit">{buttonText}</button
 			>
 		{/if}

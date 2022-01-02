@@ -67,13 +67,18 @@
 
 <PageLayout isWide>
 	{#if $githubUserStore}
-		<div class="flex justify-end items-center">
-			<div class="pr-4">
-				<a class="link" href={$githubUserStore.html_url}>
-					{$githubUserStore.login}
-				</a>
+		<div class="flex gap-4">
+			<div class="flex-1">
+				<slot />
 			</div>
-			<LinkButton on:click={handleClickSignOut}>Sign out</LinkButton>
+			<div class="w-40 rounded bg-dark p-4 flex flex-col gap-4">
+				<div class="pr-4">
+					<a class="link" href={$githubUserStore.html_url}>
+						{$githubUserStore.login}
+					</a>
+				</div>
+				<LinkButton on:click={handleClickSignOut}>Sign out</LinkButton>
+			</div>
 		</div>
 	{:else}
 		<ul>
@@ -123,11 +128,11 @@
 				password
 			/>
 		</div>
+		<slot />
 	{/if}
 	{#if errorMessage}
 		<p>
 			{errorMessage}
 		</p>
 	{/if}
-	<slot />
 </PageLayout>
