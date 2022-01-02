@@ -14,6 +14,8 @@
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
 	let manifest: Manifest | undefined;
+	let modName = '';
+	let manifestSha: string | undefined;
 
 	const repoParameters = {
 		owner: $page.params.userName,
@@ -24,22 +26,21 @@
 		let repoResponse = await $octokitStore?.rest.repos.get(repoParameters);
 		repo = repoResponse?.data;
 
-		const manifestResponse = (
+		// The type definitions here suck, have to use any.
+		const manifestResponse: any = (
 			await $octokitStore?.rest.repos.getContent({
 				...repoParameters,
 				path: 'manifest.json',
-				mediaType: {
-					format: 'raw',
-				},
 			})
-		)?.data as unknown as string | undefined;
+		)?.data;
 
 		if (!manifestResponse) {
 			// TODO: handle missing manifest
 			return;
 		}
 
-		manifest = JSON.parse(manifestResponse);
+		manifest = JSON.parse(atob(manifestResponse.content));
+		manifestSha = manifestResponse.sha;
 
 		// TODO: handle errors. Maybe using a custom error page for this level?
 	})();
@@ -131,6 +132,27 @@
 			ref: `heads/${repo.default_branch}`,
 		});
 	};
+
+	const handleSaveModNameClick = async () => {
+		if (!$octokitStore) return;
+
+		await $octokitStore.rest.repos.createOrUpdateFileContents({
+			...repoParameters,
+			path: 'manifest.json',
+			sha: manifestSha,
+			content: btoa(
+				JSON.stringify(
+					{
+						...manifest,
+						name: modName,
+					},
+					null,
+					2
+				)
+			),
+			message: 'Update manifest.json',
+		});
+	};
 </script>
 
 {#if repo}
@@ -140,7 +162,14 @@
 		</a>
 		{manifest.version}
 		<div class="mb-4">
-			<TextInput bind:value={manifest.name} label="Mod name" id="mod-name" placeholder="My Mod" />
+			<TextInput
+				bind:value={modName}
+				buttonText="Save"
+				on:click={handleSaveModNameClick}
+				label="Mod name"
+				id="mod-name"
+				placeholder={manifest.name || 'My Mod'}
+			/>
 		</div>
 	{/if}
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
