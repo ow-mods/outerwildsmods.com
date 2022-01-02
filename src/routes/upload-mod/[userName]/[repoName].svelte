@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { OctokitRelease, OctokitRepo, OctokitTree } from '$lib/octokit';
+	import { getBase64File } from '$lib/helpers/get-base-64-file';
+	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { octokitStore } from '$lib/store';
 	import { parse as parseSemver, stringify as stringifySemver } from 'semver-utils';
 
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
-	let release: OctokitRelease | undefined;
 	let currentVersion = '0.0.0';
 	let nextVersion = '1.0.0';
 
@@ -16,43 +16,16 @@
 	};
 
 	$: (async () => {
-		if (repo) return;
-
 		let repoResponse = await $octokitStore?.rest.repos.get(repoParameters);
 		repo = repoResponse?.data;
 
 		// TODO: handle errors. Maybe using a custom error page for this level?
-		let releaseResponse = await $octokitStore?.rest.repos.getLatestRelease(repoParameters);
-		release = releaseResponse?.data;
-
-		if (release) {
-			currentVersion = release.tag_name;
-			const versionObject = parseSemver(currentVersion) || parseSemver('0.0.0');
-			versionObject.minor = (
-				Number.parseInt(versionObject.minor || versionObject.major || '0') + 1
-			).toString();
-			versionObject.patch = '0';
-			nextVersion = stringifySemver(versionObject);
-		}
 	})();
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
 		if (!event.currentTarget.files) return;
 		files = Array.from(event.currentTarget.files);
 	};
-
-	function getBase64(file: File) {
-		return new Promise<string>((resolve, reject) => {
-			var reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = function () {
-				resolve((reader.result as string).split(',')[1]);
-			};
-			reader.onerror = function (error) {
-				reject(error);
-			};
-		});
-	}
 
 	const handleUploadClick = async () => {
 		repo = (await $octokitStore?.rest.repos.get(repoParameters))?.data;
@@ -74,7 +47,7 @@
 			const blob = (
 				await $octokitStore.rest.git.createBlob({
 					...repoParameters,
-					content: await getBase64(file),
+					content: await getBase64File(file),
 					encoding: 'base64',
 				})
 			).data;
