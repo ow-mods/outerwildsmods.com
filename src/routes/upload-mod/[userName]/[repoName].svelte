@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import LinkButton from '$lib/components/button/link-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
@@ -20,6 +19,25 @@
 	$: (async () => {
 		let repoResponse = await $octokitStore?.rest.repos.get(repoParameters);
 		repo = repoResponse?.data;
+
+		const manifest: any = (
+			await $octokitStore?.rest.repos.getContent({
+				...repoParameters,
+				path: 'manifest.json',
+				mediaType: {
+					format: 'raw',
+				},
+			})
+		)?.data;
+
+		console.log('manifest', manifest);
+
+		if (!manifest) {
+			// TODO: handle missing manifest
+			return;
+		}
+
+		modName = JSON.parse(manifest).name;
 
 		// TODO: handle errors. Maybe using a custom error page for this level?
 	})();
