@@ -8,15 +8,16 @@
 		return repoParts[repoParts.length - 1].toLowerCase();
 	};
 
-	export const load: Load = async ({ fetch, page }) => {
+	// TODO: type params haven't been updated.
+	export const load: Load = async ({ fetch, params }: any) => {
 		const mods = await readFromStore(modsStore);
 
-		const mod = mods.find((mod) => getModPathName(mod.name) === page.params.mod.toLowerCase());
+		const mod = mods.find((mod) => getModPathName(mod.name) === params.mod.toLowerCase());
 
 		if (!mod)
 			return {
 				status: 404,
-				error: new Error(`Could not find mod ${page.params.mod}.`),
+				error: new Error(`Could not find mod ${params.mod}.`),
 			};
 
 		const result = await fetch(`/api/${mod.author}/${getModRepoName(mod)}.json`);

@@ -4,7 +4,8 @@
 	export let href: string;
 	let isActive = false;
 	$: {
-		isActive = href === $page.path;
+		// TODO type definition hasnt been updated.
+		isActive = href === ($page as any).url.pathname;
 	}
 </script>
 
