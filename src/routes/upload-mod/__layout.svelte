@@ -1,4 +1,5 @@
 <script lang="ts">
+	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { githubUserStore, octokitStore } from '$lib/store';
@@ -50,6 +51,10 @@
 			errorMessage = `Error authenticating: ${error}`;
 		}
 	};
+
+	const handleClickSignOut = () => {
+		$githubUserStore = undefined;
+	};
 </script>
 
 <svelte:head>
@@ -61,58 +66,60 @@
 </svelte:head>
 
 <PageLayout isWide>
-	<p>
-		{#if $githubUserStore}
-			Authenticated as
-			<a class="link" href={$githubUserStore.html_url}>
-				{$githubUserStore.login}
-			</a>
-		{:else}
+	{#if $githubUserStore}
+		<div class="flex justify-end items-center">
+			<div class="pr-4">
+				<a class="link" href={$githubUserStore.html_url}>
+					{$githubUserStore.login}
+				</a>
+			</div>
+			<LinkButton on:click={handleClickSignOut}>Sign out</LinkButton>
+		</div>
+	{:else}
+		<ul>
+			<li>
+				<a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/signup"
+					>Create a GitHub account</a
+				>, if you don't have one already.
+			</li>
+			<li>Create a new user access token:</li>
 			<ul>
 				<li>
-					<a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/signup"
-						>Create a GitHub account</a
-					>, if you don't have one already.
-				</li>
-				<li>Create a new user access token:</li>
-				<ul>
-					<li>
-						Go to the
-						<a
-							target="_blank"
-							rel="noopener noreferrer"
-							class="link"
-							href="https://github.com/settings/tokens/new">GitHub access token creation page</a
-						>.
-					</li>
-					<li>Insert any text under "Note".</li>
-					<li>
-						Select "repo" (should be the first checkbox). This will automatically select all the
-						checkboxes under "repo".
-					</li>
-					<li>Scroll down and click "Generate token"</li>
-				</ul>
-				<li>
-					Copy the newly generated token. The format is something like <code
-						class="text-sm bg-dark p-1">ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code
+					Go to the
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						class="link"
+						href="https://github.com/settings/tokens/new">GitHub access token creation page</a
 					>.
 				</li>
-				<li>Paste the token in this page.</li>
-				<li>Press "Authenticate"</li>
+				<li>Insert any text under "Note".</li>
+				<li>
+					Select "repo" (should be the first checkbox). This will automatically select all the
+					checkboxes under "repo".
+				</li>
+				<li>Scroll down and click "Generate token"</li>
 			</ul>
-		{/if}
-	</p>
-	<div class="flex w-full gap-4 mb-4">
-		<TextInput
-			bind:value={githubToken}
-			label="GitHub user access token"
-			id="gh-access-token"
-			placeholder="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-			buttonText="Authenticate"
-			on:click={handleClickAuthenticate}
-			password
-		/>
-	</div>
+			<li>
+				Copy the newly generated token. The format is something like <code
+					class="text-sm bg-dark p-1">ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code
+				>.
+			</li>
+			<li>Paste the token in this page.</li>
+			<li>Press "Authenticate"</li>
+		</ul>
+		<div class="flex w-full gap-4 mb-4">
+			<TextInput
+				bind:value={githubToken}
+				label="GitHub user access token"
+				id="gh-access-token"
+				placeholder="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+				buttonText="Authenticate"
+				on:click={handleClickAuthenticate}
+				password
+			/>
+		</div>
+	{/if}
 	{#if errorMessage}
 		<p>
 			{errorMessage}
