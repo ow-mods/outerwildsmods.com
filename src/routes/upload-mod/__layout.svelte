@@ -60,7 +60,7 @@
 	</script>
 </svelte:head>
 
-<PageLayout>
+<PageLayout isWide>
 	<p>
 		{#if $githubUserStore}
 			Authenticated as
@@ -68,7 +68,38 @@
 				{$githubUserStore.login}
 			</a>
 		{:else}
-			Please authenticate
+			<ul>
+				<li>
+					<a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/signup"
+						>Create a GitHub account</a
+					>, if you don't have one already.
+				</li>
+				<li>Create a new user access token:</li>
+				<ul>
+					<li>
+						Go to the
+						<a
+							target="_blank"
+							rel="noopener noreferrer"
+							class="link"
+							href="https://github.com/settings/tokens/new">GitHub access token creation page</a
+						>.
+					</li>
+					<li>Insert any text under "Note".</li>
+					<li>
+						Select "repo" (should be the first checkbox). This will automatically select all the
+						checkboxes under "repo".
+					</li>
+					<li>Scroll down and click "Generate token"</li>
+				</ul>
+				<li>
+					Copy the newly generated token. The format is something like <code
+						class="text-sm bg-dark p-1">ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</code
+					>.
+				</li>
+				<li>Paste the token in this page.</li>
+				<li>Press "Authenticate"</li>
+			</ul>
 		{/if}
 	</p>
 	<div class="flex w-full gap-4 mb-4">
