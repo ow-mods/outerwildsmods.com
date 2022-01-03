@@ -37,7 +37,7 @@ export const getImageData = async (
 	resizeHeight?: number
 ): Promise<ImageInfo | null> => {
 	const fullUrl = url.startsWith('http')
-		? // GitHub allows embeding images that actually point to webpages on github.com, so we have to replace the URLs here
+		? // GitHub allows embedding images that actually point to webpages on github.com, so we have to replace the URLs here
 		  url.replace(
 				/^https?:\/\/github.com\/(.+)\/(.+)\/blob\/(.+)\//gm,
 				'https://raw.githubusercontent.com/$1/$2/$3/'
