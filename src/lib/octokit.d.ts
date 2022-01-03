@@ -9,6 +9,7 @@ export type OctokitAuthenticatedUser = Awaited<
 
 export type OctokitRepoArray = OctokitRepos<'listForAuthenticatedUser'>;
 export type OctokitRepo = OctokitRepos<'get'>;
+export type OctokitCreatedRepo = OctokitRepos<'createUsingTemplate'>;
 
 type OctokitCreateTreeParams = Parameters<OctokitInstance['rest']['git']['createTree']>[0];
 const treeParams: OctokitCreateTreeParams;

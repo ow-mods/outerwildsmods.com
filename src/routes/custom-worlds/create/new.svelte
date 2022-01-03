@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import CtaButton from '$lib/components/button/cta-button.svelte';
+	import LinkButton from '$lib/components/button/link-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import type { OctokitCreatedRepo } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
 
 	let modName = '';
 	let loading = false;
+	let createdRepo: OctokitCreatedRepo | undefined = undefined;
 
 	const handleClickCreate = async () => {
 		if (!modName || !$octokitStore) return;
@@ -15,7 +19,7 @@
 			const repoName = getModPathName(modName);
 			if (!repoName) return;
 
-			const repo = (
+			createdRepo = (
 				await $octokitStore.rest.repos.createUsingTemplate({
 					template_owner: 'xen-42',
 					template_repo: 'ow-new-horizons-config-template',
@@ -26,7 +30,7 @@
 
 			await $octokitStore.rest.repos.replaceAllTopics({
 				repo: repoName,
-				owner: repo.owner.login,
+				owner: createdRepo.owner.login,
 				names: ['outer-wilds', 'outer-wilds-planets'],
 			});
 
@@ -34,7 +38,7 @@
 			const manifestResponse: any = (
 				await $octokitStore.rest.repos.getContent({
 					repo: repoName,
-					owner: repo.owner.login,
+					owner: createdRepo.owner.login,
 					path: 'manifest.json',
 				})
 			).data;
@@ -43,16 +47,16 @@
 
 			await $octokitStore.rest.repos.createOrUpdateFileContents({
 				repo: repoName,
-				owner: repo.owner.login,
+				owner: createdRepo.owner.login,
 				path: manifestResponse.path,
 				sha: manifestResponse.sha,
 				content: btoa(
 					JSON.stringify(
 						{
 							...manifest,
-							author: repo.owner.login,
+							author: createdRepo.owner.login,
 							name: modName,
-							uniqueName: `${repo.owner.login}.${repoName}`,
+							uniqueName: `${createdRepo.owner.login}.${repoName}`,
 							version: '0.1.0',
 						},
 						null,
@@ -62,7 +66,8 @@
 				message: 'Update manifest.json',
 			});
 
-			goto(`/custom-worlds/create/${repo.full_name}`);
+			downloadHref = `https://github.com/${createdRepo.full_name}/archive/refs/heads/${createdRepo.default_branch}.zip`;
+			continueHref = `/custom-worlds/create/${createdRepo.full_name}`;
 		} catch (error) {
 			// TODO handle errors
 			console.error('Error creating mod', error);
@@ -89,6 +94,16 @@
 	/>
 {:else}
 	Please authenticate before creating a new mod
+{/if}
+{#if createdRepo}
+	<div class="mt-4 flex flex-col gap-4">
+		<p class="m-0">Hello</p>
+		<CtaButton
+			href="https://github.com/{createdRepo?.full_name}/archive/refs/heads/{createdRepo?.default_branch}.zip"
+			>Download addon files</CtaButton
+		>
+		<LinkButton href="/custom-worlds/create/{createdRepo?.full_name}">Continue</LinkButton>
+	</div>
 {/if}
 {#if loading}
 	<div>Please wait...</div>
