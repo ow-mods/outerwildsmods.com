@@ -79,7 +79,9 @@
 				(currentTreeItem) =>
 					// Select files within the planets directory.
 					currentTreeItem.path?.startsWith('planets/') &&
-					// Select files that are gonna be uploaded, don't wanna delete those.
+					// Select only files, not directories or whatever else.
+					currentTreeItem.type === 'blob' &&
+					// Don't select files that are gonna be uploaded, don't wanna delete those.
 					!files.find((file) => file.webkitRelativePath === currentTreeItem.path)
 			)
 			.map((planetsTreeItem) => ({
@@ -184,12 +186,12 @@
 			/>
 		</div>
 	{/if}
-	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
+	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48">
 		<div class="flex flex-col justify-center items-center h-full overflow-hidden">
 			{#if files.length > 0}
-				<div class="flex flex-col flex-wrap h-full w-full gap-4">
+				<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
 					{#each files as file (file.webkitRelativePath)}
-						<span>
+						<span class=" leading-snug">
 							{file.webkitRelativePath.replace('planets/', '')}
 						</span>
 					{/each}
