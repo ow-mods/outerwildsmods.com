@@ -4,56 +4,62 @@
 	import { githubUserStore, octokitStore } from '$lib/store';
 
 	let errorMessage: string;
-	let modRepos: OctokitRepoArray = [];
+	let repos: OctokitRepoArray = [];
+	let processedRepos: OctokitRepoArray = [];
 	let loadingRepos = false;
+	let shouldFilterByTopic = true;
 
 	$: (async () => {
 		if (!$octokitStore || !$githubUserStore) {
-			modRepos = [];
-
+			repos = [];
 			return;
 		}
 
 		try {
 			loadingRepos = true;
-			const repos = await $octokitStore.paginate(
-				$octokitStore.rest.repos.listForAuthenticatedUser,
-				{
-					per_page: 100,
-				}
-			);
-
-			modRepos = repos
-				.filter(
-					(repo) =>
-						repo.topics?.includes('outer-wilds-planets') &&
-						!repo.disabled &&
-						repo.owner.login === $githubUserStore?.login
-				)
-				.sort(
-					(repoA, repoB) =>
-						new Date(repoB.updated_at || repoB.created_at || 0).valueOf() -
-						new Date(repoA.updated_at || repoA.created_at || 0).valueOf()
-				);
+			repos = await $octokitStore.paginate($octokitStore.rest.repos.listForAuthenticatedUser, {
+				per_page: 100,
+			});
 		} catch (error) {
 			errorMessage = `Error fetching repo list: ${error}`;
 		} finally {
 			loadingRepos = false;
 		}
 	})();
+
+	$: {
+		processedRepos = repos
+			.filter(
+				(repo) =>
+					(!shouldFilterByTopic || repo.topics?.includes('outer-wilds-planets')) &&
+					!repo.disabled &&
+					repo.owner.login === $githubUserStore?.login
+			)
+			.sort(
+				(repoA, repoB) =>
+					new Date(repoB.updated_at || repoB.created_at || 0).valueOf() -
+					new Date(repoA.updated_at || repoA.created_at || 0).valueOf()
+			);
+	}
 </script>
 
 {#if $githubUserStore}
-	<p class="text-xl mt-0">Start with a new mod</p>
-	<LinkButton href="/custom-worlds/create/new">Create new mod</LinkButton>
-	<p class="text-xl">Select a mod to edit</p>
+	<p class="text-xl mt-0">Start with a new addon</p>
+	<LinkButton href="/custom-worlds/create/new">Create new addon</LinkButton>
+	<div class="flex justify-between items-center">
+		<p class="text-xl">Select an addon to edit</p>
+		<label class="text-sm" for="planet-mods-filter-checkbox">
+			Filter by <code>outer-wilds-planets</code> topic
+			<input bind:checked={shouldFilterByTopic} id="planet-mods-filter-checkbox" type="checkbox" />
+		</label>
+	</div>
 	{#if loadingRepos}
 		<div class="outline outline-4 outline-dark rounded p-2 text-center">Loading mod list...</div>
-	{:else if modRepos.length === 0}
+	{:else if processedRepos.length === 0}
 		<div class="outline outline-4 outline-dark rounded p-2 text-center">No planet mods found.</div>
 	{:else}
 		<div class="flex flex-col gap-2">
-			{#each modRepos as repo (repo.id)}
+			{#each processedRepos as repo (repo.id)}
 				<LinkButton href="/custom-worlds/create/{repo.owner.login}/{repo.name}">
 					{repo.name}
 				</LinkButton>
