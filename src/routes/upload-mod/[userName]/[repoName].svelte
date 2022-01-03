@@ -234,12 +234,13 @@
 				</div>
 			{/if}
 		</div>
+		<!-- webkitdirectory isn't part of the standard, so this may be a bad idea -->
 		<input
+			webkitdirectory
 			id="upload-input"
 			class="h-full w-full absolute left-0 top-0 opacity-0"
 			type="file"
 			on:change={handleFilesChange}
-			webkitdirectory
 		/>
 	</div>
 	<button on:click={handleUploadClick} class="button link bg-dark mt-4 w-full">Upload</button>
