@@ -191,7 +191,7 @@
 			{#if files.length > 0}
 				<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
 					{#each files as file (file.webkitRelativePath)}
-						<span class=" leading-snug">
+						<span>
 							{file.webkitRelativePath.replace('planets/', '')}
 						</span>
 					{/each}
