@@ -65,9 +65,6 @@
 				),
 				message: 'Update manifest.json',
 			});
-
-			downloadHref = `https://github.com/${createdRepo.full_name}/archive/refs/heads/${createdRepo.default_branch}.zip`;
-			continueHref = `/custom-worlds/create/${createdRepo.full_name}`;
 		} catch (error) {
 			// TODO handle errors
 			console.error('Error creating mod', error);
@@ -87,7 +84,7 @@
 	<TextInput
 		label="Mod name"
 		id="mod-name"
-		placeholder="My Mod"
+		placeholder="e.g. 'Real Solar System'"
 		bind:value={modName}
 		on:submit={handleClickCreate}
 		buttonText="Create"
@@ -96,12 +93,24 @@
 	Please authenticate before creating a new mod
 {/if}
 {#if createdRepo}
-	<div class="mt-4 flex flex-col gap-4">
-		<p class="m-0">Hello</p>
+	<div class="mt-4">
+		<p>
+			A GitHub repository has been created for your addon under <a
+				class="link"
+				href={createdRepo?.html_url}>{createdRepo?.full_name}</a
+			>.
+		</p>
+		<p>
+			Download your addon's files, and extract the folder the mods directory in your system. Find it
+			by pressing the "Mods Direcory" button in the
+			<a href="/mod-manager" class="link"> Mod Manager </a>.
+		</p>
 		<CtaButton
 			href="https://github.com/{createdRepo?.full_name}/archive/refs/heads/{createdRepo?.default_branch}.zip"
-			>Download addon files</CtaButton
 		>
+			Download addon files
+		</CtaButton>
+		<p>After you're done installing your addon, you can proceed:</p>
 		<LinkButton href="/custom-worlds/create/{createdRepo?.full_name}">Continue</LinkButton>
 	</div>
 {/if}
