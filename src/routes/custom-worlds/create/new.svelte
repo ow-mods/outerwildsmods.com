@@ -62,7 +62,7 @@
 				message: 'Update manifest.json',
 			});
 
-			goto(`/custom-worlds/upload-mod/${repo.full_name}`);
+			goto(`/custom-worlds/create/${repo.full_name}`);
 		} catch (error) {
 			// TODO handle errors
 			console.error('Error creating mod', error);
