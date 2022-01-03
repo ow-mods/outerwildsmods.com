@@ -128,10 +128,6 @@
 				</li>
 				<li>Paste the token in this page and press "Authenticate".</li>
 			</ul>
-			<p>
-				Note that if you leave or refresh this page, you'll be logged out, and you'll have to insert
-				your token again. Saving the token in a password manager would help.
-			</p>
 			<div class="flex w-full gap-4 mb-4">
 				<TextInput
 					bind:value={githubToken}
@@ -143,6 +139,10 @@
 					password
 				/>
 			</div>
+			<p class="text-sm">
+				Hint: If you leave or refresh this page, you'll be logged out. Save the token in a password
+				manager so you don't have to generate a new one every time.
+			</p>
 			<slot />
 		{/if}
 		{#if errorMessage}
