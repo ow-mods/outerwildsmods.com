@@ -2,10 +2,12 @@
 	import { page } from '$app/stores';
 
 	export let href: string;
+	export let exact = false;
 	let isActive = false;
 	$: {
 		// TODO type definition hasnt been updated.
-		isActive = href === ($page as any).url.pathname;
+		const pathName: string = ($page as any).url.pathname;
+		isActive = exact ? pathName === href : pathName.startsWith(href);
 	}
 </script>
 

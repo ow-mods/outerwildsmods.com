@@ -12,10 +12,10 @@
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
 	</h1>
 	<Navigation>
-		<NavigationLink href="/">Home</NavigationLink>
+		<NavigationLink href="/" exact>Home</NavigationLink>
 		<NavigationLink href="/mod-manager">Mod Manager</NavigationLink>
 		<NavigationLink href="/mods">Mods</NavigationLink>
+		<NavigationLink href="/custom-worlds">Custom Worlds</NavigationLink>
 		<NavigationLink href="/outer-wilds-alpha">Outer Wilds Alpha</NavigationLink>
-		<NavigationLink href="/upload-mod">Upload Mod</NavigationLink>
 	</Navigation>
 </header>
