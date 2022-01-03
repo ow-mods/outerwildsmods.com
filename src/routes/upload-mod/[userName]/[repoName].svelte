@@ -54,6 +54,8 @@
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
 		if (!event.currentTarget.files) return;
+		console.log(Array.from(event.currentTarget.files));
+
 		files = Array.from(event.currentTarget.files);
 	};
 
@@ -78,7 +80,7 @@
 					// Select files within the planets directory.
 					currentTreeItem.path?.startsWith('planets/') &&
 					// Select files that are gonna be uploaded, don't wanna delete those.
-					!files.find((file) => file.name === currentTreeItem.path)
+					!files.find((file) => file.webkitRelativePath === currentTreeItem.path)
 			)
 			.map((planetsTreeItem) => ({
 				// Null sha means the file will be deleted.
@@ -100,7 +102,7 @@
 			).data;
 
 			newTree.push({
-				path: `planets/${file.name}`,
+				path: file.webkitRelativePath,
 				sha: blob.sha,
 				type: 'blob',
 				mode: '100644',
@@ -185,11 +187,13 @@
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
 		<div class="flex flex-col justify-center items-center h-full">
 			{#if files.length > 0}
-				{#each files as file (file.name)}
-					{file.name}{', '}
+				{#each files as file (file.webkitRelativePath)}
+					{file.webkitRelativePath}{', '}
 				{/each}
 			{:else}
-				Drop a .zip file in this box, or click here to browse for the file.
+				<div>
+					Drop your <code>planets</code> folder here, or click and select the folder in your file system.
+				</div>
 			{/if}
 		</div>
 		<input
@@ -197,7 +201,7 @@
 			class="h-full w-full absolute left-0 top-0 opacity-0"
 			type="file"
 			on:change={handleFilesChange}
-			multiple
+			webkitdirectory
 		/>
 	</div>
 	<button on:click={handleUploadClick} class="button link bg-dark mt-4 w-full">Upload</button>
