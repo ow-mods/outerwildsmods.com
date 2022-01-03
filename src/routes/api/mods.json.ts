@@ -38,26 +38,33 @@ export const get: RequestHandler = async () => {
 	const mods: ModsRequestItem[] = await Promise.all(
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
-			const readme = await getModReadme(rawContentUrl);
-			const images = getAllMarkdownImages(readme);
+			let imageUrl: string | null = null;
 
-			const externalImages =
-				images.length > 0
-					? await getImageMap(
-							rawContentUrl,
-							[images[0]],
-							listedImageSize.width,
-							listedImageSize.height
-					  )
-					: {};
+			try {
+				const readme = await getModReadme(rawContentUrl);
+				const images = getAllMarkdownImages(readme);
 
-			const firstExternalImage = Object.values(externalImages).filter(
-				(image) => image?.format && supportedTypes.includes(image.format)
-			)[0];
+				const externalImages =
+					images.length > 0
+						? await getImageMap(
+								rawContentUrl,
+								[images[0]],
+								listedImageSize.width,
+								listedImageSize.height
+						  )
+						: {};
 
+				const firstExternalImage = Object.values(externalImages).filter(
+					(image) => image?.format && supportedTypes.includes(image.format)
+				)[0];
+
+				imageUrl = firstExternalImage?.url ?? null;
+			} catch (error) {
+				console.error(`Failed to retrieve thumbnail image for ${mod.uniqueName}: ${error}`);
+			}
 			return {
 				...mod,
-				imageUrl: firstExternalImage?.url || null,
+				imageUrl,
 				formattedDownloadCount: formatNumber(mod.downloadCount),
 				rawContentUrl,
 			};

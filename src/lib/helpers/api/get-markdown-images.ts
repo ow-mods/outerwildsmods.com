@@ -50,7 +50,11 @@ export const getImageMap = async (
 	const imageMap: ImageMap = {};
 
 	for (const url of imageUrls) {
-		imageMap[url] = await getImageData(baseUrl, url, width, height);
+		try {
+			imageMap[url] = await getImageData(baseUrl, url, width, height);
+		} catch (error) {
+			console.error(`Failed to get optimized image for ${url} in ${baseUrl}`);
+		}
 	}
 
 	return imageMap;
