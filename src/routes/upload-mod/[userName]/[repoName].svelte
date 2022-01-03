@@ -185,11 +185,15 @@
 		</div>
 	{/if}
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-4 h-48">
-		<div class="flex flex-col justify-center items-center h-full">
+		<div class="flex flex-col justify-center items-center h-full overflow-hidden">
 			{#if files.length > 0}
-				{#each files as file (file.webkitRelativePath)}
-					{file.webkitRelativePath}{', '}
-				{/each}
+				<div class="flex flex-col flex-wrap h-full w-full gap-4">
+					{#each files as file (file.webkitRelativePath)}
+						<span>
+							{file.webkitRelativePath.replace('planets/', '')}
+						</span>
+					{/each}
+				</div>
 			{:else}
 				<div>
 					Drop your <code>planets</code> folder here, or click and select the folder in your file system.
