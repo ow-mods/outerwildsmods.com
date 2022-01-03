@@ -21,6 +21,7 @@ specifiers:
   postcss-load-config: ^3.1.1
   prettier: ^2.5.1
   prettier-plugin-svelte: ^2.5.1
+  semver-utils: ^1.1.4
   sharp: ^0.29.3
   svelte: ^3.44.3
   svelte-check: ^2.2.11
@@ -29,6 +30,9 @@ specifiers:
   tailwindcss: ^3.0.8
   tslib: ^2.3.1
   typescript: ^4.5.4
+
+dependencies:
+  semver-utils: 1.1.4
 
 devDependencies:
   '@sveltejs/adapter-static': 1.0.0-next.24
@@ -2869,6 +2873,10 @@ packages:
       mkdirp: 0.5.5
       rimraf: 2.7.1
     dev: true
+
+  /semver-utils/1.1.4:
+    resolution: {integrity: sha512-EjnoLE5OGmDAVV/8YDoN5KiajNadjzIp9BAHOhYeQHt7j0UWxjmgsx4YD48wp4Ue1Qogq38F1GNUJNqF1kKKxA==}
+    dev: false
 
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}

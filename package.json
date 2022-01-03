@@ -43,5 +43,8 @@
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"post:build": "node post-build.mjs"
+	},
+	"dependencies": {
+		"semver-utils": "^1.1.4"
 	}
 }

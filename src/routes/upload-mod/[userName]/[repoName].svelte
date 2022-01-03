@@ -4,6 +4,7 @@
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
+	import semverUtils from 'semver-utils';
 
 	type Manifest = {
 		name: string;
@@ -91,6 +92,37 @@
 				mode: '100644',
 				type: 'commit',
 			}));
+
+		const currentSemver = semverUtils.parse(manifest?.version ?? '') ?? semverUtils.parse('0.0.0');
+		const minor = currentSemver.minor ?? '1';
+		const nextVersion = semverUtils.stringify({
+			...currentSemver,
+			minor: (Number.parseInt(minor) + 1).toString(),
+		});
+
+		const manifestBlob = (
+			await $octokitStore.rest.git.createBlob({
+				...repoParameters,
+				content: btoa(
+					JSON.stringify(
+						{
+							...manifest,
+							version: nextVersion,
+						},
+						null,
+						2
+					)
+				),
+				encoding: 'base64',
+			})
+		).data;
+
+		newTree.push({
+			path: 'manifest.json',
+			sha: manifestBlob.sha,
+			type: 'blob',
+			mode: '100644',
+		});
 
 		// Then add the remaining new files.
 		for (const file of files) {
