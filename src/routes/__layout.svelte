@@ -1,12 +1,12 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 
 	export const load: Load = async ({ fetch }) => {
 		const result = await fetch('/api/mods.json');
 
 		if (result.ok) {
-			modsStore.set(await result.json());
+			modList.set(await result.json());
 			return {};
 		}
 

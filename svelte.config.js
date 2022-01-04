@@ -6,6 +6,7 @@ const config = {
 	preprocess: [
 		preprocess({
 			postcss: true,
+			preserve: ['module'],
 		}),
 	],
 	kit: {
@@ -22,6 +23,13 @@ const config = {
 			},
 		},
 		target: '#svelte',
+		vite: {
+			resolve: {
+				alias: {
+					'node-fetch': 'isomorphic-fetch',
+				},
+			},
+		},
 	},
 };
 

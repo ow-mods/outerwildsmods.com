@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import CardGridItem from '../card-grid/card-grid-item.svelte';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	export let parentUniqueName: string | undefined;
 	let parentMod: ModsRequestItem | undefined;
-	$: parentMod = $modsStore.find((otherMod) => otherMod.uniqueName === parentUniqueName);
+	$: parentMod = $modList.find((otherMod) => otherMod.uniqueName === parentUniqueName);
 </script>
 
 {#if parentMod}

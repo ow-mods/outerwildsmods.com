@@ -2,9 +2,11 @@
 	import { page } from '$app/stores';
 
 	export let href: string;
+	export let exact = false;
 	let isActive = false;
 	$: {
-		isActive = href === $page.path;
+		const pathName: string = $page.url.pathname;
+		isActive = exact ? pathName === href : pathName.startsWith(href);
 	}
 </script>
 

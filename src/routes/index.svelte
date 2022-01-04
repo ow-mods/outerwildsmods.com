@@ -22,7 +22,7 @@
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 
 	const infoLinks = [
 		{
@@ -57,7 +57,7 @@
 
 	export let featuredModNames: string[] = [];
 	const featuredMods = featuredModNames.map((name) =>
-		$modsStore.find((mod) => mod.uniqueName === name)
+		$modList.find((mod) => mod.uniqueName === name)
 	);
 </script>
 

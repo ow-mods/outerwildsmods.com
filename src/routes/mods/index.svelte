@@ -3,10 +3,10 @@
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 
-	const standardMods = $modsStore.filter((mod) => !mod.utility);
-	const utilityMods = $modsStore.filter((mod) => mod.utility);
+	const standardMods = $modList.filter((mod) => !mod.utility);
+	const utilityMods = $modList.filter((mod) => mod.utility);
 </script>
 
 <svelte:head>

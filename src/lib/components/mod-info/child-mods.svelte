@@ -2,7 +2,7 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import CtaButton from '../button/cta-button.svelte';
 	import LinkButton from '../button/link-button.svelte';
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 	import CardGridItem from '../card-grid/card-grid-item.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
@@ -13,7 +13,7 @@
 	let childMods: ModsRequestItem[] = [];
 	let addonsPath = '';
 	$: {
-		childMods = $modsStore.filter((otherMod) => otherMod.parent === mod.uniqueName);
+		childMods = $modList.filter((otherMod) => otherMod.parent === mod.uniqueName);
 		addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
 	}
 </script>

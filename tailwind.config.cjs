@@ -16,6 +16,7 @@ const config = {
 			dark: '#191a1b',
 			darker: '#121416',
 			transparent: 'transparent',
+			error: '#f04747',
 		},
 		extend: {
 			fontSize: {

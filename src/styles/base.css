@@ -310,6 +310,8 @@ Make sure disabled buttons don't get the pointer cursor.
 */
 	:disabled {
 		cursor: default;
+		opacity: 0.5;
+		pointer-events: none;
 	}
 
 	/*
