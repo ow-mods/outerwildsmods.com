@@ -1,16 +1,17 @@
-import type { Octokit as OctokitInstance } from 'octokit/dist-types/octokit';
+import type { Octokit } from 'octokit';
 
-type OctokitRepos<T> = Awaited<ReturnType<OctokitInstance['rest']['repos'][T]>>['data'];
-type OctokitGit<T> = Awaited<ReturnType<OctokitInstance['rest']['git'][T]>>['data'];
+type OctokitRest = Octokit['rest'];
+
+type OctokitRepos<T> = Awaited<ReturnType<OctokitRest['repos'][T]>>['data'];
 
 export type OctokitAuthenticatedUser = Awaited<
-	ReturnType<OctokitInstance['rest']['users']['getAuthenticated']>
+	ReturnType<OctokitRest['users']['getAuthenticated']>
 >['data'];
 
 export type OctokitRepoArray = OctokitRepos<'listForAuthenticatedUser'>;
 export type OctokitRepo = OctokitRepos<'get'>;
 export type OctokitCreatedRepo = OctokitRepos<'createUsingTemplate'>;
 
-type OctokitCreateTreeParams = Parameters<OctokitInstance['rest']['git']['createTree']>[0];
+type OctokitCreateTreeParams = Parameters<Octokit['rest']['git']['createTree']>[0];
 const treeParams: OctokitCreateTreeParams;
 export type OctokitTree = typeof treeParams.tree;
