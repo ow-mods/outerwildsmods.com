@@ -1,9 +1,9 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { modsStore } from '$lib/store';
+import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
 
 export const get: RequestHandler = async () => {
-	const mods = await readFromStore(modsStore);
+	const mods = await readFromStore(modList);
 
 	return {
 		body: JSON.stringify(

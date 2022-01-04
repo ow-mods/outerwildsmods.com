@@ -3,9 +3,9 @@
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 
-	const newHorizons = $modsStore.find((mod) => mod.uniqueName === 'xen.NewHorizons');
+	const newHorizons = $modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 </script>
 
 <PageLayout isWide>

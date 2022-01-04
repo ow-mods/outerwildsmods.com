@@ -2,7 +2,7 @@
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import type { OctokitRepoArray } from '$lib/octokit';
-	import { githubUserStore, octokitStore } from '$lib/store';
+	import { githubUser, octokit } from '$lib/store';
 
 	let errorMessage: string;
 	let repos: OctokitRepoArray = [];
@@ -11,14 +11,14 @@
 	let shouldFilterByTopic = true;
 
 	$: (async () => {
-		if (!$octokitStore || !$githubUserStore) {
+		if (!$octokit || !$githubUser) {
 			repos = [];
 			return;
 		}
 
 		try {
 			loadingRepos = true;
-			repos = await $octokitStore.paginate($octokitStore.rest.repos.listForAuthenticatedUser, {
+			repos = await $octokit.paginate($octokit.rest.repos.listForAuthenticatedUser, {
 				per_page: 100,
 			});
 		} catch (error) {
@@ -34,7 +34,7 @@
 				(repo) =>
 					(!shouldFilterByTopic || repo.topics?.includes('outer-wilds-planets')) &&
 					!repo.disabled &&
-					repo.owner.login === $githubUserStore?.login
+					repo.owner.login === $githubUser?.login
 			)
 			.sort(
 				(repoA, repoB) =>
@@ -44,7 +44,7 @@
 	}
 </script>
 
-{#if $githubUserStore}
+{#if $githubUser}
 	<p class="text-xl mt-0">Start with a new addon</p>
 	<CtaButton href="/custom-worlds/create/new">Create new addon</CtaButton>
 	<div class="flex justify-between items-center">

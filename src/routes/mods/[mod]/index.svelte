@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
 	import { readFromStore } from '$lib/helpers/read-from-store';
-	import { modsStore } from '$lib/store';
+	import { modList } from '$lib/store';
 
 	const getModRepoName = (mod: Mod): string => {
 		const repoParts = mod.repo.split('/');
@@ -9,7 +9,7 @@
 	};
 
 	export const load: Load = async ({ fetch, params }) => {
-		const mods = await readFromStore(modsStore);
+		const mods = await readFromStore(modList);
 
 		const mod = mods.find((mod) => getModPathName(mod.name) === params.mod.toLowerCase());
 

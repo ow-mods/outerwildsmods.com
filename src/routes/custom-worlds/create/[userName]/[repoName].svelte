@@ -3,7 +3,7 @@
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
-	import { githubUserStore, modsStore, octokitStore } from '$lib/store';
+	import { githubUser, modList, octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
 
 	type Manifest = {
@@ -30,13 +30,13 @@
 	};
 
 	$: {
-		if ($modsStore.find((mod) => manifest && mod.uniqueName === manifest.uniqueName)) {
+		if ($modList.find((mod) => manifest && mod.uniqueName === manifest.uniqueName)) {
 			isModPublished = true;
 		}
 	}
 
 	$: (async () => {
-		if (!$octokitStore || !$githubUserStore) {
+		if (!$octokit || !$githubUser) {
 			repo = undefined;
 			files = [];
 			manifest = undefined;
@@ -44,11 +44,11 @@
 			manifestSha = undefined;
 			return;
 		}
-		repo = (await $octokitStore.rest.repos.get(repoParameters)).data;
+		repo = (await $octokit.rest.repos.get(repoParameters)).data;
 
 		// The type definitions here suck, have to use any.
 		const manifestResponse: any = (
-			await $octokitStore?.rest.repos.getContent({
+			await $octokit?.rest.repos.getContent({
 				...repoParameters,
 				path: 'manifest.json',
 			})
@@ -84,15 +84,15 @@
 	};
 
 	const handleUploadClick = async () => {
-		repo = (await $octokitStore?.rest.repos.get(repoParameters))?.data;
+		repo = (await $octokit?.rest.repos.get(repoParameters))?.data;
 
-		if (files.length === 0 || !$octokitStore || !repo) return;
+		if (files.length === 0 || !$octokit || !repo) return;
 
 		try {
 			isUploading = true;
 
 			const currentTree = (
-				await $octokitStore.rest.git.getTree({
+				await $octokit.rest.git.getTree({
 					...repoParameters,
 					tree_sha: repo.default_branch,
 					recursive: 'true',
@@ -127,7 +127,7 @@
 			});
 
 			const manifestBlob = (
-				await $octokitStore.rest.git.createBlob({
+				await $octokit.rest.git.createBlob({
 					...repoParameters,
 					content: btoa(
 						JSON.stringify(
@@ -154,7 +154,7 @@
 			for (const file of files) {
 				// Text files (maybe only <1MB) don't need this step, but for now I'm just treating all files as blobs for simplicity.
 				const blob = (
-					await $octokitStore.rest.git.createBlob({
+					await $octokit.rest.git.createBlob({
 						...repoParameters,
 						content: await getBase64File(file),
 						encoding: 'base64',
@@ -170,7 +170,7 @@
 			}
 
 			const createdTree = (
-				await $octokitStore.rest.git.createTree({
+				await $octokit.rest.git.createTree({
 					...repoParameters,
 					tree: newTree,
 					base_tree: currentTree.sha,
@@ -178,14 +178,14 @@
 			).data;
 
 			const ref = (
-				await $octokitStore.rest.git.getRef({
+				await $octokit.rest.git.getRef({
 					...repoParameters,
 					ref: `heads/${repo.default_branch}`,
 				})
 			).data;
 
 			const commit = (
-				await $octokitStore.rest.git.createCommit({
+				await $octokit.rest.git.createCommit({
 					...repoParameters,
 					message: 'Update',
 					tree: createdTree.sha,
@@ -194,7 +194,7 @@
 				})
 			).data;
 
-			$octokitStore.rest.git.updateRef({
+			$octokit.rest.git.updateRef({
 				...repoParameters,
 				force: true,
 				sha: commit.sha,
@@ -211,9 +211,9 @@
 	};
 
 	const handleSaveModNameClick = async () => {
-		if (!$octokitStore) return;
+		if (!$octokit) return;
 
-		await $octokitStore.rest.repos.createOrUpdateFileContents({
+		await $octokit.rest.repos.createOrUpdateFileContents({
 			...repoParameters,
 			path: 'manifest.json',
 			sha: manifestSha,
@@ -232,13 +232,13 @@
 	};
 
 	const handlePublishModClick = async () => {
-		if (!$octokitStore || !manifest || !repo) return;
+		if (!$octokit || !manifest || !repo) return;
 
 		try {
 			isSubmittingIssue = true;
 
 			const publishRequestIssue = (
-				await $octokitStore.rest.issues.create({
+				await $octokit.rest.issues.create({
 					owner: 'Raicuparta',
 					repo: 'ow-mod-db',
 					title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
@@ -263,7 +263,7 @@ xen.NewHorizons`,
 
 			publishRequestIssueUrl = publishRequestIssue.html_url;
 
-			await $octokitStore.rest.repos.update({
+			await $octokit.rest.repos.update({
 				...repoParameters,
 				private: false,
 			});

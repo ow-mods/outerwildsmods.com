@@ -3,53 +3,46 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import PasswordInput from '$lib/components/password-input.svelte';
-	import { githubUserStore, octokitStore } from '$lib/store';
+	import { githubUser, octokit } from '$lib/store';
 	import { Octokit } from 'octokit';
 
 	let errorMessage: string;
 	let githubToken = (import.meta.env['VITE_GITHUB_TOKEN'] as string) || '';
 
 	const handleClickAuthenticate = async () => {
-		if (!Octokit) return;
-
 		try {
-			const octokit = new Octokit({ auth: githubToken });
+			$octokit = new Octokit({ auth: githubToken });
 
-			octokitStore.set(octokit);
+			if (!$octokit) return;
 
-			const authResponse = await octokit.rest.users.getAuthenticated();
+			const authResponse = await $octokit.rest.users.getAuthenticated();
 
 			if (!authResponse.data) {
 				throw new Error('Missing auth response data');
 			}
 
-			githubUserStore.set(authResponse.data);
+			githubUser.set(authResponse.data);
 		} catch (error) {
 			errorMessage = `Error authenticating: ${error}`;
 		}
 	};
 
 	const handleClickSignOut = () => {
-		$githubUserStore = undefined;
+		$githubUser = undefined;
 	};
 </script>
 
 <PageLayout isWide>
 	<PageSection title="Create New Horizons Addon" id="create-addon">
-		{#if $githubUserStore}
+		{#if $githubUser}
 			<div class="flex gap-4">
 				<div class="flex-1">
 					<slot />
 				</div>
 				<div class="w-52 rounded bg-dark p-4 flex flex-col gap-4">
 					<div class="pr-4">
-						<a
-							class="link"
-							target="_blank"
-							rel="noopener noreferrer"
-							href={$githubUserStore.html_url}
-						>
-							{$githubUserStore.login}
+						<a class="link" target="_blank" rel="noopener noreferrer" href={$githubUser.html_url}>
+							{$githubUser.login}
 						</a>
 					</div>
 					<LinkButton on:click={handleClickSignOut}>Sign out</LinkButton>

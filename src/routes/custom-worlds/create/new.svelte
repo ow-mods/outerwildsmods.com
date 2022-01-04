@@ -4,14 +4,14 @@
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import type { OctokitCreatedRepo } from '$lib/octokit';
-	import { githubUserStore, octokitStore } from '$lib/store';
+	import { githubUser, octokit } from '$lib/store';
 
 	let modName = '';
 	let loading = false;
 	let createdRepo: OctokitCreatedRepo | undefined = undefined;
 
 	const handleClickCreate = async () => {
-		if (!modName || !$octokitStore) return;
+		if (!modName || !$octokit) return;
 		try {
 			loading = true;
 
@@ -19,7 +19,7 @@
 			if (!repoName) return;
 
 			createdRepo = (
-				await $octokitStore.rest.repos.createUsingTemplate({
+				await $octokit.rest.repos.createUsingTemplate({
 					template_owner: 'xen-42',
 					template_repo: 'ow-new-horizons-config-template',
 					name: repoName,
@@ -27,7 +27,7 @@
 				})
 			).data;
 
-			await $octokitStore.rest.repos.replaceAllTopics({
+			await $octokit.rest.repos.replaceAllTopics({
 				repo: repoName,
 				owner: createdRepo.owner.login,
 				names: ['outer-wilds', 'outer-wilds-planets'],
@@ -35,7 +35,7 @@
 
 			// Typed as any because the types for this are useless.
 			const manifestResponse: any = (
-				await $octokitStore.rest.repos.getContent({
+				await $octokit.rest.repos.getContent({
 					repo: repoName,
 					owner: createdRepo.owner.login,
 					path: 'manifest.json',
@@ -44,7 +44,7 @@
 
 			const manifest = JSON.parse(atob(manifestResponse.content));
 
-			await $octokitStore.rest.repos.createOrUpdateFileContents({
+			await $octokit.rest.repos.createOrUpdateFileContents({
 				repo: repoName,
 				owner: createdRepo.owner.login,
 				path: manifestResponse.path,
@@ -73,7 +73,7 @@
 	};
 </script>
 
-{#if $githubUserStore}
+{#if $githubUser}
 	<div>
 		This will create a new repository on GitHub based on
 		<a
