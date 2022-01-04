@@ -11,18 +11,27 @@
 </script>
 
 <form class="flex-1" on:submit|preventDefault>
+	<input
+		class="absolute opacity-0"
+		value="placeholder@outerwildsmods.com"
+		name="email"
+		type="email"
+		autocomplete="username"
+		{disabled}
+	/>
 	<label for={id} class="text-sm">
 		{label}
 	</label>
 	<div class="flex gap-4">
 		<input
 			{id}
-			class="flex-1 rounded bg-dark py-1 px-2 placeholder:opacity-40 placeholder:text-light focus-visible:outline-none focus-visible:bg-darker"
+			class="flex-1 font-mono rounded bg-dark py-1 px-2 placeholder:opacity-40 placeholder:text-light focus-visible:outline-none focus-visible:bg-darker"
 			{placeholder}
-			name={label}
-			bind:value
-			on:input={(event) => (value = event.currentTarget.value.replace(/[^\x00-\x7F]+/gm, ''))}
+			name="password"
+			type="password"
+			autocomplete="current-password"
 			{disabled}
+			bind:value
 		/>
 		{#if buttonText}
 			<button

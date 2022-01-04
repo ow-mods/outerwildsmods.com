@@ -2,6 +2,7 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import PasswordInput from '$lib/components/password-input.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { githubUserStore, octokitStore } from '$lib/store';
 	import type { Octokit } from 'octokit';
@@ -129,14 +130,13 @@
 				<li>Paste the token in this page and press "Authenticate".</li>
 			</ul>
 			<div class="flex w-full gap-4 mb-4">
-				<TextInput
+				<PasswordInput
 					bind:value={githubToken}
 					label="GitHub user access token"
 					id="gh-access-token"
 					placeholder="ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 					buttonText="Authenticate"
 					on:submit={handleClickAuthenticate}
-					password
 				/>
 			</div>
 			<p class="text-sm">
