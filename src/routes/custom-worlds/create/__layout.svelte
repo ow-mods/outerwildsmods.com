@@ -3,7 +3,6 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import PasswordInput from '$lib/components/password-input.svelte';
-	import TextInput from '$lib/components/text-input.svelte';
 	import { githubUserStore, octokitStore } from '$lib/store';
 	import type { Octokit } from 'octokit';
 	import { onDestroy, onMount } from 'svelte';
