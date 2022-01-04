@@ -199,11 +199,8 @@
 </script>
 
 {#if repo}
-	<div class="mb-4 text-sm">
-		Hint: bookmark this page so that you don't need to select the mod every time you authenticate.
-	</div>
 	{#if manifest}
-		<a href={repo.html_url} class="link">
+		<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
 			{manifest.name}
 		</a>
 		{manifest.version}
@@ -244,6 +241,19 @@
 		/>
 	</div>
 	<button on:click={handleUploadClick} class="button link bg-dark mt-4 w-full">Upload</button>
+
+	<ul class="text-sm pl-4">
+		<li>
+			Learn how to edit your addon by reading the <a
+				class="link"
+				target="_blank"
+				href="/mods/newhorizons">New Horizons readme</a
+			>.
+		</li>
+		<li>
+			Bookmark this page so that you don't need to select the mod every time you authenticate.
+		</li>
+	</ul>
 {:else}
 	<p>
 		Please authenticate with an access token that has access to {$page.params.userName}/{$page
