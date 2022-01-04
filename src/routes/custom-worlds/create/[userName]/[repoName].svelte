@@ -62,7 +62,7 @@
 		manifest = JSON.parse(atob(manifestResponse.content));
 		manifestSha = manifestResponse.sha;
 
-		// TODO: handle errors. Maybe using a custom error page for this level?
+		// TODO: handle errors.
 	})();
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
@@ -91,7 +91,6 @@
 		try {
 			isUploading = true;
 
-			// TODO catch errors.
 			const currentTree = (
 				await $octokitStore.rest.git.getTree({
 					...repoParameters,

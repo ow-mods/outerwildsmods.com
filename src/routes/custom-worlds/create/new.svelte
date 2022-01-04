@@ -97,7 +97,6 @@
 {:else}
 	Please authenticate before creating a new mod
 {/if}
-<!-- TODO remove true -->
 {#if createdRepo}
 	<div class="mt-4">
 		<p>

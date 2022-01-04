@@ -8,8 +8,7 @@
 		return repoParts[repoParts.length - 1].toLowerCase();
 	};
 
-	// TODO: type params haven't been updated.
-	export const load: Load = async ({ fetch, params }: any) => {
+	export const load: Load = async ({ fetch, params }) => {
 		const mods = await readFromStore(modsStore);
 
 		const mod = mods.find((mod) => getModPathName(mod.name) === params.mod.toLowerCase());

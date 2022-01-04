@@ -5,8 +5,7 @@
 	export let exact = false;
 	let isActive = false;
 	$: {
-		// TODO type definition hasnt been updated.
-		const pathName: string = ($page as any).url.pathname;
+		const pathName: string = $page.url.pathname;
 		isActive = exact ? pathName === href : pathName.startsWith(href);
 	}
 </script>
