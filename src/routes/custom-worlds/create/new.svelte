@@ -104,8 +104,10 @@
 				class="link"
 				target="_blank"
 				rel="noopener noreferrer"
-				href={createdRepo?.html_url}>{createdRepo?.full_name}</a
-			>.
+				href={createdRepo?.html_url}
+			>
+				{createdRepo?.full_name}
+			</a>.
 		</p>
 		<p>
 			Download your addon's files, and extract the folder the mods directory in your system. Find
@@ -122,8 +124,10 @@
 			instructions on how to create worlds in the <a
 				class="link"
 				target="_blank"
-				href="/mods/newhorizons">New Horizons readme</a
-			>.
+				href="/mods/newhorizons"
+			>
+				New Horizons readme
+			</a>.
 		</p>
 		<p>
 			Once you've edited your addon to your desire, you can come back to this page to upload your

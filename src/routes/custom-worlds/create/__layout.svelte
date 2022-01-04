@@ -69,9 +69,14 @@
 			</p>
 			<ul>
 				<li>
-					<a target="_blank" rel="noopener noreferrer" class="link" href="https://github.com/signup"
-						>Create a GitHub account</a
-					>, if you don't have one already.
+					<a
+						target="_blank"
+						rel="noopener noreferrer"
+						class="link"
+						href="https://github.com/signup"
+					>
+						Create a GitHub account
+					</a>, if you don't have one already.
 				</li>
 				<li>Create a new user access token:</li>
 				<ul>
@@ -81,8 +86,10 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							class="link"
-							href="https://github.com/settings/tokens/new">GitHub access token creation page</a
-						>.
+							href="https://github.com/settings/tokens/new"
+						>
+							GitHub access token creation page
+						</a>.
 					</li>
 					<li>Insert any text under "Note".</li>
 					<li>
