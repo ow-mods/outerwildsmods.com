@@ -3,12 +3,13 @@
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
-	import { githubUserStore, octokitStore } from '$lib/store';
+	import { githubUserStore, modsStore, octokitStore } from '$lib/store';
 	import semverUtils from 'semver-utils';
 
 	type Manifest = {
 		name: string;
 		version: string;
+		uniqueName: string;
 		[key: string]: unknown;
 	};
 
@@ -18,11 +19,19 @@
 	let modName = '';
 	let manifestSha: string | undefined;
 	let fileInputErrors: string[] = [];
+	let isUploading = false;
+	let isModPublished = false;
 
 	const repoParameters = {
 		owner: $page.params.userName,
 		repo: $page.params.repoName,
 	};
+
+	$: {
+		if ($modsStore.find((mod) => manifest && mod.uniqueName === manifest.uniqueName)) {
+			isModPublished = true;
+		}
+	}
 
 	$: (async () => {
 		if (!$octokitStore || !$githubUserStore) {
@@ -65,7 +74,6 @@
 				fileInputErrors.push(
 					`File ${file.webkitRelativePath} isn't in the 'planets" folder. Make sure to select the whole planets folder and drop it here, and no other files.`
 				);
-				throw 'This isnt planets';
 				return;
 			}
 		}
@@ -78,115 +86,127 @@
 
 		if (files.length === 0 || !$octokitStore || !repo) return;
 
-		// TODO catch errors.
-		const currentTree = (
-			await $octokitStore.rest.git.getTree({
-				...repoParameters,
-				tree_sha: repo.default_branch,
-				recursive: 'true',
-			})
-		).data;
+		try {
+			isUploading = true;
 
-		// Start the tree by marking some files for deletion
-		const newTree: OctokitTree = currentTree.tree
-			.filter(
-				(currentTreeItem) =>
-					// Select files within the planets directory.
-					currentTreeItem.path?.startsWith('planets/') &&
-					// Select only files, not directories or whatever else.
-					currentTreeItem.type === 'blob' &&
-					// Don't select files that are gonna be uploaded, don't wanna delete those.
-					!files.find((file) => file.webkitRelativePath === currentTreeItem.path)
-			)
-			.map((planetsTreeItem) => ({
-				// Null sha means the file will be deleted.
-				sha: null,
-				path: planetsTreeItem.path,
-				mode: '100644',
-				type: 'commit',
-			}));
+			// TODO catch errors.
+			const currentTree = (
+				await $octokitStore.rest.git.getTree({
+					...repoParameters,
+					tree_sha: repo.default_branch,
+					recursive: 'true',
+				})
+			).data;
 
-		const currentSemver = semverUtils.parse(manifest?.version ?? '') ?? semverUtils.parse('0.0.0');
-		const minor = currentSemver.minor ?? '1';
-		const nextVersion = semverUtils.stringify({
-			...currentSemver,
-			minor: (Number.parseInt(minor) + 1).toString(),
-		});
+			// Start the tree by marking some files for deletion
+			const newTree: OctokitTree = currentTree.tree
+				.filter(
+					(currentTreeItem) =>
+						// Select files within the planets directory.
+						currentTreeItem.path?.startsWith('planets/') &&
+						// Select only files, not directories or whatever else.
+						currentTreeItem.type === 'blob' &&
+						// Don't select files that are gonna be uploaded, don't wanna delete those.
+						!files.find((file) => file.webkitRelativePath === currentTreeItem.path)
+				)
+				.map((planetsTreeItem) => ({
+					// Null sha means the file will be deleted.
+					sha: null,
+					path: planetsTreeItem.path,
+					mode: '100644',
+					type: 'commit',
+				}));
 
-		const manifestBlob = (
-			await $octokitStore.rest.git.createBlob({
-				...repoParameters,
-				content: btoa(
-					JSON.stringify(
-						{
-							...manifest,
-							version: nextVersion,
-						},
-						null,
-						2
-					)
-				),
-				encoding: 'base64',
-			})
-		).data;
+			const currentSemver =
+				semverUtils.parse(manifest?.version ?? '') ?? semverUtils.parse('0.0.0');
+			const minor = currentSemver.minor ?? '1';
+			const nextVersion = semverUtils.stringify({
+				...currentSemver,
+				minor: (Number.parseInt(minor) + 1).toString(),
+			});
 
-		newTree.push({
-			path: 'manifest.json',
-			sha: manifestBlob.sha,
-			type: 'blob',
-			mode: '100644',
-		});
-
-		// Then add the remaining new files.
-		for (const file of files) {
-			// Text files (maybe only <1MB) don't need this step, but for now I'm just treating all files as blobs for simplicity.
-			const blob = (
+			const manifestBlob = (
 				await $octokitStore.rest.git.createBlob({
 					...repoParameters,
-					content: await getBase64File(file),
+					content: btoa(
+						JSON.stringify(
+							{
+								...manifest,
+								version: nextVersion,
+							},
+							null,
+							2
+						)
+					),
 					encoding: 'base64',
 				})
 			).data;
 
 			newTree.push({
-				path: file.webkitRelativePath,
-				sha: blob.sha,
+				path: 'manifest.json',
+				sha: manifestBlob.sha,
 				type: 'blob',
 				mode: '100644',
 			});
-		}
 
-		const createdTree = (
-			await $octokitStore.rest.git.createTree({
-				...repoParameters,
-				tree: newTree,
-				base_tree: currentTree.sha,
-			})
-		).data;
+			// Then add the remaining new files.
+			for (const file of files) {
+				// Text files (maybe only <1MB) don't need this step, but for now I'm just treating all files as blobs for simplicity.
+				const blob = (
+					await $octokitStore.rest.git.createBlob({
+						...repoParameters,
+						content: await getBase64File(file),
+						encoding: 'base64',
+					})
+				).data;
 
-		const ref = (
-			await $octokitStore.rest.git.getRef({
+				newTree.push({
+					path: file.webkitRelativePath,
+					sha: blob.sha,
+					type: 'blob',
+					mode: '100644',
+				});
+			}
+
+			const createdTree = (
+				await $octokitStore.rest.git.createTree({
+					...repoParameters,
+					tree: newTree,
+					base_tree: currentTree.sha,
+				})
+			).data;
+
+			const ref = (
+				await $octokitStore.rest.git.getRef({
+					...repoParameters,
+					ref: `heads/${repo.default_branch}`,
+				})
+			).data;
+
+			const commit = (
+				await $octokitStore.rest.git.createCommit({
+					...repoParameters,
+					message: 'Update',
+					tree: createdTree.sha,
+					baseTree: currentTree.sha,
+					parents: [ref.object.sha],
+				})
+			).data;
+
+			$octokitStore.rest.git.updateRef({
 				...repoParameters,
+				force: true,
+				sha: commit.sha,
 				ref: `heads/${repo.default_branch}`,
-			})
-		).data;
-
-		const commit = (
-			await $octokitStore.rest.git.createCommit({
-				...repoParameters,
-				message: 'Update',
-				tree: createdTree.sha,
-				baseTree: currentTree.sha,
-				parents: [ref.object.sha],
-			})
-		).data;
-
-		$octokitStore.rest.git.updateRef({
-			...repoParameters,
-			force: true,
-			sha: commit.sha,
-			ref: `heads/${repo.default_branch}`,
-		});
+			});
+		} catch (error) {
+			// TODO: handle errors;
+			console.error(error);
+		} finally {
+			isUploading = false;
+			files = [];
+			window.alert('Upload successful. A new release will automatically be created.');
+		}
 	};
 
 	const handleSaveModNameClick = async () => {
@@ -209,6 +229,37 @@
 			message: 'Update manifest.json',
 		});
 	};
+
+	const handlePublishModClick = async () => {
+		if (!$octokitStore || !manifest || !repo) return;
+
+		await $octokitStore.rest.issues.create({
+			owner: 'Raicuparta',
+			repo: 'ow-mod-db',
+			title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
+			labels: ['add-mod'],
+			body: `### Mod uniqueName
+
+${manifest.uniqueName}
+
+### Mod name
+
+${manifest.name}
+
+### GitHub repository URL
+
+${repo.html_url}
+
+### Parent uniqueName
+
+xen.NewHorizons`,
+		});
+
+		await $octokitStore.rest.repos.update({
+			...repoParameters,
+			private: false,
+		});
+	};
 </script>
 
 {#if repo}
@@ -229,7 +280,10 @@
 			placeholder={manifest?.name}
 		/>
 	</div>
-	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48">
+	<div
+		class:pointer-events-none={isUploading}
+		class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48"
+	>
 		<div class="flex flex-col justify-center items-center h-full overflow-hidden">
 			{#if files.length > 0}
 				<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
@@ -257,15 +311,22 @@
 			id="upload-input"
 			class="h-full w-full absolute left-0 top-0 opacity-0"
 			type="file"
+			disabled={isUploading}
 			on:change={handleFilesChange}
 		/>
 	</div>
 	<div class="mt-4">
 		<button
-			disabled={files.length === 0}
+			disabled={files.length === 0 || isUploading}
 			class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
-			on:click={handleUploadClick}>Upload</button
+			on:click={handleUploadClick}
 		>
+			{#if isUploading}
+				Uploading...
+			{:else}
+				Upload
+			{/if}
+		</button>
 	</div>
 
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
@@ -286,6 +347,17 @@
 			Bookmark this page so that you don't need to select the mod every time you authenticate.
 		</li>
 	</ul>
+	{#if !isModPublished}
+		<div class="mt-8">
+			<p>
+				This addon hasn't been published to the public database yet. Press this button to request
+				your addon to be added and made public. Someone will manually approve it.
+			</p>
+			<button on:click={handlePublishModClick} class="button-cta w-full mt-4"
+				>Publish addon to public</button
+			>
+		</div>
+	{/if}
 {:else}
 	<p>
 		Please authenticate with an access token that has access to {$page.params.userName}/{$page
