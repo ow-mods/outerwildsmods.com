@@ -17,6 +17,7 @@
 	let files: File[] = [];
 	let manifest: Manifest | undefined;
 	let modName = '';
+	let modDescription = '';
 	let manifestSha: string | undefined;
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
@@ -231,6 +232,15 @@
 		});
 	};
 
+	const handleSaveModDescriptionClick = async () => {
+		if (!$octokit) return;
+
+		await $octokit.rest.repos.update({
+			...repoParameters,
+			description: modDescription,
+		});
+	};
+
 	const handlePublishModClick = async () => {
 		if (!$octokit || !manifest || !repo) return;
 
@@ -284,14 +294,22 @@ xen.NewHorizons`,
 		</a>
 		{manifest?.version || 'Loading...'}
 	</p>
-	<div class="mb-4">
+	<div class="mb-4 flex flex-col gap-2">
 		<TextInput
 			bind:value={modName}
 			buttonText="Save"
 			on:submit={handleSaveModNameClick}
-			label="Mod name"
-			id="mod-name"
+			label="Addon name"
+			id="addon-name"
 			placeholder={manifest?.name}
+		/>
+		<TextInput
+			bind:value={modDescription}
+			buttonText="Save"
+			on:submit={handleSaveModDescriptionClick}
+			label="Addon description"
+			id="addon-description"
+			placeholder={repo.description || "e.g. 'Adds pickle planet'"}
 		/>
 	</div>
 	<div
