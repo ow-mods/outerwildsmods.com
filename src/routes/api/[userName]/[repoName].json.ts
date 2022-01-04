@@ -1,7 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
-import { getAllMarkdownImages, getImageMap } from '$lib/helpers/api/get-markdown-images';
+import { getAllMarkdownImages } from '$lib/helpers/api/get-markdown-images';
+import { getImageMap } from '$lib/helpers/api/get-image-map';
 
 export const get: RequestHandler = async ({ params }) => {
 	const { userName, repoName } = params;
