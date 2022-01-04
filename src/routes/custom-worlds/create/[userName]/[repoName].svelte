@@ -212,22 +212,23 @@
 </script>
 
 {#if repo}
-	{#if manifest}
+	<p class="m-0">
+		Addon:
 		<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
-			{manifest.name}
+			{manifest?.name || 'Loading...'}
 		</a>
-		{manifest.version}
-		<div class="mb-4">
-			<TextInput
-				bind:value={modName}
-				buttonText="Save"
-				on:submit={handleSaveModNameClick}
-				label="Mod name"
-				id="mod-name"
-				placeholder={manifest.name || 'My Mod'}
-			/>
-		</div>
-	{/if}
+		{manifest?.version || 'Loading...'}
+	</p>
+	<div class="mb-4">
+		<TextInput
+			bind:value={modName}
+			buttonText="Save"
+			on:submit={handleSaveModNameClick}
+			label="Mod name"
+			id="mod-name"
+			placeholder={manifest?.name}
+		/>
+	</div>
 	<div class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48">
 		<div class="flex flex-col justify-center items-center h-full overflow-hidden">
 			{#if files.length > 0}
@@ -260,8 +261,10 @@
 		/>
 	</div>
 	<div class="mt-4">
-		<button disabled={files.length === 0} class="button-cta w-full" on:click={handleUploadClick}
-			>Upload</button
+		<button
+			disabled={files.length === 0}
+			class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
+			on:click={handleUploadClick}>Upload</button
 		>
 	</div>
 

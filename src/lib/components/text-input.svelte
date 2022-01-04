@@ -6,6 +6,8 @@
 	export let buttonText: string = '';
 	export let password = false;
 	export let disabled = false;
+
+	let isButtonDisabled = disabled || !value;
 </script>
 
 <form class="flex-1" on:submit|preventDefault>
@@ -36,7 +38,11 @@
 			{disabled}
 		/>
 		{#if buttonText}
-			<button class={disabled ? 'button-standard' : 'button-cta'} type="submit" {disabled}>
+			<button
+				class={isButtonDisabled ? 'button-standard' : 'button-cta'}
+				type="submit"
+				disabled={isButtonDisabled}
+			>
 				{buttonText}
 			</button>
 		{/if}
