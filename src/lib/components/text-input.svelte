@@ -5,16 +5,20 @@
 	export let id: string;
 	export let buttonText: string = '';
 	export let password = false;
+	export let disabled = false;
 </script>
 
 <form class="flex-1" on:submit|preventDefault>
-	<input
-		class="absolute opacity-0"
-		value="placeholder@outerwildsmods.com"
-		name="email"
-		type="email"
-		autocomplete="username"
-	/>
+	{#if password}
+		<input
+			class="absolute opacity-0"
+			value="placeholder@outerwildsmods.com"
+			name="email"
+			type="email"
+			autocomplete="username"
+			{disabled}
+		/>
+	{/if}
 	<label for={id} class="text-sm">
 		{label}
 	</label>
@@ -29,9 +33,10 @@
 			on:change={(event) => (value = event.currentTarget.value)}
 			type={password ? 'password' : 'text'}
 			autocomplete={password ? 'current-password' : undefined}
+			{disabled}
 		/>
 		{#if buttonText}
-			<button class="button bg-cta text-white bg-opacity-80 hover:bg-opacity-100" type="submit">
+			<button class={disabled ? 'button-standard' : 'button-cta'} type="submit" {disabled}>
 				{buttonText}
 			</button>
 		{/if}

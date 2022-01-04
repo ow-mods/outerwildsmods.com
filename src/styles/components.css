@@ -7,6 +7,12 @@
 	.button {
 		@apply flex items-center text-center justify-center rounded p-2;
 	}
+	.button-cta {
+		@apply button bg-cta text-white bg-opacity-80 hover:bg-opacity-100;
+	}
+	.button-standard {
+		@apply button link outline outline-4 outline-background hover:outline-dark hover:bg-background bg-dark justify-center;
+	}
 	.text-input {
 		@apply flex-1 rounded bg-dark py-1 px-2;
 	}

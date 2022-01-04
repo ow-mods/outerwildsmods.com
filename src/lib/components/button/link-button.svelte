@@ -5,7 +5,7 @@
 </script>
 
 <a
-	class="button link outline outline-4 outline-background hover:outline-dark hover:bg-background bg-dark justify-center"
+	class="button-standard"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}

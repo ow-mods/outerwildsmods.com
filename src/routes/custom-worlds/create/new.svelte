@@ -87,30 +87,46 @@
 		bind:value={modName}
 		on:submit={handleClickCreate}
 		buttonText="Create"
+		disabled={Boolean(createdRepo)}
 	/>
 {:else}
 	Please authenticate before creating a new mod
 {/if}
+<!-- TODO remove true -->
 {#if createdRepo}
 	<div class="mt-4">
 		<p>
-			A GitHub repository has been created for your addon under <a
+			A repository has been created: <a
 				class="link"
+				target="_blank"
+				rel="noopener noreferrer"
 				href={createdRepo?.html_url}>{createdRepo?.full_name}</a
 			>.
 		</p>
 		<p>
-			Download your addon's files, and extract the folder the mods directory in your system. Find it
-			by pressing the "Mods Direcory" button in the
-			<a href="/mod-manager" class="link"> Mod Manager </a>.
+			Download your addon's files, and extract the folder the mods directory in your system. Find
+			the mods directory by pressing the "Mods Direcory" button in the
+			<a href="/mod-manager" target="_blank" class="link"> Mod Manager </a>.
 		</p>
 		<CtaButton
 			href="https://github.com/{createdRepo?.full_name}/archive/refs/heads/{createdRepo?.default_branch}.zip"
 		>
 			Download addon files
 		</CtaButton>
-		<p>After you're done installing your addon, you can proceed:</p>
-		<LinkButton href="/custom-worlds/create/{createdRepo?.full_name}">Continue</LinkButton>
+		<p>
+			After you're done installing your addon, you can start creating your worlds. Read the
+			instructions on how to create worlds in the <a
+				class="link"
+				target="_blank"
+				href="/mods/newhorizons">New Horizons readme</a
+			>.
+		</p>
+		<p>
+			Once you've edited your addon to your desire, you can come back to this page to upload your
+			files.
+		</p>
+		<LinkButton href="/custom-worlds/create/{createdRepo?.full_name}">Upload addon files</LinkButton
+		>
 	</div>
 {/if}
 {#if loading}
