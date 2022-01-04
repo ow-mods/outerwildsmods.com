@@ -24,8 +24,10 @@ const config = {
 		},
 		target: '#svelte',
 		vite: {
-			optimizeDeps: {
-				exclude: ['octokit'],
+			resolve: {
+				alias: {
+					'node-fetch': 'isomorphic-fetch',
+				},
 			},
 		},
 	},
