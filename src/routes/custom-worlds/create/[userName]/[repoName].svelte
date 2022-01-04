@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
-	import LinkButton from '$lib/components/button/link-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
@@ -243,7 +242,9 @@
 		/>
 	</div>
 	<div class="mt-4">
-		<CtaButton on:click={handleUploadClick}>Upload</CtaButton>
+		<button disabled={files.length === 0} class="button-cta w-full" on:click={handleUploadClick}
+			>Upload</button
+		>
 	</div>
 
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">

@@ -9,6 +9,7 @@
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
+	on:click
 >
 	<slot />
 </a>
