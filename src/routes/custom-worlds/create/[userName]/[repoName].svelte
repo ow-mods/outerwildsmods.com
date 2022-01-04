@@ -242,13 +242,19 @@
 	</div>
 	<button on:click={handleUploadClick} class="button link bg-dark mt-4 w-full">Upload</button>
 
-	<ul class="text-sm pl-4">
+	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
 		<li>
 			Learn how to edit your addon by reading the <a
 				class="link"
 				target="_blank"
 				href="/mods/newhorizons">New Horizons readme</a
 			>.
+		</li>
+		<li>
+			This tool is meant to edit addons created here, or any addon based on the
+			<a class="link" href="https://github.com/xen-42/ow-new-horizons-config-template"
+				>planet creation template
+			</a>. If you try to use it with other GitHub repositories, you might break stuff.
 		</li>
 		<li>
 			Bookmark this page so that you don't need to select the mod every time you authenticate.
