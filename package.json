@@ -4,12 +4,12 @@
 	"type": "module",
 	"devDependencies": {
 		"@sveltejs/adapter-static": "1.0.0-next.24",
-		"@sveltejs/kit": "^1.0.0-next.212",
+		"@sveltejs/kit": "1.0.0-next.215",
 		"@types/commonmark": "^0.27.5",
 		"@types/semver-utils": "^1.1.1",
 		"@types/sharp": "^0.29.5",
-		"@typescript-eslint/eslint-plugin": "^5.8.1",
-		"@typescript-eslint/parser": "^5.8.1",
+		"@typescript-eslint/eslint-plugin": "5.9.0",
+		"@typescript-eslint/parser": "5.9.0",
 		"autoprefixer": "^10.4.1",
 		"commonmark": "^0.30.0",
 		"cssnano": "^5.0.14",
@@ -23,12 +23,13 @@
 		"postcss-load-config": "^3.1.1",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.5.1",
+		"semver-utils": "^1.1.4",
 		"sharp": "^0.29.3",
 		"svelte": "^3.44.3",
 		"svelte-check": "^2.2.11",
 		"svelte-markdown": "^0.2.1",
 		"svelte-preprocess": "^4.10.1",
-		"tailwindcss": "^3.0.8",
+		"tailwindcss": "3.0.9",
 		"tslib": "^2.3.1",
 		"typescript": "^4.5.4"
 	},
@@ -43,8 +44,5 @@
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"post:build": "node post-build.mjs"
-	},
-	"dependencies": {
-		"semver-utils": "^1.1.4"
 	}
 }
