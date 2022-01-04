@@ -101,8 +101,6 @@
 		if (!file) return;
 
 		// TODO upload thumbnail here.
-
-		files = Array.from(inputFiles);
 	};
 
 	const handleUploadClick = async () => {
