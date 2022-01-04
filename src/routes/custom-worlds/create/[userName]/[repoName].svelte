@@ -22,6 +22,7 @@
 	let isUploading = false;
 	let isModPublished = false;
 	let publishRequestIssueUrl = '';
+	let isSubmittingIssue = false;
 
 	const repoParameters = {
 		owner: $page.params.userName,
@@ -234,13 +235,16 @@
 	const handlePublishModClick = async () => {
 		if (!$octokitStore || !manifest || !repo) return;
 
-		const publishRequestIssue = (
-			await $octokitStore.rest.issues.create({
-				owner: 'Raicuparta',
-				repo: 'ow-mod-db',
-				title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
-				labels: ['add-mod'],
-				body: `### Mod uniqueName
+		try {
+			isSubmittingIssue = true;
+
+			const publishRequestIssue = (
+				await $octokitStore.rest.issues.create({
+					owner: 'Raicuparta',
+					repo: 'ow-mod-db',
+					title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
+					labels: ['add-mod'],
+					body: `### Mod uniqueName
 
 ${manifest.uniqueName}
 
@@ -255,15 +259,21 @@ ${repo.html_url}
 ### Parent uniqueName
 
 xen.NewHorizons`,
-			})
-		).data;
+				})
+			).data;
 
-		publishRequestIssueUrl = publishRequestIssue.html_url;
+			publishRequestIssueUrl = publishRequestIssue.html_url;
 
-		await $octokitStore.rest.repos.update({
-			...repoParameters,
-			private: false,
-		});
+			await $octokitStore.rest.repos.update({
+				...repoParameters,
+				private: false,
+			});
+		} catch (error) {
+			// TODO: handle error
+			console.error(error);
+		} finally {
+			isSubmittingIssue = false;
+		}
 	};
 </script>
 
@@ -359,15 +369,26 @@ xen.NewHorizons`,
 				your addon to be added and made public. Someone will manually approve it.
 			</p>
 			<button
-				disabled={Boolean(publishRequestIssueUrl)}
+				disabled={Boolean(publishRequestIssueUrl) || isSubmittingIssue}
 				on:click={handlePublishModClick}
 				class="button-cta w-full mt-4"
 			>
-				Publish addon to public
+				{#if isSubmittingIssue}
+					Loading...
+				{:else if publishRequestIssueUrl}
+					Request opened
+				{:else}
+					Make request for publishing addon
+				{/if}
 			</button>
 			{#if publishRequestIssueUrl}
 				<p>
-					Your addon publish request has been created <a class="link" href={publishRequestIssueUrl}>
+					Your addon publish request has been created <a
+						target="_blank"
+						rel="noopener noreferrer"
+						class="link"
+						href={publishRequestIssueUrl}
+					>
 						here in the Outer Wilds Mod Database
 					</a>.
 				</p>

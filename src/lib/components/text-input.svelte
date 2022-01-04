@@ -7,7 +7,8 @@
 	export let password = false;
 	export let disabled = false;
 
-	let isButtonDisabled = disabled || !value;
+	let isButtonDisabled = false;
+	$: isButtonDisabled = disabled || !value;
 </script>
 
 <form class="flex-1" on:submit|preventDefault>
@@ -29,10 +30,9 @@
 			{id}
 			class="flex-1 rounded bg-dark py-1 px-2 placeholder:opacity-40 placeholder:text-light focus-visible:outline-none focus-visible:bg-darker"
 			class:font-mono={password}
-			{value}
 			{placeholder}
 			name={password ? 'password' : label}
-			on:change={(event) => (value = event.currentTarget.value)}
+			on:input={(event) => (value = event.currentTarget.value)}
 			type={password ? 'password' : 'text'}
 			autocomplete={password ? 'current-password' : undefined}
 			{disabled}
