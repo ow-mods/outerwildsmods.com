@@ -346,16 +346,18 @@ xen.NewHorizons`,
 
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
 		<li>
-			Learn how to edit your addon by reading the <a
-				class="link"
-				target="_blank"
-				href="/mods/newhorizons">New Horizons readme</a
-			>.
+			Learn how to edit your addon by reading the
+			<a class="link" target="_blank" href="/mods/newhorizons">New Horizons readme</a>.
 		</li>
 		<li>
 			This tool is meant to edit addons created here, or any addon based on the
-			<a class="link" href="https://github.com/xen-42/ow-new-horizons-config-template"
-				>planet creation template
+			<a
+				class="link"
+				href="https://github.com/xen-42/ow-new-horizons-config-template"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				planet creation template
 			</a>. If you try to use it with other GitHub repositories, you might break stuff.
 		</li>
 		<li>

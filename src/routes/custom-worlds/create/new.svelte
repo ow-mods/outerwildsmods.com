@@ -75,10 +75,15 @@
 
 {#if $githubUserStore}
 	<div>
-		This will create a new repository on GitHub based on <a
+		This will create a new repository on GitHub based on
+		<a
 			class="link"
-			href="https://github.com/xen-42/ow-new-horizons-config-template">planet creation template</a
-		>.
+			href="https://github.com/xen-42/ow-new-horizons-config-template"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			planet creation template
+		</a>.
 	</div>
 	<TextInput
 		label="Mod name"

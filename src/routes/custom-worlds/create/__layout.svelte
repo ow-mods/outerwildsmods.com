@@ -75,7 +75,12 @@
 				</div>
 				<div class="w-52 rounded bg-dark p-4 flex flex-col gap-4">
 					<div class="pr-4">
-						<a class="link" href={$githubUserStore.html_url}>
+						<a
+							class="link"
+							target="_blank"
+							rel="noopener noreferrer"
+							href={$githubUserStore.html_url}
+						>
 							{$githubUserStore.login}
 						</a>
 					</div>
@@ -86,11 +91,15 @@
 			<p>
 				This page is meant to simplify the creation of custom worlds for Outer Wilds. If you are
 				familiar with programming, git repositories, and similar concepts, you might not need this
-				tool. If you'd like to have full control of your addon, please follow the <a
+				tool. If you'd like to have full control of your addon, please follow the
+				<a
+					target="_blank"
+					rel="noopener noreferrer"
 					class="link"
 					href="https://github.com/xen-42/ow-new-horizons-config-template#readme"
-					>planet creation template instructions</a
 				>
+					planet creation template instructions
+				</a>
 				to set everything up yourself.
 			</p>
 			<p>
