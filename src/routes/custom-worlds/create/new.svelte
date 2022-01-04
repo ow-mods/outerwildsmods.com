@@ -64,6 +64,24 @@
 				),
 				message: 'Update manifest.json',
 			});
+
+			// Typed as any because the types for this are useless.
+			const readmeResponse: any = (
+				await $octokit.rest.repos.getContent({
+					repo: repoName,
+					owner: createdRepo.owner.login,
+					path: 'README.md',
+				})
+			).data;
+
+			await $octokit.rest.repos.createOrUpdateFileContents({
+				repo: repoName,
+				owner: createdRepo.owner.login,
+				path: readmeResponse.path,
+				sha: readmeResponse.sha,
+				content: btoa(`# ${modName}`),
+				message: 'Update Readme.md',
+			});
 		} catch (error) {
 			// TODO handle errors
 			console.error('Error creating mod', error);
