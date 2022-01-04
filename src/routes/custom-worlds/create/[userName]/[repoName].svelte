@@ -21,6 +21,7 @@
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
 	let isModPublished = false;
+	let publishRequestIssueUrl = '';
 
 	const repoParameters = {
 		owner: $page.params.userName,
@@ -233,12 +234,13 @@
 	const handlePublishModClick = async () => {
 		if (!$octokitStore || !manifest || !repo) return;
 
-		await $octokitStore.rest.issues.create({
-			owner: 'Raicuparta',
-			repo: 'ow-mod-db',
-			title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
-			labels: ['add-mod'],
-			body: `### Mod uniqueName
+		const publishRequestIssue = (
+			await $octokitStore.rest.issues.create({
+				owner: 'Raicuparta',
+				repo: 'ow-mod-db',
+				title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
+				labels: ['add-mod'],
+				body: `### Mod uniqueName
 
 ${manifest.uniqueName}
 
@@ -253,7 +255,10 @@ ${repo.html_url}
 ### Parent uniqueName
 
 xen.NewHorizons`,
-		});
+			})
+		).data;
+
+		publishRequestIssueUrl = publishRequestIssue.html_url;
 
 		await $octokitStore.rest.repos.update({
 			...repoParameters,
@@ -353,9 +358,20 @@ xen.NewHorizons`,
 				This addon hasn't been published to the public database yet. Press this button to request
 				your addon to be added and made public. Someone will manually approve it.
 			</p>
-			<button on:click={handlePublishModClick} class="button-cta w-full mt-4"
-				>Publish addon to public</button
+			<button
+				disabled={Boolean(publishRequestIssueUrl)}
+				on:click={handlePublishModClick}
+				class="button-cta w-full mt-4"
 			>
+				Publish addon to public
+			</button>
+			{#if publishRequestIssueUrl}
+				<p>
+					Your addon publish request has been created <a class="link" href={publishRequestIssueUrl}>
+						here in the Outer Wilds Mod Database
+					</a>.
+				</p>
+			{/if}
 		</div>
 	{/if}
 {:else}
