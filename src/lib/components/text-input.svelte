@@ -1,6 +1,4 @@
 <script lang="ts">
-	import LinkButton from './button/link-button.svelte';
-
 	export let value = '';
 	export let placeholder = '';
 	export let label: string;
@@ -33,9 +31,9 @@
 			autocomplete={password ? 'current-password' : undefined}
 		/>
 		{#if buttonText}
-			<button class="button bg-cta text-white bg-opacity-80 hover:bg-opacity-100" type="submit"
-				>{buttonText}</button
-			>
+			<button class="button bg-cta text-white bg-opacity-80 hover:bg-opacity-100" type="submit">
+				{buttonText}
+			</button>
 		{/if}
 	</div>
 </form>

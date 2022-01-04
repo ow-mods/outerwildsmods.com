@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LinkButton from '$lib/components/button/link-button.svelte';
+	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
@@ -12,7 +12,7 @@
 	<PageSection title="Custom Worlds" id="custom-worlds">
 		<h3 class="mb-0">Create your own Outer Wilds world</h3>
 		<p class="mt-0">You can create your own custom worlds by making an addon for New Horizons.</p>
-		<LinkButton href="/custom-worlds/create">Create or edit a New Horizons addon</LinkButton>
+		<CtaButton href="/custom-worlds/create">Create or edit a New Horizons addon</CtaButton>
 	</PageSection>
 	{#if newHorizons}
 		<PageSection title="New Horizons" id="new-horizons">

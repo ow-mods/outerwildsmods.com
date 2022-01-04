@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import type { OctokitRepoArray } from '$lib/octokit';
 	import { githubUserStore, octokitStore } from '$lib/store';
@@ -45,7 +46,7 @@
 
 {#if $githubUserStore}
 	<p class="text-xl mt-0">Start with a new addon</p>
-	<LinkButton href="/custom-worlds/create/new">Create new addon</LinkButton>
+	<CtaButton href="/custom-worlds/create/new">Create new addon</CtaButton>
 	<div class="flex justify-between items-center">
 		<p class="text-xl">Select an addon to edit</p>
 		<label class="text-sm" for="planet-mods-filter-checkbox">

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
