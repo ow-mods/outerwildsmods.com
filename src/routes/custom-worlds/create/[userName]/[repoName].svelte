@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
@@ -18,6 +17,7 @@
 	let manifest: Manifest | undefined;
 	let modName = '';
 	let manifestSha: string | undefined;
+	let fileInputErrors: string[] = [];
 
 	const repoParameters = {
 		owner: $page.params.userName,
@@ -55,10 +55,22 @@
 	})();
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
-		if (!event.currentTarget.files) return;
-		console.log(Array.from(event.currentTarget.files));
+		const inputFiles = event.currentTarget.files;
+		fileInputErrors = [];
+		if (!inputFiles) return;
+		for (let i = 0; i < inputFiles.length; i++) {
+			const file = inputFiles[i];
+			if (!file.webkitRelativePath.startsWith('planets/')) {
+				files = [];
+				fileInputErrors.push(
+					`File ${file.webkitRelativePath} isn't in the 'planets" folder. Make sure to select the whole planets folder and drop it here, and no other files.`
+				);
+				throw 'This isnt planets';
+				return;
+			}
+		}
 
-		files = Array.from(event.currentTarget.files);
+		files = Array.from(inputFiles);
 	};
 
 	const handleUploadClick = async () => {
@@ -226,6 +238,12 @@
 						</span>
 					{/each}
 				</div>
+			{:else if fileInputErrors.length > 0}
+				{#each fileInputErrors as error}
+					<div>
+						<strong class="text-error">Error: </strong>{error}
+					</div>
+				{/each}
 			{:else}
 				<div>
 					Drop your <code>planets</code> folder here, or click and select the folder in your file system.
