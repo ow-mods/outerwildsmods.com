@@ -56,7 +56,7 @@
 							author: createdRepo.owner.login,
 							name: modName,
 							uniqueName: `${createdRepo.owner.login}.${repoName}`,
-							version: '0.1.0',
+							version: '0.0.0',
 						},
 						null,
 						2
