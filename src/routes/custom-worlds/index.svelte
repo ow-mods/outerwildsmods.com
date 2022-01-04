@@ -12,7 +12,7 @@
 	<PageSection title="Custom Worlds" id="custom-worlds">
 		<h3 class="mb-0">Create your own Outer Wilds world</h3>
 		<p class="mt-0">You can create your own custom worlds by making an addon for New Horizons.</p>
-		<LinkButton href="/custom-worlds/create">Create New Horizons Addon</LinkButton>
+		<LinkButton href="/custom-worlds/create">Create or edit a New Horizons addon</LinkButton>
 	</PageSection>
 	{#if newHorizons}
 		<PageSection title="New Horizons" id="new-horizons">

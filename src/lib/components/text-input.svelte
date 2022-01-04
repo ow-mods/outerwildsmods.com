@@ -33,9 +33,8 @@
 			autocomplete={password ? 'current-password' : undefined}
 		/>
 		{#if buttonText}
-			<button
-				class="button link outline outline-4 outline-background hover:outline-dark hover:bg-background bg-dark"
-				type="submit">{buttonText}</button
+			<button class="button bg-cta text-white bg-opacity-80 hover:bg-opacity-100" type="submit"
+				>{buttonText}</button
 			>
 		{/if}
 	</div>
