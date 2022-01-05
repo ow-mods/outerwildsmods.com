@@ -1,6 +1,5 @@
 <script lang="ts">
-	export let description: string | undefined;
-	let value = description;
+	export let value = '';
 </script>
 
 <div class="relative">
@@ -11,5 +10,5 @@
 		rows="2"
 		maxlength="150"
 	/>
-	<span class="absolute bottom-0 right-0 opacity-50 pointer-events-none text-lg">✏️</span>
+	<span class="absolute bottom-0 right-0 opacity-50 pointer-events-none">✏️</span>
 </div>

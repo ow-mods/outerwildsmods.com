@@ -19,6 +19,7 @@
 		imageUrl: '',
 		name,
 	};
+	let description = '';
 
 	$: (async () => {
 		mod.imageUrl =
@@ -26,7 +27,7 @@
 	})();
 </script>
 
-<div class="flex gap-4 w-full justify-center items-center">
+<div class="flex gap-4 w-full justify-center items-end">
 	<div style="width: 300px;">
 		<div
 			class="max-w-sm mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline"
@@ -42,9 +43,9 @@
 				/>
 			</ModCardImage>
 			<ModCardDetails {mod}>
-				<ModDescriptionEditor description="TODO" />
+				<ModDescriptionEditor bind:value={description} />
 			</ModCardDetails>
 		</div>
 	</div>
-	<SubmitButton>Save</SubmitButton>
+	<SubmitButton disabled={description.length === 0}>Save</SubmitButton>
 </div>
