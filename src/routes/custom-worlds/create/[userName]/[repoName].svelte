@@ -317,6 +317,16 @@ xen.NewHorizons`,
 	</div>
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
 		<li>
+			The GitHub repository for your addon is <a
+				class="link"
+				href={repo.html_url}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{repoParameters.owner}/{repoParameters.repo}
+			</a>
+		</li>
+		<li>
 			Learn how to edit your addon by reading the
 			<a class="link" target="_blank" href="/mods/newhorizons">New Horizons readme</a>.
 		</li>
