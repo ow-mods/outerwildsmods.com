@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import ModDetailsEditor from '$lib/components/mod-editor/mod-details-editor.svelte';
 	import SubmitButton from '$lib/components/mod-editor/submit-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
