@@ -292,8 +292,7 @@ Prevent resizing textareas horizontally by default.
 
 	input::placeholder,
 	textarea::placeholder {
-		opacity: 1; /* 1 */
-		color: theme('colors.gray.400', #9ca3af); /* 2 */
+		opacity: 0.4;
 	}
 
 	/*
@@ -334,7 +333,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 	a {
 		text-decoration: none;
-		font-weight: normal;
 	}
 
 	h1,

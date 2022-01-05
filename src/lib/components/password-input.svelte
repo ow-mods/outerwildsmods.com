@@ -25,7 +25,7 @@
 	<div class="flex gap-4">
 		<input
 			{id}
-			class="flex-1 font-mono rounded bg-dark py-1 px-2 placeholder:opacity-40 placeholder:text-light focus-visible:outline-none focus-visible:bg-darker"
+			class="flex-1 font-mono rounded bg-dark py-1 px-2 focus-visible:outline-none focus-visible:bg-darker"
 			{placeholder}
 			name="password"
 			type="password"

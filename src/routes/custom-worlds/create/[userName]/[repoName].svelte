@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 	import { listedImageSize } from '$lib/helpers/constants';
@@ -306,6 +307,17 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
+	<div style="max-width: 300px; margin: auto">
+		<CardGridItem
+			mod={{
+				description: modDescription || repo.description || '',
+				formattedDownloadCount: '100',
+				imageUrl: thumbnailUrl,
+				name: modName || manifest?.name || '...',
+			}}
+			editable
+		/>
+	</div>
 	<div class="flex gap-4 mb-2">
 		<button class="relative link">
 			<span class="absolute rounded-tl px-2 bottom-0 right-0 bg-dark bg-opacity-50">

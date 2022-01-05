@@ -3,16 +3,17 @@
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import CardGridWrapper from './card-grid-wrapper.svelte';
 
-	export let mod: ModsRequestItem;
+	export let mod: Pick<
+		ModsRequestItem,
+		'imageUrl' | 'name' | 'formattedDownloadCount' | 'description'
+	>;
 	export let lazy = false;
+	export let editable = false;
 </script>
 
-<a
-	href="/mods/{getModPathName(mod.name)}/"
-	sveltekit:prefetch
-	class="link block max-w-sm mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline"
->
+<CardGridWrapper href={editable ? undefined : `/mods/${getModPathName(mod.name)}/`}>
 	<div class="relative" style={mod.imageUrl ? undefined : getHueFromText(mod.name)}>
 		{#if !mod.imageUrl}
 			<div
@@ -36,11 +37,25 @@
 		/>
 	</div>
 	<div class="p-3">
-		<span>{mod.name}</span>
-		{#if mod.description}
-			<div class="text-light text-sm">
-				{mod.description}
+		<span class="text-accent font-normal">{mod.name}</span>
+		{#if mod.description || editable}
+			<div class="text-light text-sm font-light">
+				{#if editable}
+					<div class="flex gap-2">
+						<textarea
+							value={mod.description}
+							placeholder="Type your addon description here."
+							class="resize-none bg-transparent flex-1"
+							type=""
+							rows="2"
+							maxlength="150"
+						/>
+						<span> ✏️ </span>
+					</div>
+				{:else}
+					{mod.description}
+				{/if}
 			</div>
 		{/if}
 	</div>
-</a>
+</CardGridWrapper>
