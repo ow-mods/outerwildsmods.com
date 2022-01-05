@@ -2,7 +2,7 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import PasswordInput from '$lib/components/password-input.svelte';
+	import PasswordInput from '$lib/components/mod-editor/password-input.svelte';
 	import { githubUser, octokit } from '$lib/store';
 	import { Octokit } from 'octokit';
 
@@ -33,7 +33,7 @@
 </script>
 
 <PageLayout isWide>
-	<PageSection title="Create New Horizons Addon" id="create-addon">
+	<PageSection title="Create New Horizons Addon (BETA)" id="create-addon">
 		{#if $githubUser}
 			<div class="flex gap-4">
 				<div class="flex-1">

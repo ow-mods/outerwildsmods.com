@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SubmitButton from './submit-button.svelte';
+
 	export let value = '';
 	export let placeholder = '';
 	export let label: string;
@@ -17,7 +19,7 @@
 	<div class="flex gap-4">
 		<input
 			{id}
-			class="flex-1 rounded bg-dark py-1 px-2 placeholder:opacity-40 placeholder:text-light focus-visible:outline-none focus-visible:bg-darker"
+			class="flex-1 rounded bg-dark py-1 px-2 focus-visible:outline-none focus-visible:bg-darker"
 			{placeholder}
 			name={label}
 			bind:value
@@ -25,13 +27,9 @@
 			{disabled}
 		/>
 		{#if buttonText}
-			<button
-				class={isButtonDisabled ? 'button-standard' : 'button-cta'}
-				type="submit"
-				disabled={isButtonDisabled}
-			>
+			<SubmitButton disabled={isButtonDisabled}>
 				{buttonText}
-			</button>
+			</SubmitButton>
 		{/if}
 	</div>
 </form>

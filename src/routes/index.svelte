@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
@@ -85,7 +85,7 @@
 	<PageSection title="Some of the available mods" id="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 my-4">
 			{#each featuredMods as mod (mod?.uniqueName)}
-				<CardGridItem {mod} />
+				<ModCard {mod} />
 			{/each}
 		</div>
 		<LinkButton href="/mods">More Mods...</LinkButton>

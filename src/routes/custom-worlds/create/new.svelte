@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
-	import TextInput from '$lib/components/text-input.svelte';
+	import TextInput from '$lib/components/mod-editor/text-input.svelte';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import type { OctokitCreatedRepo } from '$lib/octokit';
 	import { githubUser, octokit } from '$lib/store';
@@ -23,7 +23,7 @@
 					template_owner: 'xen-42',
 					template_repo: 'ow-new-horizons-config-template',
 					name: repoName,
-					private: true,
+					private: false,
 				})
 			).data;
 

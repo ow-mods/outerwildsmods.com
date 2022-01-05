@@ -1,31 +1,35 @@
-<script lang="ts">
-	import { page } from '$app/stores';
-	import TextInput from '$lib/components/text-input.svelte';
-	import { getBase64File } from '$lib/helpers/get-base-64-file';
-	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
-	import { githubUser, modList, octokit } from '$lib/store';
-	import semverUtils from 'semver-utils';
-
-	type Manifest = {
+<script type="ts" context="module">
+	export type Manifest = {
 		name: string;
 		version: string;
 		uniqueName: string;
 		[key: string]: unknown;
 	};
 
+	export type RepoParameters = {
+		owner: string;
+		repo: string;
+	};
+</script>
+
+<script lang="ts">
+	import { page } from '$app/stores';
+	import ModCardEditor from '$lib/components/mod-editor/mod-card-editor.svelte';
+	import { getBase64File } from '$lib/helpers/get-base-64-file';
+	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
+	import { githubUser, modList, octokit } from '$lib/store';
+	import semverUtils from 'semver-utils';
+
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
 	let manifest: Manifest | undefined;
-	let modName = '';
-	let modDescription = '';
-	let manifestSha: string | undefined;
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
 	let isModPublished = false;
 	let publishRequestIssueUrl = '';
 	let isSubmittingIssue = false;
 
-	const repoParameters = {
+	const repoParameters: RepoParameters = {
 		owner: $page.params.userName,
 		repo: $page.params.repoName,
 	};
@@ -41,8 +45,6 @@
 			repo = undefined;
 			files = [];
 			manifest = undefined;
-			modName = '';
-			manifestSha = undefined;
 			return;
 		}
 		repo = (await $octokit.rest.repos.get(repoParameters)).data;
@@ -61,7 +63,6 @@
 		}
 
 		manifest = JSON.parse(atob(manifestResponse.content));
-		manifestSha = manifestResponse.sha;
 
 		// TODO: handle errors.
 	})();
@@ -211,36 +212,6 @@
 		}
 	};
 
-	const handleSaveModNameClick = async () => {
-		if (!$octokit) return;
-
-		await $octokit.rest.repos.createOrUpdateFileContents({
-			...repoParameters,
-			path: 'manifest.json',
-			sha: manifestSha,
-			content: btoa(
-				JSON.stringify(
-					{
-						...manifest,
-						name: modName,
-					},
-					null,
-					2
-				)
-			),
-			message: 'Update manifest.json',
-		});
-	};
-
-	const handleSaveModDescriptionClick = async () => {
-		if (!$octokit) return;
-
-		await $octokit.rest.repos.update({
-			...repoParameters,
-			description: modDescription,
-		});
-	};
-
 	const handlePublishModClick = async () => {
 		if (!$octokit || !manifest || !repo) return;
 
@@ -287,81 +258,71 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
-	<p class="m-0">
-		Addon:
-		<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
-			{manifest?.name || 'Loading...'}
-		</a>
-		{manifest?.version || 'Loading...'}
-	</p>
-	<div class="mb-4 flex flex-col gap-2">
-		<TextInput
-			bind:value={modName}
-			buttonText="Save"
-			on:submit={handleSaveModNameClick}
-			label="Addon name"
-			id="addon-name"
-			placeholder={manifest?.name}
-		/>
-		<TextInput
-			bind:value={modDescription}
-			buttonText="Save"
-			on:submit={handleSaveModDescriptionClick}
-			label="Addon description"
-			id="addon-description"
-			placeholder={repo.description || "e.g. 'Adds pickle planet'"}
-		/>
-	</div>
-	<div
-		class:pointer-events-none={isUploading}
-		class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48"
-	>
-		<div class="flex flex-col justify-center items-center h-full overflow-hidden">
-			{#if files.length > 0}
-				<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
-					{#each files as file (file.webkitRelativePath)}
-						<span>
-							{file.webkitRelativePath.replace('planets/', '')}
-						</span>
-					{/each}
+	<div class="flex gap-4">
+		{#if manifest}
+			<ModCardEditor {repoParameters} name={manifest.name} />
+		{/if}
+		<div class="flex flex-col gap-4">
+			<div
+				class:pointer-events-none={isUploading}
+				class="link relative bg-dark border-2 border-dashed rounded-lg p-2 flex-1"
+			>
+				<div class="flex flex-col justify-center items-center h-full overflow-hidden">
+					{#if files.length > 0}
+						<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
+							{#each files as file (file.webkitRelativePath)}
+								<span>
+									{file.webkitRelativePath.replace('planets/', '')}
+								</span>
+							{/each}
+						</div>
+					{:else if fileInputErrors.length > 0}
+						{#each fileInputErrors as error}
+							<div>
+								<strong class="text-error">Error: </strong>{error}
+							</div>
+						{/each}
+					{:else}
+						<div>
+							Drop your <code>planets</code> folder here, or click and select the folder in your file
+							system.
+						</div>
+					{/if}
 				</div>
-			{:else if fileInputErrors.length > 0}
-				{#each fileInputErrors as error}
-					<div>
-						<strong class="text-error">Error: </strong>{error}
-					</div>
-				{/each}
-			{:else}
-				<div>
-					Drop your <code>planets</code> folder here, or click and select the folder in your file system.
-				</div>
-			{/if}
+				<!-- webkitdirectory isn't part of the standard, so this may be a bad idea -->
+				<input
+					webkitdirectory
+					id="upload-input"
+					class="h-full w-full absolute left-0 top-0 opacity-0"
+					type="file"
+					disabled={isUploading}
+					on:change={handleFilesChange}
+				/>
+			</div>
+			<button
+				disabled={files.length === 0 || isUploading}
+				class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
+				on:click={handleUploadClick}
+			>
+				{#if isUploading}
+					Uploading...
+				{:else}
+					Upload
+				{/if}
+			</button>
 		</div>
-		<!-- webkitdirectory isn't part of the standard, so this may be a bad idea -->
-		<input
-			webkitdirectory
-			id="upload-input"
-			class="h-full w-full absolute left-0 top-0 opacity-0"
-			type="file"
-			disabled={isUploading}
-			on:change={handleFilesChange}
-		/>
 	</div>
-	<div class="mt-4">
-		<button
-			disabled={files.length === 0 || isUploading}
-			class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
-			on:click={handleUploadClick}
-		>
-			{#if isUploading}
-				Uploading...
-			{:else}
-				Upload
-			{/if}
-		</button>
-	</div>
-
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
+		<li>
+			The GitHub repository for your addon is <a
+				class="link"
+				href={repo.html_url}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				{repoParameters.owner}/{repoParameters.repo}
+			</a>
+		</li>
 		<li>
 			Learn how to edit your addon by reading the
 			<a class="link" target="_blank" href="/mods/newhorizons">New Horizons readme</a>.

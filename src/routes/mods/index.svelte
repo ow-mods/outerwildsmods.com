@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
@@ -20,7 +20,7 @@
 	<PageSection title="Available mods" id="mods">
 		<CardGrid>
 			{#each standardMods as mod, index (mod.uniqueName)}
-				<CardGridItem lazy={index > 3} {mod} />
+				<ModCard lazy={index > 3} {mod} />
 			{/each}
 		</CardGrid>
 	</PageSection>
@@ -30,7 +30,7 @@
 		</p>
 		<CardGrid>
 			{#each utilityMods as mod, index (mod.uniqueName)}
-				<CardGridItem lazy={true} {mod} />
+				<ModCard lazy={true} {mod} />
 			{/each}
 		</CardGrid>
 	</PageSection>
