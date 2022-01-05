@@ -4,6 +4,7 @@
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import ModDescriptionEditor from '../mod-editor/mod-description-editor.svelte';
+	import ModThumbnailEditor from '../mod-editor/mod-thumbnail-editor.svelte';
 	import CardGridWrapper from './card-grid-wrapper.svelte';
 
 	export let mod: Pick<
@@ -29,17 +30,11 @@
 			↓ {mod.formattedDownloadCount}
 		</span>
 		{#if editable}
-			<input
-				accept="image/*"
-				id="thumbnail-input"
-				class="h-full w-full absolute left-0 top-0 opacity-30 text-xs cursor-pointer p-2"
-				type="file"
-				disabled={!Boolean('TODO')}
-				on:change={null}
-			/>
+			<ModThumbnailEditor />
 		{/if}
 		<img
 			class="w-full object-cover"
+			class:object-left={editable}
 			alt={mod.name}
 			src={mod.imageUrl || '/images/placeholder.jpg'}
 			loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}

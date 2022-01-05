@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+	import ModDetailsEditor from '$lib/components/mod-editor/mod-details-editor.svelte';
 	import SubmitButton from '$lib/components/mod-editor/submit-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
@@ -29,18 +30,11 @@
 	let isModPublished = false;
 	let publishRequestIssueUrl = '';
 	let isSubmittingIssue = false;
-	let thumbnailUrl = '';
 
 	const repoParameters = {
 		owner: $page.params.userName,
 		repo: $page.params.repoName,
 	};
-
-	$: (async () => {
-		if (!repo) return;
-		console.log('repo', repo);
-		thumbnailUrl = (await getModThumbnail(getRawContentUrl(repo.html_url))) || '';
-	})();
 
 	$: {
 		if ($modList.find((mod) => manifest && mod.uniqueName === manifest.uniqueName)) {
@@ -308,20 +302,10 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
-	<div class="flex gap-4 w-full justify-center items-center">
-		<div style="width: 300px;">
-			<CardGridItem
-				mod={{
-					description: modDescription || repo.description || '',
-					formattedDownloadCount: '100',
-					imageUrl: thumbnailUrl,
-					name: modName || manifest?.name || '...',
-				}}
-				editable
-			/>
-		</div>
-		<SubmitButton>Save</SubmitButton>
-	</div>
+	<ModDetailsEditor {...repoParameters} />
+	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
+		{manifest?.name || 'Loading...'}
+	</a>
 	<!-- <div class="flex gap-4 mb-2">
 		<button class="relative link">
 			<span class="absolute rounded-tl px-2 bottom-0 right-0 bg-dark bg-opacity-50">
