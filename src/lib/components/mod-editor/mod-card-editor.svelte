@@ -66,7 +66,7 @@
 			class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline"
 		>
 			<ModCardImage {mod}>
-				<ModThumbnailEditor />
+				<ModThumbnailEditor {repoParameters} />
 				<img
 					class="w-full object-cover object-left"
 					alt={mod.name}
