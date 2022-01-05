@@ -262,9 +262,6 @@ xen.NewHorizons`,
 		{#if manifest}
 			<ModCardEditor {repoParameters} name={manifest.name} />
 		{/if}
-		<!-- <a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
-			{manifest?.name || 'Loading...'}
-		</a> -->
 		<div class="flex flex-col gap-4">
 			<div
 				class:pointer-events-none={isUploading}
