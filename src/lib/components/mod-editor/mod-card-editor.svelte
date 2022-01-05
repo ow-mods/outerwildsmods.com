@@ -23,7 +23,7 @@
 		imageUrl: '',
 		name,
 	};
-	let description = repo.description || '';
+	let description = '';
 
 	$: (async () => {
 		mod.imageUrl =
@@ -58,7 +58,7 @@
 				/>
 			</ModCardImage>
 			<ModCardDetails {mod}>
-				<ModDescriptionEditor bind:value={description} />
+				<ModDescriptionEditor placeholder={repo.description || ''} bind:value={description} />
 			</ModCardDetails>
 		</div>
 	</div>

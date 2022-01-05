@@ -1,12 +1,13 @@
 <script lang="ts">
 	export let value = '';
+	export let placeholder = '';
 </script>
 
 <div class="relative">
 	<div class="relative">
 		<textarea
 			bind:value
-			placeholder="Type your addon description here."
+			{placeholder}
 			class="resize-none bg-transparent w-full"
 			rows="2"
 			maxlength="150"
