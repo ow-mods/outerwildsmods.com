@@ -14,14 +14,8 @@
 
 <script lang="ts">
 	import { page } from '$app/stores';
-	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import ModCardEditor from '$lib/components/mod-editor/mod-card-editor.svelte';
-	import SubmitButton from '$lib/components/mod-editor/submit-button.svelte';
-	import TextInput from '$lib/components/mod-editor/text-input.svelte';
-	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
-	import { listedImageSize } from '$lib/helpers/constants';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
-	import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { githubUser, modList, octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
@@ -29,9 +23,6 @@
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
 	let manifest: Manifest | undefined;
-	let modName = '';
-	let modDescription = '';
-	let manifestSha: string | undefined;
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
 	let isModPublished = false;
@@ -54,8 +45,6 @@
 			repo = undefined;
 			files = [];
 			manifest = undefined;
-			modName = '';
-			manifestSha = undefined;
 			return;
 		}
 		repo = (await $octokit.rest.repos.get(repoParameters)).data;
@@ -74,7 +63,6 @@
 		}
 
 		manifest = JSON.parse(atob(manifestResponse.content));
-		manifestSha = manifestResponse.sha;
 
 		// TODO: handle errors.
 	})();
@@ -95,15 +83,6 @@
 		}
 
 		files = Array.from(inputFiles);
-	};
-
-	const handleThumbnailFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
-		const inputFiles = event.currentTarget.files;
-		const file = inputFiles && inputFiles[0];
-
-		if (!file) return;
-
-		// TODO upload thumbnail here.
 	};
 
 	const handleUploadClick = async () => {
@@ -233,36 +212,6 @@
 		}
 	};
 
-	const handleSaveModNameClick = async () => {
-		if (!$octokit) return;
-
-		await $octokit.rest.repos.createOrUpdateFileContents({
-			...repoParameters,
-			path: 'manifest.json',
-			sha: manifestSha,
-			content: btoa(
-				JSON.stringify(
-					{
-						...manifest,
-						name: modName,
-					},
-					null,
-					2
-				)
-			),
-			message: 'Update manifest.json',
-		});
-	};
-
-	const handleSaveModDescriptionClick = async () => {
-		if (!$octokit) return;
-
-		await $octokit.rest.repos.update({
-			...repoParameters,
-			description: modDescription,
-		});
-	};
-
 	const handlePublishModClick = async () => {
 		if (!$octokit || !manifest || !repo) return;
 
@@ -315,55 +264,6 @@ xen.NewHorizons`,
 	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
 		{manifest?.name || 'Loading...'}
 	</a>
-	<!-- <div class="flex gap-4 mb-2">
-		<button class="relative link">
-			<span class="absolute rounded-tl px-2 bottom-0 right-0 bg-dark bg-opacity-50">
-				Change thumbnail
-			</span>
-			<img
-				class="h-full object-cover rounded"
-				alt="Addon thumbnail"
-				src={thumbnailUrl || '/images/placeholder.jpg'}
-				width={listedImageSize.width}
-				height={listedImageSize.height}
-			/>
-			<input
-				accept="image/*"
-				id="thumbnail-input"
-				class="h-full w-full absolute left-0 top-0 opacity-0"
-				type="file"
-				disabled={!Boolean('TODO')}
-				on:change={handleThumbnailFilesChange}
-			/>
-		</button>
-		<div class="flex-1">
-			<p class="m-0">
-				Addon:
-				<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
-					{manifest?.name || 'Loading...'}
-				</a>
-				{manifest?.version || 'Loading...'}
-			</p>
-			<div class="flex flex-col gap-2">
-				<TextInput
-					bind:value={modName}
-					buttonText="Save"
-					on:submit={handleSaveModNameClick}
-					label="Addon name"
-					id="addon-name"
-					placeholder={manifest?.name}
-				/>
-			</div>
-		</div>
-	</div> -->
-	<!-- <TextInput
-		bind:value={modDescription}
-		buttonText="Save"
-		on:submit={handleSaveModDescriptionClick}
-		label="Addon description"
-		id="addon-description"
-		placeholder={repo.description || "e.g. 'Adds pickle planet'"}
-	/> -->
 	<div
 		class:pointer-events-none={isUploading}
 		class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48 mt-4"
