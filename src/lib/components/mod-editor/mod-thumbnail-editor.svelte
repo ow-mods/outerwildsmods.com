@@ -71,7 +71,7 @@
 				);
 			} else {
 				newReadme = readmeContent.replace(
-					/(^ *# .*?\n)/m,
+					/(^ *# .*\n?)/m,
 					`$1
 ![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})
 `
