@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SubmitButton from './mod-editor/submit-button.svelte';
+
 	export let value = '';
 	export let placeholder = '';
 	export let label: string;
@@ -34,13 +36,9 @@
 			bind:value
 		/>
 		{#if buttonText}
-			<button
-				class={isButtonDisabled ? 'button-standard' : 'button-cta'}
-				type="submit"
-				disabled={isButtonDisabled}
-			>
+			<SubmitButton disabled={isButtonDisabled}>
 				{buttonText}
-			</button>
+			</SubmitButton>
 		{/if}
 	</div>
 </form>

@@ -3,6 +3,7 @@
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import ModDescriptionEditor from '../mod-editor/mod-description-editor.svelte';
 	import CardGridWrapper from './card-grid-wrapper.svelte';
 
 	export let mod: Pick<
@@ -41,17 +42,7 @@
 		{#if mod.description || editable}
 			<div class="text-light text-sm font-light">
 				{#if editable}
-					<div class="flex gap-2">
-						<textarea
-							value={mod.description}
-							placeholder="Type your addon description here."
-							class="resize-none bg-transparent flex-1"
-							type=""
-							rows="2"
-							maxlength="150"
-						/>
-						<span> ✏️ </span>
-					</div>
+					<ModDescriptionEditor description={mod.description} />
 				{:else}
 					{mod.description}
 				{/if}

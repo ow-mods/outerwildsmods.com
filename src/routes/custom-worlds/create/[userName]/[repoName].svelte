@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import CardGridItem from '$lib/components/card-grid/card-grid-item.svelte';
+	import SubmitButton from '$lib/components/mod-editor/submit-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 	import { listedImageSize } from '$lib/helpers/constants';
@@ -307,18 +308,21 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
-	<div style="max-width: 300px; margin: auto">
-		<CardGridItem
-			mod={{
-				description: modDescription || repo.description || '',
-				formattedDownloadCount: '100',
-				imageUrl: thumbnailUrl,
-				name: modName || manifest?.name || '...',
-			}}
-			editable
-		/>
+	<div class="flex gap-4 w-full justify-center items-center">
+		<div style="width: 300px;">
+			<CardGridItem
+				mod={{
+					description: modDescription || repo.description || '',
+					formattedDownloadCount: '100',
+					imageUrl: thumbnailUrl,
+					name: modName || manifest?.name || '...',
+				}}
+				editable
+			/>
+		</div>
+		<SubmitButton>Save</SubmitButton>
 	</div>
-	<div class="flex gap-4 mb-2">
+	<!-- <div class="flex gap-4 mb-2">
 		<button class="relative link">
 			<span class="absolute rounded-tl px-2 bottom-0 right-0 bg-dark bg-opacity-50">
 				Change thumbnail
@@ -358,15 +362,15 @@ xen.NewHorizons`,
 				/>
 			</div>
 		</div>
-	</div>
-	<TextInput
+	</div> -->
+	<!-- <TextInput
 		bind:value={modDescription}
 		buttonText="Save"
 		on:submit={handleSaveModDescriptionClick}
 		label="Addon description"
 		id="addon-description"
 		placeholder={repo.description || "e.g. 'Adds pickle planet'"}
-	/>
+	/> -->
 	<div
 		class:pointer-events-none={isUploading}
 		class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48 mt-4"
