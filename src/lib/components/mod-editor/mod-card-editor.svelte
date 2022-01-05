@@ -7,17 +7,15 @@
 	import ModCardDetails from '../card-grid/mod-card-details.svelte';
 	import ModDescriptionEditor from './mod-description-editor.svelte';
 	import ModThumbnailEditor from './mod-thumbnail-editor.svelte';
-	import { githubUser, octokit } from '$lib/store';
-	import type {
-		Manifest,
-		RepoParameters,
-	} from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
+	import { octokit } from '$lib/store';
+	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 	import type { OctokitRepo } from '$lib/octokit';
 
 	export let repoParameters: RepoParameters;
-	export let repo: OctokitRepo;
 	export let name: string;
+	export let savingDescription = false;
 
+	let repo: OctokitRepo | undefined;
 	let mod = {
 		formattedDownloadCount: '100',
 		imageUrl: '',
@@ -30,15 +28,35 @@
 			(await getModThumbnail(
 				getRawContentUrl(`https://github.com/${repoParameters.owner}/${repoParameters.repo}`)
 			)) || '';
+
+		getRepo();
 	})();
+
+	const getRepo = async () => {
+		if (!$octokit) return;
+
+		repo = (await $octokit.rest.repos.get(repoParameters)).data;
+	};
 
 	const saveDescription = async () => {
 		if (!$octokit) return;
+		savingDescription = true;
 
-		await $octokit.rest.repos.update({
-			...repoParameters,
-			description,
-		});
+		try {
+			await $octokit.rest.repos.update({
+				...repoParameters,
+				description,
+			});
+
+			await getRepo();
+		} catch (error) {
+			// TODO handle errors.
+			console.error(`Error saving description: ${error}`);
+		} finally {
+			savingDescription = false;
+		}
+
+		description = '';
 	};
 </script>
 
@@ -59,11 +77,19 @@
 			</ModCardImage>
 			<ModCardDetails {mod}>
 				<ModDescriptionEditor
-					placeholder={repo.description || 'Type your addon description here.'}
+					placeholder={repo?.description || 'Type your addon description here.'}
 					bind:value={description}
 				/>
 			</ModCardDetails>
 		</div>
 	</div>
-	<SubmitButton on:click={saveDescription} disabled={description.length === 0}>Save</SubmitButton>
+	<div class:invisible={description.length === 0}>
+		<SubmitButton disabled={savingDescription} on:click={saveDescription}>
+			{#if savingDescription}
+				Saving...
+			{:else}
+				Save
+			{/if}
+		</SubmitButton>
+	</div>
 </div>

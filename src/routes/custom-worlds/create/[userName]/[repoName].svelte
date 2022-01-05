@@ -310,7 +310,7 @@ xen.NewHorizons`,
 
 {#if repo}
 	{#if manifest}
-		<ModCardEditor {repoParameters} name={manifest.name} {repo} />
+		<ModCardEditor {repoParameters} name={manifest.name} />
 	{/if}
 	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
 		{manifest?.name || 'Loading...'}
