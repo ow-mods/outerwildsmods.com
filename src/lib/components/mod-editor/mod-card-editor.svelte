@@ -8,10 +8,14 @@
 	import ModDescriptionEditor from './mod-description-editor.svelte';
 	import ModThumbnailEditor from './mod-thumbnail-editor.svelte';
 	import { githubUser, octokit } from '$lib/store';
-	import type { Manifest } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
+	import type {
+		Manifest,
+		RepoParameters,
+	} from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
+	import type { OctokitRepo } from '$lib/octokit';
 
-	export let owner: string;
-	export let repo: string;
+	export let repoParameters: RepoParameters;
+	export let repo: OctokitRepo;
 	export let name: string;
 
 	let mod = {
@@ -19,18 +23,29 @@
 		imageUrl: '',
 		name,
 	};
-	let description = '';
+	let description = repo.description || '';
 
 	$: (async () => {
 		mod.imageUrl =
-			(await getModThumbnail(getRawContentUrl(`https://github.com/${owner}/${repo}`))) || '';
+			(await getModThumbnail(
+				getRawContentUrl(`https://github.com/${repoParameters.owner}/${repoParameters.repo}`)
+			)) || '';
 	})();
+
+	const saveDescription = async () => {
+		if (!$octokit) return;
+
+		await $octokit.rest.repos.update({
+			...repoParameters,
+			description,
+		});
+	};
 </script>
 
-<div class="flex gap-4 w-full justify-center items-end">
+<div class="flex gap-4 justify-center items-end relative">
 	<div style="width: 300px;">
 		<div
-			class="max-w-sm mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline"
+			class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline"
 		>
 			<ModCardImage {mod}>
 				<ModThumbnailEditor />
@@ -47,5 +62,5 @@
 			</ModCardDetails>
 		</div>
 	</div>
-	<SubmitButton disabled={description.length === 0}>Save</SubmitButton>
+	<SubmitButton on:click={saveDescription} disabled={description.length === 0}>Save</SubmitButton>
 </div>

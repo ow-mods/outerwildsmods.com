@@ -5,6 +5,11 @@
 		uniqueName: string;
 		[key: string]: unknown;
 	};
+
+	export type RepoParameters = {
+		owner: string;
+		repo: string;
+	};
 </script>
 
 <script lang="ts">
@@ -33,7 +38,7 @@
 	let publishRequestIssueUrl = '';
 	let isSubmittingIssue = false;
 
-	const repoParameters = {
+	const repoParameters: RepoParameters = {
 		owner: $page.params.userName,
 		repo: $page.params.repoName,
 	};
@@ -305,7 +310,7 @@ xen.NewHorizons`,
 
 {#if repo}
 	{#if manifest}
-		<ModCardEditor {...repoParameters} name={manifest.name} />
+		<ModCardEditor {repoParameters} name={manifest.name} {repo} />
 	{/if}
 	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
 		{manifest?.name || 'Loading...'}
