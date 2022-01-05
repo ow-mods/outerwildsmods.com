@@ -23,7 +23,7 @@
 					template_owner: 'xen-42',
 					template_repo: 'ow-new-horizons-config-template',
 					name: repoName,
-					private: true,
+					private: false,
 				})
 			).data;
 
