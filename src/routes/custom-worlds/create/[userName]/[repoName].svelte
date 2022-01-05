@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
-	import ModDetailsEditor from '$lib/components/mod-editor/mod-details-editor.svelte';
+	import ModCardEditor from '$lib/components/mod-editor/mod-details-editor.svelte';
 	import SubmitButton from '$lib/components/mod-editor/submit-button.svelte';
 	import TextInput from '$lib/components/text-input.svelte';
 	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
@@ -302,7 +302,7 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
-	<ModDetailsEditor {...repoParameters} />
+	<ModCardEditor {...repoParameters} />
 	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
 		{manifest?.name || 'Loading...'}
 	</a>
