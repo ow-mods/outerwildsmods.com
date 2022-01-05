@@ -56,27 +56,23 @@
 	};
 </script>
 
-<div class="flex gap-4 justify-center items-end relative">
-	<div style="width: 300px;">
-		<div
-			class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline overflow-hidden"
-		>
-			<ModThumbnailEditor {repoParameters} />
-			<ModCardDetails {mod}>
-				<ModDescriptionEditor
-					placeholder={repo?.description || 'Type your addon description here.'}
-					bind:value={description}
-				/>
-			</ModCardDetails>
-		</div>
+<div class="flex flex-col gap-4" style="min-width: 300px;">
+	<div
+		class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline overflow-hidden"
+	>
+		<ModThumbnailEditor {repoParameters} />
+		<ModCardDetails {mod}>
+			<ModDescriptionEditor
+				placeholder={repo?.description || 'Type your addon description here.'}
+				bind:value={description}
+			/>
+		</ModCardDetails>
 	</div>
-	<div class:invisible={description.length === 0}>
-		<SubmitButton disabled={savingDescription} on:click={saveDescription}>
-			{#if savingDescription}
-				Saving...
-			{:else}
-				Save
-			{/if}
-		</SubmitButton>
-	</div>
+	<SubmitButton disabled={savingDescription || description.length === 0} on:click={saveDescription}>
+		{#if savingDescription}
+			Saving...
+		{:else}
+			Save description
+		{/if}
+	</SubmitButton>
 </div>

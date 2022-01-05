@@ -258,61 +258,63 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
-	{#if manifest}
-		<ModCardEditor {repoParameters} name={manifest.name} />
-	{/if}
-	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
-		{manifest?.name || 'Loading...'}
-	</a>
-	<div
-		class:pointer-events-none={isUploading}
-		class="link relative bg-dark border-2 border-dashed rounded-lg p-2 h-48 mt-4"
-	>
-		<div class="flex flex-col justify-center items-center h-full overflow-hidden">
-			{#if files.length > 0}
-				<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
-					{#each files as file (file.webkitRelativePath)}
-						<span>
-							{file.webkitRelativePath.replace('planets/', '')}
-						</span>
-					{/each}
+	<div class="flex gap-4">
+		{#if manifest}
+			<ModCardEditor {repoParameters} name={manifest.name} />
+		{/if}
+		<!-- <a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
+			{manifest?.name || 'Loading...'}
+		</a> -->
+		<div class="flex flex-col gap-4">
+			<div
+				class:pointer-events-none={isUploading}
+				class="link relative bg-dark border-2 border-dashed rounded-lg p-2 flex-1"
+			>
+				<div class="flex flex-col justify-center items-center h-full overflow-hidden">
+					{#if files.length > 0}
+						<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
+							{#each files as file (file.webkitRelativePath)}
+								<span>
+									{file.webkitRelativePath.replace('planets/', '')}
+								</span>
+							{/each}
+						</div>
+					{:else if fileInputErrors.length > 0}
+						{#each fileInputErrors as error}
+							<div>
+								<strong class="text-error">Error: </strong>{error}
+							</div>
+						{/each}
+					{:else}
+						<div>
+							Drop your <code>planets</code> folder here, or click and select the folder in your file
+							system.
+						</div>
+					{/if}
 				</div>
-			{:else if fileInputErrors.length > 0}
-				{#each fileInputErrors as error}
-					<div>
-						<strong class="text-error">Error: </strong>{error}
-					</div>
-				{/each}
-			{:else}
-				<div>
-					Drop your <code>planets</code> folder here, or click and select the folder in your file system.
-				</div>
-			{/if}
+				<!-- webkitdirectory isn't part of the standard, so this may be a bad idea -->
+				<input
+					webkitdirectory
+					id="upload-input"
+					class="h-full w-full absolute left-0 top-0 opacity-0"
+					type="file"
+					disabled={isUploading}
+					on:change={handleFilesChange}
+				/>
+			</div>
+			<button
+				disabled={files.length === 0 || isUploading}
+				class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
+				on:click={handleUploadClick}
+			>
+				{#if isUploading}
+					Uploading...
+				{:else}
+					Upload
+				{/if}
+			</button>
 		</div>
-		<!-- webkitdirectory isn't part of the standard, so this may be a bad idea -->
-		<input
-			webkitdirectory
-			id="upload-input"
-			class="h-full w-full absolute left-0 top-0 opacity-0"
-			type="file"
-			disabled={isUploading}
-			on:change={handleFilesChange}
-		/>
 	</div>
-	<div class="mt-4">
-		<button
-			disabled={files.length === 0 || isUploading}
-			class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
-			on:click={handleUploadClick}
-		>
-			{#if isUploading}
-				Uploading...
-			{:else}
-				Upload
-			{/if}
-		</button>
-	</div>
-
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
 		<li>
 			Learn how to edit your addon by reading the
