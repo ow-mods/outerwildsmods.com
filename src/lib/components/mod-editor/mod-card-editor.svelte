@@ -10,6 +10,7 @@
 	import { octokit } from '$lib/store';
 	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 	import type { OctokitRepo } from '$lib/octokit';
+	import { onMount } from 'svelte';
 
 	export let repoParameters: RepoParameters;
 	export let name: string;
@@ -23,14 +24,9 @@
 	};
 	let description = '';
 
-	$: (async () => {
-		mod.imageUrl =
-			(await getModThumbnail(
-				getRawContentUrl(`https://github.com/${repoParameters.owner}/${repoParameters.repo}`)
-			)) || '';
-
+	onMount(() => {
 		getRepo();
-	})();
+	});
 
 	const getRepo = async () => {
 		if (!$octokit) return;
@@ -63,18 +59,9 @@
 <div class="flex gap-4 justify-center items-end relative">
 	<div style="width: 300px;">
 		<div
-			class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline"
+			class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline overflow-hidden"
 		>
-			<ModCardImage {mod}>
-				<ModThumbnailEditor {repoParameters} />
-				<img
-					class="w-full object-cover object-left"
-					alt={mod.name}
-					src={mod.imageUrl || '/images/placeholder.jpg'}
-					width={listedImageSize.width}
-					height={listedImageSize.height}
-				/>
-			</ModCardImage>
+			<ModThumbnailEditor {repoParameters} />
 			<ModCardDetails {mod}>
 				<ModDescriptionEditor
 					placeholder={repo?.description || 'Type your addon description here.'}

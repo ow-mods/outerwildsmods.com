@@ -1,22 +1,38 @@
 <script lang="ts">
+	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
+
+	import { listedImageSize } from '$lib/helpers/constants';
+
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
+	import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 	import { octokit } from '$lib/store';
 	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
+	import ModCardImage from '../card-grid/mod-card-image.svelte';
 
 	export let repoParameters: RepoParameters;
 
 	let isUploading = false;
+	let imagePreview = '';
+	let imageUrl = '';
+
+	$: (async () => {
+		imageUrl =
+			(await getModThumbnail(
+				getRawContentUrl(`https://github.com/${repoParameters.owner}/${repoParameters.repo}`)
+			)) || '';
+	})();
 
 	const handleFileInputChange: svelte.JSX.FormEventHandler<HTMLInputElement> = async (event) => {
 		const file = event?.currentTarget.files?.[0];
 
 		if (!$octokit || !file) return;
 
-		let existingImage: any;
-
 		try {
 			isUploading = true;
 
+			imagePreview = await getBase64File(file, true);
+
+			let existingImage: any;
 			try {
 				existingImage = (
 					await $octokit.rest.repos.getContent({
@@ -59,20 +75,35 @@
 	};
 </script>
 
-<input
-	accept="image/*"
-	id="thumbnail-input"
-	class="h-full w-full absolute left-0 top-0 opacity-0 text-xs p-2"
-	type="file"
-	disabled={!Boolean('TODO')}
-	on:change={handleFileInputChange}
-/>
-<button
-	class="absolute bottom-0 right-0 bg-dark p-1 rounded-tl opacity-75 text-sm text-white pointer-events-none"
+<ModCardImage
+	mod={{
+		name: 'aaa',
+		imageUrl: imagePreview || imageUrl || '/images/placeholder.jpg',
+		formattedDownloadCount: '100',
+	}}
 >
-	{#if isUploading}
-		Uploading...
-	{:else}
-		✏️
-	{/if}
-</button>
+	<input
+		accept="image/*"
+		id="thumbnail-input"
+		class="h-full w-full absolute left-0 top-0 opacity-0 text-xs p-2"
+		type="file"
+		disabled={!Boolean('TODO')}
+		on:change={handleFileInputChange}
+	/>
+	<button
+		class="absolute bottom-0 right-0 bg-dark p-1 rounded-tl opacity-75 text-sm text-white pointer-events-none"
+	>
+		{#if isUploading}
+			Uploading...
+		{:else}
+			✏️
+		{/if}
+	</button>
+	<img
+		alt={repoParameters.repo}
+		class="w-full object-cover object-left"
+		src={imagePreview || imageUrl || '/images/placeholder.jpg'}
+		width={listedImageSize.width}
+		height={listedImageSize.height}
+	/>
+</ModCardImage>
