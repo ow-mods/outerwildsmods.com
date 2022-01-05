@@ -63,19 +63,20 @@
 			let newReadme = readmeContent;
 
 			const hasImageInReadme = Boolean(readmeContent.match(/(!\[.*?\])\(.+?\)/));
+			const hasTitleInReadme = Boolean(readmeContent.match(/(^ *# .*\n?)/m));
 
 			if (hasImageInReadme) {
 				newReadme = readmeContent.replace(
 					/(!\[.*?\])\(.+?\)/,
 					`$1(${thumbnailResponse.data.content?.download_url})`
 				);
-			} else {
+			} else if (hasTitleInReadme) {
 				newReadme = readmeContent.replace(
 					/(^ *# .*\n?)/m,
-					`$1
-![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})
-`
+					`$1\n![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})`
 				);
+			} else {
+				newReadme = `![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})\n${readmeContent}`;
 			}
 
 			await $octokit.rest.repos.createOrUpdateFileContents({
