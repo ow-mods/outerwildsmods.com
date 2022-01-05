@@ -28,6 +28,16 @@
 		>
 			↓ {mod.formattedDownloadCount}
 		</span>
+		{#if editable}
+			<input
+				accept="image/*"
+				id="thumbnail-input"
+				class="h-full w-full absolute left-0 top-0 opacity-30 text-xs cursor-pointer p-2"
+				type="file"
+				disabled={!Boolean('TODO')}
+				on:change={null}
+			/>
+		{/if}
 		<img
 			class="w-full object-cover"
 			alt={mod.name}
