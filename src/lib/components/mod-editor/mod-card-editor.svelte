@@ -58,7 +58,10 @@
 				/>
 			</ModCardImage>
 			<ModCardDetails {mod}>
-				<ModDescriptionEditor placeholder={repo.description || ''} bind:value={description} />
+				<ModDescriptionEditor
+					placeholder={repo.description || 'Type your addon description here.'}
+					bind:value={description}
+				/>
 			</ModCardDetails>
 		</div>
 	</div>
