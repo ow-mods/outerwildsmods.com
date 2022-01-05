@@ -1,10 +1,7 @@
 <script lang="ts">
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
-	export let mod: Pick<
-		ModsRequestItem,
-		'imageUrl' | 'name' | 'formattedDownloadCount' | 'description'
-	>;
+	export let mod: Pick<ModsRequestItem, 'name'>;
 </script>
 
 <div class="p-3">

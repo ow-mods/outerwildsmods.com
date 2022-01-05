@@ -1,3 +1,12 @@
+<script type="ts" context="module">
+	export type Manifest = {
+		name: string;
+		version: string;
+		uniqueName: string;
+		[key: string]: unknown;
+	};
+</script>
+
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
@@ -11,13 +20,6 @@
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { githubUser, modList, octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
-
-	type Manifest = {
-		name: string;
-		version: string;
-		uniqueName: string;
-		[key: string]: unknown;
-	};
 
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
@@ -302,7 +304,9 @@ xen.NewHorizons`,
 </script>
 
 {#if repo}
-	<ModCardEditor {...repoParameters} />
+	{#if manifest}
+		<ModCardEditor {...repoParameters} name={manifest.name} />
+	{/if}
 	<a href={repo.html_url} target="_blank" rel="noopener noreferrer" class="link">
 		{manifest?.name || 'Loading...'}
 	</a>

@@ -7,21 +7,21 @@
 	import ModCardDetails from '../card-grid/mod-card-details.svelte';
 	import ModDescriptionEditor from './mod-description-editor.svelte';
 	import ModThumbnailEditor from './mod-thumbnail-editor.svelte';
+	import { githubUser, octokit } from '$lib/store';
+	import type { Manifest } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 
 	export let owner: string;
 	export let repo: string;
+	export let name: string;
 
-	let thumbnailUrl = '';
-
-	const mod = {
-		description: "modDescription || repo.description || ''",
+	let mod = {
 		formattedDownloadCount: '100',
-		imageUrl: thumbnailUrl,
-		name: "modName || manifest?.name || '...'",
+		imageUrl: '',
+		name,
 	};
 
 	$: (async () => {
-		thumbnailUrl =
+		mod.imageUrl =
 			(await getModThumbnail(getRawContentUrl(`https://github.com/${owner}/${repo}`))) || '';
 	})();
 </script>
@@ -42,7 +42,7 @@
 				/>
 			</ModCardImage>
 			<ModCardDetails {mod}>
-				<ModDescriptionEditor description={mod.description} />
+				<ModDescriptionEditor description="TODO" />
 			</ModCardDetails>
 		</div>
 	</div>

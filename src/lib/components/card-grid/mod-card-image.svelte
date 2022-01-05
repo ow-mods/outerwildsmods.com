@@ -2,10 +2,7 @@
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
-	export let mod: Pick<
-		ModsRequestItem,
-		'imageUrl' | 'name' | 'formattedDownloadCount' | 'description'
-	>;
+	export let mod: Pick<ModsRequestItem, 'imageUrl' | 'name' | 'formattedDownloadCount'>;
 </script>
 
 <div class="relative" style={mod.imageUrl ? undefined : getHueFromText(mod.name)}>
