@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SubmitButton from './mod-editor/submit-button.svelte';
+	import SubmitButton from './submit-button.svelte';
 
 	export let value = '';
 	export let placeholder = '';

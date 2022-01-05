@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
-	import ModCardEditor from '$lib/components/mod-editor/mod-details-editor.svelte';
+	import ModCardEditor from '$lib/components/mod-editor/mod-card-editor.svelte';
 	import SubmitButton from '$lib/components/mod-editor/submit-button.svelte';
-	import TextInput from '$lib/components/text-input.svelte';
+	import TextInput from '$lib/components/mod-editor/text-input.svelte';
 	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
