@@ -28,6 +28,11 @@
 		if (!$octokit || !file) return;
 
 		try {
+			if (file.size > 1000000) {
+				window.alert('File size too big, limit is 1MB');
+				return;
+			}
+
 			isUploading = true;
 
 			imagePreview = await getBase64File(file, true);
@@ -54,10 +59,24 @@
 
 			const readmeResponse = (await $octokit.rest.repos.getReadme(repoParameters)).data;
 			const readmeContent = atob(readmeResponse.content);
-			const newReadme = readmeContent.replace(
-				/(!\[.*?\])\(.+?\)/,
-				`$1(${thumbnailResponse.data.content?.download_url})`
-			);
+
+			let newReadme = readmeContent;
+
+			const hasImageInReadme = Boolean(readmeContent.match(/(!\[.*?\])\(.+?\)/));
+
+			if (hasImageInReadme) {
+				newReadme = readmeContent.replace(
+					/(!\[.*?\])\(.+?\)/,
+					`$1(${thumbnailResponse.data.content?.download_url})`
+				);
+			} else {
+				newReadme = readmeContent.replace(
+					/(^ *# .*?\n)/m,
+					`$1
+![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})
+`
+				);
+			}
 
 			await $octokit.rest.repos.createOrUpdateFileContents({
 				...repoParameters,
@@ -87,7 +106,7 @@
 		id="thumbnail-input"
 		class="h-full w-full absolute left-0 top-0 opacity-0 text-xs p-2"
 		type="file"
-		disabled={!Boolean('TODO')}
+		disabled={isUploading}
 		on:change={handleFileInputChange}
 	/>
 	<button
