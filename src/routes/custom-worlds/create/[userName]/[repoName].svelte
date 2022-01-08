@@ -20,6 +20,8 @@
 	import { githubUser, modList, octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
 
+	const bytesInMegabyte = 1000000;
+	const byteLimit = 25 * bytesInMegabyte;
 	let repo: OctokitRepo | undefined;
 	let files: File[] = [];
 	let manifest: Manifest | undefined;
@@ -68,21 +70,28 @@
 	})();
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
-		const inputFiles = event.currentTarget.files;
-		fileInputErrors = [];
-		if (!inputFiles) return;
-		for (let i = 0; i < inputFiles.length; i++) {
-			const file = inputFiles[i];
-			if (!file.webkitRelativePath.startsWith('planets/')) {
-				files = [];
-				fileInputErrors.push(
-					`File ${file.webkitRelativePath} isn't in the 'planets" folder. Make sure to select the whole planets folder and drop it here, and no other files.`
-				);
-				return;
-			}
-		}
+		try {
+			const inputFiles = event.currentTarget.files;
+			fileInputErrors = [];
+			if (!inputFiles) return;
 
-		files = Array.from(inputFiles);
+			for (let i = 0; i < inputFiles.length; i++) {
+				const file = inputFiles[i];
+				if (!file.webkitRelativePath.startsWith('planets/')) {
+					throw `File ${file.webkitRelativePath} isn't in the 'planets" folder. Make sure to select the whole planets folder and drop it here, and no other files.`;
+				}
+				if (file.size > byteLimit) {
+					throw `File ${file.webkitRelativePath} is too big (${Math.round(
+						file.size / bytesInMegabyte
+					)}MB). Max size is ${Math.round(byteLimit / bytesInMegabyte)}MB.`;
+				}
+			}
+
+			files = Array.from(inputFiles);
+		} catch (error) {
+			files = [];
+			fileInputErrors.push(`${error}`);
+		}
 	};
 
 	const handleUploadClick = async () => {
