@@ -9,7 +9,8 @@
 	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 	import ModCardImage from '../card-grid/mod-card-image.svelte';
 
-	export let repoParameters: RepoParameters;
+	export let owner: string;
+	export let repo: string;
 
 	let isUploading = false;
 	let imagePreview = '';
@@ -17,9 +18,7 @@
 
 	$: (async () => {
 		imageUrl =
-			(await getModThumbnail(
-				getRawContentUrl(`https://github.com/${repoParameters.owner}/${repoParameters.repo}`)
-			)) || '';
+			(await getModThumbnail(getRawContentUrl(`https://github.com/${owner}/${repo}`))) || '';
 	})();
 
 	const handleFileInputChange: svelte.JSX.FormEventHandler<HTMLInputElement> = async (event) => {
@@ -41,7 +40,8 @@
 			try {
 				existingImage = (
 					await $octokit.rest.repos.getContent({
-						...repoParameters,
+						owner,
+						repo,
 						path: file.name,
 					})
 				).data;
@@ -50,14 +50,15 @@
 			}
 
 			const thumbnailResponse = await $octokit.rest.repos.createOrUpdateFileContents({
-				...repoParameters,
+				owner,
+				repo,
 				path: file.name,
 				content: await getBase64File(file),
 				message: 'Upload thumbnail',
 				sha: existingImage?.sha,
 			});
 
-			const readmeResponse = (await $octokit.rest.repos.getReadme(repoParameters)).data;
+			const readmeResponse = (await $octokit.rest.repos.getReadme({ owner, repo })).data;
 			const readmeContent = atob(readmeResponse.content);
 
 			let newReadme = readmeContent;
@@ -73,14 +74,15 @@
 			} else if (hasTitleInReadme) {
 				newReadme = readmeContent.replace(
 					/(^ *# .*\n?)/m,
-					`$1\n![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})`
+					`$1\n![${repo}](${thumbnailResponse.data.content?.download_url})`
 				);
 			} else {
-				newReadme = `![${repoParameters.repo}](${thumbnailResponse.data.content?.download_url})\n${readmeContent}`;
+				newReadme = `![${repo}](${thumbnailResponse.data.content?.download_url})\n${readmeContent}`;
 			}
 
 			await $octokit.rest.repos.createOrUpdateFileContents({
-				...repoParameters,
+				owner,
+				repo,
 				path: readmeResponse.path,
 				sha: readmeResponse.sha,
 				content: btoa(newReadme),
@@ -120,7 +122,7 @@
 		{/if}
 	</button>
 	<img
-		alt={repoParameters.repo}
+		alt={repo}
 		class="w-full object-cover object-left"
 		src={imagePreview || imageUrl || '/images/placeholder.jpg'}
 		width={listedImageSize.width}

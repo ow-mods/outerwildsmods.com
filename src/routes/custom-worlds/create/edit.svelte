@@ -1,43 +1,36 @@
-<script type="ts" context="module">
-	export type RepoParameters = {
-		owner: string;
-		repo: string;
-	};
-</script>
-
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import ModCardEditor from '$lib/components/mod-editor/mod-card-editor.svelte';
 	import ModFileUploader from '$lib/components/mod-editor/mod-file-uploader.svelte';
 	import { getManifest } from '$lib/helpers/get-manifest';
-	import type { OctokitRepo } from '$lib/octokit';
 	import { githubUser, modList, octokit } from '$lib/store';
 
-	let repo: OctokitRepo | undefined;
 	let isModPublished = false;
 	let publishRequestIssueUrl = '';
 	let isSubmittingIssue = false;
 
-	const repoParameters: RepoParameters = {
-		owner: $page.params.userName,
-		repo: $page.params.repoName,
-	};
+	const owner = $page.url.searchParams.get('owner');
+	const repo = $page.url.searchParams.get('repo');
+
+	onMount(() => {
+		if (!owner || !repo) {
+			goto('/custom-worlds/create');
+		}
+	});
 
 	$: {
-		if (
-			$modList.find(
-				(mod) => mod.repo === `https://github.com/${repoParameters.owner}/${repoParameters.repo}`
-			)
-		) {
+		if ($modList.find((mod) => mod.repo === `https://github.com/${owner}/${repo}`)) {
 			isModPublished = true;
 		}
 	}
 
 	const handlePublishModClick = async () => {
-		if (!$octokit || !repo) return;
+		if (!$octokit || !owner || !repo) return;
 
 		try {
-			const manifest = await getManifest(repoParameters.owner, repoParameters.repo);
+			const manifest = await getManifest(owner, repo);
 
 			if (!manifest) {
 				throw 'Failed to retrieve manifest';
@@ -49,7 +42,7 @@
 				await $octokit.rest.issues.create({
 					owner: 'Raicuparta',
 					repo: 'ow-mod-db',
-					title: `Add ${manifest.name}`, // TODO make sure manifest is up to date.
+					title: `Add ${manifest.name}`,
 					labels: ['add-mod'],
 					body: `### Mod uniqueName
 
@@ -61,7 +54,7 @@ ${manifest.name}
 
 ### GitHub repository URL
 
-${repo.html_url}
+https://github.com/${owner}/${repo}
 
 ### Parent uniqueName
 
@@ -72,7 +65,8 @@ xen.NewHorizons`,
 			publishRequestIssueUrl = publishRequestIssue.html_url;
 
 			await $octokit.rest.repos.update({
-				...repoParameters,
+				repo,
+				owner,
 				private: false,
 			});
 		} catch (error) {
@@ -85,21 +79,23 @@ xen.NewHorizons`,
 </script>
 
 {#if $githubUser}
-	<div class="flex gap-4">
-		<div>
-			<ModCardEditor {repoParameters} />
+	{#if owner && repo}
+		<div class="flex gap-4">
+			<div>
+				<ModCardEditor {owner} {repo} />
+			</div>
+			<ModFileUploader {owner} {repo} />
 		</div>
-		<ModFileUploader {repoParameters} />
-	</div>
+	{/if}
 	<ul class="text-sm pl-4 flex flex-col gap-2 mt-8 mb-0">
 		<li>
 			The GitHub repository for your addon is <a
 				class="link"
-				href="https://github.com/{repoParameters.owner}/{repoParameters.repo}"
+				href="https://github.com/{owner}/{repo}"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				{repoParameters.owner}/{repoParameters.repo}
+				{owner}/{repo}
 			</a>
 		</li>
 		<li>
@@ -156,7 +152,6 @@ xen.NewHorizons`,
 	{/if}
 {:else}
 	<p>
-		Please authenticate with an access token that has access to {$page.params.userName}/{$page
-			.params.repoName}
+		Please authenticate with an access token that has access to {owner}/{repo}
 	</p>
 {/if}

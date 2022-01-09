@@ -1,16 +1,17 @@
 <script lang="ts">
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import { getManifest } from '$lib/helpers/get-manifest';
+	import { getRepoData } from '$lib/helpers/get-repo-data';
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
-	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 
-	export let repoParameters: RepoParameters;
+	export let owner: string;
+	export let repo: string;
 
 	const bytesInMegabyte = 1000000;
 	const byteLimit = 25 * bytesInMegabyte;
-	let repo: OctokitRepo | undefined;
+	let repoData: OctokitRepo | undefined;
 	let files: File[] = [];
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
@@ -42,17 +43,18 @@
 	};
 
 	const handleUploadClick = async () => {
-		repo = (await $octokit?.rest.repos.get(repoParameters))?.data;
+		repoData = await getRepoData(owner, repo);
 
-		if (files.length === 0 || !$octokit || !repo) return;
+		if (files.length === 0 || !$octokit || !repoData) return;
 
 		try {
 			isUploading = true;
 
 			const currentTree = (
 				await $octokit.rest.git.getTree({
-					...repoParameters,
-					tree_sha: repo.default_branch,
+					owner,
+					repo,
+					tree_sha: repoData.default_branch,
 					recursive: 'true',
 				})
 			).data;
@@ -76,7 +78,7 @@
 					type: 'commit',
 				}));
 
-			const manifest = await getManifest(repoParameters.owner, repoParameters.repo);
+			const manifest = await getManifest(owner, repo);
 
 			const currentSemver =
 				semverUtils.parse(manifest?.version ?? '') ?? semverUtils.parse('0.0.0');
@@ -88,7 +90,8 @@
 
 			const manifestBlob = (
 				await $octokit.rest.git.createBlob({
-					...repoParameters,
+					owner,
+					repo,
 					content: btoa(
 						JSON.stringify(
 							{
@@ -116,7 +119,8 @@
 				// Text files (maybe only <1MB) don't need this step, but for now I'm just treating all files as blobs for simplicity.
 				const blob = (
 					await $octokit.rest.git.createBlob({
-						...repoParameters,
+						owner,
+						repo,
 						content: await getBase64File(file),
 						encoding: 'base64',
 					})
@@ -134,7 +138,8 @@
 
 			const createdTree = (
 				await $octokit.rest.git.createTree({
-					...repoParameters,
+					owner,
+					repo,
 					tree: newTree,
 					base_tree: currentTree.sha,
 				})
@@ -142,14 +147,16 @@
 
 			const ref = (
 				await $octokit.rest.git.getRef({
-					...repoParameters,
-					ref: `heads/${repo.default_branch}`,
+					owner,
+					repo,
+					ref: `heads/${repoData.default_branch}`,
 				})
 			).data;
 
 			const commit = (
 				await $octokit.rest.git.createCommit({
-					...repoParameters,
+					owner,
+					repo,
 					message: 'Update',
 					tree: createdTree.sha,
 					baseTree: currentTree.sha,
@@ -158,10 +165,11 @@
 			).data;
 
 			$octokit.rest.git.updateRef({
-				...repoParameters,
+				owner,
+				repo,
 				force: true,
 				sha: commit.sha,
-				ref: `heads/${repo.default_branch}`,
+				ref: `heads/${repoData.default_branch}`,
 			});
 		} catch (error) {
 			// TODO: handle errors;

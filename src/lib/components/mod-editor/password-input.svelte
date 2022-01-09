@@ -12,7 +12,7 @@
 	$: isButtonDisabled = disabled || !value;
 </script>
 
-<form class="flex-1" on:submit|preventDefault>
+<form class="flex-1" on:submit|preventDefault method="post">
 	<input
 		class="absolute opacity-0"
 		value="placeholder@outerwildsmods.com"

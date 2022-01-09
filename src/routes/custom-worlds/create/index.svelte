@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { url } from '$app/stores';
+
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import type { OctokitRepoArray } from '$lib/octokit';
 	import { githubUser, octokit } from '$lib/store';
+	import { onMount } from 'svelte';
 
 	let errorMessage: string;
 	let repos: OctokitRepoArray = [];
@@ -61,7 +64,12 @@
 	{:else}
 		<div class="flex flex-col gap-2">
 			{#each processedRepos as repo (repo.id)}
-				<LinkButton href="/custom-worlds/create/{repo.owner.login}/{repo.name}">
+				<LinkButton
+					href="/custom-worlds/create/edit?{new URLSearchParams({
+						owner: repo.owner.login,
+						repo: repo.name,
+					})}"
+				>
 					{repo.name}
 				</LinkButton>
 			{/each}

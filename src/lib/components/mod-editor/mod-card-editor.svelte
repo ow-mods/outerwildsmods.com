@@ -4,28 +4,23 @@
 	import ModDescriptionEditor from './mod-description-editor.svelte';
 	import ModThumbnailEditor from './mod-thumbnail-editor.svelte';
 	import { octokit } from '$lib/store';
-	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 	import type { OctokitRepo } from '$lib/octokit';
 	import { onMount } from 'svelte';
 	import { getManifest, Manifest } from '$lib/helpers/get-manifest';
+	import { getRepoData } from '$lib/helpers/get-repo-data';
 
-	export let repoParameters: RepoParameters;
+	export let owner: string;
+	export let repo: string;
 
-	let repo: OctokitRepo | undefined;
+	let repoData: OctokitRepo | undefined;
 	let description = '';
 	let manifest: Manifest | undefined;
 	let savingDescription = false;
 
 	onMount(async () => {
-		repo = await getRepo();
-		manifest = await getManifest(repoParameters.owner, repoParameters.repo);
+		repoData = await getRepoData(owner, repo);
+		manifest = await getManifest(owner, repo);
 	});
-
-	const getRepo = async () => {
-		if (!$octokit) return;
-
-		return (await $octokit.rest.repos.get(repoParameters)).data;
-	};
 
 	const saveDescription = async () => {
 		if (!$octokit) return;
@@ -33,11 +28,12 @@
 
 		try {
 			await $octokit.rest.repos.update({
-				...repoParameters,
+				owner,
+				repo,
 				description,
 			});
 
-			repo = await getRepo();
+			repoData = await getRepoData(owner, repo);
 		} catch (error) {
 			// TODO handle errors.
 			console.error(`Error saving description: ${error}`);
@@ -53,10 +49,10 @@
 	<div
 		class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline overflow-hidden"
 	>
-		<ModThumbnailEditor {repoParameters} />
+		<ModThumbnailEditor {owner} {repo} />
 		<ModCardDetails mod={{ name: manifest?.name || '...' }}>
 			<ModDescriptionEditor
-				placeholder={repo?.description || 'Type your addon description here.'}
+				placeholder={repoData?.description || 'Type your addon description here.'}
 				bind:value={description}
 			/>
 		</ModCardDetails>
