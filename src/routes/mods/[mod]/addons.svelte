@@ -4,6 +4,8 @@
 	import { modList } from '$lib/store';
 	import { page } from '$app/stores';
 	import ModAddons from '$lib/components/mod-addons.svelte';
+	import ModCard from '$lib/components/card-grid/mod-card.svelte';
+	import PageSection from '$lib/components/page-section/page-section.svelte';
 
 	const mod = $modList.find((mod) => getModPathName(mod.name) === $page.params.mod.toLowerCase());
 </script>
@@ -17,7 +19,10 @@
 </svelte:head>
 <PageLayout isWide>
 	{#if mod}
-		<ModAddons {mod} />
+		<ModCard {mod} />
+		<PageSection title="Addons for {mod.name}" id="addons-{mod.uniqueName}">
+			<ModAddons {mod} />
+		</PageSection>
 	{:else}
 		<div>Mod not found</div>
 	{/if}
