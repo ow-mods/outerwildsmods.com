@@ -6,6 +6,7 @@
 	import ModFileUploader from '$lib/components/mod-editor/mod-file-uploader.svelte';
 	import { getManifest } from '$lib/helpers/get-manifest';
 	import { githubUser, modList, octokit } from '$lib/store';
+	import { getRepoData } from '$lib/helpers/get-repo-data';
 
 	let isModPublished = false;
 	let publishRequestIssueUrl = '';
@@ -14,8 +15,24 @@
 	const owner = $page.url.searchParams.get('owner');
 	const repo = $page.url.searchParams.get('repo');
 
-	onMount(() => {
-		if (!owner || !repo) {
+	onMount(async () => {
+		const isRepoValid = async () => {
+			if (!owner || !repo) {
+				return false;
+			}
+
+			try {
+				const repoData = await getRepoData(owner, repo);
+				if (!repoData || !repoData.permissions?.push) {
+					return false;
+				}
+			} catch {
+				return false;
+			}
+			return true;
+		};
+
+		if (!(await isRepoValid())) {
 			goto('/custom-worlds/create');
 		}
 	});
