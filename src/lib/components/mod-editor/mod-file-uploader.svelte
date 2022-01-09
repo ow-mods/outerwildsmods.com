@@ -14,6 +14,7 @@
 	let files: File[] = [];
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
+	let uploadProgress = 0;
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
 		try {
@@ -110,7 +111,8 @@
 			});
 
 			// Then add the remaining new files.
-			for (const file of files) {
+			for (let i = 0; i < files.length; i++) {
+				const file = files[i];
 				// Text files (maybe only <1MB) don't need this step, but for now I'm just treating all files as blobs for simplicity.
 				const blob = (
 					await $octokit.rest.git.createBlob({
@@ -126,6 +128,8 @@
 					type: 'blob',
 					mode: '100644',
 				});
+
+				uploadProgress = Math.round((i / files.length) * 100);
 			}
 
 			const createdTree = (
@@ -212,7 +216,7 @@
 		on:click={handleUploadClick}
 	>
 		{#if isUploading}
-			Uploading...
+			Uploading... {uploadProgress}%
 		{:else}
 			Upload
 		{/if}
