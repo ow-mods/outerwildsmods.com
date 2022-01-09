@@ -33,7 +33,7 @@
 </script>
 
 <PageLayout isWide>
-	<PageSection title="World Creation Tool (BETA)" id="create-addon">
+	<PageSection title="Addon Creation Tool (BETA)" id="create-addon">
 		{#if $githubUser}
 			<div class="flex gap-4">
 				<div class="flex-1">

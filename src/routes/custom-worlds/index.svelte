@@ -17,9 +17,9 @@
 				<div>
 					<p class="mt-0">
 						You can create your own custom worlds by making an addon for New Horizons. You can use
-						the World Creation tool to upload your worlds and share them with the community.
+						the Addon Creation Tool to upload your worlds and share them with the community.
 					</p>
-					<CtaButton href="/custom-worlds/create">World Creation Tool</CtaButton>
+					<CtaButton href="/custom-worlds/create">Addon Creation Tool</CtaButton>
 				</div>
 			</div>
 		</PageSection>
