@@ -134,9 +134,6 @@ xen.NewHorizons`,
 				planet creation template
 			</a>. If you try to use it with other GitHub repositories, you might break stuff.
 		</li>
-		<li>
-			Bookmark this page so that you don't need to select the mod every time you authenticate.
-		</li>
 	</ul>
 	{#if !isModPublished}
 		<div class="mt-8">
