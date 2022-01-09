@@ -16,27 +16,27 @@
 	const repo = $page.url.searchParams.get('repo');
 
 	onMount(async () => {
-		const isRepoValid = async () => {
+		const shouldRedirect = async () => {
 			if (!owner || !repo) {
-				return false;
+				return true;
 			}
 
 			if (!$githubUser) {
-				return true;
+				return false;
 			}
 
 			try {
 				const repoData = await getRepoData(owner, repo);
 				if (!repoData || !repoData.permissions?.push) {
-					return false;
+					return true;
 				}
 			} catch {
-				return false;
+				return true;
 			}
-			return true;
+			return false;
 		};
 
-		if (!(await isRepoValid())) {
+		if (await shouldRedirect()) {
 			goto('/custom-worlds/create');
 		}
 	});
