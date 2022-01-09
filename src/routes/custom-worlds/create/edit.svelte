@@ -21,6 +21,10 @@
 				return false;
 			}
 
+			if (!$githubUser) {
+				return true;
+			}
+
 			try {
 				const repoData = await getRepoData(owner, repo);
 				if (!repoData || !repoData.permissions?.push) {
