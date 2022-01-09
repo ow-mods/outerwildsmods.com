@@ -19,6 +19,7 @@
 	import type { OctokitRepo, OctokitTree } from '$lib/octokit';
 	import { githubUser, modList, octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
+	import { onMount } from 'svelte';
 
 	const bytesInMegabyte = 1000000;
 	const byteLimit = 25 * bytesInMegabyte;
@@ -36,13 +37,17 @@
 		repo: $page.params.repoName,
 	};
 
+	onMount(async () => {
+		manifest = await getManifest();
+	});
+
 	$: {
 		if ($modList.find((mod) => manifest && mod.uniqueName === manifest.uniqueName)) {
 			isModPublished = true;
 		}
 	}
 
-	$: (async () => {
+	const getManifest = async () => {
 		if (!$octokit || !$githubUser) {
 			repo = undefined;
 			files = [];
@@ -64,10 +69,9 @@
 			return;
 		}
 
-		manifest = JSON.parse(atob(manifestResponse.content));
-
+		return JSON.parse(atob(manifestResponse.content));
 		// TODO: handle errors.
-	})();
+	};
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
 		try {
@@ -266,10 +270,12 @@ xen.NewHorizons`,
 	};
 </script>
 
-{#if repo}
+{#if $githubUser}
 	<div class="flex gap-4">
 		{#if manifest}
-			<ModCardEditor {repoParameters} name={manifest.name} />
+			<ModCardEditor {repoParameters} name={manifest?.name} />
+		{:else}
+			<ModCardEditor {repoParameters} name="..." />
 		{/if}
 		<div class="flex flex-col gap-4">
 			<div
@@ -325,7 +331,7 @@ xen.NewHorizons`,
 		<li>
 			The GitHub repository for your addon is <a
 				class="link"
-				href={repo.html_url}
+				href="https://github.com/{repoParameters.owner}/{repoParameters.repo}"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
