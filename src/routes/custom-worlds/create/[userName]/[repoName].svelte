@@ -272,17 +272,19 @@ xen.NewHorizons`,
 
 {#if $githubUser}
 	<div class="flex gap-4">
-		{#if manifest}
-			<ModCardEditor {repoParameters} name={manifest.name} />
-		{:else}
-			<ModCardEditor {repoParameters} name="..." />
-		{/if}
-		<div class="flex flex-col gap-4">
+		<div>
+			{#if manifest}
+				<ModCardEditor {repoParameters} name={manifest.name} />
+			{:else}
+				<ModCardEditor {repoParameters} name="..." />
+			{/if}
+		</div>
+		<div class="flex flex-col w-full gap-4">
 			<div
 				class:pointer-events-none={isUploading}
 				class="link relative bg-dark border-2 border-dashed rounded-lg p-2 flex-1"
 			>
-				<div class="flex flex-col justify-center items-center h-full overflow-hidden">
+				<div class="flex flex-col justify-center items-center h-full w-full overflow-hidden">
 					{#if files.length > 0}
 						<div class="flex flex-col flex-wrap h-full w-full gap-1 text-xs">
 							{#each files as file (file.webkitRelativePath)}
