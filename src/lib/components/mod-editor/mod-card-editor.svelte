@@ -1,9 +1,5 @@
 <script lang="ts">
-	import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
-	import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
-	import { listedImageSize } from '$lib/helpers/constants';
 	import SubmitButton from './submit-button.svelte';
-	import ModCardImage from '$lib/components/card-grid/mod-card-image.svelte';
 	import ModCardDetails from '../card-grid/mod-card-details.svelte';
 	import ModDescriptionEditor from './mod-description-editor.svelte';
 	import ModThumbnailEditor from './mod-thumbnail-editor.svelte';
@@ -17,11 +13,6 @@
 	export let savingDescription = false;
 
 	let repo: OctokitRepo | undefined;
-	let mod = {
-		formattedDownloadCount: '100',
-		imageUrl: '',
-		name,
-	};
 	let description = '';
 
 	onMount(() => {
@@ -61,7 +52,7 @@
 		class="max-w-sm mx-auto bg-dark w-full h-full rounded hover:bg-background outline-4 outline-dark hover:outline overflow-hidden"
 	>
 		<ModThumbnailEditor {repoParameters} />
-		<ModCardDetails {mod}>
+		<ModCardDetails mod={{ name }}>
 			<ModDescriptionEditor
 				placeholder={repo?.description || 'Type your addon description here.'}
 				bind:value={description}
