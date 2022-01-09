@@ -273,7 +273,7 @@ xen.NewHorizons`,
 {#if $githubUser}
 	<div class="flex gap-4">
 		{#if manifest}
-			<ModCardEditor {repoParameters} name={manifest?.name} />
+			<ModCardEditor {repoParameters} name={manifest.name} />
 		{:else}
 			<ModCardEditor {repoParameters} name="..." />
 		{/if}
