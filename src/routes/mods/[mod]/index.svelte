@@ -44,12 +44,12 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import ModActions from '$lib/components/mod-info/mod-actions.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
-	import type { ImageMap } from '$lib/helpers/api/get-markdown-images';
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 
 	export let readme: string | undefined = undefined;
 	export let mod: ModsRequestItem | undefined = undefined;
