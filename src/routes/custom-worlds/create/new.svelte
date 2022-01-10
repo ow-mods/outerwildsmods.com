@@ -151,7 +151,11 @@
 			Once you've edited your addon to your desire, you can come back to this page to upload your
 			files.
 		</p>
-		<LinkButton href="/custom-worlds/create/{createdRepo?.full_name}">Upload addon files</LinkButton
+		<LinkButton
+			href="/custom-worlds/create/edit?{new URLSearchParams({
+				owner: createdRepo.owner.login,
+				repo: createdRepo.name,
+			})}">Upload addon files</LinkButton
 		>
 	</div>
 {/if}

@@ -6,7 +6,6 @@
 	import { getBase64File } from '$lib/helpers/get-base-64-file';
 	import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 	import { octokit } from '$lib/store';
-	import type { RepoParameters } from 'src/routes/custom-worlds/create/[userName]/[repoName].svelte';
 	import ModCardImage from '../card-grid/mod-card-image.svelte';
 
 	export let owner: string;
