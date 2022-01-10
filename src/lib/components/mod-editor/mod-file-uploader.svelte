@@ -6,16 +6,18 @@
 	import { octokit } from '$lib/store';
 	import semverUtils from 'semver-utils';
 
+	type UpdateLevel = 'Major' | 'Minor' | 'Patch';
+
 	export let owner: string;
 	export let repo: string;
 
 	const bytesInMegabyte = 1000000;
 	const byteLimit = 25 * bytesInMegabyte;
-	let repoData: OctokitRepo | undefined;
 	let files: File[] = [];
 	let fileInputErrors: string[] = [];
 	let isUploading = false;
 	let uploadProgress = 0;
+	let updateLevel: UpdateLevel = 'Minor';
 
 	const handleFilesChange: svelte.JSX.FormEventHandler<HTMLInputElement> = (event) => {
 		try {
@@ -43,7 +45,7 @@
 	};
 
 	const handleUploadClick = async () => {
-		repoData = await getRepoData(owner, repo);
+		const repoData = await getRepoData(owner, repo);
 
 		if (files.length === 0 || !$octokit || !repoData) return;
 
@@ -82,10 +84,19 @@
 
 			const currentSemver =
 				semverUtils.parse(manifest?.version ?? '') ?? semverUtils.parse('0.0.0');
-			const minor = currentSemver.minor ?? '1';
+			let major = Number.parseInt(currentSemver.major ?? '1');
+			let minor = Number.parseInt(currentSemver.minor ?? '1');
+			let patch = Number.parseInt(currentSemver.patch ?? '1');
+
+			if (updateLevel === 'Major') major++;
+			if (updateLevel === 'Minor') minor++;
+			if (updateLevel === 'Patch') patch++;
+
 			const nextVersion = semverUtils.stringify({
 				...currentSemver,
-				minor: (Number.parseInt(minor) + 1).toString(),
+				major: major.toString(),
+				minor: minor.toString(),
+				patch: patch.toString(),
 			});
 
 			const manifestBlob = (
@@ -180,6 +191,10 @@
 			window.alert('Upload successful. A new release will automatically be created.');
 		}
 	};
+
+	const handleUpdateLevelChange: svelte.JSX.FormEventHandler<HTMLSelectElement> = (event) => {
+		updateLevel = event.currentTarget.value.replace('-description', '') as UpdateLevel;
+	};
 </script>
 
 <div class="flex flex-col w-full gap-4">
@@ -218,15 +233,37 @@
 			on:change={handleFilesChange}
 		/>
 	</div>
-	<button
-		disabled={files.length === 0 || isUploading}
-		class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
-		on:click={handleUploadClick}
-	>
-		{#if isUploading}
-			Uploading... {uploadProgress}%
-		{:else}
-			Upload
-		{/if}
-	</button>
+	<div class="flex gap-4">
+		<button
+			disabled={files.length === 0 || isUploading}
+			class="{files.length === 0 ? 'button-standard' : 'button-cta'} w-full"
+			on:click={handleUploadClick}
+		>
+			{#if isUploading}
+				Uploading... {uploadProgress}%
+			{:else}
+				Upload
+			{/if}
+		</button>
+		<div class="relative">
+			<select
+				class="button-standard w-28"
+				value={updateLevel}
+				on:change|preventDefault={handleUpdateLevelChange}
+			>
+				<option value="Major" hidden>Major</option>
+				<option value="Major-description" disabled={updateLevel === 'Major'}>
+					Major (e.g. v1.2.3 -> v2.0.0)
+				</option>
+				<option value="Minor" hidden>Minor</option>
+				<option value="Minor-description" disabled={updateLevel === 'Minor'}
+					>Minor (e.g. v1.2.3 -> v1.3.0)</option
+				>
+				<option value="Patch" hidden>Patch</option>
+				<option value="Patch-description" disabled={updateLevel === 'Patch'}>
+					Patch (e.g. v1.2.3 -> v1.2.4)
+				</option>
+			</select>
+		</div>
+	</div>
 </div>
