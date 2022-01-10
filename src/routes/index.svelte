@@ -23,6 +23,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import { modList } from '$lib/store';
+	import DiscordIcon from '$lib/components/discord-icon.svelte';
 
 	const infoLinks = [
 		{
@@ -48,11 +49,6 @@
 			text: 'Outer Wilds mod template',
 			href: 'https://github.com/Raicuparta/ow-mod-template',
 		},
-	];
-
-	const communityLinks = [
-		{ text: 'Reddit', href: 'https://reddit.com/r/outerwilds' },
-		{ text: 'Discord', href: 'https://discord.gg/RaSjRbm' },
 	];
 
 	export let featuredModNames: string[] = [];
@@ -91,25 +87,30 @@
 		<LinkButton href="/mods">More Mods...</LinkButton>
 	</PageSection>
 	<PageSection
+		title="Support and modding talk"
+		id="community"
+		description="Join our Discord server if you need support, wanna learn about making mods, or just to chat with this wonderful modding community:"
+	>
+		<a
+			class="link flex gap-4 items-center text-xl justify-center mt-4"
+			href="https://discord.gg/9vE5aHxcF9"
+		>
+			<DiscordIcon /> Outer Wilds Modding Discord Server
+		</a>
+	</PageSection>
+	<PageSection
+		title="Become a modder"
+		id="become-a-modder"
+		description="If you want to make your own mods, the OWML documentation has most of the info you need to get started. The easiest way to start is by cloning the mod template project and following the instructions there. Also, that Discord server linked above is full of people who will help you."
+	>
+		<LinkList links={forModdersLinks} />
+	</PageSection>
+	<PageSection
 		title="Outer Wilds?"
 		id="outer-wilds"
 		description="Outer Wilds is a neat game. Check it out and buy it or whatever."
 		imageUrl="/images/outer-wilds.jpg"
 	>
 		<LinkList links={infoLinks} />
-	</PageSection>
-	<PageSection
-		title="Community"
-		id="community"
-		description="If you need support, or just wanna interact with other fans of the game, this is where you can find us:"
-	>
-		<LinkList links={communityLinks} />
-	</PageSection>
-	<PageSection
-		title="Become a modder"
-		id="become-a-modder"
-		description="If you want to make your own mods, the OWML documentation has most of the info you need to get started. The easiest way to start is by cloning the mod template project and following the instructions there. The aforementioned Discord server also has a modding channel."
-	>
-		<LinkList links={forModdersLinks} />
 	</PageSection>
 </PageLayout>
