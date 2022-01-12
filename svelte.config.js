@@ -24,6 +24,9 @@ const config = {
 		},
 		target: '#svelte',
 		vite: {
+			optimizeDeps: {
+				exclude: ['marked'],
+			},
 			resolve: {
 				alias: {
 					'node-fetch': 'isomorphic-fetch',

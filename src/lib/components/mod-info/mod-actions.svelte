@@ -8,11 +8,11 @@
 
 <div class="bg-dark rounded p-4 mb-4">
 	<div class="flex flex-col gap-2">
-		<h1 class="m-0 text-2xl">{mod.name}</h1>
-		<a class="link" href={mod.repo} target="_blank" rel="noopener noreferrer">
+		<h1 class="m-0 text-2xl break-words">{mod.name}</h1>
+		<a class="link break-words" href={mod.repo} target="_blank" rel="noopener noreferrer">
 			by {mod.author}
 		</a>
-		<p class="m-0">{mod.description}</p>
+		<p class="m-0 break-words">{mod.description}</p>
 		<small>↓ {mod.formattedDownloadCount}</small>
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
