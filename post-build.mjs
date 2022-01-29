@@ -18,4 +18,12 @@ const generateSitemap = async () => {
 	writeFileSync('build/sitemap.xml', sitemap);
 };
 
+const move404 = () => {
+	const path404 = 'build/404/index.html';
+	if (existsSync(path404)) {
+		renameSync(path404, 'build/404.html');
+	}
+};
+
 generateSitemap();
+move404();
