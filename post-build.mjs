@@ -8,7 +8,7 @@ const generateSitemap = async () => {
 
 	const pageUrls = pages
 		.map((page) => {
-			const path = `${urlBase}/${page.replace(/(index|.html|build\/)/gm, '')}`;
+			const path = `${urlBase}/${page.replace(/(index|.html|^build\/)/gm, '')}`;
 			return `\n  <url><loc>${path}</loc></url>`;
 		})
 		.join('');
