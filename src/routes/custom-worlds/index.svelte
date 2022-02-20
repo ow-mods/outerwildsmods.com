@@ -12,7 +12,7 @@
 <PageLayout isWide>
 	{#if newHorizons}
 		<PageSection title="Custom Worlds" id="custom-worlds">
-			<div class="flex gap-8">
+			<div class="flex flex-col md:flex-row gap-8">
 				<ModCard mod={newHorizons} />
 				<div>
 					<p class="mt-0">
