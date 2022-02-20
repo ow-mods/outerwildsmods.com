@@ -6,51 +6,44 @@
 	export let mods: ModsRequestItem[] = [];
 
 	const sortOrders = {
-		mostDownloaded: 'Most downloaded',
-		leastDownloaded: 'Least downloaded',
-		newest: 'Newest',
-		oldest: 'Oldest',
-		updated: 'Recently updated',
+		mostDownloaded: {
+			title: 'Most downloaded',
+			compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
+				modB.downloadCount - modA.downloadCount,
+		},
+		leastDownloaded: {
+			title: 'Least downloaded',
+			compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
+				modA.downloadCount - modB.downloadCount,
+		},
+		newest: {
+			title: 'Newest',
+			compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
+				new Date(modB.firstReleaseDate).valueOf() - new Date(modA.firstReleaseDate).valueOf(),
+		},
+		oldest: {
+			title: 'Oldest',
+			compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
+				new Date(modA.firstReleaseDate).valueOf() - new Date(modB.firstReleaseDate).valueOf(),
+		},
+		updated: {
+			title: 'Recently updated',
+			compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
+				new Date(modB.latestReleaseDate).valueOf() - new Date(modA.latestReleaseDate).valueOf(),
+		},
 	};
 
 	let sort: keyof typeof sortOrders = 'mostDownloaded';
 
 	$: {
-		mods = mods.sort((modA, modB) => {
-			switch (sort) {
-				case 'mostDownloaded': {
-					return modB.downloadCount - modA.downloadCount;
-				}
-				case 'leastDownloaded': {
-					return modA.downloadCount - modB.downloadCount;
-				}
-				case 'newest': {
-					return (
-						new Date(modB.firstReleaseDate).valueOf() - new Date(modA.firstReleaseDate).valueOf()
-					);
-				}
-				case 'oldest': {
-					return (
-						new Date(modA.firstReleaseDate).valueOf() - new Date(modB.firstReleaseDate).valueOf()
-					);
-				}
-				case 'updated': {
-					return (
-						new Date(modB.latestReleaseDate).valueOf() - new Date(modA.latestReleaseDate).valueOf()
-					);
-				}
-				default: {
-					return 0;
-				}
-			}
-		});
+		mods = mods.sort(sortOrders[sort].compareFunction);
 	}
 </script>
 
 Sort:
 <select class="bg-dark p-2 rounded mb-4" bind:value={sort}>
-	{#each Object.entries(sortOrders) as [sortOrderId, sortOrderName]}
-		<option value={sortOrderId}>{sortOrderName}</option>
+	{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
+		<option value={sortOrderId}>{sortOrder.title}</option>
 	{/each}
 </select>
 <CardGrid>
