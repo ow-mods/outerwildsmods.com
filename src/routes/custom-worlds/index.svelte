@@ -24,7 +24,6 @@
 			</div>
 		</PageSection>
 		<PageSection title="Find New Worlds" id="available-worlds">
-			<p>These are the worlds the community has built so far.</p>
 			<ModAddons mod={newHorizons} />
 		</PageSection>
 	{/if}
