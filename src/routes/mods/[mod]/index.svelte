@@ -82,7 +82,9 @@
 	{#if mod}
 		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme}
-				<Markdown {readme} {externalImages} rawContentUrl={mod.rawContentUrl} />
+				{#key mod.uniqueName}
+					<Markdown {readme} {externalImages} rawContentUrl={mod.rawContentUrl} />
+				{/key}
 			{/if}
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
 				<ModActions {mod} />

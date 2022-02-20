@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { ImageMap } from '$lib/helpers/api/get-markdown-images';
+	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 
 	export let href = '';
 	export let title: string | undefined = undefined;
