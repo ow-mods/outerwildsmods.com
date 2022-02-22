@@ -12,7 +12,7 @@
 	<HrLine />
 	{#if moreHref}
 		<div class="ml-4">
-			<LinkButton href={moreHref} isSmall={true}>More...</LinkButton>
+			<LinkButton href={moreHref} isSmall={true}>{'More ›'}</LinkButton>
 		</div>
 	{/if}
 </div>
