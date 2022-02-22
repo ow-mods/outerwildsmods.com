@@ -95,7 +95,7 @@
 			{/each}
 		</div>
 	</PageSection>
-	<PageSection title="Recently Updated Mods" id="recentlyUpdatedMods" moreHref="mods">
+	<PageSection title="New Updates" id="recentlyUpdatedMods" moreHref="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each recentlyUpdatedMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
