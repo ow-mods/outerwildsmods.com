@@ -80,22 +80,22 @@
 	<link rel="canonical" href="https://outerwildsmods.com" />
 </svelte:head>
 
-<PageLayout isWide>
-	<PageSection title="Hot" id="hotMods" moreHref="mods">
+<PageLayout>
+	<PageSection title="Hot Mods" id="hotMods" moreHref="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each hotMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
 	</PageSection>
-	<PageSection title="New" id="newMods" moreHref="mods">
+	<PageSection title="New Mods" id="newMods" moreHref="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each newMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
 	</PageSection>
-	<PageSection title="Recently updated" id="recentlyUpdatedMods" moreHref="mods">
+	<PageSection title="Recently Updated Mods" id="recentlyUpdatedMods" moreHref="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each recentlyUpdatedMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
@@ -106,6 +106,7 @@
 		title="Support and modding talk"
 		id="community"
 		description="Join our Discord server if you need support, wanna learn about making mods, or just to chat with this wonderful modding community:"
+		isNarrow
 	>
 		<a
 			class="link flex gap-4 items-center text-xl justify-center mt-4"
@@ -118,6 +119,7 @@
 		title="Become a modder"
 		id="become-a-modder"
 		description="If you want to make your own mods, the OWML documentation has most of the info you need to get started. The easiest way to start is by cloning the mod template project and following the instructions there. Also, that Discord server linked above is full of people who will help you."
+		isNarrow
 	>
 		<LinkList links={forModdersLinks} />
 	</PageSection>
@@ -126,6 +128,7 @@
 		id="outer-wilds"
 		description="Outer Wilds is a neat game. Check it out and buy it or whatever."
 		imageUrl="/images/outer-wilds.jpg"
+		isNarrow
 	>
 		<LinkList links={infoLinks} />
 	</PageSection>

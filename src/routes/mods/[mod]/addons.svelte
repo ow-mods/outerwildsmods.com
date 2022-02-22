@@ -17,7 +17,7 @@
 		content="Full list of mods for Outer Wilds. Including mods for VR, multiplayer, and cheats."
 	/>
 </svelte:head>
-<PageLayout isWide>
+<PageLayout>
 	{#if mod}
 		<ModCard {mod} />
 		<PageSection title="Addons for {mod.name}" id="addons-{mod.uniqueName}">

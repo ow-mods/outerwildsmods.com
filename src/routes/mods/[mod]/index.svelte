@@ -78,7 +78,7 @@
 	{/if}
 </svelte:head>
 
-<PageLayout isWide>
+<PageLayout>
 	{#if mod}
 		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme}
