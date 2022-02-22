@@ -87,13 +87,13 @@
 <PageLayout>
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div class="flex flex-col md:flex-row gap-8">
-			<div>
+			<div class="hidden md:block">
 				<PageSectionImage
 					imageUrl="/images/mod-manager-small.png"
 					title="Outer Wilds Mod Manager"
 				/>
 			</div>
-			<div class="w-72 flex flex-col content-between">
+			<div class="md:w-72 flex flex-col content-between gap-2">
 				<PageSectionDescription
 					description="Use the Outer Wilds Mod Manager for downloading, installing, and managing mods."
 				/>
