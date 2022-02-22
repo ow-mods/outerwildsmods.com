@@ -31,6 +31,10 @@
 	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
 	import type { SortOrder } from '$lib/helpers/mod-sorting';
+	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
+	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
+	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
+	import CtaButton from '$lib/components/button/cta-button.svelte';
 
 	const infoLinks = [
 		{
@@ -81,6 +85,17 @@
 </svelte:head>
 
 <PageLayout>
+	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
+		<PageSectionColumns>
+			<PageSectionImage imageUrl="/images/mod-manager-small.png" title="Outer Wilds Mod Manager" />
+			<PageSectionDescription
+				description="Use the Outer Wilds Mod Manager for downloading, installing, and managing mods."
+			/>
+		</PageSectionColumns>
+		<div class="mt-4">
+			<CtaButton href="/mod-manager">Outer Wilds Mod Manager</CtaButton>
+		</div>
+	</PageSection>
 	<PageSection title="Hot Mods" id="hotMods" moreHref="mods">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each hotMods as mod (mod?.uniqueName)}
