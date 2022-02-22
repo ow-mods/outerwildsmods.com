@@ -9,13 +9,12 @@
 	export let mods: ModsRequestItem[] = [];
 
 	let sortOrder: SortOrder = 'hot';
-	let sortOrderParam = $page.url.searchParams.get('sortOrder') ?? '';
-
-	if (isSortOrder(sortOrderParam)) {
-		sortOrder = sortOrderParam;
-	}
 
 	$: {
+		let sortOrderParam = $page.url.searchParams.get('sortOrder') ?? '';
+		if (isSortOrder(sortOrderParam)) {
+			sortOrder = sortOrderParam;
+		}
 		mods = sortModList(mods, sortOrder);
 	}
 </script>
