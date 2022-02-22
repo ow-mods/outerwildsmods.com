@@ -64,8 +64,6 @@
 	export let newModNames: string[] = [];
 	export let recentlyUpdatedModNames: string[] = [];
 
-	console.log('hotModNames', hotModNames);
-
 	const hotMods = hotModNames.map((name) => $modList.find((mod) => mod.uniqueName === name));
 	const newMods = newModNames.map((name) => $modList.find((mod) => mod.uniqueName === name));
 	const recentlyUpdatedMods = recentlyUpdatedModNames.map((name) =>
