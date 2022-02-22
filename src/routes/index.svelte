@@ -1,12 +1,22 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
 
+	const modsPerCategory = 3;
+
 	export const load: Load = async ({ fetch }) => {
-		const featuredModNames: string[] = await (await fetch('/api/featured-mods.json')).json();
+		async function fetchModsSlice(sortOrder: SortOrder): Promise<string[]> {
+			return (await fetch(`/api/mods-slice/${modsPerCategory}/${sortOrder}.json`)).json();
+		}
+
+		const hotModNames = await fetchModsSlice('hot');
+		const newModNames = await fetchModsSlice('newest');
+		const recentlyUpdatedModNames = await fetchModsSlice('updated');
 
 		return {
 			props: {
-				featuredModNames,
+				hotModNames,
+				newModNames,
+				recentlyUpdatedModNames,
 			},
 		};
 	};
@@ -17,13 +27,10 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
-	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
+	import type { SortOrder } from '$lib/helpers/mod-sorting';
 
 	const infoLinks = [
 		{
@@ -51,8 +58,15 @@
 		},
 	];
 
-	export let featuredModNames: string[] = [];
-	const featuredMods = featuredModNames.map((name) =>
+	export let hotModNames: string[] = [];
+	export let newModNames: string[] = [];
+	export let recentlyUpdatedModNames: string[] = [];
+
+	console.log('hotModNames', hotModNames);
+
+	const hotMods = hotModNames.map((name) => $modList.find((mod) => mod.uniqueName === name));
+	const newMods = newModNames.map((name) => $modList.find((mod) => mod.uniqueName === name));
+	const recentlyUpdatedMods = recentlyUpdatedModNames.map((name) =>
 		$modList.find((mod) => mod.uniqueName === name)
 	);
 </script>
@@ -66,25 +80,30 @@
 	<link rel="canonical" href="https://outerwildsmods.com" />
 </svelte:head>
 
-<PageLayout>
-	<PageSection title="Outer Wilds Mod Manager" id="mod-manager">
-		<PageSectionColumns>
-			<PageSectionImage imageUrl="/images/mod-manager-small.png" title="Outer Wilds Mod Manager" />
-			<PageSectionDescription
-				description="Use the Outer Wilds Mod Manager for downloading, installing, and managing mods."
-			/>
-		</PageSectionColumns>
-		<div class="mt-4">
-			<CtaButton href="/mod-manager">Outer Wilds Mod Manager</CtaButton>
-		</div>
-	</PageSection>
-	<PageSection title="Some of the available mods" id="mods">
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 my-4">
-			{#each featuredMods as mod (mod?.uniqueName)}
+<PageLayout isWide>
+	<PageSection title="Hot mods" id="mods">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 my-4">
+			{#each hotMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
-		<LinkButton href="/mods">More Mods...</LinkButton>
+		<LinkButton href="/mods">More Hot Mods...</LinkButton>
+	</PageSection>
+	<PageSection title="New mods" id="mods">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 my-4">
+			{#each newMods as mod (mod?.uniqueName)}
+				<ModCard {mod} />
+			{/each}
+		</div>
+		<LinkButton href="/mods">More New Mods...</LinkButton>
+	</PageSection>
+	<PageSection title="Recently updated mods" id="mods">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 my-4">
+			{#each recentlyUpdatedMods as mod (mod?.uniqueName)}
+				<ModCard {mod} />
+			{/each}
+		</div>
+		<LinkButton href="/mods">More Recenlty Updated Mods...</LinkButton>
 	</PageSection>
 	<PageSection
 		title="Support and modding talk"

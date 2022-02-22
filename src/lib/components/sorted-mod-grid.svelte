@@ -2,14 +2,14 @@
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import type { ModsRequestItem } from '../../routes/api/mods.json';
-	import { SortOrder, sortOrders } from '$lib/helpers/mod-sorting';
+	import { SortOrder, sortModList, sortOrders } from '$lib/helpers/mod-sorting';
 
 	export let mods: ModsRequestItem[] = [];
 
 	let sort: SortOrder = 'hot';
 
 	$: {
-		mods = mods.sort(sortOrders[sort].compareFunction);
+		mods = sortModList(mods, sort);
 	}
 </script>
 

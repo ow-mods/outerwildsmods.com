@@ -44,6 +44,14 @@ export const sortOrders = {
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
 			new Date(modB.latestReleaseDate).valueOf() - new Date(modA.latestReleaseDate).valueOf(),
 	},
-};
+} as const;
 
 export type SortOrder = keyof typeof sortOrders;
+
+export function isSortOrder(key: string): key is SortOrder {
+	return Object.keys(sortOrders).includes(key);
+}
+
+export function sortModList(modList: ModsRequestItem[], sortOrder: SortOrder) {
+	return modList.sort(sortOrders[sortOrder].compareFunction);
+}
