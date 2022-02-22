@@ -24,14 +24,12 @@
 
 <script lang="ts">
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
-	import LinkButton from '$lib/components/button/link-button.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
 	import type { SortOrder } from '$lib/helpers/mod-sorting';
-	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
@@ -101,21 +99,21 @@
 			</div>
 		</div>
 	</PageSection>
-	<PageSection title="Hot Mods" id="hotMods" moreHref="mods">
+	<PageSection title="Hot Mods" id="hotMods" moreHref="mods?sortOrder=hot">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each hotMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
 	</PageSection>
-	<PageSection title="New Mods" id="newMods" moreHref="mods">
+	<PageSection title="New Mods" id="newMods" moreHref="mods?sortOrder=newest">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each newMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
 	</PageSection>
-	<PageSection title="New Updates" id="recentlyUpdatedMods" moreHref="mods">
+	<PageSection title="New Updates" id="recentlyUpdatedMods" moreHref="mods?sortOrder=updated">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each recentlyUpdatedMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
