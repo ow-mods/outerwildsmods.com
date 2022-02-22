@@ -81,29 +81,26 @@
 </svelte:head>
 
 <PageLayout isWide>
-	<PageSection title="Hot mods" id="mods">
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 my-4">
+	<PageSection title="Hot" id="hotMods" moreHref="mods">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each hotMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
-		<LinkButton href="/mods">More Hot Mods...</LinkButton>
 	</PageSection>
-	<PageSection title="New mods" id="mods">
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 my-4">
+	<PageSection title="New" id="newMods" moreHref="mods">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each newMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
-		<LinkButton href="/mods">More New Mods...</LinkButton>
 	</PageSection>
-	<PageSection title="Recently updated mods" id="mods">
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 my-4">
+	<PageSection title="Recently updated" id="recentlyUpdatedMods" moreHref="mods">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each recentlyUpdatedMods as mod (mod?.uniqueName)}
 				<ModCard {mod} />
 			{/each}
 		</div>
-		<LinkButton href="/mods">More Recenlty Updated Mods...</LinkButton>
 	</PageSection>
 	<PageSection
 		title="Support and modding talk"

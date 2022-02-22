@@ -9,11 +9,12 @@
 	export let title: string | undefined = undefined;
 	export let description: string | undefined = undefined;
 	export let imageUrl: string | undefined = undefined;
+	export let moreHref: string | undefined = undefined;
 </script>
 
 <div class="py-4">
 	{#if title}
-		<PageSectionTitle {id}>{title}</PageSectionTitle>
+		<PageSectionTitle {id} {moreHref}>{title}</PageSectionTitle>
 	{/if}
 	{#if imageUrl || description}
 		<PageSectionColumns>
