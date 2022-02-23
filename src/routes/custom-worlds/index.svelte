@@ -9,7 +9,7 @@
 	const newHorizons = $modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 </script>
 
-<PageLayout isWide>
+<PageLayout>
 	{#if newHorizons}
 		<PageSection title="Custom Worlds" id="custom-worlds">
 			<div class="flex flex-col md:flex-row gap-8">

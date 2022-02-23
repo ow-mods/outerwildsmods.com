@@ -22,7 +22,7 @@
 </svelte:head>
 
 <PageLayout>
-	<PageSection title="Outer Wilds Mod Manager" id="mod-manager">
+	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
 			<PageSectionImage
 				imageUrl="/images/mod-manager.png"
@@ -56,7 +56,7 @@
 			need to deal with that yourself.
 		</p>
 	</PageSection>
-	<PageSection title="How do I use this?" id="how-to-use">
+	<PageSection title="How do I use this?" id="how-to-use" isNarrow>
 		<ul>
 			<li>Download the Outer Wilds Mod Manager installer;</li>
 			<li>Run the downloaded .exe (you might need to ignore some Chrome / Windows warnings);</li>
@@ -71,7 +71,7 @@
 			<li>You won't believe what happens next.</li>
 		</ul>
 	</PageSection>
-	<PageSection title="How do I uninstall it?" id="uninstall">
+	<PageSection title="How do I uninstall it?" id="uninstall" isNarrow>
 		<p>
 			First, remember that uninstalling the Mod Manager won't uninstall your mods. Make sure to
 			remove all mods and run the game once before uninstalling.
@@ -81,7 +81,7 @@
 			(or in the control panel), and then finding Outer Wilds Mod Manager in the list.
 		</p>
 	</PageSection>
-	<PageSection title="More information" id="more-info">
+	<PageSection title="More information" id="more-info" isNarrow>
 		<p>
 			For more information, check the{' '}
 			<a
