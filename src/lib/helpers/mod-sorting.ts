@@ -52,6 +52,6 @@ export function isSortOrder(key: string): key is SortOrder {
 	return Object.keys(sortOrders).includes(key);
 }
 
-export function sortModList(modList: ModsRequestItem[], sortOrder: SortOrder) {
-	return modList.sort(sortOrders[sortOrder].compareFunction);
+export function sortModList(modList: ModsRequestItem[], sortOrder: SortOrder, excludeIds: string[] = []) {
+	return modList.sort(sortOrders[sortOrder].compareFunction).filter(mod => !excludeIds.includes(mod.uniqueName) );
 }

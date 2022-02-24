@@ -1,27 +1,3 @@
-<script context="module" lang="ts">
-	import type { Load } from '@sveltejs/kit';
-
-	const modsPerCategory = 3;
-
-	export const load: Load = async ({ fetch }) => {
-		async function fetchModsSlice(sortOrder: SortOrder): Promise<string[]> {
-			return (await fetch(`/api/mods-slice/${modsPerCategory}/${sortOrder}.json`)).json();
-		}
-
-		const hotModNames = await fetchModsSlice('hot');
-		const newModNames = await fetchModsSlice('newest');
-		const recentlyUpdatedModNames = await fetchModsSlice('updated');
-
-		return {
-			props: {
-				hotModNames,
-				newModNames,
-				recentlyUpdatedModNames,
-			},
-		};
-	};
-</script>
-
 <script lang="ts">
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
@@ -29,7 +5,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
-	import type { SortOrder } from '$lib/helpers/mod-sorting';
+	import { sortModList, SortOrder } from '$lib/helpers/mod-sorting';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
@@ -60,15 +36,11 @@
 		},
 	];
 
-	export let hotModNames: string[] = [];
-	export let newModNames: string[] = [];
-	export let recentlyUpdatedModNames: string[] = [];
+	const modsPerCategory = 3;
 
-	const hotMods = hotModNames.map((name) => $modList.find((mod) => mod.uniqueName === name));
-	const newMods = newModNames.map((name) => $modList.find((mod) => mod.uniqueName === name));
-	const recentlyUpdatedMods = recentlyUpdatedModNames.map((name) =>
-		$modList.find((mod) => mod.uniqueName === name)
-	);
+	const hotMods = sortModList($modList, 'hot').slice(0, modsPerCategory);
+	const newMods = sortModList($modList, 'newest', hotMods.map(mod => mod.uniqueName)).slice(0, modsPerCategory);
+	const recentlyUpdatedMods = sortModList($modList, 'updated', newMods.map(mod => mod.uniqueName)).slice(0, modsPerCategory);
 </script>
 
 <svelte:head>
@@ -100,21 +72,21 @@
 	<PageSection title="Hot Mods" id="hotMods" moreHref="mods?sortOrder=hot">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each hotMods as mod (mod?.uniqueName)}
-				<ModCard {mod} />
+				<ModCard hideDescription {mod} />
 			{/each}
 		</div>
 	</PageSection>
 	<PageSection title="New Mods" id="newMods" moreHref="mods?sortOrder=newest">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each newMods as mod (mod?.uniqueName)}
-				<ModCard {mod} />
+				<ModCard hideDescription {mod} />
 			{/each}
 		</div>
 	</PageSection>
 	<PageSection title="New Updates" id="recentlyUpdatedMods" moreHref="mods?sortOrder=updated">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 mt-4">
 			{#each recentlyUpdatedMods as mod (mod?.uniqueName)}
-				<ModCard {mod} />
+				<ModCard hideDescription {mod} />
 			{/each}
 		</div>
 	</PageSection>

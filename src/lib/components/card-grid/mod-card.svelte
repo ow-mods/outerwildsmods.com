@@ -10,6 +10,7 @@
 		'imageUrl' | 'name' | 'formattedDownloadCount' | 'description'
 	>;
 	export let lazy = false;
+	export let hideDescription = false;
 </script>
 
 <a
@@ -28,6 +29,6 @@
 		/>
 	</ModCardImage>
 	<ModCardDetails {mod}>
-		{mod.description}
+		{hideDescription ? '' : mod.description}
 	</ModCardDetails>
 </a>
