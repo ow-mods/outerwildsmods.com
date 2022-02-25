@@ -8,10 +8,13 @@
 	import { getRepoData } from '$lib/helpers/get-repo-data';
 	import ModPublishButton from '$lib/components/mod-editor/mod-publish-button.svelte';
 
-	const owner = $page.url.searchParams.get('owner');
-	const repo = $page.url.searchParams.get('repo');
+	let owner: string | null = null;
+	let repo: string | null = null;
 
 	onMount(async () => {
+		owner = $page.url.searchParams.get('owner');
+		repo = $page.url.searchParams.get('repo');
+
 		const shouldRedirect = async () => {
 			if (!owner || !repo) {
 				return true;
