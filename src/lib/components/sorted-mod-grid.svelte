@@ -14,18 +14,24 @@
 	let handleSortChange: svelte.JSX.FormEventHandler<HTMLSelectElement> = () => {};
 
 	$: {
-		let sortOrderParam = $page.url.searchParams.get('sortOrder') ?? '';
-		if (isSortOrder(sortOrderParam)) {
-			sortOrder = sortOrderParam;
-		}
 		mods = sortModList(mods, sortOrder);
 	}
 
 	onMount(() => {
+		const sortOrderParam = $page.url.searchParams.get('sortOrder') || '';
+		if (isSortOrder(sortOrderParam)) {
+			sortOrder = sortOrderParam;
+		}
+
 		handleSortChange = (event) => {
 			if (!event || !event.currentTarget) return;
 			const url = new URL($page.url);
 			url.searchParams.set('sortOrder', event.currentTarget.value);
+			let sortOrderParam = event.currentTarget.value;
+			if (isSortOrder(sortOrderParam)) {
+				sortOrder = sortOrderParam;
+			}
+
 			goto(url.href);
 		};
 	});
