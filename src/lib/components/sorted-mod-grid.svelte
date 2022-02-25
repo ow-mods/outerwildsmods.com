@@ -4,7 +4,13 @@
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import type { ModsRequestItem } from '../../routes/api/mods.json';
-	import { SortOrder, sortModList, sortOrders, isSortOrder } from '$lib/helpers/mod-sorting';
+	import {
+		SortOrder,
+		sortModList,
+		sortOrders,
+		isSortOrder,
+		sortOrderParamName,
+	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
 
 	export let mods: ModsRequestItem[] = [];
@@ -16,11 +22,17 @@
 	}
 
 	onMount(() => {
-		const sortOrderParam = $page.url.searchParams.get('sortOrder') || '';
+		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
 		if (isSortOrder(sortOrderParam)) {
 			sortOrder = sortOrderParam;
 		}
 	});
+
+	function setSortOrder(sortOrderString: string) {
+		if (isSortOrder(sortOrderString)) {
+			sortOrder = sortOrderString;
+		}
+	}
 </script>
 
 Sort:
@@ -30,11 +42,8 @@ Sort:
 	on:change={(event) => {
 		if (!event || !event.currentTarget) return;
 		const url = new URL($page.url);
-		url.searchParams.set('sortOrder', event.currentTarget.value);
-		let sortOrderParam = event.currentTarget.value;
-		if (isSortOrder(sortOrderParam)) {
-			sortOrder = sortOrderParam;
-		}
+		url.searchParams.set(sortOrderParamName, event.currentTarget.value);
+		setSortOrder(event.currentTarget.value);
 
 		goto(url.href);
 	}}

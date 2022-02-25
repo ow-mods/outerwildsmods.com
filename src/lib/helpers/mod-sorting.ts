@@ -3,6 +3,8 @@ import type { ModsRequestItem } from '../../routes/api/mods.json';
 const referenceScoreMilliseconds = 6 * 30 * 24 * 60 * 60 * 1000;
 const downloadRatioNeededToBeHotter = 2;
 const minScoreDate = new Date('2021-05-01').valueOf();
+export const sortOrderParamName = 'sortOrder' as const;
+
 const calculateScore = (mod: ModsRequestItem) => {
 	const time = Date.now() - Math.max(0, new Date(mod.firstReleaseDate).valueOf() - minScoreDate);
 
