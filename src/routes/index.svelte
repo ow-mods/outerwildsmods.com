@@ -77,7 +77,7 @@
 			</div>
 			<div class="md:w-72 flex flex-col content-between gap-2">
 				<PageSectionDescription
-					description="Use the Outer Wilds Mod Manager for downloading, installing, and managing mods."
+					description="Use the Outer Wilds Mod Manager for installing and managing mods."
 				/>
 				<CtaButton href="/mod-manager">Outer Wilds Mod Manager</CtaButton>
 			</div>
