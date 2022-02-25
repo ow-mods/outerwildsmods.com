@@ -1,14 +1,17 @@
 <script lang="ts">
-	import { page, url } from '$app/stores';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import type { ModsRequestItem } from '../../routes/api/mods.json';
 	import { SortOrder, sortModList, sortOrders, isSortOrder } from '$lib/helpers/mod-sorting';
+	import { onMount } from 'svelte';
 
 	export let mods: ModsRequestItem[] = [];
 
 	let sortOrder: SortOrder = 'hot';
+
+	let handleSortChange: svelte.JSX.FormEventHandler<HTMLSelectElement> = () => {};
 
 	$: {
 		let sortOrderParam = $page.url.searchParams.get('sortOrder') ?? '';
@@ -17,19 +20,19 @@
 		}
 		mods = sortModList(mods, sortOrder);
 	}
+
+	onMount(() => {
+		handleSortChange = (event) => {
+			if (!event || !event.currentTarget) return;
+			const url = new URL($page.url);
+			url.searchParams.set('sortOrder', event.currentTarget.value);
+			goto(url.href);
+		};
+	});
 </script>
 
 Sort:
-<select
-	class="bg-dark p-2 rounded mb-4"
-	value={sortOrder}
-	on:change={(event) => {
-		if (!event || !event.currentTarget) return;
-		const url = new URL($page.url);
-		url.searchParams.set('sortOrder', event.currentTarget.value);
-		goto(url.href);
-	}}
->
+<select class="bg-dark p-2 rounded mb-4" value={sortOrder} on:change={handleSortChange}>
 	{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
 		<option value={sortOrderId}>{sortOrder.title}</option>
 	{/each}
