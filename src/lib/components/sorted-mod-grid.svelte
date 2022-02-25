@@ -11,8 +11,6 @@
 
 	let sortOrder: SortOrder = 'hot';
 
-	let handleSortChange: svelte.JSX.FormEventHandler<HTMLSelectElement> = () => {};
-
 	$: {
 		mods = sortModList(mods, sortOrder);
 	}
@@ -22,23 +20,25 @@
 		if (isSortOrder(sortOrderParam)) {
 			sortOrder = sortOrderParam;
 		}
-
-		handleSortChange = (event) => {
-			if (!event || !event.currentTarget) return;
-			const url = new URL($page.url);
-			url.searchParams.set('sortOrder', event.currentTarget.value);
-			let sortOrderParam = event.currentTarget.value;
-			if (isSortOrder(sortOrderParam)) {
-				sortOrder = sortOrderParam;
-			}
-
-			goto(url.href);
-		};
 	});
 </script>
 
 Sort:
-<select class="bg-dark p-2 rounded mb-4" value={sortOrder} on:change={handleSortChange}>
+<select
+	class="bg-dark p-2 rounded mb-4"
+	value={sortOrder}
+	on:change={(event) => {
+		if (!event || !event.currentTarget) return;
+		const url = new URL($page.url);
+		url.searchParams.set('sortOrder', event.currentTarget.value);
+		let sortOrderParam = event.currentTarget.value;
+		if (isSortOrder(sortOrderParam)) {
+			sortOrder = sortOrderParam;
+		}
+
+		goto(url.href);
+	}}
+>
 	{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
 		<option value={sortOrderId}>{sortOrder.title}</option>
 	{/each}
