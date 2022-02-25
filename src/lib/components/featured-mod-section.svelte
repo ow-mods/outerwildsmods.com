@@ -13,10 +13,10 @@
 <PageSection title={sortOrders[sortOrder].title} id={sortOrder}>
 	<div class="flex flex-col gap-4">
 		<FeaturedModRow {mods}>
-			<LinkButton href="mods?sortOrder={sortOrder}">More Mods ›</LinkButton>
+			<LinkButton href="/mods?sortOrder={sortOrder}">More Mods ›</LinkButton>
 		</FeaturedModRow>
 		<FeaturedModRow mods={addons}>
-			<LinkButton href="custom-worlds?sortOrder={sortOrder}">More Worlds ›</LinkButton>
+			<LinkButton href="/custom-worlds?sortOrder={sortOrder}">More Worlds ›</LinkButton>
 		</FeaturedModRow>
 	</div>
 </PageSection>

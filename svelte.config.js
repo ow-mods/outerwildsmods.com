@@ -22,7 +22,6 @@ const config = {
 				);
 			},
 		},
-		target: '#svelte',
 		vite: {
 			optimizeDeps: {
 				exclude: ['marked'],
