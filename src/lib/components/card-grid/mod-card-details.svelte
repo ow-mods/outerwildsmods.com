@@ -6,7 +6,7 @@
 
 <div class="p-3 overflow-ellipsis overflow-hidden">
 	<span class="text-accent text-sm whitespace-nowrap">{mod.name}</span>
-	<div class="text-light text-sm font-light">
+	<div class="text-light text-xs font-light">
 		<slot />
 	</div>
 </div>
