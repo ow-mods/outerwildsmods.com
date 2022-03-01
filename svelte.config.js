@@ -22,7 +22,7 @@ const config = {
 				);
 			},
 		},
-		target: '#svelte',
+		trailingSlash: 'always',
 		vite: {
 			optimizeDeps: {
 				exclude: ['marked'],
