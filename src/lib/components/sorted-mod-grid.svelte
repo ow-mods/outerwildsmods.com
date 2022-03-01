@@ -21,7 +21,7 @@
 
 Sort:
 <select
-	class="bg-dark p-2 rounded mb-4"
+	class="bg-dark p-1 rounded mb-4"
 	value={sortOrder}
 	on:change={(event) => {
 		if (!event || !event.currentTarget) return;
