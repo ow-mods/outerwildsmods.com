@@ -9,6 +9,7 @@
 	{#if !mod.imageUrl}
 		<div
 			class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-2xl p-3 text-center"
+			data-nosnippet
 		>
 			{mod.name}
 		</div>
