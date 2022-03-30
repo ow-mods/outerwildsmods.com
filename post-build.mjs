@@ -4,7 +4,11 @@ import { globby } from 'globby';
 const urlBase = 'https://outerwildsmods.com';
 
 const generateSitemap = async () => {
-	const pages = await globby(['build/**/*.html', '!build/404*']);
+	const pages = await globby([
+		'build/**/*.html',
+		'!build/404*',
+		'!build/mods/*/downloads/index.html',
+	]);
 
 	const pageUrls = pages
 		.map((page) => {
