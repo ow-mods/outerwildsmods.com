@@ -2,6 +2,8 @@
 	import type { Load } from '@sveltejs/kit';
 	import { modList } from '$lib/store';
 
+	export const prerender = true;
+
 	type DownloadHistoryUpdate = {
 		UnixTimestamp: number;
 		DownloadCount: number;
