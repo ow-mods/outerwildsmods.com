@@ -82,24 +82,57 @@
 		'lastPoint.UnixTimestamp - firstPoint.UnixTimestamp',
 		lastPoint.UnixTimestamp - firstPoint.UnixTimestamp
 	);
+
+	let hoveredValue: DownloadHistoryUpdate | null = null;
+
+	const getX = (timestamp: number) => (timestamp - firstPoint.UnixTimestamp) * widthMultiplier + 50;
+	const getY = (downloadCount: number) => (downloadCount - minDownloads) * heightMuliplier + 120;
+	const getBarWidth = (index: number) => {
+		if (index == 0) return 10;
+
+		return (
+			(modDownloadHistory[index - 1].UnixTimestamp - modDownloadHistory[index].UnixTimestamp) *
+			widthMultiplier
+		);
+	};
 </script>
 
 <PageLayout>
-	{maxDownloads}
-	<svg viewBox="0 0 500 100" class="chart">
+	<span class="float-right">
+		{maxDownloads}
+	</span>
+	<svg viewBox="0 0 600 120" class="chart">
 		<polyline
 			fill="none"
 			stroke="#ffab8a"
 			stroke-width="1"
 			points={modDownloadHistory
-				.map(
-					({ UnixTimestamp, DownloadCount }) =>
-						`${(UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier},${
-							(DownloadCount - minDownloads) * heightMuliplier + 100
-						}`
-				)
+				.map(({ UnixTimestamp, DownloadCount }) => `${getX(UnixTimestamp)},${getY(DownloadCount)}`)
 				.join(' ')}
 		/>
+		<g>
+			{#each modDownloadHistory as historyItem, index}
+				<rect
+					width={getBarWidth(index)}
+					height="100%"
+					x={getX(historyItem.UnixTimestamp)}
+					on:mouseover={() => (hoveredValue = historyItem)}
+					on:focus={() => {
+						/* todo */
+					}}
+					class="fill-transparent"
+				/>
+				{#if hoveredValue}
+					<text
+						class="fill-accent font text-xs"
+						x={getX(hoveredValue.UnixTimestamp)}
+						y={getY(hoveredValue.DownloadCount) - 10}
+					>
+						{hoveredValue.DownloadCount}
+					</text>
+				{/if}
+			{/each}
+		</g>
 	</svg>
 	<div>
 		<span>
