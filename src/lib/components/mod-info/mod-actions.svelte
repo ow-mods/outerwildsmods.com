@@ -13,9 +13,7 @@
 			by {mod.author}
 		</a>
 		<p class="m-0 break-words">{mod.description}</p>
-		<a class="link" href="./downloads">
-			<small data-nosnippet>{mod.formattedDownloadCount} downloads</small>
-		</a>
+		<small data-nosnippet>↓ {mod.formattedDownloadCount}</small>
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
 			<LinkButton href={mod.downloadUrl}>
