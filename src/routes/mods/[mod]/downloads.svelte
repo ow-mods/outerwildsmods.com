@@ -52,30 +52,43 @@
 			};
 		}
 
-		let modDownloadHistory: HistoryPoint[] = [];
 		const pointCount = modDownloadHistoryResult.length;
 
-		const partSize = Math.max(1, Math.floor(pointCount / maxHistoryPointCount));
-		for (let index = 0; index < pointCount / partSize; index++) {
-			const partStartIndex = index * partSize;
+		const chunkSize = Math.max(1, Math.floor(pointCount / maxHistoryPointCount));
+		const pointChunks = chunk(modDownloadHistoryResult, chunkSize);
+		const agrregatedPoints = pointChunks.map((pointChunk) => {
 			const historyPoint: HistoryPoint = {
 				DownloadCount: 0,
-				UnixTimestamp: modDownloadHistoryResult[partStartIndex].UnixTimestamp,
+				UnixTimestamp: 0,
 			};
+			for (const point of pointChunk) {
+				historyPoint.DownloadCount += point.DownloadCount;
+				historyPoint.UnixTimestamp += point.UnixTimestamp;
+			}
+			historyPoint.DownloadCount = Math.round(historyPoint.DownloadCount / pointChunk.length);
+			historyPoint.UnixTimestamp = Math.round(historyPoint.UnixTimestamp / pointChunk.length);
 
-			const availablePartSize = Math.min(partSize, pointCount - partStartIndex - 1);
-			for (let partIndex = 0; partIndex < availablePartSize; partIndex++) {
-				historyPoint.DownloadCount +=
-					modDownloadHistoryResult[index * availablePartSize + partIndex].DownloadCount;
+			return historyPoint;
+		});
+
+		const cleanedUpDownloadHistory = agrregatedPoints.map((historyPoint, index) => {
+			if (index === 0) return historyPoint;
+			const previousPoint = agrregatedPoints[index - 1];
+
+			if (previousPoint.DownloadCount > historyPoint.DownloadCount) {
+				const nextPoint = agrregatedPoints[index + 1];
+
+				if (!nextPoint || nextPoint.DownloadCount > historyPoint.DownloadCount) {
+					return previousPoint;
+				}
 			}
 
-			historyPoint.DownloadCount = Math.round(historyPoint.DownloadCount / availablePartSize);
-			modDownloadHistory.push(historyPoint);
-		}
+			return historyPoint;
+		});
 
 		return {
 			props: {
-				modDownloadHistory,
+				modDownloadHistory: cleanedUpDownloadHistory,
 			},
 		};
 	};
@@ -85,7 +98,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
-	import throttle from 'lodash/throttle';
+	import chunk from 'lodash/chunk';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 
