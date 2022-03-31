@@ -4,7 +4,7 @@
 
 	export const prerender = true;
 
-	const maxHistoryPointCount = 1000;
+	const maxHistoryPointCount = 500;
 
 	type HistoryPoint = {
 		UnixTimestamp: number;
@@ -55,7 +55,7 @@
 		let modDownloadHistory: HistoryPoint[] = [];
 		const pointCount = modDownloadHistoryResult.length;
 
-		const partSize = Math.floor(pointCount / maxHistoryPointCount);
+		const partSize = Math.max(1, Math.floor(pointCount / maxHistoryPointCount));
 		for (let index = 0; index < pointCount / partSize; index++) {
 			const partStartIndex = index * partSize;
 			const historyPoint: HistoryPoint = {
@@ -85,7 +85,6 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
-	import { element, xlink_attr } from 'svelte/internal';
 	import throttle from 'lodash/throttle';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
@@ -114,87 +113,70 @@
 
 	const getX = (timestamp: number) => (timestamp - firstPoint.UnixTimestamp) * widthMultiplier;
 	const getY = (downloadCount: number) => (downloadCount - minDownloads) * heightMuliplier + 100;
-	const getBarWidth = (index: number) => {
-		if (index <= 0 || index >= modDownloadHistory.length) return 10;
-
-		return (
-			(modDownloadHistory[index - 1].UnixTimestamp - modDownloadHistory[index].UnixTimestamp) *
-			widthMultiplier
-		);
+	let mousePosition = {
+		x: 0,
+		y: 0,
 	};
-
-	const handleMouseMove = throttle((event) => {
-		const hoveredXRatio = event.offsetX / event.currentTarget.getBoundingClientRect().width;
-		const hoveredTimestamp =
-			firstPoint.UnixTimestamp +
-			hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-		for (const historyPoint of modDownloadHistory) {
-			if (
-				!hoveredPoint ||
-				Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
-					Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
-			) {
-				hoveredPoint = historyPoint;
-			}
-		}
-	});
 </script>
 
 <PageLayout>
-	<span class="float-right">
+	<div class="text-right w-100">
 		{maxDownloads}
-	</span>
-	<svg
-		viewBox="0 0 500 100"
-		on:mousemove={(event) => {
-			const hoveredXRatio = event.offsetX / event.currentTarget.getBoundingClientRect().width;
-			const hoveredTimestamp =
-				firstPoint.UnixTimestamp +
-				hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-			for (const historyPoint of modDownloadHistory) {
-				if (
-					!hoveredPoint ||
-					Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
-						Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
-				) {
-					hoveredPoint = historyPoint;
+	</div>
+	<div class="relative bg-dark p-4 rounded">
+		{#if hoveredPoint}
+			<span
+				class="absolute text-accent"
+				style="left: {mousePosition.x}px; top: {mousePosition.y + 20}px"
+			>
+				{hoveredPoint.DownloadCount}
+			</span>
+		{/if}
+		<svg
+			viewBox="0 0 500 100"
+			on:mousemove={(event) => {
+				const hoveredXRatio = event.offsetX / event.currentTarget.getBoundingClientRect().width;
+				mousePosition = {
+					x: event.offsetX,
+					y: event.offsetY,
+				};
+				const hoveredTimestamp =
+					firstPoint.UnixTimestamp +
+					hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+				for (const historyPoint of modDownloadHistory) {
+					if (
+						!hoveredPoint ||
+						Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
+							Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
+					) {
+						hoveredPoint = historyPoint;
+					}
 				}
-			}
-		}}
-		on:focus={() => {
-			/* todo */
-		}}
-	>
-		<polyline
-			fill="none"
-			class="stroke-accent opacity-30"
-			stroke-width="1"
-			points={modDownloadHistory
-				.map(({ UnixTimestamp, DownloadCount }) => `${getX(UnixTimestamp)},${getY(DownloadCount)}`)
-				.join(' ')}
-		/>
-		{#each modDownloadHistory as historyItem, index}
-			<circle
-				cy={getY(historyItem.DownloadCount)}
-				cx={getX(historyItem.UnixTimestamp)}
-				r={1}
-				on:mouseover={() => (hoveredPoint = historyItem)}
-				on:focus={() => {
-					/* todo */
-				}}
-				class="fill-accent"
+			}}
+			on:focus={() => {
+				/* todo */
+			}}
+		>
+			<polyline
+				fill="none"
+				class="stroke-accent opacity-80"
+				stroke-width="1"
+				points={modDownloadHistory
+					.map(
+						({ UnixTimestamp, DownloadCount }) => `${getX(UnixTimestamp)},${getY(DownloadCount)}`
+					)
+					.join(' ')}
 			/>
 			{#if hoveredPoint}
-				<text
-					class="fill-accent font text-xs"
-					x={getX(hoveredPoint.UnixTimestamp)}
-					y={getY(hoveredPoint.DownloadCount) - 10}
-				>
-					{hoveredPoint.DownloadCount}
-				</text>
+				<circle
+					cy={getY(hoveredPoint.DownloadCount)}
+					cx={getX(hoveredPoint.UnixTimestamp)}
+					r={3}
+					class="fill-accent"
+				/>
 			{/if}
-		{/each}
-	</svg>
+		</svg>
+	</div>
 	<div>
 		<span>
 			{new Date(firstPoint.UnixTimestamp * 1000).toLocaleDateString()}
