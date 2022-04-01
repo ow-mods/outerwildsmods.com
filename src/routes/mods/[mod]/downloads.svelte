@@ -41,9 +41,9 @@
 		}
 
 		const resultJson: DownloadHistory = await result.json();
-		const modDownloadHistoryResult = resultJson.find(
-			(historyItem) => historyItem.Repo === currentMod.repo
-		)?.Updates;
+		const modDownloadHistoryResult = resultJson
+			.find((historyItem) => historyItem.Repo === currentMod.repo)
+			?.Updates.filter((update) => update.DownloadCount > 0);
 
 		if (!modDownloadHistoryResult) {
 			return {
