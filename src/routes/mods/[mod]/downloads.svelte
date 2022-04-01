@@ -107,9 +107,11 @@
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;
 
+	const chartHeight = 100;
+	const chartWidth = 500;
+
 	const firstPoint = modDownloadHistory[modDownloadHistory.length - 1];
 	const lastPoint = modDownloadHistory[0];
-	const widthMultiplier = 500 / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
 	const minDownloads = 0;
 	let maxDownloads = 0;
 
@@ -117,20 +119,14 @@
 		if (point.DownloadCount > maxDownloads) maxDownloads = point.DownloadCount;
 	}
 
-	const heightMuliplier = -100 / (maxDownloads - minDownloads);
-
-	console.log('widthMultiplier', widthMultiplier);
-	console.log('firstPoint', firstPoint);
-	console.log('lastPoint', lastPoint);
-	console.log(
-		'lastPoint.UnixTimestamp - firstPoint.UnixTimestamp',
-		lastPoint.UnixTimestamp - firstPoint.UnixTimestamp
-	);
+	const widthMultiplier = chartWidth / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+	const heightMuliplier = -chartHeight / (maxDownloads - minDownloads);
 
 	let hoveredPoint: HistoryPoint | null = null;
 
 	const getX = (timestamp: number) => (timestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	const getY = (downloadCount: number) => (downloadCount - minDownloads) * heightMuliplier + 100;
+	const getY = (downloadCount: number) =>
+		(downloadCount - minDownloads) * heightMuliplier + chartHeight;
 	let mousePosition = {
 		x: 0,
 		y: 0,
@@ -172,7 +168,7 @@
 					</span>
 				{/if}
 				<svg
-					viewBox="0 0 500 100"
+					viewBox="0 0 {chartWidth} {chartHeight}"
 					class="block"
 					on:mouseout={() => {
 						hoveredPoint = null;
