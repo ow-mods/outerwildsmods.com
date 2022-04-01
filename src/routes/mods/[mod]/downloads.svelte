@@ -89,6 +89,7 @@
 		return {
 			props: {
 				modDownloadHistory: cleanedUpDownloadHistory,
+				mod: currentMod,
 			},
 		};
 	};
@@ -99,8 +100,12 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import chunk from 'lodash/chunk';
+	import LinkButton from '$lib/components/button/link-button.svelte';
+	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
+	export let mod: ModsRequestItem;
 
 	const firstPoint = modDownloadHistory[modDownloadHistory.length - 1];
 	const lastPoint = modDownloadHistory[0];
@@ -143,6 +148,10 @@
 </script>
 
 <PageLayout>
+	<div class="flex items-center gap-4">
+		<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
+	</div>
+	<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
 	<div class="bg-dark p-4 rounded text-sm">
 		<div class="flex gap-4">
 			<div class="flex flex-col justify-between text-right" style="line-height: 0">
@@ -225,11 +234,11 @@
 				</svg>
 			</div>
 		</div>
-		<div class="mb-10">
-			<span class="rotate-45 translate-x-12 translate-y-6 inline-block">
+		<div class="mb-10 mt-2">
+			<span class="translate-x-12 inline-block">
 				{getDateText(firstPoint)}
 			</span>
-			<span class="float-right rotate-45 translate-x-12 translate-y-6 inline-block">
+			<span class="float-right">
 				{getDateText(lastPoint)}
 			</span>
 		</div>
