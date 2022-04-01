@@ -99,7 +99,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
-	import { chunk } from 'lodash';
+	import { chunk } from 'lodash-es';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
