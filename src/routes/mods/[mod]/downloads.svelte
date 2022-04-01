@@ -148,7 +148,7 @@
 </script>
 
 <PageLayout>
-	<div class="flex items-center gap-4">
+	<div class="flex items-center gap-4 mb-4">
 		<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
 	</div>
 	<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
@@ -234,8 +234,8 @@
 				</svg>
 			</div>
 		</div>
-		<div class="mb-10 mt-2">
-			<span class="translate-x-12 inline-block">
+		<div class="mt-2">
+			<span>
 				{getDateText(firstPoint)}
 			</span>
 			<span class="float-right">
