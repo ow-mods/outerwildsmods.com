@@ -40,10 +40,31 @@
 			};
 		}
 
+		// There was a day where I did something which ended up adding about 90 downloads to every mod.
+		// So this is subtracting those.
+		const brokenCountStartTimestamp = 1642806000;
+		const brokenCountEndTimestamp = 1642892400;
+		const brokenCountOffset = 90;
+
 		const resultJson: DownloadHistory = await result.json();
 		const modDownloadHistoryResult = resultJson
 			.find((historyItem) => historyItem.Repo === currentMod.repo)
-			?.Updates.filter((update) => update.DownloadCount > 0);
+			?.Updates.filter((update) => update.DownloadCount > 0)
+			.filter(({ UnixTimestamp }) => {
+				return UnixTimestamp < brokenCountStartTimestamp || UnixTimestamp > brokenCountEndTimestamp;
+			})
+			.map(({ UnixTimestamp, DownloadCount }) => {
+				if (UnixTimestamp > brokenCountStartTimestamp) {
+					return {
+						UnixTimestamp,
+						DownloadCount: DownloadCount - brokenCountOffset,
+					};
+				}
+				return {
+					UnixTimestamp,
+					DownloadCount,
+				};
+			});
 
 		if (!modDownloadHistoryResult) {
 			return {
