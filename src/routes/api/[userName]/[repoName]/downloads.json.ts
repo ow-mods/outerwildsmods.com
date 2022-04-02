@@ -11,9 +11,14 @@ type DownloadHistory = {
 	Updates: HistoryPoint[];
 }[];
 
+type Params = {
+	userName: string;
+	repoName: string;
+};
+
 const maxHistoryPointCount = 500;
 
-export const get: RequestHandler = async ({ params }) => {
+export const get: RequestHandler<Params, HistoryPoint[]> = async ({ params }) => {
 	const { userName, repoName } = params;
 
 	const repoUrl = `https://github.com/${userName}/${repoName}`;
@@ -58,7 +63,7 @@ export const get: RequestHandler = async ({ params }) => {
 	if (!modDownloadHistoryResult) {
 		return {
 			status: 404,
-			error: new Error(`Could not find download history for ${params.mod}`),
+			error: new Error(`Could not find download history for ${params.userName}/${params.repoName}`),
 		};
 	}
 
@@ -97,6 +102,6 @@ export const get: RequestHandler = async ({ params }) => {
 	});
 
 	return {
-		body: JSON.stringify(cleanedUpDownloadHistory),
+		body: cleanedUpDownloadHistory,
 	};
 };
