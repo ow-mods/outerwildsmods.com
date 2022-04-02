@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { map } from 'lodash-es';
+
+	import { max } from 'lodash-es';
+
 	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
 
 	export let historyPoints: HistoryPoint[] = [];
@@ -9,11 +13,7 @@
 	const firstPoint = historyPoints[historyPoints.length - 1];
 	const lastPoint = historyPoints[0];
 	const minDownloads = 0;
-	let maxDownloads = 0;
-
-	for (const point of historyPoints) {
-		if (point.DownloadCount > maxDownloads) maxDownloads = point.DownloadCount;
-	}
+	const maxDownloads = max(map(historyPoints, 'DownloadCount')) || 0;
 
 	const widthMultiplier = chartWidth / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
 	const heightMuliplier = -chartHeight / (maxDownloads - minDownloads);
@@ -38,6 +38,36 @@
 			year: 'numeric',
 		});
 	};
+
+	const updatePointer = (x: number, y: number, width: number) => {
+		const hoveredXRatio = x / width;
+		mousePosition = { x, y };
+		const hoveredTimestamp =
+			firstPoint.UnixTimestamp +
+			hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+		for (const historyPoint of historyPoints) {
+			if (
+				!hoveredPoint ||
+				Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
+					Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
+			) {
+				hoveredPoint = historyPoint;
+			}
+		}
+	};
+
+	const resetPointer = () => {
+		hoveredPoint = null;
+	};
+
+	const handleMouseMove: svelte.JSX.MouseEventHandler<SVGSVGElement> = (event) => {
+		updatePointer(event.offsetX, event.offsetY, event.currentTarget.getBoundingClientRect().width);
+	};
+
+	const handleFocus: svelte.JSX.FocusEventHandler<SVGSVGElement> = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect();
+		updatePointer(rect.width / 2, rect.height / 2, rect.width);
+	};
 </script>
 
 <div class="bg-dark p-4 rounded text-sm">
@@ -49,7 +79,7 @@
 			{#if hoveredPoint}
 				<span
 					class="absolute text-center bg-darker p-2 rounded z-10 min-w-max"
-					style="left: {mousePosition.x}px; top: {mousePosition.y + 20}px"
+					style="left: {mousePosition.x - 40}px; top: {mousePosition.y + 30}px"
 				>
 					<div class="text-accent">
 						{hoveredPoint.DownloadCount}
@@ -62,34 +92,10 @@
 			<svg
 				viewBox="0 0 {chartWidth} {chartHeight}"
 				class="block"
-				on:mouseout={() => {
-					hoveredPoint = null;
-				}}
-				on:mousemove={(event) => {
-					const hoveredXRatio = event.offsetX / event.currentTarget.getBoundingClientRect().width;
-					mousePosition = {
-						x: event.offsetX,
-						y: event.offsetY,
-					};
-					const hoveredTimestamp =
-						firstPoint.UnixTimestamp +
-						hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-					for (const historyPoint of historyPoints) {
-						if (
-							!hoveredPoint ||
-							Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
-								Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
-						) {
-							hoveredPoint = historyPoint;
-						}
-					}
-				}}
-				on:focus={() => {
-					/* todo */
-				}}
-				on:blur={() => {
-					/* todo */
-				}}
+				on:mousemove={handleMouseMove}
+				on:focus={handleFocus}
+				on:mouseout={resetPointer}
+				on:blur={resetPointer}
 			>
 				<polyline
 					fill="none"
