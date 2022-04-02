@@ -7,7 +7,7 @@
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 
-	const mod = $modList.find((mod) => getModPathName(mod.name) === $page.params.mod.toLowerCase());
+	const mod = $modList.find((mod) => getModPathName(mod.name) === $page.params.mod?.toLowerCase());
 </script>
 
 <svelte:head>

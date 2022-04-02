@@ -6,6 +6,11 @@ export type HistoryPoint = {
 	DownloadCount: number;
 };
 
+export const defaultPoint: HistoryPoint = {
+	DownloadCount: 0,
+	UnixTimestamp: 0,
+} as const;
+
 type DownloadHistory = {
 	Repo: string;
 	Updates: HistoryPoint[];
@@ -88,7 +93,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({ params }) =>
 
 	const cleanedUpDownloadHistory = aggregatedPoints.map((historyPoint, index) => {
 		if (index === 0) return historyPoint;
-		const previousPoint = aggregatedPoints[index - 1];
+		const previousPoint = aggregatedPoints[index - 1] || historyPoint;
 
 		if (previousPoint.DownloadCount > historyPoint.DownloadCount) {
 			const nextPoint = aggregatedPoints[index + 1];

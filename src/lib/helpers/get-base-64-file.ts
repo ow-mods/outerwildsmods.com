@@ -4,7 +4,15 @@ export const getBase64File = (file: File, asUrl = false) =>
 		reader.readAsDataURL(file);
 		reader.onload = function () {
 			const result = reader.result as string;
-			resolve(asUrl ? result : result.split(',')[1]);
+			if (asUrl) {
+				resolve(result);
+			} else {
+				const resultAsUrl = result.split(',')[1];
+				if (!resultAsUrl) {
+					throw new Error(`Failed to read result as url: ${result}`);
+				}
+				resolve(resultAsUrl);
+			}
 		};
 		reader.onerror = function (error) {
 			reject(error);

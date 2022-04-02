@@ -3,7 +3,11 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { modList } from '$lib/store';
 
-	export const load: Load = async ({ fetch, params }) => {
+	type Params = {
+		mod: string;
+	};
+
+	export const load: Load<Params> = async ({ fetch, params }) => {
 		const mods = await readFromStore(modList);
 
 		const mod = mods.find((mod) => getModPathName(mod.name) === params.mod.toLowerCase());
@@ -39,7 +43,6 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import ModActions from '$lib/components/mod-info/mod-actions.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
-	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';

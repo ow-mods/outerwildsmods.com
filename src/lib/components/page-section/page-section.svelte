@@ -9,13 +9,12 @@
 	export let title: string | undefined = undefined;
 	export let description: string | undefined = undefined;
 	export let imageUrl: string | undefined = undefined;
-	export let moreHref: string | undefined = undefined;
 	export let isNarrow = false;
 </script>
 
 <div class="py-4">
 	{#if title}
-		<PageSectionTitle {id} {moreHref}>{title}</PageSectionTitle>
+		<PageSectionTitle {id}>{title}</PageSectionTitle>
 	{/if}
 	<div class:max-w-screen-sm={isNarrow} class="m-auto">
 		{#if imageUrl || description}

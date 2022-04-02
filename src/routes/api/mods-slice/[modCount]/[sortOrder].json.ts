@@ -3,7 +3,12 @@ import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
 import { isSortOrder, sortModList } from '$lib/helpers/mod-sorting';
 
-export const get: RequestHandler = async ({ params }) => {
+type Params = {
+	modCount: string;
+	sortOrder: string;
+};
+
+export const get: RequestHandler<Params> = async ({ params }) => {
 	const { modCount, sortOrder } = params;
 
 	const modCountNumber = parseInt(modCount);

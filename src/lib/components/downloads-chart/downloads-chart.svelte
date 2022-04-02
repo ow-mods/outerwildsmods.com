@@ -1,21 +1,23 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
 
-	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
+	import { defaultPoint, HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
 
-	export let historyPoints: readonly HistoryPoint[] = [];
+	export let historyPoints: HistoryPoint[] = [];
 
 	const chartSize = {
 		y: 100,
 		x: 500,
 	} as const;
+
 	const tooltipOffset = {
 		x: -40,
 		y: 30,
 	} as const;
 
-	const firstPoint = historyPoints[historyPoints.length - 1];
-	const lastPoint = historyPoints[0];
+	const firstPoint = historyPoints[historyPoints.length - 1] || defaultPoint;
+	const lastPoint = historyPoints[0] || defaultPoint;
+
 	const minDownloads = 0;
 	const maxDownloads = max(map(historyPoints, 'DownloadCount')) || 0;
 
