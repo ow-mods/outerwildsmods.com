@@ -37,8 +37,9 @@
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
-	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
-	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
+	import DownloadsChart, {
+		HistoryPoint,
+	} from '$lib/components/downloads-chart/downloads-chart.svelte';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;

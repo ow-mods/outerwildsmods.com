@@ -1,20 +1,9 @@
+import type {
+	DownloadHistory,
+	HistoryPoint,
+} from '$lib/components/downloads-chart/downloads-chart.svelte';
 import type { RequestHandler } from '@sveltejs/kit';
 import { chunk } from 'lodash-es';
-
-export type HistoryPoint = {
-	UnixTimestamp: number;
-	DownloadCount: number;
-};
-
-export const defaultPoint: HistoryPoint = {
-	DownloadCount: 0,
-	UnixTimestamp: 0,
-} as const;
-
-type DownloadHistory = {
-	Repo: string;
-	Updates: HistoryPoint[];
-}[];
 
 type Params = {
 	userName: string;

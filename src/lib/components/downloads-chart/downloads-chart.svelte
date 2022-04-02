@@ -1,7 +1,22 @@
+<script lang="ts" context="module">
+	export type HistoryPoint = {
+		UnixTimestamp: number;
+		DownloadCount: number;
+	};
+
+	export const defaultPoint: HistoryPoint = {
+		DownloadCount: 0,
+		UnixTimestamp: 0,
+	} as const;
+
+	export type DownloadHistory = {
+		Repo: string;
+		Updates: HistoryPoint[];
+	}[];
+</script>
+
 <script lang="ts">
 	import { map, max } from 'lodash-es';
-
-	import { defaultPoint, HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
 
 	export let historyPoints: HistoryPoint[] = [];
 
