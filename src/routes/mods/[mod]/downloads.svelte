@@ -4,18 +4,6 @@
 
 	export const prerender = true;
 
-	const maxHistoryPointCount = 500;
-
-	type HistoryPoint = {
-		UnixTimestamp: number;
-		DownloadCount: number;
-	};
-
-	type DownloadHistory = {
-		Repo: string;
-		Updates: HistoryPoint[];
-	}[];
-
 	export const load: Load = async ({ fetch, params }) => {
 		const mods = await readFromStore(modList);
 		const currentMod = mods.find(({ name }) => params.mod === getModPathName(name));
@@ -29,87 +17,14 @@
 			};
 		}
 
-		const result = await fetch(
-			'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json'
+		const modDownloadhistoryResponse = await fetch(
+			`/api/${currentMod.author}/${getModRepoName(currentMod)}/downloads.json`
 		);
-
-		if (!result.ok) {
-			return {
-				status: result.status,
-				error: new Error(`Could not load downloads chart`),
-			};
-		}
-
-		// There was a day where I did something which ended up adding about 90 downloads to every mod.
-		// So this is subtracting those.
-		const brokenCountStartTimestamp = 1642806000;
-		const brokenCountEndTimestamp = 1642892400;
-		const brokenCountOffset = 90;
-
-		const resultJson: DownloadHistory = await result.json();
-		const modDownloadHistoryResult = resultJson
-			.find((historyItem) => historyItem.Repo === currentMod.repo)
-			?.Updates.filter((update) => update.DownloadCount > 0)
-			.filter(({ UnixTimestamp }) => {
-				return UnixTimestamp < brokenCountStartTimestamp || UnixTimestamp > brokenCountEndTimestamp;
-			})
-			.map(({ UnixTimestamp, DownloadCount }) => {
-				if (UnixTimestamp > brokenCountStartTimestamp) {
-					return {
-						UnixTimestamp,
-						DownloadCount: DownloadCount - brokenCountOffset,
-					};
-				}
-				return {
-					UnixTimestamp,
-					DownloadCount,
-				};
-			});
-
-		if (!modDownloadHistoryResult) {
-			return {
-				status: 404,
-				error: new Error(`Could not find download history for ${params.mod}`),
-			};
-		}
-
-		const pointCount = modDownloadHistoryResult.length;
-
-		const chunkSize = Math.max(1, Math.floor(pointCount / maxHistoryPointCount));
-		const pointChunks = chunk(modDownloadHistoryResult, chunkSize);
-		const agrregatedPoints = pointChunks.map((pointChunk) => {
-			const historyPoint: HistoryPoint = {
-				DownloadCount: 0,
-				UnixTimestamp: 0,
-			};
-			for (const point of pointChunk) {
-				historyPoint.DownloadCount += point.DownloadCount;
-				historyPoint.UnixTimestamp += point.UnixTimestamp;
-			}
-			historyPoint.DownloadCount = Math.round(historyPoint.DownloadCount / pointChunk.length);
-			historyPoint.UnixTimestamp = Math.round(historyPoint.UnixTimestamp / pointChunk.length);
-
-			return historyPoint;
-		});
-
-		const cleanedUpDownloadHistory = agrregatedPoints.map((historyPoint, index) => {
-			if (index === 0) return historyPoint;
-			const previousPoint = agrregatedPoints[index - 1];
-
-			if (previousPoint.DownloadCount > historyPoint.DownloadCount) {
-				const nextPoint = agrregatedPoints[index + 1];
-
-				if (!nextPoint || nextPoint.DownloadCount > historyPoint.DownloadCount) {
-					return previousPoint;
-				}
-			}
-
-			return historyPoint;
-		});
+		const modDownloadHistory: HistoryPoint[] = await modDownloadhistoryResponse.json();
 
 		return {
 			props: {
-				modDownloadHistory: cleanedUpDownloadHistory,
+				modDownloadHistory,
 				mod: currentMod,
 			},
 		};
@@ -124,6 +39,8 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
+	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;
