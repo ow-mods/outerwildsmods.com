@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { listedImageSize } from '$lib/helpers/constants';
-	import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';

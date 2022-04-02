@@ -1,12 +1,11 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
-	import CtaButton from '../button/cta-button.svelte';
 	import LinkButton from '../button/link-button.svelte';
 	import { modList } from '$lib/store';
 	import ModCard from '../card-grid/mod-card.svelte';
-	import { getModPathName } from '$lib/helpers/get-mod-path-name';
-	import PageSectionTitle from '../page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import { getModPathName } from '$lib/helpers/mod-path-name';
+	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	export let mod: Mod;
 

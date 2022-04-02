@@ -18,6 +18,21 @@
 		const modDownloadhistoryResponse = await fetch(
 			`/api/${currentMod.author}/${getModRepoName(currentMod)}/downloads.json`
 		);
+
+		if (modDownloadhistoryResponse.status !== 200) {
+			console.error(
+				`Failed to get mod download history from local API: ${
+					modDownloadhistoryResponse.status
+				}. ${await modDownloadhistoryResponse.statusText}`
+			);
+			return {
+				props: {
+					modDownloadHistory: [],
+					mod: currentMod,
+				},
+			};
+		}
+
 		const modDownloadHistory: HistoryPoint[] = await modDownloadhistoryResponse.json();
 
 		return {
@@ -32,7 +47,6 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { readFromStore } from '$lib/helpers/read-from-store';
-	import { getModPathName } from '$lib/helpers/get-mod-path-name';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
@@ -40,6 +54,7 @@
 	import DownloadsChart, {
 		HistoryPoint,
 	} from '$lib/components/downloads-chart/downloads-chart.svelte';
+	import { getModPathName } from '$lib/helpers/mod-path-name';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;

@@ -1,13 +1,13 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import { getModPathName } from '$lib/helpers/get-mod-path-name';
-	import { modList } from '$lib/store';
 	import { page } from '$app/stores';
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import { getModByPathName } from '$lib/helpers/mod-path-name';
+	import { modList } from '$lib/store';
 
-	const mod = $modList.find((mod) => getModPathName(mod.name) === $page.params.mod?.toLowerCase());
+	const mod = getModByPathName($modList, $page.params.mod);
 </script>
 
 <svelte:head>
