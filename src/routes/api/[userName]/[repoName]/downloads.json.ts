@@ -3,7 +3,7 @@ import type {
 	HistoryPoint,
 } from '$lib/components/downloads-chart/downloads-chart.svelte';
 import type { RequestHandler } from '@sveltejs/kit';
-import { chunk } from 'lodash-es';
+import { chunk, flatten } from 'lodash-es';
 
 type Params = {
 	userName: string;
@@ -18,11 +18,25 @@ const brokenCountStartTimestamp = 1642806000;
 const brokenCountEndTimestamp = 1642892400;
 const brokenCountOffset = 90;
 
+// Some repos changed names, and the downloads history json uses the repos for IDs.
+// This information should be moved to the mod database, but I'm just hard-coding it for now (or forever).
+// This is case sensitive, sorry.
+const previousRepoNames: Record<string, string[]> = {
+	'https://github.com/raicuparta/nomai-vr': ['https://github.com/Raicuparta/NomaiVR'],
+	'https://github.com/misternebula/quantum-space-buddies': [
+		'https://github.com/Raicuparta/quantum-space-buddies',
+	],
+};
+
+function filterHistoryPoint(historyPoint: HistoryPoint | undefined): historyPoint is HistoryPoint {
+	return (historyPoint?.DownloadCount ?? 0) > 0;
+}
+
 export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 	params: { userName, repoName },
 }) => {
 	try {
-		const repoUrl = `https://github.com/${userName}/${repoName}`;
+		const repoUrl = `https://github.com/${userName}/${repoName}`.toLocaleLowerCase();
 
 		const result = await fetch(
 			'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json'
@@ -36,9 +50,20 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 		}
 
 		const resultJson: DownloadHistory = await result.json();
-		const modDownloadHistoryResult = resultJson
-			.find((historyItem) => historyItem.Repo.toLocaleLowerCase() === repoUrl.toLocaleLowerCase())
-			?.Updates.filter((update) => update.DownloadCount > 0);
+
+		const repoVariations = [repoUrl, ...(previousRepoNames[repoUrl] || [])];
+
+		console.log('repoVariations', repoVariations);
+		console.log('repoUrl', repoUrl);
+
+		const modDownloadHistoryResult = flatten(
+			repoVariations.map(
+				(repo) =>
+					resultJson.find(
+						(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
+					)?.Updates
+			)
+		).filter(filterHistoryPoint);
 
 		if (!modDownloadHistoryResult) {
 			return {
