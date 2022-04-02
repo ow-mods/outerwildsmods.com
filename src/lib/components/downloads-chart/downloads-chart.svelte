@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { map } from 'lodash-es';
-
-	import { max } from 'lodash-es';
+	import { map, max } from 'lodash-es';
 
 	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
 

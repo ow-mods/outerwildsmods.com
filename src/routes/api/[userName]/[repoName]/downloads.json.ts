@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import chunk from 'lodash-es/chunk';
+import { chunk } from 'lodash-es';
 
 export type HistoryPoint = {
 	UnixTimestamp: number;
