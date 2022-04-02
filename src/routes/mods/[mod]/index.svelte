@@ -3,11 +3,6 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { modList } from '$lib/store';
 
-	const getModRepoName = (mod: Mod): string => {
-		const repoParts = mod.repo.split('/');
-		return repoParts[repoParts.length - 1].toLowerCase();
-	};
-
 	export const load: Load = async ({ fetch, params }) => {
 		const mods = await readFromStore(modList);
 
@@ -50,6 +45,7 @@
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import type { ImageMap } from '$lib/helpers/api/get-image-map';
+	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
 
 	export let readme: string | undefined = undefined;
 	export let mod: ModsRequestItem | undefined = undefined;

@@ -4,21 +4,9 @@
 
 	export const prerender = true;
 
-	type DownloadHistoryUpdate = {
-		UnixTimestamp: number;
-		DownloadCount: number;
-	};
-
-	type DownloadHistory = {
-		Repo: string;
-		Updates: DownloadHistoryUpdate[];
-	}[];
-
 	export const load: Load = async ({ fetch, params }) => {
 		const mods = await readFromStore(modList);
 		const currentMod = mods.find(({ name }) => params.mod === getModPathName(name));
-
-		console.log('currentMod', currentMod?.name);
 
 		if (!currentMod) {
 			return {
@@ -27,32 +15,15 @@
 			};
 		}
 
-		const result = await fetch(
-			'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json'
+		const modDownloadhistoryResponse = await fetch(
+			`/api/${currentMod.author}/${getModRepoName(currentMod)}/downloads.json`
 		);
-
-		if (!result.ok) {
-			return {
-				status: result.status,
-				error: new Error(`Could not load downloads chart`),
-			};
-		}
-
-		const resultJson: DownloadHistory = await result.json();
-		const modDownloadHistory = resultJson
-			.find((historyItem) => historyItem.Repo === currentMod.repo)
-			?.Updates.filter((update) => update.DownloadCount > 0);
-
-		if (!modDownloadHistory) {
-			return {
-				status: 404,
-				error: new Error(`Could not find download history for ${params.mod}`),
-			};
-		}
+		const modDownloadHistory: HistoryPoint[] = await modDownloadhistoryResponse.json();
 
 		return {
 			props: {
 				modDownloadHistory,
+				mod: currentMod,
 			},
 		};
 	};
@@ -62,86 +33,21 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
+	import LinkButton from '$lib/components/button/link-button.svelte';
+	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
+	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
+	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 
-	export let modDownloadHistory: DownloadHistoryUpdate[] = [];
-
-	const firstPoint = modDownloadHistory[modDownloadHistory.length - 1];
-	const lastPoint = modDownloadHistory[0];
-	const widthMultiplier = 500 / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	const minDownloads = 0;
-	let maxDownloads = 0;
-
-	for (const point of modDownloadHistory) {
-		if (point.DownloadCount > maxDownloads) maxDownloads = point.DownloadCount;
-	}
-
-	const heightMuliplier = -100 / (maxDownloads - minDownloads);
-
-	console.log('widthMultiplier', widthMultiplier);
-	console.log('firstPoint', firstPoint);
-	console.log('lastPoint', lastPoint);
-	console.log(
-		'lastPoint.UnixTimestamp - firstPoint.UnixTimestamp',
-		lastPoint.UnixTimestamp - firstPoint.UnixTimestamp
-	);
-
-	let hoveredValue: DownloadHistoryUpdate | null = null;
-
-	const getX = (timestamp: number) => (timestamp - firstPoint.UnixTimestamp) * widthMultiplier + 50;
-	const getY = (downloadCount: number) => (downloadCount - minDownloads) * heightMuliplier + 120;
-	const getBarWidth = (index: number) => {
-		if (index == 0) return 10;
-
-		return (
-			(modDownloadHistory[index - 1].UnixTimestamp - modDownloadHistory[index].UnixTimestamp) *
-			widthMultiplier
-		);
-	};
+	export let modDownloadHistory: HistoryPoint[] = [];
+	export let mod: ModsRequestItem;
 </script>
 
 <PageLayout>
-	<span class="float-right">
-		{maxDownloads}
-	</span>
-	<svg viewBox="0 0 600 120" class="chart">
-		<polyline
-			fill="none"
-			stroke="#ffab8a"
-			stroke-width="1"
-			points={modDownloadHistory
-				.map(({ UnixTimestamp, DownloadCount }) => `${getX(UnixTimestamp)},${getY(DownloadCount)}`)
-				.join(' ')}
-		/>
-		<g>
-			{#each modDownloadHistory as historyItem, index}
-				<rect
-					width={getBarWidth(index)}
-					height="100%"
-					x={getX(historyItem.UnixTimestamp)}
-					on:mouseover={() => (hoveredValue = historyItem)}
-					on:focus={() => {
-						/* todo */
-					}}
-					class="fill-transparent"
-				/>
-				{#if hoveredValue}
-					<text
-						class="fill-accent font text-xs"
-						x={getX(hoveredValue.UnixTimestamp)}
-						y={getY(hoveredValue.DownloadCount) - 10}
-					>
-						{hoveredValue.DownloadCount}
-					</text>
-				{/if}
-			{/each}
-		</g>
-	</svg>
-	<div>
-		<span>
-			{new Date(firstPoint.UnixTimestamp * 1000).toLocaleDateString()}
-		</span>
-		<span class="float-right">
-			{new Date(lastPoint.UnixTimestamp * 1000).toLocaleDateString()}
-		</span>
+	<div class="flex items-center gap-4 mb-4">
+		<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
 	</div>
+	<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
+	<DownloadsChart historyPoints={modDownloadHistory} />
 </PageLayout>

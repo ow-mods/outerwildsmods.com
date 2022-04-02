@@ -27,7 +27,7 @@
 </script>
 
 <Header />
-<main class="bg-background">
+<main class="bg-background overflow-hidden">
 	<slot />
 </main>
 <Footer />
