@@ -2,7 +2,8 @@
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import TextInput from '$lib/components/mod-editor/text-input.svelte';
-	import { getModPathName } from '$lib/helper$lib/helpers/mod-path-nametype { OctokitCreatedRepo } from '$lib/octokit';
+	import { getModPathName } from '$lib/helpers/mod-path-name';
+	import type { OctokitCreatedRepo } from '$lib/octokit';
 	import { githubUser, octokit } from '$lib/store';
 
 	let modName = '';
