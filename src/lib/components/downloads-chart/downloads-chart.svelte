@@ -5,25 +5,31 @@
 
 	import type { HistoryPoint } from 'src/routes/api/[userName]/[repoName]/downloads.json';
 
-	export let historyPoints: HistoryPoint[] = [];
+	export let historyPoints: readonly HistoryPoint[] = [];
 
-	const chartHeight = 100;
-	const chartWidth = 500;
+	const chartSize = {
+		y: 100,
+		x: 500,
+	} as const;
+	const tooltipOffset = {
+		x: -40,
+		y: 30,
+	} as const;
 
 	const firstPoint = historyPoints[historyPoints.length - 1];
 	const lastPoint = historyPoints[0];
 	const minDownloads = 0;
 	const maxDownloads = max(map(historyPoints, 'DownloadCount')) || 0;
 
-	const widthMultiplier = chartWidth / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	const heightMuliplier = -chartHeight / (maxDownloads - minDownloads);
+	const widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+	const heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
 
 	let hoveredPoint: HistoryPoint | null = null;
 
 	const getX = (historyPoint: HistoryPoint) =>
 		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
 	const getY = (historyPoint: HistoryPoint) =>
-		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartHeight;
+		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
 	let mousePosition = {
 		x: 0,
 		y: 0,
@@ -79,7 +85,8 @@
 			{#if hoveredPoint}
 				<span
 					class="absolute text-center bg-darker p-2 rounded z-10 min-w-max"
-					style="left: {mousePosition.x - 40}px; top: {mousePosition.y + 30}px"
+					style="left: {mousePosition.x + tooltipOffset.x}px; top: {mousePosition.y +
+						tooltipOffset.y}px"
 				>
 					<div class="text-accent">
 						{hoveredPoint.DownloadCount}
@@ -90,33 +97,35 @@
 				</span>
 			{/if}
 			<svg
-				viewBox="0 0 {chartWidth} {chartHeight}"
-				class="block"
+				viewBox="0 0 {chartSize.x} {chartSize.y}"
+				class="block overflow-visible"
 				on:mousemove={handleMouseMove}
 				on:focus={handleFocus}
 				on:mouseout={resetPointer}
 				on:blur={resetPointer}
 			>
-				<polyline
-					fill="none"
-					class="stroke-accent opacity-80"
-					stroke-width="1"
-					points={historyPoints
-						.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
-						.join(' ')}
-				/>
-				<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
-				<line
-					class="stroke-light opacity-80"
-					stroke-width="1"
-					x1="0"
-					y1="100%"
-					x2="100%"
-					y2="100%"
-				/>
-				{#if hoveredPoint}
-					<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
-				{/if}
+				<g class="pointer-events-none">
+					<polyline
+						fill="none"
+						class="stroke-accent opacity-80"
+						stroke-width="1"
+						points={historyPoints
+							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
+							.join(' ')}
+					/>
+					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
+					<line
+						class="stroke-light opacity-80"
+						stroke-width="1"
+						x1="0"
+						y1="100%"
+						x2="100%"
+						y2="100%"
+					/>
+					{#if hoveredPoint}
+						<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
+					{/if}
+				</g>
 			</svg>
 		</div>
 	</div>
