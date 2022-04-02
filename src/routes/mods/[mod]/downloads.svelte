@@ -33,7 +33,6 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { getModPathName } from '$lib/helpers/get-mod-path-name';
-	import { chunk } from 'lodash-es';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
@@ -60,9 +59,10 @@
 
 	let hoveredPoint: HistoryPoint | null = null;
 
-	const getX = (timestamp: number) => (timestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	const getY = (downloadCount: number) =>
-		(downloadCount - minDownloads) * heightMuliplier + chartHeight;
+	const getX = (historyPoint: HistoryPoint) =>
+		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
+	const getY = (historyPoint: HistoryPoint) =>
+		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartHeight;
 	let mousePosition = {
 		x: 0,
 		y: 0,
@@ -92,7 +92,7 @@
 			<div class="relative flex-1">
 				{#if hoveredPoint}
 					<span
-						class="absolute text-center bg-darker p-2 rounded min-w-max z-10"
+						class="absolute text-center bg-darker p-2 rounded z-10 min-w-max"
 						style="left: {mousePosition.x}px; top: {mousePosition.y + 20}px"
 					>
 						<div class="text-accent">
@@ -140,10 +140,7 @@
 						class="stroke-accent opacity-80"
 						stroke-width="1"
 						points={modDownloadHistory
-							.map(
-								({ UnixTimestamp, DownloadCount }) =>
-									`${getX(UnixTimestamp)},${getY(DownloadCount)}`
-							)
+							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
 							.join(' ')}
 					/>
 					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
@@ -156,12 +153,7 @@
 						y2="100%"
 					/>
 					{#if hoveredPoint}
-						<circle
-							cy={getY(hoveredPoint.DownloadCount)}
-							cx={getX(hoveredPoint.UnixTimestamp)}
-							r={3}
-							class="fill-accent"
-						/>
+						<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
 					{/if}
 				</svg>
 			</div>
