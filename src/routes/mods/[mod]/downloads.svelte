@@ -8,8 +8,6 @@
 		const mods = await readFromStore(modList);
 		const currentMod = mods.find(({ name }) => params.mod === getModPathName(name));
 
-		console.log('currentMod', currentMod?.name);
-
 		if (!currentMod) {
 			return {
 				status: 404,

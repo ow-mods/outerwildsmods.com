@@ -66,7 +66,7 @@ export const get: RequestHandler = async ({ params }) => {
 
 	const chunkSize = Math.max(1, Math.floor(pointCount / maxHistoryPointCount));
 	const pointChunks = chunk(modDownloadHistoryResult, chunkSize);
-	const agrregatedPoints = pointChunks.map((pointChunk) => {
+	const aggregatedPoints = pointChunks.map((pointChunk) => {
 		const historyPoint: HistoryPoint = {
 			DownloadCount: 0,
 			UnixTimestamp: 0,
@@ -81,12 +81,12 @@ export const get: RequestHandler = async ({ params }) => {
 		return historyPoint;
 	});
 
-	const cleanedUpDownloadHistory = agrregatedPoints.map((historyPoint, index) => {
+	const cleanedUpDownloadHistory = aggregatedPoints.map((historyPoint, index) => {
 		if (index === 0) return historyPoint;
-		const previousPoint = agrregatedPoints[index - 1];
+		const previousPoint = aggregatedPoints[index - 1];
 
 		if (previousPoint.DownloadCount > historyPoint.DownloadCount) {
-			const nextPoint = agrregatedPoints[index + 1];
+			const nextPoint = aggregatedPoints[index + 1];
 
 			if (!nextPoint || nextPoint.DownloadCount > historyPoint.DownloadCount) {
 				return previousPoint;
