@@ -6,7 +6,10 @@
 </script>
 
 <header class="relative text-center overflow-hidden">
-	<GithubCorner />
+	<GithubCorner
+		href="https://github.com/Raicuparta/outerwildsmods.com"
+		tooltip="outerwildsmods.com source code"
+	/>
 	<Stars />
 	<h1 class="p-4 text-4xl m-0">
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
