@@ -108,6 +108,8 @@
 				hoveredPoint = historyPoint;
 			}
 		}
+
+		// TODO reduce repetition
 		hoveredPointCompare = null;
 		for (const comparePoint of comparePoints) {
 			const distanceToHovered = Math.abs(hoveredTimestamp - comparePoint.UnixTimestamp);
