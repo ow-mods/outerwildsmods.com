@@ -31,8 +31,40 @@
 		y: 30,
 	} as const;
 
-	const firstPoint = historyPoints[historyPoints.length - 1] || defaultPoint;
-	const lastPoint = historyPoints[0] || defaultPoint;
+	const getFirstPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
+		const firstMainPoint = mainPoints[mainPoints.length - 1];
+		const firstComparePoint = otherPoints[otherPoints.length - 1];
+
+		if (!firstMainPoint && firstComparePoint) return firstComparePoint;
+		if (!firstComparePoint && firstMainPoint) return firstMainPoint;
+
+		if (firstComparePoint && firstMainPoint) {
+			return firstMainPoint.UnixTimestamp < firstComparePoint.UnixTimestamp
+				? firstMainPoint
+				: firstComparePoint;
+		}
+
+		return defaultPoint;
+	};
+
+	const getLastPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
+		const lastMainPoint = mainPoints[0];
+		const lastComparePoint = otherPoints[0];
+
+		if (!lastMainPoint && lastComparePoint) return lastComparePoint;
+		if (!lastComparePoint && lastMainPoint) return lastMainPoint;
+
+		if (lastMainPoint && lastComparePoint) {
+			return lastMainPoint.UnixTimestamp > lastComparePoint.UnixTimestamp
+				? lastMainPoint
+				: lastComparePoint;
+		}
+
+		return defaultPoint;
+	};
+
+	const firstPoint = getFirstPoint(historyPoints, comparePoints);
+	const lastPoint = getLastPoint(historyPoints, comparePoints);
 
 	const minDownloads = 0;
 	const maxDownloads = max(map(historyPoints, 'DownloadCount')) || 0;
