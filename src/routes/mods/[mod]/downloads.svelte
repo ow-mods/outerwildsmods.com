@@ -89,11 +89,5 @@
 		{/each}
 	</select>
 	<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-	<DownloadsChart historyPoints={modDownloadHistory} />
-	{#if compareWithHistory.length > 0}
-		<div>
-			Compare with {compareWithMod?.name}
-		</div>
-		<DownloadsChart historyPoints={compareWithHistory} />
-	{/if}
+	<DownloadsChart historyPoints={modDownloadHistory} comparePoints={compareWithHistory} />
 </PageLayout>

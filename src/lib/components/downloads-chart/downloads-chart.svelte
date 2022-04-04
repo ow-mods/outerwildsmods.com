@@ -19,6 +19,7 @@
 	import { map, max } from 'lodash-es';
 
 	export let historyPoints: HistoryPoint[] = [];
+	export let comparePoints: HistoryPoint[] = [];
 
 	const chartSize = {
 		y: 100,
@@ -125,6 +126,14 @@
 						class="stroke-accent opacity-80"
 						stroke-width="1"
 						points={historyPoints
+							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
+							.join(' ')}
+					/>
+					<polyline
+						fill="none"
+						class="stroke-cta opacity-80"
+						stroke-width="1"
+						points={comparePoints
 							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
 							.join(' ')}
 					/>
