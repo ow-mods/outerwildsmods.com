@@ -69,25 +69,33 @@
 			if (modDownloadhistoryResponse.ok) {
 				compareWithHistory = await modDownloadhistoryResponse.json();
 			}
+		} else {
+			compareWithHistory = [];
 		}
 	})();
 </script>
 
 <PageLayout>
-	<div class="flex items-center gap-4 mb-4">
-		<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
-	</div>
-	<select
-		class="select"
-		on:change={(event) => {
-			compareWithMod = $modList.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
-		}}
-	>
-		<option value={null}>None</option>
-		{#each $modList as mod}
-			<option value={mod.uniqueName}>{mod.name}</option>
-		{/each}
-	</select>
-	<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-	<DownloadsChart historyPoints={modDownloadHistory} comparePoints={compareWithHistory} />
-</PageLayout>
+	<div>
+		<div class="flex mb-4">
+			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
+		</div>
+		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
+		<div class="flex gap-4">
+			<span>Compare with:</span>
+			<select
+				class="select"
+				on:change={(event) => {
+					compareWithMod =
+						$modList.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
+				}}
+			>
+				<option value={null}>None</option>
+				{#each $modList as mod}
+					<option value={mod.uniqueName}>{mod.name}</option>
+				{/each}
+			</select>
+		</div>
+		<DownloadsChart historyPoints={modDownloadHistory} comparePoints={compareWithHistory} />
+	</div></PageLayout
+>
