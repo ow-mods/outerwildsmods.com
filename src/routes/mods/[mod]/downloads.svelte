@@ -96,6 +96,11 @@
 				{/each}
 			</select>
 		</div>
-		<DownloadsChart historyPoints={modDownloadHistory} comparePoints={compareWithHistory} />
+		<DownloadsChart
+			historyPoints={modDownloadHistory}
+			comparePoints={compareWithHistory}
+			{mod}
+			{compareWithMod}
+		/>
 	</div></PageLayout
 >

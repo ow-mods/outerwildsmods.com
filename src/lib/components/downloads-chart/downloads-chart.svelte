@@ -17,9 +17,12 @@
 
 <script lang="ts">
 	import { map, max } from 'lodash-es';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
+	export let mod: ModsRequestItem;
+	export let compareWithMod: ModsRequestItem | null;
 
 	const chartSize = {
 		y: 100,
@@ -165,14 +168,17 @@
 					style="left: {mousePosition.x + tooltipOffset.x}px; top: {mousePosition.y +
 						tooltipOffset.y}px"
 				>
-					<div class="flex gap-2 justify-center">
-						<span class="text-accent">
+					<div class="justify-center">
+						<div class="text-accent">
+							{#if hoveredPointCompare}
+								{mod.name}:
+							{/if}
 							{hoveredPoint.DownloadCount}
-						</span>
-						{#if hoveredPointCompare}
-							<span class="text-cta">
-								{hoveredPointCompare.DownloadCount}
-							</span>
+						</div>
+						{#if hoveredPointCompare && compareWithMod}
+							<div class="text-cta">
+								{compareWithMod.name}: {hoveredPointCompare.DownloadCount}
+							</div>
 						{/if}
 					</div>
 					<div class="text-light">
@@ -214,6 +220,8 @@
 						x2="100%"
 						y2="100%"
 					/>
+					<!-- TODO: go back to circles and show both -->
+					<!-- Line is broken, won't go back if there are no points -->
 					{#if hoveredPoint}
 						<line
 							y1={0}
