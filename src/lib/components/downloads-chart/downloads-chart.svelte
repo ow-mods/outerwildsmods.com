@@ -63,20 +63,18 @@
 		return defaultPoint;
 	};
 
-	const firstPoint = getFirstPoint(historyPoints, comparePoints);
-	const lastPoint = getLastPoint(historyPoints, comparePoints);
-
-	const minDownloads = 0;
-	const maxDownloads = max(map(historyPoints, 'DownloadCount')) || 0;
-
-	const widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	const heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
+	let firstPoint = getFirstPoint(historyPoints, comparePoints);
+	let lastPoint = getLastPoint(historyPoints, comparePoints);
+	let minDownloads = 0;
+	let maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
+	let widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+	let heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
 
 	let hoveredPoint: HistoryPoint | null = null;
 
-	const getX = (historyPoint: HistoryPoint) =>
+	let getX = (historyPoint: HistoryPoint) =>
 		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	const getY = (historyPoint: HistoryPoint) =>
+	let getY = (historyPoint: HistoryPoint) =>
 		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
 	let mousePosition = {
 		x: 0,
@@ -122,6 +120,20 @@
 		const rect = event.currentTarget.getBoundingClientRect();
 		updatePointer(rect.width / 2, rect.height / 2, rect.width);
 	};
+
+	$: {
+		// TODO reduce repetition
+		firstPoint = getFirstPoint(historyPoints, comparePoints);
+		lastPoint = getLastPoint(historyPoints, comparePoints);
+		maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
+		widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+		heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
+
+		getX = (historyPoint: HistoryPoint) =>
+			(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
+		getY = (historyPoint: HistoryPoint) =>
+			(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
+	}
 </script>
 
 <div class="bg-dark p-4 rounded text-sm">
