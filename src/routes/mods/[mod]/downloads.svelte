@@ -60,16 +60,6 @@
 	let compareWithMod: ModsRequestItem | null = null;
 	let compareWithHistory: HistoryPoint[] = [];
 
-	const getCompareWithHistory = async (modToCompare: ModsRequestItem) => {
-		const modDownloadhistoryResponse = await fetch(
-			`/api/${modToCompare.author}/${getModRepoName(modToCompare)}/downloads.json`
-		);
-
-		if (modDownloadhistoryResponse.ok) {
-			return modDownloadhistoryResponse.json();
-		}
-	};
-
 	$: (async () => {
 		if (compareWithMod) {
 			const modDownloadhistoryResponse = await fetch(
