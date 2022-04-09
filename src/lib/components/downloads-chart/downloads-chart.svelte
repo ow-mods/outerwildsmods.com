@@ -159,8 +159,6 @@
 							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
 							.join(' ')}
 					/>
-					<!-- TODO: go back to circles and show both -->
-					<!-- Line is broken, won't go back if there are no points -->
 					{#if hoveredPoint}
 						<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
 					{/if}
