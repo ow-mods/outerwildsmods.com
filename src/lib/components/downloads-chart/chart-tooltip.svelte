@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { map, max } from 'lodash-es';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import ChartLine from './chart-line.svelte';
 	import { getDateText, HistoryPoint } from './history-points';
 
 	const tooltipOffset = {
