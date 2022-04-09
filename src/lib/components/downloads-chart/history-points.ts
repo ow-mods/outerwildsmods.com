@@ -39,3 +39,25 @@ export const getLastPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoi
 
 	return defaultPoint;
 };
+
+export const getClosestPoint = (
+	historyPoints: HistoryPoint[],
+	timestamp: number,
+	widthMultiplier: number,
+	maximumDistance: number
+) => {
+	let closestPoint = null;
+	for (const historyPoint of historyPoints) {
+		const distanceToHovered = Math.abs(timestamp - historyPoint.UnixTimestamp);
+		if (distanceToHovered * widthMultiplier > maximumDistance) continue;
+
+		if (
+			!closestPoint ||
+			Math.abs(timestamp - historyPoint.UnixTimestamp) <
+				Math.abs(timestamp - closestPoint.UnixTimestamp)
+		) {
+			closestPoint = historyPoint;
+		}
+	}
+	return closestPoint;
+};

@@ -8,7 +8,7 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import { getFirstPoint, getLastPoint, HistoryPoint } from './history-points';
+	import { getClosestPoint, getFirstPoint, getLastPoint, HistoryPoint } from './history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
@@ -60,34 +60,20 @@
 		const hoveredTimestamp =
 			firstPoint.UnixTimestamp +
 			hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-		hoveredPoint = null;
-		for (const historyPoint of historyPoints) {
-			const distanceToHovered = Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp);
-			if (distanceToHovered * widthMultiplier > chartSize.x / 100) continue;
 
-			if (
-				!hoveredPoint ||
-				Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
-					Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
-			) {
-				hoveredPoint = historyPoint;
-			}
-		}
+		hoveredPoint = getClosestPoint(
+			historyPoints,
+			hoveredTimestamp,
+			widthMultiplier,
+			chartSize.x / 100
+		);
 
-		// TODO reduce repetition
-		hoveredPointCompare = null;
-		for (const comparePoint of comparePoints) {
-			const distanceToHovered = Math.abs(hoveredTimestamp - comparePoint.UnixTimestamp);
-			if (distanceToHovered * widthMultiplier > chartSize.x / 100) continue;
-
-			if (
-				!hoveredPointCompare ||
-				Math.abs(hoveredTimestamp - comparePoint.UnixTimestamp) <
-					Math.abs(hoveredTimestamp - hoveredPointCompare.UnixTimestamp)
-			) {
-				hoveredPointCompare = comparePoint;
-			}
-		}
+		hoveredPointCompare = getClosestPoint(
+			comparePoints,
+			hoveredTimestamp,
+			widthMultiplier,
+			chartSize.x / 100
+		);
 	};
 
 	const resetPointer = () => {
