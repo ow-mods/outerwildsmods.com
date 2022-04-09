@@ -6,8 +6,11 @@
 </script>
 
 <script lang="ts">
+	import { first } from 'lodash-es';
+
 	import { map, max } from 'lodash-es';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import ChartLine from './chart-line.svelte';
 	import { getClosestPoint, getFirstPoint, getLastPoint, HistoryPoint } from './history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
@@ -31,11 +34,6 @@
 	$: maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
 	$: widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
 	$: heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
-
-	$: getX = (historyPoint: HistoryPoint) =>
-		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	$: getY = (historyPoint: HistoryPoint) =>
-		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
 
 	let mousePosition = {
 		x: 0,
@@ -143,33 +141,26 @@
 						x2="100%"
 						y2="100%"
 					/>
-					<polyline
-						fill="none"
-						class="stroke-accent opacity-80"
-						stroke-width="1"
-						points={historyPoints
-							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
-							.join(' ')}
+					<ChartLine
+						chartHeight={chartSize.y}
+						{firstPoint}
+						{heightMuliplier}
+						{minDownloads}
+						{widthMultiplier}
+						{historyPoints}
+						{hoveredPoint}
+						color="#ffab8a"
 					/>
-					<polyline
-						fill="none"
-						class="stroke-cta opacity-80"
-						stroke-width="1"
-						points={comparePoints
-							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
-							.join(' ')}
+					<ChartLine
+						chartHeight={chartSize.y}
+						{firstPoint}
+						{heightMuliplier}
+						{minDownloads}
+						{widthMultiplier}
+						historyPoints={comparePoints}
+						hoveredPoint={hoveredPointCompare}
+						color="#35823f"
 					/>
-					{#if hoveredPoint}
-						<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
-					{/if}
-					{#if hoveredPointCompare}
-						<circle
-							cy={getY(hoveredPointCompare)}
-							cx={getX(hoveredPointCompare)}
-							r={3}
-							class="fill-cta"
-						/>
-					{/if}
 				</g>
 			</svg>
 		</div>
