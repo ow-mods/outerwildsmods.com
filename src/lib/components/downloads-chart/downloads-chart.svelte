@@ -103,6 +103,9 @@
 			hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
 		hoveredPoint = null;
 		for (const historyPoint of historyPoints) {
+			const distanceToHovered = Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp);
+			if (distanceToHovered * widthMultiplier > chartSize.x / 100) continue;
+
 			if (
 				!hoveredPoint ||
 				Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
@@ -130,6 +133,7 @@
 
 	const resetPointer = () => {
 		hoveredPoint = null;
+		hoveredPointCompare = null;
 	};
 
 	const handleMouseMove: svelte.JSX.MouseEventHandler<SVGSVGElement> = (event) => {
@@ -162,19 +166,18 @@
 			<span>{maxDownloads}</span><span>{minDownloads}</span>
 		</div>
 		<div class="relative flex-1">
-			{#if hoveredPoint}
+			{#if hoveredPoint || hoveredPointCompare}
 				<span
-					class="absolute text-center bg-darker p-2 rounded z-10 min-w-max"
+					class="absolute text-center bg-darker bg-opacity-60 p-2 rounded z-10 min-w-max"
 					style="left: {mousePosition.x + tooltipOffset.x}px; top: {mousePosition.y +
 						tooltipOffset.y}px"
 				>
 					<div class="justify-center">
-						<div class="text-accent">
-							{#if hoveredPointCompare}
-								{mod.name}:
-							{/if}
-							{hoveredPoint.DownloadCount}
-						</div>
+						{#if hoveredPoint}
+							<div class="text-accent">
+								{mod.name}: {hoveredPoint.DownloadCount}
+							</div>
+						{/if}
 						{#if hoveredPointCompare && compareWithMod}
 							<div class="text-cta">
 								{compareWithMod.name}: {hoveredPointCompare.DownloadCount}
@@ -182,7 +185,12 @@
 						{/if}
 					</div>
 					<div class="text-light">
-						{getDateText(hoveredPoint)}
+						{#if hoveredPoint}
+							{getDateText(hoveredPoint)}
+						{/if}
+						{#if hoveredPointCompare && !hoveredPoint}
+							{getDateText(hoveredPointCompare)}
+						{/if}
 					</div>
 				</span>
 			{/if}
@@ -195,6 +203,15 @@
 				on:blur={resetPointer}
 			>
 				<g class="pointer-events-none">
+					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
+					<line
+						class="stroke-light opacity-80"
+						stroke-width="1"
+						x1="0"
+						y1="100%"
+						x2="100%"
+						y2="100%"
+					/>
 					<polyline
 						fill="none"
 						class="stroke-accent opacity-80"
@@ -211,25 +228,17 @@
 							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
 							.join(' ')}
 					/>
-					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
-					<line
-						class="stroke-light opacity-80"
-						stroke-width="1"
-						x1="0"
-						y1="100%"
-						x2="100%"
-						y2="100%"
-					/>
 					<!-- TODO: go back to circles and show both -->
 					<!-- Line is broken, won't go back if there are no points -->
 					{#if hoveredPoint}
-						<line
-							y1={0}
-							y2="100%"
-							x2={getX(hoveredPoint)}
-							x1={getX(hoveredPoint)}
-							stroke-dasharray="5,5"
-							class="stroke-light"
+						<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
+					{/if}
+					{#if hoveredPointCompare}
+						<circle
+							cy={getY(hoveredPointCompare)}
+							cx={getX(hoveredPointCompare)}
+							r={3}
+							class="fill-cta"
 						/>
 					{/if}
 				</g>

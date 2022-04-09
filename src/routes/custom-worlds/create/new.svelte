@@ -26,7 +26,6 @@
 					private: false,
 				})
 			).data;
-
 			await $octokit.rest.repos.replaceAllTopics({
 				repo: repoName,
 				owner: createdRepo.owner.login,
