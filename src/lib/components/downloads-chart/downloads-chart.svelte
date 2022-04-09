@@ -1,14 +1,4 @@
 <script lang="ts" context="module">
-	export type HistoryPoint = {
-		UnixTimestamp: number;
-		DownloadCount: number;
-	};
-
-	export const defaultPoint: HistoryPoint = {
-		DownloadCount: 0,
-		UnixTimestamp: 0,
-	} as const;
-
 	export type DownloadHistory = {
 		Repo: string;
 		Updates: HistoryPoint[];
@@ -18,6 +8,7 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import { getFirstPoint, getLastPoint, HistoryPoint } from './history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
@@ -34,56 +25,24 @@
 		y: 30,
 	} as const;
 
-	const getFirstPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
-		const firstMainPoint = mainPoints[mainPoints.length - 1];
-		const firstComparePoint = otherPoints[otherPoints.length - 1];
+	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
+	$: lastPoint = getLastPoint(historyPoints, comparePoints);
+	$: minDownloads = 0;
+	$: maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
+	$: widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+	$: heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
 
-		if (!firstMainPoint && firstComparePoint) return firstComparePoint;
-		if (!firstComparePoint && firstMainPoint) return firstMainPoint;
-
-		if (firstComparePoint && firstMainPoint) {
-			return firstMainPoint.UnixTimestamp < firstComparePoint.UnixTimestamp
-				? firstMainPoint
-				: firstComparePoint;
-		}
-
-		return defaultPoint;
-	};
-
-	const getLastPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
-		const lastMainPoint = mainPoints[0];
-		const lastComparePoint = otherPoints[0];
-
-		if (!lastMainPoint && lastComparePoint) return lastComparePoint;
-		if (!lastComparePoint && lastMainPoint) return lastMainPoint;
-
-		if (lastMainPoint && lastComparePoint) {
-			return lastMainPoint.UnixTimestamp > lastComparePoint.UnixTimestamp
-				? lastMainPoint
-				: lastComparePoint;
-		}
-
-		return defaultPoint;
-	};
-
-	let firstPoint = getFirstPoint(historyPoints, comparePoints);
-	let lastPoint = getLastPoint(historyPoints, comparePoints);
-	let minDownloads = 0;
-	let maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
-	let widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	let heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
-
-	let hoveredPoint: HistoryPoint | null = null;
-	let hoveredPointCompare: HistoryPoint | null = null;
-
-	let getX = (historyPoint: HistoryPoint) =>
+	$: getX = (historyPoint: HistoryPoint) =>
 		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	let getY = (historyPoint: HistoryPoint) =>
+	$: getY = (historyPoint: HistoryPoint) =>
 		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
+
 	let mousePosition = {
 		x: 0,
 		y: 0,
 	};
+	let hoveredPoint: HistoryPoint | null = null;
+	let hoveredPointCompare: HistoryPoint | null = null;
 
 	const getDateText = (historyPoint: HistoryPoint) => {
 		const date = new Date(historyPoint.UnixTimestamp * 1000);
@@ -144,20 +103,6 @@
 		const rect = event.currentTarget.getBoundingClientRect();
 		updatePointer(rect.width / 2, rect.height / 2, rect.width);
 	};
-
-	$: {
-		// TODO reduce repetition
-		firstPoint = getFirstPoint(historyPoints, comparePoints);
-		lastPoint = getLastPoint(historyPoints, comparePoints);
-		maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
-		widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-		heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
-
-		getX = (historyPoint: HistoryPoint) =>
-			(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-		getY = (historyPoint: HistoryPoint) =>
-			(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
-	}
 </script>
 
 <div class="bg-dark p-4 rounded text-sm">
