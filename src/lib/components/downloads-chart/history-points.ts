@@ -61,3 +61,13 @@ export const getClosestPoint = (
 	}
 	return closestPoint;
 };
+
+export const getDateText = (historyPoint: HistoryPoint) => {
+	const date = new Date(historyPoint.UnixTimestamp * 1000);
+
+	return date.toLocaleDateString(undefined, {
+		day: '2-digit',
+		month: 'short',
+		year: 'numeric',
+	});
+};

@@ -6,12 +6,17 @@
 </script>
 
 <script lang="ts">
-	import { first } from 'lodash-es';
-
 	import { map, max } from 'lodash-es';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import ChartLine from './chart-line.svelte';
-	import { getClosestPoint, getFirstPoint, getLastPoint, HistoryPoint } from './history-points';
+	import ChartTooltip from './chart-tooltip.svelte';
+	import {
+		getClosestPoint,
+		getDateText,
+		getFirstPoint,
+		getLastPoint,
+		HistoryPoint,
+	} from './history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
@@ -21,11 +26,6 @@
 	const chartSize = {
 		y: 100,
 		x: 500,
-	} as const;
-
-	const tooltipOffset = {
-		x: -40,
-		y: 30,
 	} as const;
 
 	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
@@ -41,16 +41,6 @@
 	};
 	let hoveredPoint: HistoryPoint | null = null;
 	let hoveredPointCompare: HistoryPoint | null = null;
-
-	const getDateText = (historyPoint: HistoryPoint) => {
-		const date = new Date(historyPoint.UnixTimestamp * 1000);
-
-		return date.toLocaleDateString(undefined, {
-			day: '2-digit',
-			month: 'short',
-			year: 'numeric',
-		});
-	};
 
 	const updatePointer = (x: number, y: number, width: number) => {
 		const hoveredXRatio = x / width;
@@ -95,34 +85,7 @@
 			<span>{maxDownloads}</span><span>{minDownloads}</span>
 		</div>
 		<div class="relative flex-1">
-			{#if hoveredPoint || hoveredPointCompare}
-				<span
-					class="absolute text-center bg-darker bg-opacity-60 p-2 rounded z-10 min-w-max"
-					style="left: {mousePosition.x + tooltipOffset.x}px; top: {mousePosition.y +
-						tooltipOffset.y}px"
-				>
-					<div class="justify-center">
-						{#if hoveredPoint}
-							<div class="text-accent">
-								{mod.name}: {hoveredPoint.DownloadCount}
-							</div>
-						{/if}
-						{#if hoveredPointCompare && compareWithMod}
-							<div class="text-cta">
-								{compareWithMod.name}: {hoveredPointCompare.DownloadCount}
-							</div>
-						{/if}
-					</div>
-					<div class="text-light">
-						{#if hoveredPoint}
-							{getDateText(hoveredPoint)}
-						{/if}
-						{#if hoveredPointCompare && !hoveredPoint}
-							{getDateText(hoveredPointCompare)}
-						{/if}
-					</div>
-				</span>
-			{/if}
+			<ChartTooltip {compareWithMod} {mod} {hoveredPoint} {hoveredPointCompare} {mousePosition} />
 			<svg
 				viewBox="0 0 {chartSize.x} {chartSize.y}"
 				class="block overflow-visible"
