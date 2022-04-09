@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
-	import { modList } from '$lib/store';
 
 	export const prerender = true;
 
@@ -49,19 +48,58 @@
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
-	import DownloadsChart, {
-		HistoryPoint,
-	} from '$lib/components/downloads-chart/downloads-chart.svelte';
+	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import { getModPathName } from '$lib/helpers/mod-path-name';
+	import { modList } from '$lib/store';
+	import type { HistoryPoint } from '$lib/components/downloads-chart/history-points';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;
+
+	let compareWithMod: ModsRequestItem | null = null;
+	let compareWithHistory: HistoryPoint[] = [];
+
+	$: (async () => {
+		if (compareWithMod) {
+			const modDownloadhistoryResponse = await fetch(
+				`/api/${compareWithMod.author}/${getModRepoName(compareWithMod)}/downloads.json`
+			);
+
+			if (modDownloadhistoryResponse.ok) {
+				compareWithHistory = await modDownloadhistoryResponse.json();
+			}
+		} else {
+			compareWithHistory = [];
+		}
+	})();
 </script>
 
 <PageLayout>
-	<div class="flex items-center gap-4 mb-4">
-		<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
-	</div>
-	<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-	<DownloadsChart historyPoints={modDownloadHistory} />
-</PageLayout>
+	<div>
+		<div class="flex mb-4">
+			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
+		</div>
+		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
+		<div class="flex gap-4">
+			<span>Compare with:</span>
+			<select
+				class="select"
+				on:change={(event) => {
+					compareWithMod =
+						$modList.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
+				}}
+			>
+				<option value={null}>None</option>
+				{#each $modList as mod}
+					<option value={mod.uniqueName}>{mod.name}</option>
+				{/each}
+			</select>
+		</div>
+		<DownloadsChart
+			historyPoints={modDownloadHistory}
+			comparePoints={compareWithHistory}
+			{mod}
+			{compareWithMod}
+		/>
+	</div></PageLayout
+>

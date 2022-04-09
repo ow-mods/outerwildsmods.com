@@ -1,14 +1,4 @@
 <script lang="ts" context="module">
-	export type HistoryPoint = {
-		UnixTimestamp: number;
-		DownloadCount: number;
-	};
-
-	export const defaultPoint: HistoryPoint = {
-		DownloadCount: 0,
-		UnixTimestamp: 0,
-	} as const;
-
 	export type DownloadHistory = {
 		Repo: string;
 		Updates: HistoryPoint[];
@@ -17,48 +7,40 @@
 
 <script lang="ts">
 	import { map, max } from 'lodash-es';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import ChartLine from './chart-line.svelte';
+	import ChartTooltip from './chart-tooltip.svelte';
+	import {
+		getClosestPoint,
+		getDateText,
+		getFirstPoint,
+		getLastPoint,
+		HistoryPoint,
+	} from './history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
+	export let comparePoints: HistoryPoint[] = [];
+	export let mod: ModsRequestItem;
+	export let compareWithMod: ModsRequestItem | null;
 
 	const chartSize = {
 		y: 100,
 		x: 500,
 	} as const;
 
-	const tooltipOffset = {
-		x: -40,
-		y: 30,
-	} as const;
+	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
+	$: lastPoint = getLastPoint(historyPoints, comparePoints);
+	$: minDownloads = 0;
+	$: maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
+	$: widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
+	$: heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
 
-	const firstPoint = historyPoints[historyPoints.length - 1] || defaultPoint;
-	const lastPoint = historyPoints[0] || defaultPoint;
-
-	const minDownloads = 0;
-	const maxDownloads = max(map(historyPoints, 'DownloadCount')) || 0;
-
-	const widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	const heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
-
-	let hoveredPoint: HistoryPoint | null = null;
-
-	const getX = (historyPoint: HistoryPoint) =>
-		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	const getY = (historyPoint: HistoryPoint) =>
-		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartSize.y;
 	let mousePosition = {
 		x: 0,
 		y: 0,
 	};
-
-	const getDateText = (historyPoint: HistoryPoint) => {
-		const date = new Date(historyPoint.UnixTimestamp * 1000);
-
-		return date.toLocaleDateString(undefined, {
-			day: '2-digit',
-			month: 'short',
-			year: 'numeric',
-		});
-	};
+	let hoveredPoint: HistoryPoint | null = null;
+	let hoveredPointCompare: HistoryPoint | null = null;
 
 	const updatePointer = (x: number, y: number, width: number) => {
 		const hoveredXRatio = x / width;
@@ -66,19 +48,25 @@
 		const hoveredTimestamp =
 			firstPoint.UnixTimestamp +
 			hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-		for (const historyPoint of historyPoints) {
-			if (
-				!hoveredPoint ||
-				Math.abs(hoveredTimestamp - historyPoint.UnixTimestamp) <
-					Math.abs(hoveredTimestamp - hoveredPoint.UnixTimestamp)
-			) {
-				hoveredPoint = historyPoint;
-			}
-		}
+
+		hoveredPoint = getClosestPoint(
+			historyPoints,
+			hoveredTimestamp,
+			widthMultiplier,
+			chartSize.x / 100
+		);
+
+		hoveredPointCompare = getClosestPoint(
+			comparePoints,
+			hoveredTimestamp,
+			widthMultiplier,
+			chartSize.x / 100
+		);
 	};
 
 	const resetPointer = () => {
 		hoveredPoint = null;
+		hoveredPointCompare = null;
 	};
 
 	const handleMouseMove: svelte.JSX.MouseEventHandler<SVGSVGElement> = (event) => {
@@ -97,20 +85,7 @@
 			<span>{maxDownloads}</span><span>{minDownloads}</span>
 		</div>
 		<div class="relative flex-1">
-			{#if hoveredPoint}
-				<span
-					class="absolute text-center bg-darker p-2 rounded z-10 min-w-max"
-					style="left: {mousePosition.x + tooltipOffset.x}px; top: {mousePosition.y +
-						tooltipOffset.y}px"
-				>
-					<div class="text-accent">
-						{hoveredPoint.DownloadCount}
-					</div>
-					<div class="text-light">
-						{getDateText(hoveredPoint)}
-					</div>
-				</span>
-			{/if}
+			<ChartTooltip {compareWithMod} {mod} {hoveredPoint} {hoveredPointCompare} {mousePosition} />
 			<svg
 				viewBox="0 0 {chartSize.x} {chartSize.y}"
 				class="block overflow-visible"
@@ -120,14 +95,6 @@
 				on:blur={resetPointer}
 			>
 				<g class="pointer-events-none">
-					<polyline
-						fill="none"
-						class="stroke-accent opacity-80"
-						stroke-width="1"
-						points={historyPoints
-							.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
-							.join(' ')}
-					/>
 					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
 					<line
 						class="stroke-light opacity-80"
@@ -137,9 +104,26 @@
 						x2="100%"
 						y2="100%"
 					/>
-					{#if hoveredPoint}
-						<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} class="fill-accent" />
-					{/if}
+					<ChartLine
+						chartHeight={chartSize.y}
+						{firstPoint}
+						{heightMuliplier}
+						{minDownloads}
+						{widthMultiplier}
+						{historyPoints}
+						{hoveredPoint}
+						color="#ffab8a"
+					/>
+					<ChartLine
+						chartHeight={chartSize.y}
+						{firstPoint}
+						{heightMuliplier}
+						{minDownloads}
+						{widthMultiplier}
+						historyPoints={comparePoints}
+						hoveredPoint={hoveredPointCompare}
+						color="#35823f"
+					/>
 				</g>
 			</svg>
 		</div>
