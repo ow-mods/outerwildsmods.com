@@ -1,7 +1,5 @@
-import type {
-	DownloadHistory,
-	HistoryPoint,
-} from '$lib/components/downloads-chart/downloads-chart.svelte';
+import type { DownloadHistory } from '$lib/components/downloads-chart/downloads-chart.svelte';
+import type { HistoryPoint } from '$lib/components/downloads-chart/history-points';
 import type { RequestHandler } from '@sveltejs/kit';
 import { chunk, flatten } from 'lodash-es';
 
