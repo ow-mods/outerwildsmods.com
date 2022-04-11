@@ -1,19 +1,13 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { ImageMap } from '$lib/helpers/api/get-image-map';
+	import { getFullUrl } from '$lib/helpers/get-full-url';
 
 	export let href = '';
 	export let title: string | undefined = undefined;
 	export let text = '';
-	const externalImages = getContext<ImageMap | undefined>('externalImages');
 
-	const imageInfo = externalImages && externalImages[href];
+	const rawContentUrl = getContext<string>('rawContentUrl');
+	const url = getFullUrl(href, rawContentUrl);
 </script>
 
-<img
-	src={imageInfo?.url ?? href}
-	{title}
-	alt={text}
-	height={imageInfo?.height}
-	width={imageInfo?.width}
-/>
+<img src={url ?? href} {title} alt={text} />

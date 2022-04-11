@@ -1,4 +1,5 @@
 import type { FormatEnum } from 'sharp';
+import { getFullUrl } from '../get-full-url';
 import { getOptimizedImage } from './get-optimized-image';
 
 export type ImageInfo = {
@@ -10,24 +11,6 @@ export type ImageInfo = {
 
 export type ImageMap = Record<string, ImageInfo | null>;
 
-const getImageData = async (
-	baseUrl: string,
-	url: string,
-	resizeWidth?: number,
-	resizeHeight?: number
-): Promise<ImageInfo | null> => {
-	const fullUrl = url.startsWith('http')
-		? // GitHub allows embedding images that actually point to webpages on github.com, so we have to replace the URLs here
-		  url.replace(
-				/^https?:\/\/github.com\/(.+)\/(.+)\/blob\/(.+)\//gm,
-				'https://raw.githubusercontent.com/$1/$2/$3/'
-		  )
-		: // For relative URLs we also have to resolve them
-		  `${baseUrl}/${url}`;
-
-	return await getOptimizedImage(fullUrl, resizeWidth, resizeHeight);
-};
-
 export const getImageMap = async (
 	baseUrl: string,
 	imageUrls: string[],
@@ -38,7 +21,7 @@ export const getImageMap = async (
 
 	for (const url of imageUrls) {
 		try {
-			imageMap[url] = await getImageData(baseUrl, url, width, height);
+			imageMap[url] = await getOptimizedImage(getFullUrl(url, baseUrl), width, height);
 		} catch (error) {
 			console.error(`Failed to get optimized image for ${url} in ${baseUrl}`);
 		}
