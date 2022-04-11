@@ -51,7 +51,7 @@
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';
-	import type { HistoryPoint } from '$lib/components/downloads-chart/history-points';
+	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;

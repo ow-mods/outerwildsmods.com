@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import { getDateText, HistoryPoint } from './history-points';
+	import { getDateText, HistoryPoint } from '$lib/helpers/api/history-points';
 
 	const tooltipOffset = {
 		x: -40,

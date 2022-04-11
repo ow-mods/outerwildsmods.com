@@ -1,10 +1,3 @@
-<script lang="ts" context="module">
-	export type DownloadHistory = {
-		Repo: string;
-		Updates: HistoryPoint[];
-	}[];
-</script>
-
 <script lang="ts">
 	import { map, max } from 'lodash-es';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
@@ -16,7 +9,7 @@
 		getFirstPoint,
 		getLastPoint,
 		HistoryPoint,
-	} from './history-points';
+	} from '../../helpers/api/history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
