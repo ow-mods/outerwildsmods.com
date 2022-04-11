@@ -28,13 +28,12 @@
 			};
 		}
 
-		const { readme, externalImages } = await result.json();
+		const { readme } = await result.json();
 
 		return {
 			props: {
 				mod,
 				readme,
-				externalImages,
 			},
 		};
 	};
@@ -53,7 +52,6 @@
 
 	export let readme: string | undefined = undefined;
 	export let mod: ModsRequestItem | undefined = undefined;
-	export let externalImages: ImageMap;
 
 	const getDescriptionTerminator = (modDescription: string) => {
 		if (modDescription === '') {
@@ -95,7 +93,7 @@
 		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme}
 				{#key mod.uniqueName}
-					<Markdown {readme} {externalImages} rawContentUrl={mod.rawContentUrl} />
+					<Markdown {readme} rawContentUrl={mod.rawContentUrl} />
 				{/key}
 			{/if}
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">

@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { setContext } from 'svelte';
 	import SvelteMarkdown from 'svelte-markdown';
-	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 	import ImageRenderer from './image-renderer.svelte';
 	import LinkRenderer from './link-renderer.svelte';
 
 	export let readme: string;
-	export let externalImages: ImageMap;
 	export let rawContentUrl: string;
 
 	setContext('rawContentUrl', rawContentUrl);
-	setContext('externalImages', externalImages);
 </script>
 
 <div class="flex-1 markdown">
