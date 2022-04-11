@@ -9,6 +9,7 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
+	import { websiteUrl } from '$lib/helpers/constants';
 
 	const infoLinks = [
 		{
@@ -63,7 +64,7 @@
 		name="description"
 		content="Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
 	/>
-	<link rel="canonical" href="https://outerwildsmods.com" />
+	<link rel="canonical" href={websiteUrl} />
 </svelte:head>
 
 <PageLayout>

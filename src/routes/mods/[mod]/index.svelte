@@ -48,6 +48,8 @@
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import type { ImageMap } from '$lib/helpers/api/get-image-map';
+	import { listedImageSize, websiteUrl } from '$lib/helpers/constants';
+	import { page } from '$app/stores';
 
 	export let readme: string | undefined = undefined;
 	export let mod: ModsRequestItem | undefined = undefined;
@@ -60,7 +62,7 @@
 		if (modDescription.endsWith('.')) {
 			return ' ';
 		}
-		return '.';
+		return '. ';
 	};
 
 	const getPageDescription = (modDescription = '', modName: string) =>
@@ -73,6 +75,18 @@
 	{#if mod}
 		<title>{mod.name} - {mod.description}</title>
 		<meta name="description" content={getPageDescription(mod.description, mod.name)} />
+		<meta property="og:title" content={mod.name} />
+		<meta property="og:description" content={mod.description} />
+		<meta property="og:url" content="{websiteUrl}{$page.url.pathname}" />
+		<link rel="canonical" href="{websiteUrl}{$page.url.pathname}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name " content="Outer Wilds Mods" />
+
+		{#if mod.imageUrl}
+			<meta property="og:image" content="{websiteUrl}{mod.imageUrl}" />
+			<meta property="og:image:width" content="{listedImageSize.width}px" />
+			<meta property="og:image:height" content="{listedImageSize.height}px" />
+		{/if}
 	{/if}
 </svelte:head>
 
