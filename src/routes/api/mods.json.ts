@@ -43,6 +43,7 @@ export const get: RequestHandler = async () => {
 			try {
 				const thumbnail = await getModThumbnail(rawContentUrl);
 
+				// TODO clean up, this is only for fetching thumbnails now
 				const externalImages = thumbnail
 					? await getImageMap(
 							rawContentUrl,
