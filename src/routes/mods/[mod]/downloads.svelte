@@ -72,6 +72,8 @@
 			compareWithHistory = [];
 		}
 	})();
+
+	const modsExceptSelf = $modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
 </script>
 
 <PageLayout>
@@ -86,11 +88,11 @@
 				class="select"
 				on:change={(event) => {
 					compareWithMod =
-						$modList.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
+						modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
 				}}
 			>
 				<option value={null}>None</option>
-				{#each $modList as mod}
+				{#each modsExceptSelf as mod}
 					<option value={mod.uniqueName}>{mod.name}</option>
 				{/each}
 			</select>
