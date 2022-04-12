@@ -6,7 +6,7 @@ specifiers:
   '@types/commonmark': ^0.27.5
   '@types/lodash-es': ^4.17.6
   '@types/semver-utils': ^1.1.1
-  '@types/sharp': ^0.29.5
+  '@types/sharp': ^0.30.1
   '@typescript-eslint/eslint-plugin': 5.9.0
   '@typescript-eslint/parser': 5.9.0
   autoprefixer: ^10.4.1
@@ -25,7 +25,7 @@ specifiers:
   prettier: ^2.5.1
   prettier-plugin-svelte: ^2.5.1
   semver-utils: ^1.1.4
-  sharp: ^0.29.3
+  sharp: ^0.30.3
   svelte: 3.46.4
   svelte-check: 2.4.5
   svelte-markdown: 0.2.2
@@ -40,7 +40,7 @@ devDependencies:
   '@types/commonmark': 0.27.5
   '@types/lodash-es': 4.17.6
   '@types/semver-utils': 1.1.1
-  '@types/sharp': 0.29.5
+  '@types/sharp': 0.30.1
   '@typescript-eslint/eslint-plugin': 5.9.0_815035b089f915076529c0a4d8571a22
   '@typescript-eslint/parser': 5.9.0_eslint@8.12.0+typescript@4.6.3
   autoprefixer: 10.4.4_postcss@8.4.12
@@ -59,7 +59,7 @@ devDependencies:
   prettier: 2.6.1
   prettier-plugin-svelte: 2.6.0_prettier@2.6.1+svelte@3.46.4
   semver-utils: 1.1.4
-  sharp: 0.29.3
+  sharp: 0.30.3
   svelte: 3.46.4
   svelte-check: 2.4.5_9b66adf1cfaeef9e3f32f50c7fa60f8e
   svelte-markdown: 0.2.2_svelte@3.46.4
@@ -496,8 +496,8 @@ packages:
     resolution: {integrity: sha512-WLZZQdwo5P+H6R+bDDCFqFSlP5Jtk6gyXpE0R0KAVQbcMGmxpVsNX8dah640hY4+PpRG2+Ph3dcwDHzrOAOZ7A==}
     dev: true
 
-  /@types/sharp/0.29.5:
-    resolution: {integrity: sha512-3TC+S3H5RwnJmLYMHrcdfNjz/CaApKmujjY9b6PU/pE6n0qfooi99YqXGWoW8frU9EWYj/XTI35Pzxa+ThAZ5Q==}
+  /@types/sharp/0.30.1:
+    resolution: {integrity: sha512-LxzQsKo2YtvA2DlqACNXmlbLGMVJCSU/HhV4N9RrStClUEf02iN+AakD/zUOpZkbo1OG+lHk2LeqoHedLwln2w==}
     dependencies:
       '@types/node': 17.0.23
     dev: true
@@ -1162,12 +1162,6 @@ packages:
   /detect-indent/6.1.0:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
-    dev: true
-
-  /detect-libc/1.0.3:
-    resolution: {integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=}
-    engines: {node: '>=0.10'}
-    hasBin: true
     dev: true
 
   /detect-libc/2.0.1:
@@ -2999,13 +2993,13 @@ packages:
     resolution: {integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=}
     dev: true
 
-  /sharp/0.29.3:
-    resolution: {integrity: sha512-fKWUuOw77E4nhpyzCCJR1ayrttHoFHBT2U/kR/qEMRhvPEcluG4BKj324+SCO1e84+knXHwhJ1HHJGnUt4ElGA==}
+  /sharp/0.30.3:
+    resolution: {integrity: sha512-rjpfJFK58ZOFSG8sxYSo3/JQb4ej095HjXp9X7gVu7gEn1aqSG8TCW29h/Rr31+PXrFADo1H/vKfw0uhMQWFtg==}
     engines: {node: '>=12.13.0'}
     requiresBuild: true
     dependencies:
       color: 4.2.1
-      detect-libc: 1.0.3
+      detect-libc: 2.0.1
       node-addon-api: 4.3.0
       prebuild-install: 7.0.1
       semver: 7.3.5
