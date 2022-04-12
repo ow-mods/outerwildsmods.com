@@ -1,3 +1,5 @@
+import { downloadHistory } from '$lib/store';
+import { readFromStore } from '../read-from-store';
 import type { HistoryPoint } from './history-points';
 
 export type DownloadHistory = {
@@ -5,10 +7,9 @@ export type DownloadHistory = {
 	Updates: HistoryPoint[];
 }[];
 
-let downloadHistoryCache: DownloadHistory | null = null;
-
 export const getDownloadHistory = async () => {
 	try {
+		const downloadHistoryCache = await readFromStore(downloadHistory);
 		if (downloadHistoryCache) return downloadHistoryCache;
 
 		const result = await fetch(
@@ -20,7 +21,7 @@ export const getDownloadHistory = async () => {
 		}
 
 		const resultJson: DownloadHistory = await result.json();
-		downloadHistoryCache = resultJson;
+		downloadHistory.set(resultJson);
 
 		return resultJson;
 	} catch (error) {

@@ -47,9 +47,6 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 
 		const repoVariations = [repoUrl, ...(previousRepoNames[repoUrl] || [])];
 
-		console.log('repoVariations', repoVariations);
-		console.log('repoUrl', repoUrl);
-
 		const modDownloadHistoryResult = flatten(
 			repoVariations.map(
 				(repo) =>

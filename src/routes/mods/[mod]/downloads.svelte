@@ -20,7 +20,7 @@
 
 		if (modDownloadhistoryResponse.status !== 200) {
 			console.error(
-				`Failed to get mod download history from local API: ${modDownloadhistoryResponse.status}`
+				`Failed to get mod download history from local API: ${modDownloadhistoryResponse.status}. ${modDownloadhistoryResponse.statusText}`
 			);
 			return {
 				props: {
