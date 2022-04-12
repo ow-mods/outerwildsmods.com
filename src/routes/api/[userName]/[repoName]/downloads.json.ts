@@ -1,7 +1,5 @@
-import type {
-	DownloadHistory,
-	HistoryPoint,
-} from '$lib/components/downloads-chart/downloads-chart.svelte';
+import { getDownloadHistory } from '$lib/helpers/api/get-download-history';
+import type { HistoryPoint } from '$lib/helpers/api/history-points';
 import type { RequestHandler } from '@sveltejs/kit';
 import { chunk, flatten } from 'lodash-es';
 
@@ -38,28 +36,21 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 	try {
 		const repoUrl = `https://github.com/${userName}/${repoName}`.toLocaleLowerCase();
 
-		const result = await fetch(
-			'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json'
-		);
+		const downloadHistory = await getDownloadHistory();
 
-		if (!result.ok) {
+		if (!downloadHistory) {
 			return {
-				status: result.status,
+				status: 500,
 				error: new Error(`Could not load downloads chart`),
 			};
 		}
 
-		const resultJson: DownloadHistory = await result.json();
-
 		const repoVariations = [repoUrl, ...(previousRepoNames[repoUrl] || [])];
-
-		console.log('repoVariations', repoVariations);
-		console.log('repoUrl', repoUrl);
 
 		const modDownloadHistoryResult = flatten(
 			repoVariations.map(
 				(repo) =>
-					resultJson.find(
+					downloadHistory.find(
 						(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
 					)?.Updates
 			)

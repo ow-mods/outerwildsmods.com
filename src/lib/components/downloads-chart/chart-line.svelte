@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { HistoryPoint } from './history-points';
+	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let firstPoint: HistoryPoint;
