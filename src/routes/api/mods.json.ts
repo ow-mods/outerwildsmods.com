@@ -21,6 +21,7 @@ const supportedTypes: (keyof sharp.FormatEnum)[] = [
 
 export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
+	openGraphImageUrl: string | null;
 	formattedDownloadCount: string;
 	rawContentUrl: string;
 }

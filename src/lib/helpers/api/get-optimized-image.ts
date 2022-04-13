@@ -60,6 +60,7 @@ export const getOptimizedImage = async (
 	const height = resizeHeight ?? imageMetadata.height ?? 0 * resizeRatio;
 	const format = imageMetadata.format;
 	const isSvg = format === 'svg';
+	const isGif = format === 'gif';
 
 	if (!width || !height) {
 		throw new Error('failed to read image dimensions');
@@ -71,30 +72,46 @@ export const getOptimizedImage = async (
 	const optimizedDir = '/images/optimized';
 	const fileOutputDir = `${staticDir}${optimizedDir}`;
 
-	// TODO file name doesnt reflect real size. Maybe it shouldn't 🤷‍♂️
-	const fileName = `${encodedImageUrl}-w${width}h${height}f${fit}.${isSvg ? 'svg' : 'webp'}`;
+	// TODO file name doesn't reflect real size. Maybe it shouldn't 🤷‍♂️
+	const getFileName = (extension: string) =>
+		`${encodedImageUrl}-w${width}h${height}f${fit}.${extension}`;
+
+	const fileName = getFileName(isSvg ? 'svg' : 'webp');
 	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
 
 	if (!fs.existsSync(fileOutputDir)) {
 		await fsp.mkdir(fileOutputDir, { recursive: true });
 	}
 
+	const fullOptimizedImageUrl = `${optimizedDir}/${fileName}`;
+
 	if (isSvg) {
 		await fsp.copyFile(downloadedImagePath, optimizedImagePath);
 
 		return {
-			url: `${optimizedDir}/${fileName}`,
+			url: fullOptimizedImageUrl,
+			openGraphUrl: fullOptimizedImageUrl,
 			width,
 			height,
 			format,
 		};
 	} else {
-		const resizedImage = await sharpImage
-			.resize({ width, height, fit, position: 'left' })
-			.toFile(optimizedImagePath);
+		const resizedSharpImage = sharpImage.resize({ width, height, fit, position: 'left' });
+		const resizedImage = await resizedSharpImage.toFile(optimizedImagePath);
+
+		let openGraphUrl = fullOptimizedImageUrl;
+
+		if (isGif) {
+			const openGraphFileName = getFileName('gif');
+			const openGraphImagePath = `${fileOutputDir}/${openGraphFileName}`;
+			openGraphUrl = `${optimizedDir}/${openGraphFileName}`;
+
+			await resizedSharpImage.toFile(openGraphImagePath);
+		}
 
 		return {
-			url: `${optimizedDir}/${fileName}`,
+			url: fullOptimizedImageUrl,
+			openGraphUrl,
 			width: resizedImage.width,
 			height: resizedImage.height,
 			format,
