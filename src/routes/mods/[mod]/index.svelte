@@ -79,14 +79,15 @@
 		<meta property="og:description" content={mod.description} />
 		<meta property="og:url" content="{websiteUrl}{$page.url.pathname}" />
 		<link rel="canonical" href="{websiteUrl}{$page.url.pathname}" />
-		<meta property="og:type" content="website" />
 		<meta property="og:site_name " content="Outer Wilds Mods" />
 
 		{#if mod.imageUrl}
 			<meta property="og:image" content="{websiteUrl}{mod.openGraphImageUrl}" />
 			<meta property="twitter:image" content="{websiteUrl}{mod.openGraphImageUrl}" />
+			<meta name="twitter:card" content="summary_large_image" />
 			<meta property="og:image:width" content="{listedImageSize.width}px" />
 			<meta property="og:image:height" content="{listedImageSize.height}px" />
+			<meta name="theme-color" content="#ffab8a" />
 		{/if}
 	{/if}
 </svelte:head>
