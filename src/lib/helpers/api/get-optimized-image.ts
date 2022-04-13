@@ -60,7 +60,7 @@ export const getOptimizedImage = async (
 	const height = resizeHeight ?? imageMetadata.height ?? 0 * resizeRatio;
 	const format = imageMetadata.format;
 	const isSvg = format === 'svg';
-	const isGif = format === 'gif';
+	const isAnimated = (imageMetadata.pages ?? 0) > 1;
 
 	if (!width || !height) {
 		throw new Error('failed to read image dimensions');
@@ -101,7 +101,7 @@ export const getOptimizedImage = async (
 
 		let openGraphUrl = fullOptimizedImageUrl;
 
-		if (isGif) {
+		if (isAnimated) {
 			const openGraphFileName = getFileName('gif');
 			const openGraphImagePath = `${fileOutputDir}/${openGraphFileName}`;
 			openGraphUrl = `${optimizedDir}/${openGraphFileName}`;
