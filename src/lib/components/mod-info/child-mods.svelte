@@ -7,12 +7,16 @@
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
+	const maxChildModCount = 5;
+
 	export let mod: Mod;
 
 	let childMods: ModsRequestItem[] = [];
 	let addonsPath = '';
 	$: {
-		childMods = $modList.filter((otherMod) => otherMod.parent === mod.uniqueName);
+		childMods = $modList
+			.filter((otherMod) => otherMod.parent === mod.uniqueName)
+			.slice(0, maxChildModCount);
 		addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
 	}
 </script>
