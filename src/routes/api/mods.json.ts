@@ -40,6 +40,7 @@ export const get: RequestHandler = async () => {
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
 			let imageUrl: string | null = null;
+			let openGraphImageUrl: string | null = null;
 
 			try {
 				const thumbnail = await getModThumbnail(rawContentUrl);
@@ -58,12 +59,14 @@ export const get: RequestHandler = async () => {
 				)[0];
 
 				imageUrl = firstExternalImage?.url ?? null;
+				openGraphImageUrl = firstExternalImage?.openGraphUrl ?? null;
 			} catch (error) {
 				console.error(`Failed to retrieve thumbnail image for ${mod.uniqueName}: ${error}`);
 			}
 			return {
 				...mod,
 				imageUrl,
+				openGraphImageUrl,
 				formattedDownloadCount: formatNumber(mod.downloadCount),
 				rawContentUrl,
 			};
