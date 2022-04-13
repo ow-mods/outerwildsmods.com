@@ -13,15 +13,15 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			onError: ({ status, path, referrer, referenceType }) => {
-				if (path.startsWith('/images/optimized/')) {
-					console.log(`Failed to find path, but presuming that's ok: ${path}`);
-					return;
-				}
+				// Generated optimized images won't be found by the crawler.
+				// So I'm ignoring these errors.
+				if (path.startsWith('/images/optimized/')) return;
+
 				throw new Error(
 					`Failed to find path. status: ${status}, path: ${path}, referrer: ${referrer}, referenceType: ${referenceType}`
 				);
 			},
-			concurrency: 2,
+			concurrency: 1,
 		},
 		trailingSlash: 'always',
 		vite: {

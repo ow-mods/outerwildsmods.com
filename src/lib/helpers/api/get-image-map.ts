@@ -5,6 +5,7 @@ export type ImageInfo = {
 	width: number;
 	height: number;
 	url: string;
+	openGraphUrl: string;
 	format: keyof FormatEnum | undefined;
 };
 
@@ -40,7 +41,7 @@ export const getImageMap = async (
 		try {
 			imageMap[url] = await getImageData(baseUrl, url, width, height);
 		} catch (error) {
-			console.error(`Failed to get optimized image for ${url} in ${baseUrl}`);
+			console.error(`Failed to get optimized image for ${url} in ${baseUrl}: ${error}`);
 		}
 	}
 
