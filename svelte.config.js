@@ -21,7 +21,7 @@ const config = {
 					`Failed to find path. status: ${status}, path: ${path}, referrer: ${referrer}, referenceType: ${referenceType}`
 				);
 			},
-			concurrency: 4,
+			concurrency: 1,
 		},
 		trailingSlash: 'always',
 		vite: {
