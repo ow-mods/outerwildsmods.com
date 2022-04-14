@@ -7,6 +7,8 @@ import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { formatNumber } from '$lib/helpers/format-number';
 import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 import { getImageMap } from '$lib/helpers/api/get-image-map';
+import { modList } from '$lib/store';
+import { readFromStore } from '$lib/helpers/read-from-store';
 
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',
@@ -27,6 +29,13 @@ export interface ModsRequestItem extends Mod {
 }
 
 export const get: RequestHandler = async () => {
+	const cachedModList = await readFromStore(modList);
+	if (cachedModList && cachedModList.length > 0) {
+		return {
+			body: JSON.stringify(cachedModList),
+		};
+	}
+
 	const modDatabase = await getModDatabase();
 
 	if (!modDatabase) {
@@ -36,7 +45,7 @@ export const get: RequestHandler = async () => {
 		};
 	}
 
-	const mods: ModsRequestItem[] = await Promise.all(
+	const modsResult = await Promise.allSettled(
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
 			let imageUrl: string | null = null;
@@ -73,5 +82,15 @@ export const get: RequestHandler = async () => {
 		})
 	);
 
+	const mods = modsResult.filter(filterFulfilledPromiseSettleResults).map((result) => result.value);
+
+	modList.set(mods);
+
 	return { body: JSON.stringify(mods) };
 };
+
+function filterFulfilledPromiseSettleResults<T>(
+	result: PromiseSettledResult<T>
+): result is PromiseFulfilledResult<T> {
+	return result.status === 'fulfilled';
+}

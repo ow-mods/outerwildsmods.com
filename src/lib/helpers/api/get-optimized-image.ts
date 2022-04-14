@@ -45,6 +45,8 @@ export const getOptimizedImage = async (
 	resizeWidth?: number,
 	resizeHeight?: number
 ): Promise<ImageInfo | null> => {
+	// console.log(`getOptimizedImage ${imageUrl}`);
+
 	const encodedImageUrl = hash(imageUrl).toString();
 
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
