@@ -7,6 +7,8 @@ import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { formatNumber } from '$lib/helpers/format-number';
 import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 import { getImageMap } from '$lib/helpers/api/get-image-map';
+import { modList } from '$lib/store';
+import { readFromStore } from '$lib/helpers/read-from-store';
 
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',
@@ -27,6 +29,13 @@ export interface ModsRequestItem extends Mod {
 }
 
 export const get: RequestHandler = async () => {
+	const cachedModList = await readFromStore(modList);
+	if (cachedModList && cachedModList.length > 0) {
+		return {
+			body: JSON.stringify(cachedModList),
+		};
+	}
+
 	const modDatabase = await getModDatabase();
 
 	if (!modDatabase) {
@@ -72,6 +81,8 @@ export const get: RequestHandler = async () => {
 			};
 		})
 	);
+
+	modList.set(mods);
 
 	return { body: JSON.stringify(mods) };
 };
