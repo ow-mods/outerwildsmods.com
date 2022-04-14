@@ -57,17 +57,17 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 		).filter(filterHistoryPoint);
 
 		if (!modDownloadHistoryResult) {
+			console.error(`Could not find download history for ${userName}/${repoName}`);
 			return {
-				status: 404,
-				error: new Error(`Could not find download history for ${userName}/${repoName}`),
+				body: [],
 			};
 		}
 		const firstResult = modDownloadHistoryResult[modDownloadHistoryResult.length - 1];
 
 		if (!firstResult) {
+			console.error(`Could not find first history point for ${userName}/${repoName}`);
 			return {
-				status: 404,
-				error: new Error(`Could not find first history point for ${userName}/${repoName}`),
+				body: [],
 			};
 		}
 
