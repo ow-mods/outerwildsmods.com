@@ -45,7 +45,7 @@ export const get: RequestHandler = async () => {
 		};
 	}
 
-	const mods: ModsRequestItem[] = await Promise.all(
+	const modsResult = await Promise.allSettled(
 		modDatabase.releases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod.repo);
 			let imageUrl: string | null = null;
@@ -82,7 +82,15 @@ export const get: RequestHandler = async () => {
 		})
 	);
 
+	const mods = modsResult.filter(filterFulfilledPromiseSettleResults).map((result) => result.value);
+
 	modList.set(mods);
 
 	return { body: JSON.stringify(mods) };
 };
+
+function filterFulfilledPromiseSettleResults<T>(
+	result: PromiseSettledResult<T>
+): result is PromiseFulfilledResult<T> {
+	return result.status === 'fulfilled';
+}
