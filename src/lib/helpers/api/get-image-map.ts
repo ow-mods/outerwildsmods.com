@@ -37,12 +37,28 @@ export const getImageMap = async (
 ): Promise<ImageMap> => {
 	const imageMap: ImageMap = {};
 
-	for (const url of imageUrls) {
-		try {
-			imageMap[url] = await getImageData(baseUrl, url, width, height);
-		} catch (error) {
-			console.error(`Failed to get optimized image for ${url} in ${baseUrl}: ${error}`);
+	const imageInfoResults = await Promise.allSettled(
+		imageUrls.map(async (url) => ({
+			originalUrl: url,
+			imageInfo: await getImageData(baseUrl, url, width, height),
+		}))
+	);
+
+	for (const imageInfoResult of imageInfoResults) {
+		if (imageInfoResult.status === 'rejected') {
+			console.error(`Failed to get optimized image: ${imageInfoResult.reason}`);
+			continue;
 		}
+
+		const resultValue = imageInfoResult.value;
+		const imageInfo = resultValue.imageInfo;
+
+		if (!imageInfo) {
+			console.error(`Failed to get optimized image: no imageInfo`);
+			continue;
+		}
+
+		imageMap[resultValue.originalUrl] = imageInfo;
 	}
 
 	return imageMap;
