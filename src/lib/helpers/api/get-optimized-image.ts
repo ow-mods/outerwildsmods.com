@@ -45,6 +45,15 @@ export const getOptimizedImage = async (
 	resizeWidth?: number,
 	resizeHeight?: number
 ): Promise<ImageInfo | null> => {
+	if (!resizeWidth) {
+		return {
+			url: imageUrl,
+			format: 'svg',
+			height: 0,
+			width: 0,
+			openGraphUrl: imageUrl,
+		};
+	}
 	const encodedImageUrl = hash(imageUrl).toString();
 
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);

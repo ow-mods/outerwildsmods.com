@@ -10,10 +10,4 @@
 	const imageInfo = externalImages && externalImages[href];
 </script>
 
-<img
-	src={imageInfo?.url ?? href}
-	{title}
-	alt={text}
-	height={imageInfo?.height}
-	width={imageInfo?.width}
-/>
+<img src={imageInfo?.url ?? href} {title} alt={text} />
