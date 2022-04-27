@@ -5,7 +5,7 @@
 
 	let processedHref = href;
 	$: {
-		const rawContentUrl = getContext<string | undefined>('rawContentUrl');
+		const rawContentUrl = getContext<string | undefined | null>('rawContentUrl');
 		// TODO: figure out how to get the blobl/master url instead of using rawContentUrl.
 		if (!href.startsWith('http') && !href.startsWith('#')) {
 			processedHref = `${rawContentUrl}/${href}`;

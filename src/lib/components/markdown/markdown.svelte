@@ -7,7 +7,7 @@
 
 	export let readme: string;
 	export let externalImages: ImageMap;
-	export let rawContentUrl: string;
+	export let rawContentUrl: string | null;
 
 	setContext('rawContentUrl', rawContentUrl);
 	setContext('externalImages', externalImages);
