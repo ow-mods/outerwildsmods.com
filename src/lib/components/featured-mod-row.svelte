@@ -7,7 +7,7 @@
 </script>
 
 <div class="flex gap-4">
-	<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 m-auto">
+	<div class="grid grid-cols-1 gap-4 sm:grid-cols-3 m-auto w-full">
 		{#each mods as mod (mod?.uniqueName)}
 			<ModCard hideDescription {mod} />
 		{/each}
