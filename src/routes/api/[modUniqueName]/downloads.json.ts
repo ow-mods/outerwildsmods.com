@@ -1,11 +1,12 @@
 import { getDownloadHistory } from '$lib/helpers/api/get-download-history';
 import type { HistoryPoint } from '$lib/helpers/api/history-points';
+import { readFromStore } from '$lib/helpers/read-from-store';
+import { modList } from '$lib/store';
 import type { RequestHandler } from '@sveltejs/kit';
 import { chunk, flatten } from 'lodash-es';
 
 type Params = {
-	userName: string;
-	repoName: string;
+	modUniqueName: string;
 };
 
 const maxHistoryPointCount = 500;
@@ -31,10 +32,18 @@ function filterHistoryPoint(historyPoint: HistoryPoint | undefined): historyPoin
 }
 
 export const get: RequestHandler<Params, HistoryPoint[]> = async ({
-	params: { userName, repoName },
+	params: { modUniqueName },
 }) => {
 	try {
-		const repoUrl = `https://github.com/${userName}/${repoName}`.toLocaleLowerCase();
+		const mods = await readFromStore(modList);
+		const repoUrl = mods.find((mod) => mod.uniqueName === modUniqueName)?.repo.toLocaleLowerCase();
+
+		if (!repoUrl) {
+			return {
+				status: 500,
+				error: new Error(`Could not find repoUrl for mod ${modUniqueName}`),
+			};
+		}
 
 		const downloadHistory = await getDownloadHistory();
 
@@ -57,7 +66,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 		).filter(filterHistoryPoint);
 
 		if (!modDownloadHistoryResult) {
-			console.error(`Could not find download history for ${userName}/${repoName}`);
+			console.error(`Could not find download history for ${modUniqueName}`);
 			return {
 				body: [],
 			};
@@ -65,7 +74,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 		const firstResult = modDownloadHistoryResult[modDownloadHistoryResult.length - 1];
 
 		if (!firstResult) {
-			console.error(`Could not find first history point for ${userName}/${repoName}`);
+			console.error(`Could not find first history point for ${modUniqueName}`);
 			return {
 				body: [],
 			};
@@ -131,7 +140,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 	} catch (error) {
 		return {
 			status: 500,
-			error: new Error(`Failed to get download history for ${userName}/${repoName}`),
+			error: new Error(`Failed to get download history for ${modUniqueName}`),
 		};
 	}
 };

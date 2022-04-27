@@ -11,19 +11,7 @@
 
 <PageLayout>
 	{#if newHorizons}
-		<PageSection title="Custom Worlds" id="custom-worlds">
-			<div class="flex flex-col md:flex-row gap-8">
-				<ModCard mod={newHorizons} />
-				<div>
-					<p class="mt-0">
-						You can create your own custom worlds by making an addon for New Horizons. You can use
-						the Addon Creation Tool to upload your worlds and share them with the community.
-					</p>
-					<CtaButton href="/custom-worlds/create">Addon Creation Tool</CtaButton>
-				</div>
-			</div>
-		</PageSection>
-		<PageSection title="Find New Worlds" id="available-worlds">
+		<PageSection title="Available Custom Worlds" id="available-worlds">
 			<ModAddons mod={newHorizons} />
 		</PageSection>
 	{/if}

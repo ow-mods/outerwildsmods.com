@@ -1,5 +1,4 @@
-const gitHubUrlBase = 'github';
-const rawContentUrlBase = 'raw.githubusercontent';
+import type { Mod } from './api/get-mod-database';
 
-export const getRawContentUrl = (repo: string) =>
-	`${repo.replace(gitHubUrlBase, rawContentUrlBase)}/HEAD`;
+export const getRawContentUrl = (mod: Mod) =>
+	mod.readme ? mod.readme.downloadUrl.replace(/\/(?!.*\/).+/, '') : null;

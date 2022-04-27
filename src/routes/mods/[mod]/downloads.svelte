@@ -14,9 +14,7 @@
 			};
 		}
 
-		const modDownloadhistoryResponse = await fetch(
-			`/api/${currentMod.author}/${getModRepoName(currentMod)}/downloads.json`
-		);
+		const modDownloadhistoryResponse = await fetch(`/api/${currentMod.uniqueName}/downloads.json`);
 
 		if (modDownloadhistoryResponse.status !== 200) {
 			console.error(
@@ -62,7 +60,7 @@
 	$: (async () => {
 		if (compareWithMod) {
 			const modDownloadhistoryResponse = await fetch(
-				`/api/${compareWithMod.author}/${getModRepoName(compareWithMod)}/downloads.json`
+				`/api/${compareWithMod.uniqueName}/downloads.json`
 			);
 
 			if (modDownloadhistoryResponse.ok) {

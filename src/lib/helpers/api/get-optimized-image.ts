@@ -52,7 +52,7 @@ export const getOptimizedImage = async (
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
 
 	if (!downloadedImagePath) {
-		throw new Error('Failed to download image');
+		throw new Error(`Failed to download image ${imageUrl}`);
 	}
 
 	const sharpImage = sharp(downloadedImagePath, { animated: true });

@@ -1,19 +1,8 @@
-const readmeNames = ['README.md', 'readme.md', 'Readme.md'];
+import type { Mod } from './get-mod-database';
 
-export const getModReadme = async (rawContentUrl: string): Promise<string | null> => {
-	const readmePaths = readmeNames.map((readmeName) => `${rawContentUrl}/${readmeName}`);
+export const getModReadme = async (mod: Mod): Promise<string | null> => {
+	if (!mod.readme) return null;
 
-	for (const readmePath of readmePaths) {
-		const readme = await tryGetModReadme(readmePath);
-		if (readme) {
-			return readme;
-		}
-	}
-
-	return null;
-};
-
-const tryGetModReadme = async (readmePath: string) => {
-	const response = await fetch(readmePath);
+	const response = await fetch(mod.readme.downloadUrl);
 	return response.status === 200 ? response.text() : null;
 };

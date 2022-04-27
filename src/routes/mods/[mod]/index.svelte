@@ -19,7 +19,7 @@
 				error: new Error(`Could not find mod ${params.mod}.`),
 			};
 
-		const result = await fetch(`/api/${mod.author}/${getModRepoName(mod)}.json`);
+		const result = await fetch(`/api/${mod.uniqueName}.json`);
 
 		if (!result.ok) {
 			return {

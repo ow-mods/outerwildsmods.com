@@ -39,10 +39,16 @@ export const getImageMap = async (
 	const imageMap: ImageMap = {};
 
 	const imageInfoResults = await Promise.allSettled(
-		imageUrls.map(async (url) => ({
-			originalUrl: url,
-			imageInfo: await getImageData(baseUrl, url, width, height),
-		}))
+		imageUrls.map(async (url) => {
+			try {
+				return {
+					originalUrl: url,
+					imageInfo: await getImageData(baseUrl, url, width, height),
+				};
+			} catch {
+				throw new Error(`Failed to get image ${url}`);
+			}
+		})
 	);
 
 	for (const imageInfoResult of imageInfoResults) {

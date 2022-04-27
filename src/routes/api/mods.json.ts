@@ -25,7 +25,7 @@ export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
 	openGraphImageUrl: string | null;
 	formattedDownloadCount: string;
-	rawContentUrl: string;
+	rawContentUrl: string | null;
 }
 
 export const get: RequestHandler = async () => {
@@ -47,21 +47,22 @@ export const get: RequestHandler = async () => {
 
 	const modsResult = await Promise.allSettled(
 		modDatabase.releases.map(async (mod) => {
-			const rawContentUrl = getRawContentUrl(mod.repo);
+			const rawContentUrl = getRawContentUrl(mod);
 			let imageUrl: string | null = null;
 			let openGraphImageUrl: string | null = null;
 
 			try {
-				const thumbnail = await getModThumbnail(rawContentUrl);
+				const thumbnail = await getModThumbnail(mod);
 
-				const externalImages = thumbnail
-					? await getImageMap(
-							rawContentUrl,
-							[thumbnail],
-							listedImageSize.width,
-							listedImageSize.height
-					  )
-					: {};
+				const externalImages =
+					thumbnail && rawContentUrl
+						? await getImageMap(
+								rawContentUrl,
+								[thumbnail],
+								listedImageSize.width,
+								listedImageSize.height
+						  )
+						: {};
 
 				const firstExternalImage = Object.values(externalImages).filter(
 					(image) => image?.format && supportedTypes.includes(image.format)
