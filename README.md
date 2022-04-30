@@ -13,7 +13,7 @@ The content of this website is generated at build time based on a few things:
 
 * [Install Node](https://nodejs.org/en/download/);
 * [Install pnpm](https://pnpm.io/installation);
-* Run `pnpm run install`;
+* Run `pnpm install`;
 * Run `pnpm run dev`;
 * Server will run in localhost.
 
