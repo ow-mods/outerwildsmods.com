@@ -11,7 +11,7 @@ The content of this website is generated at build time based on a few things:
 
 ## The website is down!
 
-If you notice the website is down, please notify Raicuparta in the [Outer Wilds Modding Discord](https://discord.gg/9vE5aHxcF9). In the meantime, you can use [this mirror hosted on Vercel](https://outerwildsmods-com.vercel.app/). If both of these are down, then God help us all.
+If you notice the website is down, please notify the admins in the [Outer Wilds Modding Discord](https://discord.gg/9vE5aHxcF9). In the meantime, you can use [this mirror hosted on Vercel](https://outerwildsmods-com.vercel.app/). If both of these are down, then God help us all.
 
 ## Development setup
 
