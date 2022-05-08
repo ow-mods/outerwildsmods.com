@@ -36,7 +36,7 @@
 </svelte:head>
 
 <PageLayout>
-	<PageSection title="Outer Wilds Alpha" id="alpha">
+	<PageSection title="Outer Wilds Alpha" id="alpha" isNarrow = true>
 		<PageSectionColumns>
 			<PageSectionImage imageUrl="/images/alpha.jpg" title="Outer Wilds Alpha" height={200} />
 			<PageSectionDescription
@@ -52,10 +52,12 @@
 			</LinkButton>
 		</div>
 	</PageSection>
-	<PageSection title="Mods for Outer Wilds Alpha" id="alpha-mods">
-		<PageSectionDescription
-			description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
-		/>
+	<PageSection title="Mods for Outer Wilds Alpha" id="alpha-mods" isNarrow = true>
+		<a class="link" href="https://github.com/BepInEx/BepInEx/" target="_blank" rel="noopener noreferrer">
+			<PageSectionDescription
+				description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
+			/>
+		</a>
 		{#each alphaMods as mod (mod.href)}
 			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
 				<ListItemCard title={mod.name} description={mod.description} />
