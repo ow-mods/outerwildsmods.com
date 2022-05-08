@@ -10,25 +10,20 @@
 
 	const alphaMods = [
 		{
-			name: 'DIMOWA',
-			description: 'Mod installer and debugger for Outer Wilds Alpha',
-			href: 'https://github.com/ShoosGun/DIMOWA',
+			name: 'CAMOWA',
+			description: 'BepInEx plugin that helps creating mods the alpha.',
+			href: 'https://github.com/ShoosGun/CAMOWA',
 		},
 		{
-			name: 'OWBA',
-			description: 'Adds features from the final Outer Wilds release to the Alpha.',
-			href: 'https://github.com/ShoosGun/OWBA',
+			name: 'Navinha',
+			description: 'Adds a small custom ship into the game.',
+			href: 'https://github.com/ShoosGun/navinha',
 		},
 		{
 			name: 'Free Cam Mod',
-			description: 'Allows for free camera movement.',
+			description: 'Adds a free cam to the game.',
 			href: 'https://github.com/ShoosGun/FreeCamMod',
-		},
-		{
-			name: 'Probe Grapple Mod',
-			description: 'Adds a grappling hook mechanic.',
-			href: 'https://github.com/ShoosGun/ProbeGrapleMod',
-		},
+		}
 	];
 </script>
 
@@ -59,7 +54,7 @@
 	</PageSection>
 	<PageSection title="Mods for Outer Wilds Alpha" id="alpha-mods">
 		<PageSectionDescription
-			description="Using DIMOWA, it is possible to install some mods in the Alpha version of Outer Wilds."
+			description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
 		/>
 		{#each alphaMods as mod (mod.href)}
 			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
