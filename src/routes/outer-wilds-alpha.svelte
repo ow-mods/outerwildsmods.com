@@ -22,12 +22,16 @@
 		}
 	];
 	
-	const alphaMods = [
+	const alphaUtilMods = [
 		{
 			name: 'CAMOWA',
 			description: 'A utilities mod that helps creating mods the alpha.',
 			href: 'https://github.com/ShoosGun/CAMOWA',
-		},
+		}
+	];
+	
+	const alphaMods = [
+		
 		{
 			name: 'Navinha',
 			description: 'Adds a small custom ship into the game.',
@@ -77,10 +81,22 @@
 				<ListItemCard title={mod.name} description={mod.description} />
 			</a>
 		{/each}
+	</PageSection>
+	
+	<PageSection title="Utility Mods" id="alpha-mods" isNarrow = true>
+		<PageSectionDescription
+			description="Some mods might depend on some utility mods, you can find them here."
+		/>
+		{#each alphaUtilMods as util (util.href)}
+			<a class="link" href={util.href} target="_blank" rel="noopener noreferrer">
+				<ListItemCard title={util.name} description={util.description} />
+			</a>
+		{/each}
 	</PageSection>	
+	
 	<PageSection title="Installation Resources" id="mods-intallation-resource" isNarrow = true>
 		<PageSectionDescription
-				description="Installation Resources"
+				description="Resources for installing BepInEx for the alpha"
 			/>
 		{#each resources as resource (resource.href)}
 			<a class="link" href={resource.href} target="_blank" rel="noopener noreferrer">
