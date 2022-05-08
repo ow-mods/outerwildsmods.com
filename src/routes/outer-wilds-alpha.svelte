@@ -71,11 +71,9 @@
 		</div>
 	</PageSection>
 	<PageSection title="Mods for Outer Wilds Alpha" id="alpha-mods" isNarrow = true>
-		<a class="link" href="https://github.com/BepInEx/BepInEx/" target="_blank" rel="noopener noreferrer">
-			<PageSectionDescription
-				description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
-			/>
-		</a>
+		<PageSectionDescription
+			description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
+		/>
 		{#each alphaMods as mod (mod.href)}
 			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
 				<ListItemCard title={mod.name} description={mod.description} />
@@ -96,7 +94,7 @@
 	
 	<PageSection title="Installation Resources" id="mods-intallation-resource" isNarrow = true>
 		<PageSectionDescription
-				description="Resources for installing BepInEx for the alpha."
+				description="Resources for installing BepInEx and configuring it for the alpha."
 			/>
 		{#each resources as resource (resource.href)}
 			<a class="link" href={resource.href} target="_blank" rel="noopener noreferrer">
