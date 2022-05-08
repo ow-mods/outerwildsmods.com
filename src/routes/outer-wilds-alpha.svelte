@@ -25,7 +25,7 @@
 	const alphaUtilMods = [
 		{
 			name: 'CAMOWA',
-			description: 'A utilities mod that helps creating mods the alpha.',
+			description: 'A utilities mod that helps creating mods for the alpha.',
 			href: 'https://github.com/ShoosGun/CAMOWA',
 		}
 	];
@@ -96,7 +96,7 @@
 	
 	<PageSection title="Installation Resources" id="mods-intallation-resource" isNarrow = true>
 		<PageSectionDescription
-				description="Resources for installing BepInEx for the alpha"
+				description="Resources for installing BepInEx for the alpha."
 			/>
 		{#each resources as resource (resource.href)}
 			<a class="link" href={resource.href} target="_blank" rel="noopener noreferrer">
