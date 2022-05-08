@@ -7,13 +7,30 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-
-	const alphaMods = [
+	
+	
+	const resources = [
+		{
+			name: 'Official BepInEx Instalation Guide',
+			description: 'The official guide for installing BepInEx.',
+			href: 'https://docs.bepinex.dev/articles/user_guide/installation/index.html',
+		},
+		{
+			name: 'CAMOWA BepInEx Instalation Guide',
+			description: 'A guide that focuses on configuring BepInEx for the alpha.',
+			href: 'https://github.com/ShoosGun/CAMOWA/blob/main/BepInExInstall.md',
+		}
+	];
+	
+	const alphaUtils = [
 		{
 			name: 'CAMOWA',
-			description: 'BepInEx plugin that helps creating mods the alpha.',
+			description: 'A utilities mod that helps creating mods the alpha.',
 			href: 'https://github.com/ShoosGun/CAMOWA',
-		},
+		}
+	];
+	
+	const alphaMods = [
 		{
 			name: 'Navinha',
 			description: 'Adds a small custom ship into the game.',
@@ -58,6 +75,25 @@
 				description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
 			/>
 		</a>
+		<PageSectionDescription
+				description="Installation Resources"
+			/>
+		{#each resoruces as mod (resoruce.href)}
+			<a class="link" href={resoruce.href} target="_blank" rel="noopener noreferrer">
+				<ListItemCard title={resoruce.name} description={resoruce.description} />
+			</a>
+		{/each}
+		<PageSectionDescription
+				description="Utility Mods"
+			/>
+		{#each alphaUtils as util (util.href)}
+			<a class="link" href={util.href} target="_blank" rel="noopener noreferrer">
+				<ListItemCard title={util.name} description={util.description} />
+			</a>
+		{/each}
+		<PageSectionDescription
+				description="General Mods"
+			/>
 		{#each alphaMods as mod (mod.href)}
 			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
 				<ListItemCard title={mod.name} description={mod.description} />
