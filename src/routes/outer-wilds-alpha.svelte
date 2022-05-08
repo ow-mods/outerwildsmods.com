@@ -78,9 +78,9 @@
 		<PageSectionDescription
 				description="Installation Resources"
 			/>
-		{#each resoruces as mod (resoruce.href)}
-			<a class="link" href={resoruce.href} target="_blank" rel="noopener noreferrer">
-				<ListItemCard title={resoruce.name} description={resoruce.description} />
+		{#each resources as mod (resource.href)}
+			<a class="link" href={resource.href} target="_blank" rel="noopener noreferrer">
+				<ListItemCard title={resource.name} description={resource.description} />
 			</a>
 		{/each}
 		<PageSectionDescription
