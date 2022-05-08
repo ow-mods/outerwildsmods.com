@@ -74,29 +74,25 @@
 			<PageSectionDescription
 				description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
 			/>
-		</a>
+		</a>	
+		{#each alphaUtils as util (util.href)}
+			<a class="link" href={util.href} target="_blank" rel="noopener noreferrer">
+				<ListItemCard title={util.name} description={util.description} />
+			</a>
+		{/each}
+		{#each alphaMods as mod (mod.href)}
+			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
+				<ListItemCard title={mod.name} description={mod.description} />
+			</a>
+		{/each}
+	</PageSection>	
+	<PageSection title="Installation Resources" id="mods-intallation-resource" isNarrow = true>
 		<PageSectionDescription
 				description="Installation Resources"
 			/>
 		{#each resources as mod (resource.href)}
 			<a class="link" href={resource.href} target="_blank" rel="noopener noreferrer">
 				<ListItemCard title={resource.name} description={resource.description} />
-			</a>
-		{/each}
-		<PageSectionDescription
-				description="Utility Mods"
-			/>
-		{#each alphaUtils as util (util.href)}
-			<a class="link" href={util.href} target="_blank" rel="noopener noreferrer">
-				<ListItemCard title={util.name} description={util.description} />
-			</a>
-		{/each}
-		<PageSectionDescription
-				description="General Mods"
-			/>
-		{#each alphaMods as mod (mod.href)}
-			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
-				<ListItemCard title={mod.name} description={mod.description} />
 			</a>
 		{/each}
 	</PageSection>
