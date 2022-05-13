@@ -30,8 +30,12 @@
 		}
 	];
 	
-	const alphaMods = [
-		
+	const alphaMods = [		
+		{
+			name: 'AlphaFixes',
+			description: 'Fixes some issues with the alpha.',
+			href: 'https://github.com/ShoosGun/AlphaFixes',
+		},
 		{
 			name: 'Navinha',
 			description: 'Adds a small custom ship into the game.',
