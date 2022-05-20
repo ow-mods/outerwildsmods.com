@@ -115,7 +115,7 @@ export const getOptimizedImage = async (
 			url: fullOptimizedImageUrl,
 			openGraphUrl,
 			width: resizedImage.width,
-			height: resizedImage.height,
+			height: resizedImage.height / (imageMetadata.pages ?? 1),
 			format,
 		};
 	}
