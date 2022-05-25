@@ -18,7 +18,7 @@
 		{
 			name: 'CAMOWA BepInEx Instalation Guide',
 			description: 'A guide that focuses on configuring BepInEx for the alpha.',
-			href: 'https://github.com/ShoosGun/CAMOWA/blob/main/BepInExInstall.md',
+			href: 'https://github.com/ShoosGun/CAMOWA/blob/main/BepInExInstallationGuide/BepInExInstall.md',
 		}
 	];
 	
