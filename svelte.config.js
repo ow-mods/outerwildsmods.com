@@ -21,7 +21,8 @@ const config = {
 					`Failed to find path. status: ${status}, path: ${path}, referrer: ${referrer}, referenceType: ${referenceType}`
 				);
 			},
-			concurrency: 2,
+			// Disabling concurrency because maybe that's causing the thumbnails to some times not be generated in time? dunno.
+			// concurrency: 2,
 		},
 		trailingSlash: 'always',
 		vite: {
