@@ -8,9 +8,10 @@
 	export let mods: ModsRequestItem[];
 	export let addons: ModsRequestItem[];
 	export let sortOrder: SortOrder;
+	export let title: string;
 </script>
 
-<PageSection title={sortOrders[sortOrder].title} id={sortOrder}>
+<PageSection {title} id={sortOrder}>
 	<div class="flex flex-col gap-4">
 		<FeaturedModRow {mods}>
 			<LinkButton href="/mods?{sortOrderParamName}={sortOrder}">More Mods ›</LinkButton>

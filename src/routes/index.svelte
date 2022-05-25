@@ -68,24 +68,13 @@
 </svelte:head>
 
 <PageLayout>
-	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
-		<div class="flex flex-col md:flex-row gap-8">
-			<div class="hidden md:block">
-				<PageSectionImage
-					imageUrl="/images/mod-manager-small.png"
-					title="Outer Wilds Mod Manager"
-				/>
-			</div>
-			<div class="md:w-72 flex flex-col content-between gap-2">
-				<PageSectionDescription
-					description="Use the Outer Wilds Mod Manager for installing and managing mods."
-				/>
-				<CtaButton href="/mod-manager">Outer Wilds Mod Manager</CtaButton>
-			</div>
-		</div>
-	</PageSection>
-	<FeaturedModSection sortOrder="hot" mods={hotMods} addons={hotWorlds} />
-	<FeaturedModSection sortOrder="updated" mods={updatedMods} addons={updatedWorlds} />
+	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />
+	<FeaturedModSection
+		title="Recently Updated Mods"
+		sortOrder="updated"
+		mods={updatedMods}
+		addons={updatedWorlds}
+	/>
 	<PageSection
 		title="Support and modding talk"
 		id="community"
