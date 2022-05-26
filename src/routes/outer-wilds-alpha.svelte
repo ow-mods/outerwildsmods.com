@@ -10,45 +10,6 @@
 	import SortedModGrid from '$lib/components/sorted-mod-grid.svelte';
 	import { modList } from '$lib/store';
 
-	const resources = [
-		{
-			name: 'Official BepInEx Instalation Guide',
-			description: 'The official guide for installing BepInEx.',
-			href: 'https://docs.bepinex.dev/articles/user_guide/installation/index.html',
-		},
-		{
-			name: 'CAMOWA BepInEx Instalation Guide',
-			description: 'A guide that focuses on configuring BepInEx for the alpha.',
-			href: 'https://github.com/ShoosGun/CAMOWA/blob/main/BepInExInstall.md',
-		},
-	];
-
-	const alphaUtilMods = [
-		{
-			name: 'CAMOWA',
-			description: 'A utilities mod that helps creating mods for the alpha.',
-			href: 'https://github.com/ShoosGun/CAMOWA',
-		},
-	];
-
-	const alphaMods = [
-		{
-			name: 'AlphaFixes',
-			description: 'Fixes some issues with the alpha.',
-			href: 'https://github.com/ShoosGun/AlphaFixes',
-		},
-		{
-			name: 'Navinha',
-			description: 'Adds a small custom ship into the game.',
-			href: 'https://github.com/ShoosGun/navinha',
-		},
-		{
-			name: 'Free Cam Mod',
-			description: 'Adds a free cam to the game.',
-			href: 'https://github.com/ShoosGun/FreeCamMod',
-		},
-	];
-
 	const standardMods = $modList.filter((mod) => !mod.utility && !mod.parent && mod.alpha);
 	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && mod.alpha);
 </script>
@@ -86,7 +47,7 @@
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>
 		<CardGrid>
-			{#each utilityMods as mod, index (mod.uniqueName)}
+			{#each utilityMods as mod (mod.uniqueName)}
 				<ModCard lazy={true} {mod} />
 			{/each}
 		</CardGrid>
