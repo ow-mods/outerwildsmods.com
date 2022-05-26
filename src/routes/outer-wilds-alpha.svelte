@@ -1,14 +1,15 @@
 <script lang="ts">
+	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
-	import ListItemCard from '$lib/components/list-item-card.svelte';
-
+	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	
-	
+	import SortedModGrid from '$lib/components/sorted-mod-grid.svelte';
+	import { modList } from '$lib/store';
+
 	const resources = [
 		{
 			name: 'Official BepInEx Instalation Guide',
@@ -19,18 +20,18 @@
 			name: 'CAMOWA BepInEx Instalation Guide',
 			description: 'A guide that focuses on configuring BepInEx for the alpha.',
 			href: 'https://github.com/ShoosGun/CAMOWA/blob/main/BepInExInstall.md',
-		}
+		},
 	];
-	
+
 	const alphaUtilMods = [
 		{
 			name: 'CAMOWA',
 			description: 'A utilities mod that helps creating mods for the alpha.',
 			href: 'https://github.com/ShoosGun/CAMOWA',
-		}
+		},
 	];
-	
-	const alphaMods = [		
+
+	const alphaMods = [
 		{
 			name: 'AlphaFixes',
 			description: 'Fixes some issues with the alpha.',
@@ -45,8 +46,11 @@
 			name: 'Free Cam Mod',
 			description: 'Adds a free cam to the game.',
 			href: 'https://github.com/ShoosGun/FreeCamMod',
-		}
+		},
 	];
+
+	const standardMods = $modList.filter((mod) => !mod.utility && !mod.parent && mod.alpha);
+	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && mod.alpha);
 </script>
 
 <svelte:head>
@@ -58,7 +62,7 @@
 </svelte:head>
 
 <PageLayout>
-	<PageSection title="Outer Wilds Alpha" id="alpha" isNarrow = true>
+	<PageSection title="Outer Wilds Alpha" id="alpha" isNarrow>
 		<PageSectionColumns>
 			<PageSectionImage imageUrl="/images/alpha.jpg" title="Outer Wilds Alpha" height={200} />
 			<PageSectionDescription
@@ -74,36 +78,17 @@
 			</LinkButton>
 		</div>
 	</PageSection>
-	<PageSection title="Mods for Outer Wilds Alpha" id="alpha-mods" isNarrow = true>
-		<PageSectionDescription
-			description="Using BepInEx, it is possible to install some mods in the Alpha version of Outer Wilds."
-		/>
-		{#each alphaMods as mod (mod.href)}
-			<a class="link" href={mod.href} target="_blank" rel="noopener noreferrer">
-				<ListItemCard title={mod.name} description={mod.description} />
-			</a>
-		{/each}
+	<PageSection title="Available mods" id="mods">
+		<SortedModGrid mods={standardMods} />
 	</PageSection>
-	
-	<PageSection title="Utility Mods" id="alpha-mods" isNarrow = true>
-		<PageSectionDescription
-			description="Some mods might depend on some utility mods, you can find them here."
-		/>
-		{#each alphaUtilMods as util (util.href)}
-			<a class="link" href={util.href} target="_blank" rel="noopener noreferrer">
-				<ListItemCard title={util.name} description={util.description} />
-			</a>
-		{/each}
-	</PageSection>	
-	
-	<PageSection title="Installation Resources" id="mods-intallation-resource" isNarrow = true>
-		<PageSectionDescription
-				description="Resources for installing BepInEx and configuring it for the alpha."
-			/>
-		{#each resources as resource (resource.href)}
-			<a class="link" href={resource.href} target="_blank" rel="noopener noreferrer">
-				<ListItemCard title={resource.name} description={resource.description} />
-			</a>
-		{/each}
+	<PageSection title="Utility mods" id="mods">
+		<p>
+			These aren't usually useful by themselves, but contain common resources used by other mods.
+		</p>
+		<CardGrid>
+			{#each utilityMods as mod, index (mod.uniqueName)}
+				<ModCard lazy={true} {mod} />
+			{/each}
+		</CardGrid>
 	</PageSection>
 </PageLayout>
