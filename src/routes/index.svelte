@@ -39,8 +39,12 @@
 
 	const modsPerCategory = 3;
 
-	const nonAddonList = $modList.filter((mod) => mod.parent !== 'xen.NewHorizons' && !mod.utility);
-	const addonList = $modList.filter((mod) => mod.parent === 'xen.NewHorizons' && !mod.utility);
+	const nonAddonList = $modList.filter(
+		(mod) => mod.parent !== 'xen.NewHorizons' && !mod.utility && !mod.alpha
+	);
+	const addonList = $modList.filter(
+		(mod) => mod.parent === 'xen.NewHorizons' && !mod.utility && !mod.alpha
+	);
 
 	const hotMods = sortModList(nonAddonList, 'hot', modsPerCategory);
 	const hotWorlds = sortModList(addonList, 'hot', modsPerCategory);
