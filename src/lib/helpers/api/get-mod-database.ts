@@ -36,7 +36,12 @@ export type ModManager = {
 export type ModDatabase = {
 	modManager: ModManager;
 	releases: Mod[];
+	alphaReleases: Mod[];
 };
+
+function sortReleases(releaseA: Mod, releaseB: Mod) {
+	return releaseB.downloadCount - releaseA.downloadCount;
+}
 
 export async function getModDatabase(): Promise<ModDatabase> {
 	const response = await fetch(DATABASE_URL);
@@ -48,8 +53,7 @@ export async function getModDatabase(): Promise<ModDatabase> {
 
 	return {
 		...database,
-		releases: database.releases.sort(
-			(releaseA, releaseB) => releaseB.downloadCount - releaseA.downloadCount
-		),
+		releases: database.releases.sort(sortReleases),
+		alphaReleases: database.alphaReleases.sort(sortReleases),
 	};
 }
