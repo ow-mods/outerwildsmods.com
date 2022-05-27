@@ -45,8 +45,10 @@ export const get: RequestHandler = async () => {
 		};
 	}
 
+	const allReleases = [...modDatabase.releases, ...modDatabase.alphaReleases];
+
 	const modsResult = await Promise.allSettled(
-		modDatabase.releases.map(async (mod) => {
+		allReleases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod);
 			let imageUrl: string | null = null;
 			let openGraphImageUrl: string | null = null;
