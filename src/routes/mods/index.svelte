@@ -18,10 +18,10 @@
 	/>
 </svelte:head>
 <PageLayout>
-	<PageSection title="Available mods" id="mods">
+	<PageSection title="Available mods" id="avilalable-mods">
 		<SortedModGrid mods={standardMods} />
 	</PageSection>
-	<PageSection title="Utility mods" id="mods">
+	<PageSection title="Utility mods" id="utility-mods">
 		<p>
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>

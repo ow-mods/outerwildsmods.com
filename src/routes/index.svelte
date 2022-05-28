@@ -5,9 +5,6 @@
 	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
 	import { sortModList } from '$lib/helpers/mod-sorting';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
-	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
 
@@ -73,12 +70,9 @@
 
 <PageLayout>
 	<PageSection isNarrow id="outer-wilds-mods">
-		<h1 class="text-base inline">Outer Wilds Mods</h1>
 		<p class="m-0 inline">
-			are unnoficial modifications for <a
-				class="link"
-				href="https://www.mobiusdigitalgames.com/outer-wilds.html">Outer Wilds</a
-			>, which add new features, improvements, extra content, and more. Use the
+			Here you can find unnoficial mods for Outer Wilds, which allow you to add new features,
+			improvements, extra content, you name it. Use the
 			<a class="link" href="/mod-manager">Mod Manager</a> to easily download and install these mods.
 		</p>
 	</PageSection>
