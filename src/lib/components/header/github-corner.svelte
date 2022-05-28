@@ -11,7 +11,7 @@
 >
 	<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 250 250">
 		<title>{tooltip}</title>
-		<mask id="myMask">
+		<mask id="mask-{href}">
 			<rect x="0" y="0" width="100%" height="100%" fill="white" />
 			<g transform="scale(1.2) translate(-20, -20)">
 				<path
@@ -24,6 +24,6 @@
 				/>
 			</g>
 		</mask>
-		<path d="M0 0l115 115h15l12 27 108 108V0z" mask="url(#myMask)" />
+		<path d="M0 0l115 115h15l12 27 108 108V0z" mask="url(#mask-{href})" />
 	</svg>
 </a>

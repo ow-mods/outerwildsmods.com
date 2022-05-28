@@ -72,6 +72,16 @@
 </svelte:head>
 
 <PageLayout>
+	<PageSection isNarrow id="outer-wilds-mods">
+		<h1 class="text-base inline">Outer Wilds Mods</h1>
+		<p class="m-0 inline">
+			are unnoficial modifications for <a
+				class="link"
+				href="https://www.mobiusdigitalgames.com/outer-wilds.html">Outer Wilds</a
+			>, which add new features, improvements, extra content, and more. Use the
+			<a class="link" href="/mod-manager">Mod Manager</a> to easily download and install these mods.
+		</p>
+	</PageSection>
 	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />
 	<FeaturedModSection
 		title="Recently Updated Mods"

@@ -11,9 +11,9 @@
 		tooltip="outerwildsmods.com source code"
 	/>
 	<Stars />
-	<h1 class="p-4 text-4xl m-0">
+	<div class="p-4 text-4xl m-0">
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
-	</h1>
+	</div>
 	<Navigation>
 		<NavigationLink href="/" exact>Home</NavigationLink>
 		<NavigationLink href="/mod-manager">Mod Manager</NavigationLink>
