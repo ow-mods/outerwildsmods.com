@@ -39,10 +39,10 @@
 			</LinkButton>
 		</div>
 	</PageSection>
-	<PageSection title="Mods for Outer Wilds Alpha" id="alpha-mods">
+	<PageSection title="Mods for Outer Wilds Alpha" id="mods">
 		<SortedModGrid mods={standardMods} />
 	</PageSection>
-	<PageSection title="Alpha Utility mods" id="alpha-utility-mods">
+	<PageSection title="Alpha Utility mods" id="mods">
 		<p>
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>

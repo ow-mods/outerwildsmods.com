@@ -11,7 +11,7 @@
 
 {#if parentMod}
 	<div>
-		<PageSectionTitle id="parent-mod">Parent mod</PageSectionTitle>
+		<PageSectionTitle id="child-mods">Parent mod</PageSectionTitle>
 		<ModCard mod={parentMod} />
 	</div>
 {/if}

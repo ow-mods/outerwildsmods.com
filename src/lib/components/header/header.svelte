@@ -3,9 +3,6 @@
 	import Navigation from '$lib/components/navigation/navigation.svelte';
 	import Stars from '$lib/components/header/stars.svelte';
 	import NavigationLink from '../navigation/navigation-link.svelte';
-	import { page } from '$app/stores';
-
-	$: isHomePage = $page.url.pathname === '/';
 </script>
 
 <header class="relative text-center overflow-hidden">
@@ -14,9 +11,9 @@
 		tooltip="outerwildsmods.com source code"
 	/>
 	<Stars />
-	<svelte:element this={isHomePage ? 'h1' : 'div'} class="p-4 text-4xl m-0">
+	<div class="p-4 text-4xl m-0">
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
-	</svelte:element>
+	</div>
 	<Navigation>
 		<NavigationLink href="/" exact>Home</NavigationLink>
 		<NavigationLink href="/mod-manager">Mod Manager</NavigationLink>
