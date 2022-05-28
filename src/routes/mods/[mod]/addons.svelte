@@ -7,16 +7,15 @@
 	import { getModByPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';
 
-	const mod = getModByPathName($modList, $page.params.mod);
+	const mod = getModByPathName($modList, $page.params.mod ?? '');
 </script>
 
 <svelte:head>
-	<title>Outer Wilds Mods - Find all mods for Outer Wilds</title>
-	<meta
-		name="description"
-		content="Full list of mods for Outer Wilds. Including mods for VR, multiplayer, and cheats."
-	/>
+	{#if mod}
+		<title>Addons for {mod.name}</title>
+	{/if}
 </svelte:head>
+
 <PageLayout>
 	{#if mod}
 		<ModCard {mod} />
