@@ -11,14 +11,22 @@
 	const newHorizonsLinks = [
 		{
 			text: 'New Horizons Documentation',
-			href: 'https://nh.outerwildsmods.com/'
+			href: 'https://nh.outerwildsmods.com/',
 		},
 		{
 			text: 'New Horizons Addon Template',
-			href: 'https://github.com/xen-42/ow-new-horizons-config-template'
-		}
+			href: 'https://github.com/xen-42/ow-new-horizons-config-template',
+		},
 	];
 </script>
+
+<svelte:head>
+	<title>Custom Worlds for Outer Wilds</title>
+	<meta
+		name="description"
+		content="Download custom planets, solar systems, and more content for Outer Wilds."
+	/>
+</svelte:head>
 
 <PageLayout>
 	{#if newHorizons}
@@ -27,7 +35,10 @@
 				<ModCard mod={newHorizons} />
 				<div>
 					<p class="mt-0">
-						New Horizons is a world creation tool capable of creating new planets and star systems, and even editing planets from the base game. If you want to make your own custom worlds, the NH documentation has most of the info you need to get started. The easiest way is by cloning the NH Addon Template. No coding knowledge is required!			
+						New Horizons is a world creation tool capable of creating new planets and star systems,
+						and even editing planets from the base game. If you want to make your own custom worlds,
+						the NH documentation has most of the info you need to get started. The easiest way is by
+						cloning the NH Addon Template. No coding knowledge is required!
 						<LinkList links={newHorizonsLinks} />
 					</p>
 				</div>

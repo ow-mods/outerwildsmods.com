@@ -74,6 +74,12 @@
 	const modsExceptSelf = $modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
 </script>
 
+<svelte:head>
+	{#if mod}
+		<title>{mod.name} - Downloads Chart</title>
+	{/if}
+</svelte:head>
+
 <PageLayout>
 	<div>
 		<div class="flex mb-4">
