@@ -12,6 +12,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		prerender: {
+			default: true,
 			onError: ({ status, path, referrer, referenceType }) => {
 				// Generated optimized images won't be found by the crawler.
 				// So I'm ignoring these errors.
