@@ -23,14 +23,20 @@
 			>
 		</a>
 		<div class="flex flex-col gap-4">
-			<CtaButton href="/mod-manager">Get the Mod Manager</CtaButton>
-			<LinkButton href="outer-wilds-mod://{mod.uniqueName}">Install mod</LinkButton>
-			<LinkButton href={mod.downloadUrl}>
-				<small>
-					<div>Download mod files</div>
-					<div>Version {mod.version}</div>
-				</small>
+			<CtaButton href="/mod-manager">
+				<div>
+					<div>Mod Manager</div>
+				</div>
+			</CtaButton>
+			<LinkButton href="outer-wilds-mod://{mod.uniqueName}">
+				<div>
+					<div>Install Mod</div>
+					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
+				</div>
 			</LinkButton>
+			<a class="link text-sm mt-2" href={mod.downloadUrl}>
+				Download mod zip ({mod.version})
+			</a>
 		</div>
 	</div>
 </div>
