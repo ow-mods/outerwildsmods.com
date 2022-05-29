@@ -23,7 +23,8 @@
 			>
 		</a>
 		<div class="flex flex-col gap-4">
-			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
+			<CtaButton href="/mod-manager">Get the Mod Manager</CtaButton>
+			<LinkButton href="outer-wilds-mod://{mod.uniqueName}">Install mod</LinkButton>
 			<LinkButton href={mod.downloadUrl}>
 				<small>
 					<div>Download mod files</div>
