@@ -8,23 +8,13 @@
 </script>
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
-	<GithubCorner href={mod.repo} tooltip="{mod.name} source code" />
 	<div class="flex flex-col gap-4">
-		<div>
-			<h1 class="m-0 text-2xl break-words">{mod.name}</h1>
-			<div class="text-sm">
-				by <a class="link" href="https://github.com/{mod.author}">{mod.author}</a>
-			</div>
-		</div>
-		<p class="m-0 break-words">{mod.description}</p>
-		<a class="link text-sm" href="./downloads/">
-			<span data-nosnippet title="{mod.name} download history"
-				>{mod.formattedDownloadCount} downloads</span
-			>
-		</a>
+		<h1 class="m-0 text-2xl break-words">{mod.name}</h1>
+		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">
 				<div>
+					<div>Download the</div>
 					<div>Mod Manager</div>
 				</div>
 			</CtaButton>
@@ -34,9 +24,24 @@
 					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
 				</div>
 			</LinkButton>
-			<a class="link text-sm mt-2" href={mod.downloadUrl}>
-				Download mod zip ({mod.version})
-			</a>
+		</div>
+		<div class="text-sm whitespace-nowrap flex flex-col gap-2">
+			<div>
+				<a class="link" href="https://github.com/{mod.author}">🧑‍🦰 {mod.author}</a>
+			</div>
+			<div>
+				<a class="link" href={mod.repo}>📄 Source Code</a>
+			</div>
+			<div>
+				<a class="link" href="https://github.com/{mod.author}"
+					>📈 {mod.formattedDownloadCount} downloads</a
+				>
+			</div>
+			<div>
+				<a class="link" href={mod.downloadUrl}>
+					🗃️ Download zip ({mod.version})
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
