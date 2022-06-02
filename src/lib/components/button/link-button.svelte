@@ -11,7 +11,7 @@
 	class:text-sm={isSmall}
 	{href}
 	target={isExternal ? '_blank' : undefined}
-	rel={rel ?? (isExternal ? 'noopener noreferrer external' : undefined)}
+	rel={rel ?? (isExternal ? 'external' : undefined)}
 	sveltekit:prefetch={isExternal ? null : true}
 	on:click
 >
