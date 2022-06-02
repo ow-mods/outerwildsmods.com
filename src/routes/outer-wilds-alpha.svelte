@@ -40,6 +40,11 @@
 		</div>
 	</PageSection>
 	<PageSection title="Mods for Outer Wilds Alpha" id="mods">
+		<p>
+			The <a class="link" href="/mod-manager">Mod Manager</a> also supports the Alpha version of Outer
+			Wilds. To install mods with it, go to the manager settings and change the "Game version to use"
+			setting.
+		</p>
 		<SortedModGrid mods={standardMods} />
 	</PageSection>
 	<PageSection title="Alpha Utility mods" id="mods">
