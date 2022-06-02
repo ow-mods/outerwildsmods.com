@@ -9,8 +9,8 @@
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
 	<div class="flex flex-col gap-4">
-		<h1 class="m-0 text-2xl break-words">{mod.name}</h1>
-		<p class="m-0 break-words text-sm">{mod.description}</p>
+		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
+		<p class="m-0 leading-none break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">
 				<div>
