@@ -18,7 +18,7 @@ const config = {
 				if (path.startsWith('/images/optimized/')) return;
 
 				// Protocol URLs will 404 on prerender, gotta ignore those.
-				if (path.contains('outer-wilds-mod://')) return;
+				if (path.includes('outer-wilds-mod://')) return;
 
 				throw new Error(
 					`Failed to find path. status: ${status}, path: ${path}, referrer: ${referrer}, referenceType: ${referenceType}`
