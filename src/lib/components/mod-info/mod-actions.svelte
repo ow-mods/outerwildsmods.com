@@ -28,7 +28,7 @@
 					<div>Mod Manager</div>
 				</div>
 			</CtaButton>
-			<LinkButton href="outer-wilds-mod://{mod.uniqueName}">
+			<LinkButton href="outer-wilds-mod://{mod.uniqueName}" isExternal>
 				<div>
 					<div>Install Mod</div>
 					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
