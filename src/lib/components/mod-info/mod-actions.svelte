@@ -2,7 +2,6 @@
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import CtaButton from '../button/cta-button.svelte';
 	import LinkButton from '../button/link-button.svelte';
-	import GithubCorner from '../header/github-corner.svelte';
 
 	export let mod: ModsRequestItem;
 </script>
@@ -18,7 +17,7 @@
 					<div>Mod Manager</div>
 				</div>
 			</CtaButton>
-			<LinkButton href="outer-wilds-mod://{mod.uniqueName}" isExternal>
+			<LinkButton href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}" isExternal>
 				<div>
 					<div>Install Mod</div>
 					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
