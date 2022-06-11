@@ -27,7 +27,7 @@
 		</div>
 		<div class="text-sm whitespace-nowrap flex flex-col gap-2">
 			<div>
-				<a class="link" href="https://github.com/{mod.author}">🧑‍🦰 {mod.author}</a>
+				<a class="link" href="https://github.com/{mod.author}">🙋 {mod.author}</a>
 			</div>
 			<div>
 				<a class="link" href={mod.repo}>📄 Source Code</a>
