@@ -13,16 +13,17 @@
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">
 				<div>
-					<div>Download the</div>
+					<div>Install mod using</div>
 					<div>Mod Manager</div>
 				</div>
 			</CtaButton>
-			<LinkButton href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}" isExternal>
+			<!-- TODO: this install button is still acting a bit weird so I'm disabling it for now -->
+			<!-- <LinkButton href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}" isExternal>
 				<div>
 					<div>Install Mod</div>
 					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
 				</div>
-			</LinkButton>
+			</LinkButton> -->
 		</div>
 		<div class="text-sm whitespace-nowrap flex flex-col gap-2">
 			<div>
