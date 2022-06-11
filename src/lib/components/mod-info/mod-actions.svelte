@@ -2,34 +2,44 @@
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import CtaButton from '../button/cta-button.svelte';
 	import LinkButton from '../button/link-button.svelte';
-	import GithubCorner from '../header/github-corner.svelte';
 
 	export let mod: ModsRequestItem;
 </script>
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
-	<GithubCorner href={mod.repo} tooltip="{mod.name} source code" />
 	<div class="flex flex-col gap-4">
-		<div>
-			<h1 class="m-0 text-2xl break-words">{mod.name}</h1>
-			<div class="text-sm">
-				by <a class="link" href="https://github.com/{mod.author}">{mod.author}</a>
-			</div>
-		</div>
-		<p class="m-0 break-words">{mod.description}</p>
-		<a class="link text-sm" href="./downloads/">
-			<span data-nosnippet title="{mod.name} download history"
-				>{mod.formattedDownloadCount} downloads</span
-			>
-		</a>
+		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
+		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
-			<CtaButton href="/mod-manager">Install mod using Mod Manager</CtaButton>
-			<LinkButton href={mod.downloadUrl}>
-				<small>
-					<div>Download mod files</div>
-					<div>Version {mod.version}</div>
-				</small>
-			</LinkButton>
+			<CtaButton href="/mod-manager">
+				<div>
+					<div>Install mod using</div>
+					<div>Mod Manager</div>
+				</div>
+			</CtaButton>
+			<!-- TODO: this install button is still acting a bit weird so I'm disabling it for now -->
+			<!-- <LinkButton href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}" isExternal>
+				<div>
+					<div>Install Mod</div>
+					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
+				</div>
+			</LinkButton> -->
+		</div>
+		<div class="text-sm whitespace-nowrap flex flex-col gap-2">
+			<div>
+				<a class="link" href="https://github.com/{mod.author}">🙋 {mod.author}</a>
+			</div>
+			<div>
+				<a class="link" href={mod.repo}>📄 Source Code</a>
+			</div>
+			<div>
+				<a class="link" href="./downloads/">📈 {mod.formattedDownloadCount} downloads</a>
+			</div>
+			<div>
+				<a class="link" href={mod.downloadUrl}>
+					🗃️ Download zip ({mod.version})
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
