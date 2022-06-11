@@ -33,9 +33,7 @@
 				<a class="link" href={mod.repo}>📄 Source Code</a>
 			</div>
 			<div>
-				<a class="link" href="https://github.com/{mod.author}"
-					>📈 {mod.formattedDownloadCount} downloads</a
-				>
+				<a class="link" href="./downloads/">📈 {mod.formattedDownloadCount} downloads</a>
 			</div>
 			<div>
 				<a class="link" href={mod.downloadUrl}>
