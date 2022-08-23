@@ -5,9 +5,6 @@
 	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
 	import { sortModList } from '$lib/helpers/mod-sorting';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
-	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
 
@@ -80,6 +77,7 @@
 				href="https://www.mobiusdigitalgames.com/outer-wilds.html">Outer Wilds</a
 			>, which add new features, improvements, extra content, and more. Use the
 			<a class="link" href="/mod-manager">Mod Manager</a> to easily download and install these mods.
+			There are currently a total of {$modList.length} mods, addons, and utilities.
 		</p>
 	</PageSection>
 	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />

@@ -1,7 +1,5 @@
 <script lang="ts">
-	import ModCard from '$lib/components/card-grid/mod-card.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
-	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
@@ -51,10 +49,6 @@
 		<p>
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>
-		<CardGrid>
-			{#each utilityMods as mod (mod.uniqueName)}
-				<ModCard lazy={true} {mod} />
-			{/each}
-		</CardGrid>
+		<SortedModGrid mods={utilityMods} />
 	</PageSection>
 </PageLayout>

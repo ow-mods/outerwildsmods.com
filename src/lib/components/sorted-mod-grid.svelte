@@ -35,7 +35,7 @@
 	}
 </script>
 
-Sort:
+Sort {mods.length} items:
 <select
 	class="select"
 	value={sortOrder}

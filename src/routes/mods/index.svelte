@@ -25,10 +25,6 @@
 		<p>
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>
-		<CardGrid>
-			{#each utilityMods as mod, index (mod.uniqueName)}
-				<ModCard lazy={true} {mod} />
-			{/each}
-		</CardGrid>
+		<SortedModGrid mods={utilityMods} />
 	</PageSection>
 </PageLayout>
