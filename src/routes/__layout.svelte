@@ -3,15 +3,20 @@
 	import { modList } from '$lib/store';
 
 	export const load: Load = async ({ fetch }) => {
-		const result = await fetch('/api/mods.json');
+		const modsResult = await fetch('/api/mods.json');
+		const starData = await fetch('/api/stars.json');
 
-		if (result.ok) {
-			modList.set(await result.json());
-			return {};
+		if (modsResult.ok) {
+			modList.set(await modsResult.json());
+			return {
+				props: {
+					starData: await starData.json(),
+				},
+			};
 		}
 
 		return {
-			status: result.status,
+			status: modsResult.status,
 			error: new Error(`Could not load mods`),
 		};
 	};
@@ -24,9 +29,12 @@
 	import '../styles/components.css';
 	import '../styles/utilities.css';
 	import '../styles/app.css';
+	import type { StarDataResponse } from './api/stars.json';
+
+	export let starData: StarDataResponse;
 </script>
 
-<Header />
+<Header {starData} />
 <main class="bg-background overflow-hidden">
 	<slot />
 </main>

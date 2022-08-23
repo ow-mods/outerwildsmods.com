@@ -3,6 +3,9 @@
 	import Navigation from '$lib/components/navigation/navigation.svelte';
 	import Stars from '$lib/components/header/stars.svelte';
 	import NavigationLink from '../navigation/navigation-link.svelte';
+	import type { StarDataResponse } from 'src/routes/api/stars.json';
+
+	export let starData: StarDataResponse;
 </script>
 
 <header class="relative text-center overflow-hidden">
@@ -10,7 +13,7 @@
 		href="https://github.com/Raicuparta/outerwildsmods.com"
 		tooltip="outerwildsmods.com source code"
 	/>
-	<Stars />
+	<Stars {starData} />
 	<div class="p-4 text-4xl m-0">
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
 	</div>
