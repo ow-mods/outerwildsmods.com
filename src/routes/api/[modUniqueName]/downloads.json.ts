@@ -19,18 +19,35 @@ const brokenCountOffset = 90;
 
 // Some repos changed names, and the downloads history json uses the repos for IDs.
 // This information should be moved to the mod database, but I'm just hard-coding it for now (or forever).
-// This is case sensitive, sorry.
-const previousRepoNames: Record<string, string[]> = {
+const previousRepoNames: Record<string, string[]> = lowerCaseKeys({
 	'https://github.com/raicuparta/nomai-vr': ['https://github.com/Raicuparta/NomaiVR'],
 	'https://github.com/misternebula/quantum-space-buddies': [
 		'https://github.com/Raicuparta/quantum-space-buddies',
 	],
-	'https://github.com/Outer-Wilds-New-Horizons/new-horizons': ['https://github.com/xen-42/outer-wilds-new-horizons'],
-	'https://github.com/Outer-Wilds-New-Horizons/nh-examples': ['https://github.com/xen-42/ow-new-horizons-examples']
-};
+	'https://github.com/Outer-Wilds-New-Horizons/new-horizons': [
+		'https://github.com/xen-42/outer-wilds-new-horizons',
+	],
+	'https://github.com/Outer-Wilds-New-Horizons/nh-examples': [
+		'https://github.com/xen-42/ow-new-horizons-examples',
+	],
+});
 
 function filterHistoryPoint(historyPoint: HistoryPoint | undefined): historyPoint is HistoryPoint {
 	return (historyPoint?.DownloadCount ?? 0) > 0;
+}
+
+function lowerCaseKeys<TValue>(record: Record<string, TValue>) {
+	const newRecord: Record<string, TValue> = {};
+
+	for (const [key, value] of Object.entries(record)) {
+		newRecord[key.toLocaleLowerCase()] = value;
+	}
+
+	return newRecord;
+}
+
+function getRepoVariations(repoUrl: string) {
+	return [repoUrl, ...(previousRepoNames[repoUrl.toLocaleLowerCase()] || [])];
 }
 
 export const get: RequestHandler<Params, HistoryPoint[]> = async ({
@@ -56,10 +73,8 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 			};
 		}
 
-		const repoVariations = [repoUrl, ...(previousRepoNames[repoUrl] || [])];
-
 		const modDownloadHistoryResult = flatten(
-			repoVariations.map(
+			getRepoVariations(repoUrl).map(
 				(repo) =>
 					downloadHistory.find(
 						(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
