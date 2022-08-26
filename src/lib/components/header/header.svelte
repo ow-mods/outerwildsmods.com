@@ -9,7 +9,7 @@
 </script>
 
 <header class="relative text-center overflow-hidden">
-	<GithubCorner href="https://github.com/ow-mods" tooltip="outerwildsmods.com source code" />
+	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
 	<Stars {starData} />
 	<div class="p-4 text-4xl m-0">
 		<a class="text-white font-thin" href="/">Outer Wilds Mods</a>

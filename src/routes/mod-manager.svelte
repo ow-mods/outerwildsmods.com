@@ -7,7 +7,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import WindowsIcon from '$lib/components/windows-icon.svelte';
 
-	const repoUrl = 'https://github.com/Raicuparta/ow-mod-manager';
+	const repoUrl = 'https://github.com/ow-mods/ow-mod-manager';
 	const downloadUrl = `${repoUrl}/releases/latest/download`;
 	const installerDownloadUrl = `${downloadUrl}/OuterWildsModManager-Installer.exe`;
 	const portableDownloadUrl = `${downloadUrl}/OuterWildsModManager-Portable.zip`;
@@ -88,7 +88,7 @@
 				class="link"
 				target="_blank"
 				rel="noopener noreferrer"
-				href="https://github.com/Raicuparta/ow-mod-manager#readme"
+				href="https://github.com/ow-mods/ow-mod-manager#readme"
 			>
 				readme on GitHub
 			</a>

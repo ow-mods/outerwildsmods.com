@@ -30,7 +30,7 @@
 		},
 		{
 			text: 'Outer Wilds mod template',
-			href: 'https://github.com/Raicuparta/ow-mod-template',
+			href: 'https://github.com/ow-mods/ow-mod-template',
 		},
 	];
 

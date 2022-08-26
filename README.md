@@ -3,7 +3,8 @@
 Page for aggregating info related to mods for the game Outer Wilds. Built with [SvelteKit](https://kit.svelte.dev/).
 
 The content of this website is generated at build time based on a few things:
-- Basic information about the available mods comes from the [Outer Wilds Mod Database](https://github.com/Raicuparta/ow-mod-db);
+
+- Basic information about the available mods comes from the [Outer Wilds Mod Database](https://github.com/ow-mods/ow-mod-db);
 - The main content of each mod page (for example, [outerwildsmods.com/mods/nomaivr](https://outerwildsmods.com/mods/nomaivr/)) is taken from that mod's `README.md` (from the default branch);
 - Images are downloaded from each mod's readme and reuploaded, for optimization and to make sure they don't disappear;
 - Thumbnails are generated from the first image available on the readme;
@@ -15,11 +16,11 @@ If you notice the website is down, please notify the admins in the [Outer Wilds 
 
 ## Development setup
 
-* [Install Node](https://nodejs.org/en/download/);
-* [Install pnpm](https://pnpm.io/installation);
-* Run `pnpm install`;
-* Run `pnpm run dev`;
-* Server will run in localhost.
+- [Install Node](https://nodejs.org/en/download/);
+- [Install pnpm](https://pnpm.io/installation);
+- Run `pnpm install`;
+- Run `pnpm run dev`;
+- Server will run in localhost.
 
 ## Testing PRs
 
@@ -27,4 +28,4 @@ New PRs are automatically deployed to [a testing app on Vercel](https://outerwil
 
 ## Deploying to production
 
-Anything that's merged to master will be deployed to production with the [Auto Deploy workflow](https://github.com/Raicuparta/outerwildsmods.com/actions/workflows/auto-deploy.yml).
+Anything that's merged to master will be deployed to production with the [Auto Deploy workflow](https://github.com/ow-mods/outerwildsmods.com/actions/workflows/auto-deploy.yml).
