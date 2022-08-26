@@ -25,6 +25,8 @@ const previousRepoNames: Record<string, string[]> = {
 	'https://github.com/misternebula/quantum-space-buddies': [
 		'https://github.com/Raicuparta/quantum-space-buddies',
 	],
+	'https://github.com/Outer-Wilds-New-Horizons/new-horizons': ['https://github.com/xen-42/outer-wilds-new-horizons'],
+	'https://github.com/Outer-Wilds-New-Horizons/nh-examples': ['https://github.com/xen-42/ow-new-horizons-examples']
 };
 
 function filterHistoryPoint(historyPoint: HistoryPoint | undefined): historyPoint is HistoryPoint {
