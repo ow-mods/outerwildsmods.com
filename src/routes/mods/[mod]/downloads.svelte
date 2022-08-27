@@ -50,6 +50,7 @@
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
+	import { recentDownloadsDayCount } from '$lib/helpers/constants';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;
@@ -100,6 +101,9 @@
 					<option value={mod.uniqueName}>{mod.name}</option>
 				{/each}
 			</select>
+			<div>
+				Last {recentDownloadsDayCount} days: {mod.recentDownloads}
+			</div>
 		</div>
 		<DownloadsChart
 			historyPoints={modDownloadHistory}

@@ -9,6 +9,7 @@ export const defaultPoint: HistoryPoint = {
 } as const;
 
 export const getFirstPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
+	// historyPoints is in reverse chronological order.
 	const firstMainPoint = mainPoints[mainPoints.length - 1];
 	const firstComparePoint = otherPoints[otherPoints.length - 1];
 
@@ -25,6 +26,7 @@ export const getFirstPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPo
 };
 
 export const getLastPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
+	// historyPoints is in reverse chronological order.
 	const lastMainPoint = mainPoints[0];
 	const lastComparePoint = otherPoints[0];
 
@@ -62,12 +64,35 @@ export const getClosestPoint = (
 	return closestPoint;
 };
 
-export const getDateText = (historyPoint: HistoryPoint) => {
-	const date = new Date(historyPoint.UnixTimestamp * 1000);
+const getDate = (historyPoint: HistoryPoint) => new Date(historyPoint.UnixTimestamp * 1000);
 
-	return date.toLocaleDateString(undefined, {
+export const getDateText = (historyPoint: HistoryPoint) =>
+	getDate(historyPoint).toLocaleDateString(undefined, {
 		day: '2-digit',
 		month: 'short',
 		year: 'numeric',
 	});
+
+const getHistoryPointsSinceDaysAgo = (historyPoints: HistoryPoint[], daysAgo: number) => {
+	const startDate = new Date();
+	startDate.setDate(startDate.getDate() - daysAgo);
+
+	// historyPoints is in reverse chronological order.
+	const rangeStartIndex = historyPoints.findIndex(
+		(historyPoint) => getDate(historyPoint) < startDate
+	);
+
+	if (rangeStartIndex == -1) return [];
+
+	return historyPoints.slice(0, rangeStartIndex);
+};
+
+export const getDownloadCountSinceDaysAgo = (historyPoints: HistoryPoint[], daysAgo: number) => {
+	const pointsSinceDaysAgo = getHistoryPointsSinceDaysAgo(historyPoints, daysAgo);
+
+	// historyPoints is in reverse chronological order.
+	const firstCount = pointsSinceDaysAgo[pointsSinceDaysAgo.length - 1]?.DownloadCount ?? 0;
+	const lastCount = pointsSinceDaysAgo[0]?.DownloadCount ?? 0;
+
+	return lastCount - firstCount;
 };
