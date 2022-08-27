@@ -25,9 +25,12 @@
 				</div>
 			</LinkButton> -->
 		</div>
-		<div class="text-sm whitespace-nowrap flex flex-col gap-2">
+		<div class="text-sm flex flex-col gap-2">
 			<div>
-				<a class="link" href="https://github.com/{mod.author}">🙋 {mod.author}</a>
+				<a class="link break-words flex gap-1 items-center" href="https://github.com/{mod.author}">
+					<span>🙋</span>
+					<span>{mod.authorDisplay ?? mod.author}</span>
+				</a>
 			</div>
 			<div>
 				<a class="link" href={mod.repo}>📄 Source Code</a>

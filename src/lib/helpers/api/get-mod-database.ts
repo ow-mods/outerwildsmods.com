@@ -19,6 +19,7 @@ export type Mod = {
 		downloadUrl: string;
 	};
 	alpha?: boolean;
+	authorDisplay?: string;
 };
 
 export interface ModWithImage extends Mod {
