@@ -21,7 +21,14 @@
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
-			return anyIncludes(filter, [mod.author, mod.description, mod.name, mod.repo, mod.uniqueName]);
+			return anyIncludes(filter, [
+				mod.author,
+				mod.description,
+				mod.name,
+				mod.repo,
+				mod.uniqueName,
+				mod.authorDisplay,
+			]);
 		}
 
 		filteredMods = sortModList(mods, sortOrder);
@@ -41,8 +48,10 @@
 		}
 	}
 
-	function anyIncludes(term: string, list: string[]) {
+	function anyIncludes(term: string, list: (string | undefined)[]) {
 		for (const listItem of list) {
+			if (!listItem) continue;
+
 			if (listItem.toLocaleLowerCase().includes(term.toLocaleLowerCase())) return true;
 		}
 		return false;
