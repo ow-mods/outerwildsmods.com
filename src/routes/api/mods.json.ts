@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import type sharp from 'sharp';
-import { listedImageSize } from '$lib/helpers/constants';
+import { listedImageSize, recentDownloadsDayCount } from '$lib/helpers/constants';
 import { getModDatabase } from '$lib/helpers/api/get-mod-database';
 import type { Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
@@ -9,6 +9,8 @@ import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 import { getImageMap } from '$lib/helpers/api/get-image-map';
 import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
+import { tryGedModDownloadHistory } from '$lib/helpers/api/get-download-history';
+import { getDownloadCountSinceDaysAgo } from '$lib/helpers/api/history-points';
 
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',
@@ -26,6 +28,7 @@ export interface ModsRequestItem extends Mod {
 	openGraphImageUrl: string | null;
 	formattedDownloadCount: string;
 	rawContentUrl: string | null;
+	recentDownloads: number;
 }
 
 export const get: RequestHandler = async () => {
@@ -52,6 +55,12 @@ export const get: RequestHandler = async () => {
 			const rawContentUrl = getRawContentUrl(mod);
 			let imageUrl: string | null = null;
 			let openGraphImageUrl: string | null = null;
+
+			const downloadHistory = await tryGedModDownloadHistory(mod.uniqueName);
+			const recentDownloads = getDownloadCountSinceDaysAgo(
+				downloadHistory,
+				recentDownloadsDayCount
+			);
 
 			try {
 				const thumbnail = await getModThumbnail(mod);
@@ -81,6 +90,7 @@ export const get: RequestHandler = async () => {
 				openGraphImageUrl,
 				formattedDownloadCount: formatNumber(mod.downloadCount),
 				rawContentUrl,
+				recentDownloads,
 			};
 		})
 	);

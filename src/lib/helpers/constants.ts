@@ -4,3 +4,5 @@ export const listedImageSize = {
 } as const;
 
 export const websiteUrl = 'https://outerwildsmods.com';
+
+export const recentDownloadsDayCount = 60;
