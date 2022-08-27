@@ -45,7 +45,6 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';
@@ -87,22 +86,24 @@
 			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
 		</div>
 		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-		<div class="flex gap-4">
-			<span>Compare with:</span>
-			<select
-				class="input"
-				on:change={(event) => {
-					compareWithMod =
-						modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
-				}}
-			>
-				<option value={null}>None</option>
-				{#each modsExceptSelf as mod}
-					<option value={mod.uniqueName}>{mod.name}</option>
-				{/each}
-			</select>
+		<div class="flex justify-between flex-wrap">
 			<div>
-				Last {recentDownloadsDayCount} days: {mod.recentDownloads}
+				<span>Compare with:</span>
+				<select
+					class="input"
+					on:change={(event) => {
+						compareWithMod =
+							modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
+					}}
+				>
+					<option value={null}>None</option>
+					{#each modsExceptSelf as mod}
+						<option value={mod.uniqueName}>{mod.name}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="mb-4">
+				Downloads in the last {recentDownloadsDayCount} days: {mod.recentDownloads}
 			</div>
 		</div>
 		<DownloadsChart

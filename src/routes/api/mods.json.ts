@@ -61,7 +61,6 @@ export const get: RequestHandler = async () => {
 				downloadHistory,
 				recentDownloadsDayCount
 			);
-			console.log('recentDownloads', recentDownloads);
 
 			try {
 				const thumbnail = await getModThumbnail(mod);
