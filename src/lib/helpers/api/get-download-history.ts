@@ -48,7 +48,8 @@ const getDownloadHistory = async () => {
 };
 
 export const getModDownloadHistory = async (modUniqueName: string) => {
-	const mods = await (await getModDatabase()).releases;
+	const modDatabase = await await getModDatabase();
+	const mods = [...modDatabase.releases, ...modDatabase.alphaReleases];
 	const repoUrl = mods.find((mod) => mod.uniqueName === modUniqueName)?.repo.toLocaleLowerCase();
 
 	if (!repoUrl) {
