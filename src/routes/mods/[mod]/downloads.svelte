@@ -89,7 +89,7 @@
 		<div class="flex gap-4">
 			<span>Compare with:</span>
 			<select
-				class="select"
+				class="input"
 				on:change={(event) => {
 					compareWithMod =
 						modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;

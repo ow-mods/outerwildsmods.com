@@ -292,7 +292,7 @@ Prevent resizing textareas horizontally by default.
 
 	input::placeholder,
 	textarea::placeholder {
-		opacity: 0.4;
+		opacity: 0.8;
 	}
 
 	/*

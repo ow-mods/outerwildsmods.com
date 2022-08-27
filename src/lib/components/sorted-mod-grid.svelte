@@ -16,9 +16,16 @@
 	export let mods: ModsRequestItem[] = [];
 
 	let sortOrder: SortOrder = 'hot';
+	let filter = '';
+	let filteredMods: ModsRequestItem[] = mods;
 
 	$: {
-		mods = sortModList(mods, sortOrder);
+		function filterMod(mod: ModsRequestItem) {
+			return anyIncludes(filter, [mod.author, mod.description, mod.name, mod.repo, mod.uniqueName]);
+		}
+
+		filteredMods = sortModList(mods, sortOrder);
+		if (filter) filteredMods = filteredMods.filter(filterMod);
 	}
 
 	onMount(() => {
@@ -33,27 +40,49 @@
 			sortOrder = sortOrderString;
 		}
 	}
+
+	function anyIncludes(term: string, list: string[]) {
+		for (const listItem of list) {
+			if (listItem.toLocaleLowerCase().includes(term.toLocaleLowerCase())) return true;
+		}
+		return false;
+	}
 </script>
 
-Sort {mods.length} items:
-<select
-	class="select"
-	value={sortOrder}
-	on:change={(event) => {
-		if (!event || !event.currentTarget) return;
-		const url = new URL($page.url);
-		url.searchParams.set(sortOrderParamName, event.currentTarget.value);
-		setSortOrder(event.currentTarget.value);
+<div class="flex gap-4 items-top">
+	<div>
+		Sort {mods.length} items:
+		<select
+			class="input"
+			value={sortOrder}
+			on:change={(event) => {
+				if (!event || !event.currentTarget) return;
+				const url = new URL($page.url);
+				url.searchParams.set(sortOrderParamName, event.currentTarget.value);
+				setSortOrder(event.currentTarget.value);
 
-		goto(url.href);
-	}}
->
-	{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
-		<option value={sortOrderId}>{sortOrder.title}</option>
-	{/each}
-</select>
+				goto(url.href);
+			}}
+		>
+			{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
+				<option value={sortOrderId}>{sortOrder.title}</option>
+			{/each}
+		</select>
+	</div>
+	<div class="relative">
+		<input class="input px-2 grayscale" bind:value={filter} placeholder="Search 🔎" />
+		{#if filter}
+			<button
+				class="absolute right-1 top-2 p-1 leading-none text-xs grayscale bg-dark"
+				on:click={() => (filter = '')}
+			>
+				❌
+			</button>
+		{/if}
+	</div>
+</div>
 <CardGrid>
-	{#each mods as mod, index (mod.uniqueName)}
+	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />
 	{/each}
 </CardGrid>
