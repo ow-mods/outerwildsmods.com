@@ -23,7 +23,6 @@ export type Mod = {
 	};
 	alpha?: boolean;
 	authorDisplay?: string;
-	score: number;
 };
 
 export interface ModWithImage extends Mod {
