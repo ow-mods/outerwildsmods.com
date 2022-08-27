@@ -49,7 +49,7 @@
 	}
 </script>
 
-<div class="flex gap-4 items-top">
+<div class="flex items-top sm:flex-row flex-col sm:gap-4">
 	<div>
 		Sort {mods.length} items:
 		<select

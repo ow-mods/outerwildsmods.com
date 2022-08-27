@@ -6,14 +6,14 @@
 </script>
 
 <svelte:head>
-	<title>Outer Wilds Mods - Find all mods for Outer Wilds</title>
+	<title>All mods, utilities and addons for Outer Wilds and Outer Wilds Alpha</title>
 	<meta
 		name="description"
 		content="Full list of mods for Outer Wilds. Including mods for VR, multiplayer, and cheats."
 	/>
 </svelte:head>
 <PageLayout>
-	<PageSection title="Literally Everything" id="mods">
+	<PageSection title="Mods, utilities and addons for Outer Wilds and Outer Wilds Alpha" id="mods">
 		<SortedModGrid mods={$modList} />
 	</PageSection>
 </PageLayout>
