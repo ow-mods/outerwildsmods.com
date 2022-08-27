@@ -73,26 +73,31 @@ export const getDateText = (historyPoint: HistoryPoint) =>
 		year: 'numeric',
 	});
 
-const getHistoryPointsSinceDaysAgo = (historyPoints: HistoryPoint[], daysAgo: number) => {
+const getHistoryPointsSinceDaysAgo = (
+	historyPoints: HistoryPoint[],
+	daysAgo: number
+): [HistoryPoint?, HistoryPoint?] => {
 	const startDate = new Date();
 	startDate.setDate(startDate.getDate() - daysAgo);
 
 	// historyPoints is in reverse chronological order.
-	const rangeStartIndex = historyPoints.findIndex(
+	let rangeStartIndex = historyPoints.findIndex(
 		(historyPoint) => getDate(historyPoint) < startDate
 	);
 
-	if (rangeStartIndex == -1) return [];
+	if (rangeStartIndex == -1) rangeStartIndex = historyPoints.length;
 
-	return historyPoints.slice(0, rangeStartIndex);
+	if (rangeStartIndex <= 0) return [];
+
+	return [historyPoints[rangeStartIndex], historyPoints[0]];
 };
 
 export const getDownloadCountSinceDaysAgo = (historyPoints: HistoryPoint[], daysAgo: number) => {
 	const pointsSinceDaysAgo = getHistoryPointsSinceDaysAgo(historyPoints, daysAgo);
 
-	// historyPoints is in reverse chronological order.
-	const firstCount = pointsSinceDaysAgo[pointsSinceDaysAgo.length - 1]?.DownloadCount ?? 0;
-	const lastCount = pointsSinceDaysAgo[0]?.DownloadCount ?? 0;
+	const firstCount = pointsSinceDaysAgo[0]?.DownloadCount ?? 0;
+
+	const lastCount = pointsSinceDaysAgo[1]?.DownloadCount ?? 0;
 
 	return lastCount - firstCount;
 };
