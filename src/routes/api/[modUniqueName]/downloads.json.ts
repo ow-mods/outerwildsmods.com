@@ -89,6 +89,8 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 		};
 	} catch (error) {
 		console.error(`Failed to get download history for ${modUniqueName}. ${error}`);
-		return [];
+		return {
+			body: [],
+		};
 	}
 };
