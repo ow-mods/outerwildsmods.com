@@ -1,4 +1,4 @@
-import { downloadHistory, modList } from '$lib/store';
+import { downloadHistory } from '$lib/store';
 import { flatten } from 'lodash-es';
 import { readFromStore } from '../read-from-store';
 import { getModDatabase } from './get-mod-database';

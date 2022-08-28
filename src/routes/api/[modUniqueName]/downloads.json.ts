@@ -88,9 +88,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 			body: cleanedUpDownloadHistory,
 		};
 	} catch (error) {
-		return {
-			status: 500,
-			error: new Error(`Failed to get download history for ${modUniqueName}. ${error}`),
-		};
+		console.error(`Failed to get download history for ${modUniqueName}. ${error}`);
+		return [];
 	}
 };
