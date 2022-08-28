@@ -35,7 +35,6 @@ export const getImageMap = async (
 	width?: number,
 	height?: number
 ): Promise<ImageMap> => {
-	console.log(`getImageMap ${baseUrl} (${imageUrls.length})`);
 	const imageMap: ImageMap = {};
 
 	const imageInfoResults = await Promise.allSettled(
