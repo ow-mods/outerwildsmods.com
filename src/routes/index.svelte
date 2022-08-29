@@ -72,7 +72,7 @@
 	<PageSection isNarrow id="outer-wilds-mods">
 		<h1 class="text-base inline">Outer Wilds Mods</h1>
 		<p class="m-0 inline">
-			are unnoficial modifications for <a
+			are unofficial modifications for <a
 				class="link"
 				href="https://www.mobiusdigitalgames.com/outer-wilds.html">Outer Wilds</a
 			>, which add new features, improvements, extra content, and more. Use the
