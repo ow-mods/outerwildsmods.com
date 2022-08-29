@@ -25,7 +25,7 @@
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
 			<PageSectionImage
-				imageUrl="/images/mod-manager.png"
+				imageUrl="/images/mod-manager.webp"
 				title="Outer Wilds Mod Manager"
 				height={300}
 			/>
