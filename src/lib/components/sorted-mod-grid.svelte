@@ -78,8 +78,8 @@
 			{/each}
 		</select>
 	</div>
-	<div class="relative">
-		<input class="input px-2 grayscale" bind:value={filter} placeholder="Search 🔎" />
+	<div class="relative flex">
+		<input class="input px-2 grayscale flex-1" bind:value={filter} placeholder="Search 🔎" />
 		{#if filter}
 			<button
 				class="absolute right-1 top-2 p-1 leading-none text-xs grayscale bg-dark"

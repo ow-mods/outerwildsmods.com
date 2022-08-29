@@ -15,3 +15,9 @@
 		<slot />
 	</div>
 </div>
+
+<style>
+	ol {
+		padding-inline-start: 0;
+	}
+</style>
