@@ -20,11 +20,10 @@
 	<div class="ratio">
 		<div class="absolute top-0 right-0 w-full">
 			<img
-				class="w-full"
+				class="w-full h-auto"
 				alt={mod.name}
 				src={mod.imageUrl || '/images/placeholder.webp'}
 				loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}
-				width={listedImageSize.width}
 			/>
 		</div>
 	</div>
