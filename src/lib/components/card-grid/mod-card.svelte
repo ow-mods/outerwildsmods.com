@@ -13,7 +13,7 @@
 	export let hideDescription = false;
 </script>
 
-<li class="list-none">
+<li class="list-none block min-w-fit">
 	<a
 		href={`/mods/${getModPathName(mod.name)}/`}
 		sveltekit:prefetch

@@ -5,7 +5,7 @@
 </script>
 
 <a
-	class="button-cta"
+	class="button bg-cta text-white bg-opacity-80 hover:bg-opacity-100"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
