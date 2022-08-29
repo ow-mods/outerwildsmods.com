@@ -112,7 +112,7 @@
 		title="Outer Wilds?"
 		id="outer-wilds"
 		description="Outer Wilds is a neat game. Check it out and buy it or whatever."
-		imageUrl="/images/outer-wilds.jpg"
+		imageUrl="/images/outer-wilds.webp"
 		isNarrow
 	>
 		<LinkList links={infoLinks} />
