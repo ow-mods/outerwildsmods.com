@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { listedImageSize } from '$lib/helpers/constants';
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import ModCardDetails from './mod-card-details.svelte';
@@ -22,14 +21,6 @@
 		<ModCardDetails {mod}>
 			{hideDescription ? '' : mod.description}
 		</ModCardDetails>
-		<ModCardImage {mod}>
-			<img
-				class="w-full object-cover"
-				alt={mod.name}
-				src={mod.imageUrl || '/images/placeholder.webp'}
-				loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}
-				width={listedImageSize.width}
-			/>
-		</ModCardImage>
+		<ModCardImage {mod} {lazy} />
 	</a>
 </li>
