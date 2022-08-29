@@ -25,7 +25,6 @@
 				src={mod.imageUrl || '/images/placeholder.webp'}
 				loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}
 				width={listedImageSize.width}
-				height={listedImageSize.height}
 			/>
 		</div>
 	</div>
