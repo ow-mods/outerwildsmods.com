@@ -6,12 +6,12 @@
 </script>
 
 <div class="flex gap-4">
-	<ol class="grid grid-cols-1 gap-4 sm:grid-cols-3 m-auto w-full">
+	<ol class="grid grid-cols-1 gap-2 md:grid-cols-3 m-auto w-full">
 		{#each mods as mod (mod?.uniqueName)}
 			<ModCard hideDescription {mod} />
 		{/each}
 	</ol>
-	<div class="md:flex flex-col justify-center w-28 hidden">
+	<div class="flex flex-col justify-center w-28">
 		<slot />
 	</div>
 </div>
