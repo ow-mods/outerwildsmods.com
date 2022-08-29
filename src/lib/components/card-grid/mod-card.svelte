@@ -13,22 +13,24 @@
 	export let hideDescription = false;
 </script>
 
-<a
-	href={`/mods/${getModPathName(mod.name)}/`}
-	sveltekit:prefetch
-	class="link block max-w-sm mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline"
->
-	<ModCardImage {mod}>
-		<img
-			class="w-full object-cover"
-			alt={mod.name}
-			src={mod.imageUrl || '/images/placeholder.jpg'}
-			loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}
-			width={listedImageSize.width}
-			height={listedImageSize.height}
-		/>
-	</ModCardImage>
-	<ModCardDetails {mod}>
-		{hideDescription ? '' : mod.description}
-	</ModCardDetails>
-</a>
+<li class="list-none">
+	<a
+		href={`/mods/${getModPathName(mod.name)}/`}
+		sveltekit:prefetch
+		class="link max-w-sm mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline flex flex-col-reverse justify-end"
+	>
+		<ModCardDetails {mod}>
+			{hideDescription ? '' : mod.description}
+		</ModCardDetails>
+		<ModCardImage {mod}>
+			<img
+				class="w-full object-cover"
+				alt={mod.name}
+				src={mod.imageUrl || '/images/placeholder.jpg'}
+				loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}
+				width={listedImageSize.width}
+				height={listedImageSize.height}
+			/>
+		</ModCardImage>
+	</a>
+</li>
