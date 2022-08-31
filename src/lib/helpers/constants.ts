@@ -1,6 +1,6 @@
 export const listedImageSize = {
-	width: 600,
-	height: 200,
+	width: 300,
+	height: 100,
 } as const;
 
 export const websiteUrl = 'https://outerwildsmods.com';
