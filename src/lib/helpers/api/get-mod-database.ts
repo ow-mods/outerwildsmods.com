@@ -12,6 +12,7 @@ export type Mod = {
 	repo: string;
 	downloadUrl: string;
 	downloadCount: number;
+	viewCount: number;
 	latestReleaseDate: string;
 	firstReleaseDate: string;
 	required?: boolean;
