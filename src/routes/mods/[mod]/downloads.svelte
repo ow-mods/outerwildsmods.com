@@ -105,9 +105,6 @@
 			<div class="mb-4">
 				Downloads in the last {recentDownloadsDayCount} days: {mod.recentDownloads}
 			</div>
-			<div class="mb-4">
-				Page views in the last {recentViewsDayCount} days: {mod.viewCount}
-			</div>
 		</div>
 		<DownloadsChart
 			historyPoints={modDownloadHistory}
