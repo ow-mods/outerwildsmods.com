@@ -6,6 +6,14 @@ const config = {
 		preflight: false,
 	},
 	theme: {
+		screens: {
+			xs: '480px',
+			sm: '640px',
+			md: '768px',
+			lg: '1024px',
+			xl: '1280px',
+			'2xl': '1536px',
+		},
 		colors: {
 			white: '#ffffff',
 			black: '#000000',
