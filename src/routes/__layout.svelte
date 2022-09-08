@@ -30,10 +30,12 @@
 	import '../styles/utilities.css';
 	import '../styles/app.css';
 	import type { StarDataResponse } from './api/stars.json';
+	import Analytics from '$lib/components/analytics.svelte';
 
 	export let starData: StarDataResponse;
 </script>
 
+<Analytics />
 <Header {starData} />
 <main class="bg-background overflow-hidden">
 	<slot />
