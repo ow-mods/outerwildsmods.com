@@ -4,6 +4,7 @@ specifiers:
   '@sveltejs/adapter-static': 1.0.0-next.28
   '@sveltejs/kit': 1.0.0-next.286
   '@types/commonmark': ^0.27.5
+  '@types/gtag.js': ^0.0.11
   '@types/lodash-es': ^4.17.6
   '@types/semver-utils': ^1.1.1
   '@types/sharp': ^0.30.2
@@ -38,6 +39,7 @@ devDependencies:
   '@sveltejs/adapter-static': 1.0.0-next.28
   '@sveltejs/kit': 1.0.0-next.286_svelte@3.46.4
   '@types/commonmark': 0.27.5
+  '@types/gtag.js': 0.0.11
   '@types/lodash-es': 4.17.6
   '@types/semver-utils': 1.1.1
   '@types/sharp': 0.30.2
@@ -444,6 +446,10 @@ packages:
 
   /@types/commonmark/0.27.5:
     resolution: {integrity: sha512-vIqgmHyLsc8Or3EWLz6QkhI8/v61FNeH0yxRupA7VqSbA2eFMoHHJAhZSHudplAV89wqg1CKSmShE016ziRXuw==}
+    dev: true
+
+  /@types/gtag.js/0.0.11:
+    resolution: {integrity: sha512-rUuSDedDjcuUpoc2zf6eX6zRrxqALNgwrmMBfVFopkLH7YGM52C7tt6j9GsYIvaxn+ioVRpOKoHnN1DXzHEqIg==}
     dev: true
 
   /@types/json-schema/7.0.11:
