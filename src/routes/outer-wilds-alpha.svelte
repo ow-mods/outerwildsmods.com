@@ -8,8 +8,9 @@
 	import SortedModGrid from '$lib/components/sorted-mod-grid.svelte';
 	import { modList } from '$lib/store';
 
-	const standardMods = $modList.filter((mod) => !mod.utility && !mod.parent && mod.alpha);
 	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && mod.alpha);
+	const utilityModsUniqueNames = utilityMods.map((mod) => mod.uniqueName);
+	const standardMods = $modList.filter((mod) => !mod.utility && (!mod.parent || utilityModsUniqueNames.includes(mod.parent)) && mod.alpha);
 </script>
 
 <svelte:head>
