@@ -25,8 +25,8 @@
 
 	const forModdersLinks = [
 		{
-			text: 'Info for modders in OWML docs',
-			href: 'https://github.com/amazingalek/owml/wiki/For-modders',
+			text: 'Read the OWML docs to learn how to make mods',
+			href: 'https://owml.outerwildsmods.com',
 		},
 		{
 			text: 'Outer Wilds mod template',
