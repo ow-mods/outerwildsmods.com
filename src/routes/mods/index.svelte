@@ -26,6 +26,6 @@
 		<p>
 			These aren't usually useful by themselves, but contain common resources used by other mods.
 		</p>
-		<SortedModGrid mods={utilityMods} defaultSortOrder='mostDownloadedXDays' />
+		<SortedModGrid mods={utilityMods} defaultSortOrder='mostViewsXDays' />
 	</PageSection>
 </PageLayout>
