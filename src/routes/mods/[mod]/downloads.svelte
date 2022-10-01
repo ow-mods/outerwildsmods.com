@@ -102,9 +102,6 @@
 					{/each}
 				</select>
 			</div>
-			<div class="mb-4">
-				Downloads in the last {recentDownloadsDayCount} days: {mod.recentDownloads}
-			</div>
 		</div>
 		<DownloadsChart
 			historyPoints={modDownloadHistory}

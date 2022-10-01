@@ -89,12 +89,3 @@ function lowerCaseKeys<TValue>(record: Record<string, TValue>) {
 function filterHistoryPoint(historyPoint: HistoryPoint | undefined): historyPoint is HistoryPoint {
 	return (historyPoint?.DownloadCount ?? 0) > 0;
 }
-
-export async function tryGedModDownloadHistory(modUniqueName: string) {
-	try {
-		return await getModDownloadHistory(modUniqueName);
-	} catch (error) {
-		console.warn(`Failed to get download history for ${modUniqueName}. ${error}`);
-		return [];
-	}
-}
