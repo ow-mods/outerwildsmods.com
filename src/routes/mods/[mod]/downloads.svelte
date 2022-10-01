@@ -49,7 +49,7 @@
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
-	import { recentDownloadsDayCount, recentViewsDayCount } from '$lib/helpers/constants';
+	import { recentDownloadsDayCount } from '$lib/helpers/constants';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;
