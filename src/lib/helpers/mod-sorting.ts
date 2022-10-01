@@ -7,7 +7,7 @@ export const sortOrders = {
 	hot: {
 		title: 'Hot',
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) => {
-			return modB.viewCount - modA.viewCount;
+			return modB.installCount - modA.installCount;
 		},
 	},
 	mostDownloaded: {
