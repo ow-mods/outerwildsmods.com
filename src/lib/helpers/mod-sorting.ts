@@ -1,5 +1,5 @@
 import type { ModsRequestItem } from '../../routes/api/mods.json';
-import { recentDownloadsDayCount } from './constants';
+import { recentDownloadsDayCount, recentViewsDayCount } from './constants';
 
 export const sortOrderParamName = 'sortOrder' as const;
 
@@ -7,7 +7,7 @@ export const sortOrders = {
 	hot: {
 		title: 'Hot',
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) => {
-			return modB.viewCount - modA.viewCount;
+			return modB.installCount - modA.installCount;
 		},
 	},
 	mostDownloaded: {
@@ -15,10 +15,10 @@ export const sortOrders = {
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
 			modB.downloadCount - modA.downloadCount,
 	},
-	mostDownloadedXDays: {
-		title: `Recent downloads (${recentDownloadsDayCount} days)`,
+	mostViewsXDays: {
+		title: `Recent views (${recentViewsDayCount} days)`,
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) => {
-			return modB.recentDownloads - modA.recentDownloads;
+			return modB.viewCount - modA.viewCount;
 		},
 	},
 	newest: {

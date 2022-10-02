@@ -14,8 +14,9 @@
 	import { onMount } from 'svelte';
 
 	export let mods: ModsRequestItem[] = [];
+	export let defaultSortOrder: SortOrder = 'hot';
 
-	let sortOrder: SortOrder = 'hot';
+	let sortOrder: SortOrder = defaultSortOrder;
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
 
