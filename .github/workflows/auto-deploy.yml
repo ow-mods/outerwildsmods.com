@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,12 +30,20 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Deploy to GH-Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
+      - name: Upload Artifact
+        if: success() && github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v1
         with:
-          token: '${{ secrets.GH_TOKEN }}'
-          branch: gh-pages
-          folder: build
-          git-config-name: Outer Wilds Mods Website
-          git-config-email: Outer Wilds Mods Website
-          single-commit: true
+          path: build/
+  deploy:
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+      runs-on: ubuntu-latest
+      name: Deploy
+      needs: build
+      if: github.ref == 'refs/heads/master'
+      steps:
+        - name: Deploy to GitHub Pages
+          id: deployment
+          uses: actions/deploy-pages@v1
