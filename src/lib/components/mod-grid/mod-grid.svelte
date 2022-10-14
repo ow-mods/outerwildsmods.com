@@ -41,6 +41,7 @@
 					mod.repo,
 					mod.uniqueName,
 					mod.authorDisplay,
+					...mod.tags,
 				])
 			);
 		}
