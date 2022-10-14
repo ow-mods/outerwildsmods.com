@@ -4,7 +4,7 @@
 </script>
 
 <button
-	class="px-1 rounded bg-dark text-sm border-dark"
+	class="px-1 rounded bg-dark text-sm border-dark text-light"
 	class:text-accent={selected}
 	class:opacity-75={!selected}
 	{title}
