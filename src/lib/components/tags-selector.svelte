@@ -1,20 +1,22 @@
 <script lang="ts">
+	import type { ModTag } from '$lib/helpers/api/get-mod-database';
 	import { tagList } from '$lib/store';
+	import type { TagStates } from './mod-grid/mod-grid.svelte';
 	import TagToggle from './tag-toggle.svelte';
 
-	export let tagStates: Record<string, boolean> = {};
-	export let onChange: (tag: Record<string, boolean>) => void;
+	export let tagStates: TagStates;
+	export let onChange: (tag: TagStates) => void;
 
 	const setAll = (state: boolean) => {
 		const tags = { ...tagStates };
-		for (const tag of Object.keys(tags)) {
+		for (const tag of $tagList) {
 			tags[tag] = state;
 		}
 
 		onChange(tags);
 	};
 
-	const onToggleTag = (tag: string) => {
+	const onToggleTag = (tag: ModTag) => {
 		onChange({
 			...tagStates,
 			[tag]: !tagStates[tag],

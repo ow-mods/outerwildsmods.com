@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 import type { OctokitAuthenticatedUser } from './octokit';
 import type { Octokit } from 'octokit';
 import type { DownloadHistory } from './helpers/api/get-download-history';
-import type { ModDatabase } from './helpers/api/get-mod-database';
+import type { ModDatabase, ModTag } from './helpers/api/get-mod-database';
 
 export const modList = writable<ModsRequestItem[]>([]);
 
@@ -15,4 +15,4 @@ export const octokit = writable<Octokit | undefined>();
 
 export const downloadHistory = writable<DownloadHistory | undefined>();
 
-export const tagList = writable<string[]>();
+export const tagList = writable<ModTag[]>();

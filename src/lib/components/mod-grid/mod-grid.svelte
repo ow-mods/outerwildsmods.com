@@ -1,3 +1,7 @@
+<script context="module" lang="ts">
+	export type TagStates = Record<ModTag, boolean>;
+</script>
+
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -12,7 +16,7 @@
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
-	import { tagList } from '$lib/store';
+	import type { ModTag } from '$lib/helpers/api/get-mod-database';
 
 	export let mods: ModsRequestItem[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
@@ -20,7 +24,17 @@
 	let sortOrder: SortOrder = defaultSortOrder;
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
-	let tagStates: Record<string, boolean> = {};
+	let tagStates: TagStates = {
+		audiovisual: true,
+		content: true,
+		gameplay: true,
+		integration: true,
+		library: true,
+		localization: true,
+		story: true,
+		tool: true,
+		tweaks: true,
+	};
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
@@ -40,12 +54,6 @@
 		}
 
 		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
-	}
-
-	$: {
-		for (const tag of $tagList) {
-			tagStates[tag] = true;
-		}
 	}
 
 	onMount(() => {
@@ -72,7 +80,7 @@
 		return false;
 	}
 
-	const onChangeTags = (states: Record<string, boolean>) => {
+	const onChangeTags = (states: TagStates) => {
 		tagStates = states;
 	};
 </script>

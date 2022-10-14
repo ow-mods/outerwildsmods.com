@@ -3,6 +3,18 @@ import { readFromStore } from '../read-from-store';
 
 const DATABASE_URL = 'https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/database.json';
 
+// Caution: must be synced with tags in ow-mod-db repo.
+export type ModTag =
+	| 'library'
+	| 'gameplay'
+	| 'tweaks'
+	| 'integration'
+	| 'tool'
+	| 'content'
+	| 'story'
+	| 'audiovisual'
+	| 'localization';
+
 export type Mod = {
 	name: string;
 	uniqueName: string;
@@ -25,7 +37,7 @@ export type Mod = {
 	};
 	alpha?: boolean;
 	authorDisplay?: string;
-	tags: string[];
+	tags: ModTag[];
 };
 
 export interface ModWithImage extends Mod {
