@@ -25,12 +25,14 @@
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
 	let tagStates: TagStates = {};
+	let selectedTagCount = 0;
 
 	const tags = $tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
-			const isTagSelected = mod.tags.findIndex((tag) => tagStates[tag]) != -1;
+			const isTagSelected =
+				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 
 			return (
 				isTagSelected &&
@@ -47,6 +49,10 @@
 		}
 
 		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
+	}
+
+	$: {
+		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
 	}
 
 	onMount(() => {
@@ -73,8 +79,25 @@
 		return false;
 	}
 
-	const onChangeTags = (states: TagStates) => {
-		tagStates = states;
+	const getInitialState = (defaultState: boolean) => {
+		const newTagStates = { ...tagStates };
+		for (const tag of tags) {
+			newTagStates[tag] = defaultState;
+		}
+		return newTagStates;
+	};
+
+	const onToggleTag = (tag: string) => {
+		const initialState = selectedTagCount == tags.length ? getInitialState(false) : tagStates;
+
+		tagStates = {
+			...initialState,
+			[tag]: !initialState[tag],
+		};
+	};
+
+	const onClearTags = () => {
+		tagStates = {};
 	};
 </script>
 
@@ -113,7 +136,7 @@
 		{filteredMods.length} items
 	</div>
 </div>
-<TagsSelector {tagStates} onChange={onChangeTags} {tags} />
+<TagsSelector {tagStates} {onToggleTag} onClear={onClearTags} {tags} />
 <div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />
