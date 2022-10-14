@@ -17,6 +17,7 @@
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import type { ModTag } from '$lib/helpers/api/get-mod-database';
+	import { tagList } from '$lib/store';
 
 	export let mods: ModsRequestItem[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
@@ -35,6 +36,8 @@
 		tool: true,
 		tweaks: true,
 	};
+
+	const tags = $tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
@@ -117,7 +120,7 @@
 		{/if}
 	</div>
 </div>
-<TagsSelector {tagStates} onChange={onChangeTags} />
+<TagsSelector {tagStates} onChange={onChangeTags} {tags} />
 <div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />

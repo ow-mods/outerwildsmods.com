@@ -1,18 +1,18 @@
 <script lang="ts">
 	import type { ModTag } from '$lib/helpers/api/get-mod-database';
-	import { tagList } from '$lib/store';
 	import type { TagStates } from './mod-grid/mod-grid.svelte';
 	import TagToggle from './tag-toggle.svelte';
 
 	export let tagStates: TagStates;
 	export let onChange: (tag: TagStates) => void;
+	export let tags: ModTag[];
 
 	const getInitialState = (defaultState: boolean) => {
-		const tags = { ...tagStates };
-		for (const tag of $tagList) {
-			tags[tag] = defaultState;
+		const newTagStates = { ...tagStates };
+		for (const tag of tags) {
+			newTagStates[tag] = defaultState;
 		}
-		return tags;
+		return newTagStates;
 	};
 
 	const setAll = (state: boolean) => {
@@ -33,7 +33,7 @@
 
 	$: {
 		selectedCount = Object.values(tagStates).filter((tagState) => tagState).length;
-		allSelected = selectedCount == $tagList.length;
+		allSelected = selectedCount == tags.length;
 
 		if (selectedCount == 0) {
 			setAll(true);
@@ -42,13 +42,15 @@
 </script>
 
 <div class="flex flex-wrap gap-2 mb-2">
-	{#each $tagList as tag}
-		<TagToggle selected={!allSelected && tagStates[tag]} on:click={() => onToggleTag(tag)}
-			>{tag}</TagToggle
-		>
+	{#each tags as tag}
+		<TagToggle selected={!allSelected && tagStates[tag]} on:click={() => onToggleTag(tag)}>
+			{tag}
+		</TagToggle>
 	{/each}
 
-	<TagToggle title="Clear" on:click={() => setAll(true)} selected={allSelected}>
-		<div class:grayscale={allSelected} class="text-xs">❌</div>
-	</TagToggle>
+	{#if !allSelected}
+		<TagToggle title="Clear" on:click={() => setAll(true)} selected>
+			<div class="text-xs grayscale">❌</div>
+		</TagToggle>
+	{/if}
 </div>
