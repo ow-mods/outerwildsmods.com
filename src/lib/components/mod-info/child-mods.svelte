@@ -2,7 +2,7 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import LinkButton from '../button/link-button.svelte';
 	import { modList } from '$lib/store';
-	import ModCard from '../card-grid/mod-card.svelte';
+	import ModCard from '../mod-grid/mod-card.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';

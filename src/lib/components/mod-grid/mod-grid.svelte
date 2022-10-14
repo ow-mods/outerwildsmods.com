@@ -1,9 +1,12 @@
+<script context="module" lang="ts">
+	export type TagStates = Record<string, boolean>;
+</script>
+
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import ModCard from '$lib/components/card-grid/mod-card.svelte';
-	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
-	import type { ModsRequestItem } from '../../routes/api/mods.json';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
+	import type { ModsRequestItem } from '../../../routes/api/mods.json';
 	import {
 		SortOrder,
 		sortModList,
@@ -12,6 +15,8 @@
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
+	import TagsSelector from '../tags-selector.svelte';
+	import { tagList } from '$lib/store';
 
 	export let mods: ModsRequestItem[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
@@ -19,21 +24,35 @@
 	let sortOrder: SortOrder = defaultSortOrder;
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
+	let tagStates: TagStates = {};
+	let selectedTagCount = 0;
+
+	const tags = $tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
-			return anyIncludes(filter, [
-				mod.author,
-				mod.description,
-				mod.name,
-				mod.repo,
-				mod.uniqueName,
-				mod.authorDisplay,
-			]);
+			const isTagSelected =
+				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
+
+			return (
+				isTagSelected &&
+				anyIncludes(filter, [
+					mod.author,
+					mod.description,
+					mod.name,
+					mod.repo,
+					mod.uniqueName,
+					mod.authorDisplay,
+					...mod.tags,
+				])
+			);
 		}
 
-		filteredMods = sortModList(mods, sortOrder);
-		if (filter) filteredMods = filteredMods.filter(filterMod);
+		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
+	}
+
+	$: {
+		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
 	}
 
 	onMount(() => {
@@ -50,6 +69,8 @@
 	}
 
 	function anyIncludes(term: string, list: (string | undefined)[]) {
+		if (!term) return true;
+
 		for (const listItem of list) {
 			if (!listItem) continue;
 
@@ -57,11 +78,33 @@
 		}
 		return false;
 	}
+
+	const getInitialState = (defaultState: boolean) => {
+		const newTagStates = { ...tagStates };
+		for (const tag of tags) {
+			newTagStates[tag] = defaultState;
+		}
+		return newTagStates;
+	};
+
+	const onToggleTag = (tag: string) => {
+		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
+
+		if (!toggledTag) {
+			currentTagStates[tag] = true;
+		}
+
+		tagStates = currentTagStates;
+	};
+
+	const onClearTags = () => {
+		tagStates = {};
+	};
 </script>
 
-<div class="flex items-top sm:flex-row flex-col sm:gap-4">
+<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
 	<div>
-		Sort {mods.length} items:
+		Sort:
 		<select
 			class="input"
 			value={sortOrder}
@@ -90,9 +133,13 @@
 			</button>
 		{/if}
 	</div>
+	<div>
+		{filteredMods.length} items
+	</div>
 </div>
-<CardGrid>
+<TagsSelector {tagStates} {onToggleTag} onClear={onClearTags} {tags} />
+<div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />
 	{/each}
-</CardGrid>
+</div>
