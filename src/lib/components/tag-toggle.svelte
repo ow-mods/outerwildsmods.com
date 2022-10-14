@@ -9,6 +9,7 @@
 	class:opacity-75={!selected}
 	{title}
 	on:click
+	data-nosnippet
 >
 	<slot />
 </button>
