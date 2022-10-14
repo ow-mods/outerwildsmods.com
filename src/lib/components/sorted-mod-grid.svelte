@@ -12,7 +12,7 @@
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
-	import { tagsState } from '$lib/store';
+	import { tagStates } from '$lib/store';
 	import TagsSelector from './tags-selector.svelte';
 
 	export let mods: ModsRequestItem[] = [];
@@ -24,7 +24,7 @@
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
-			const tags = $tagsState;
+			const tags = $tagStates;
 			const isTagSelected = mod.tags.findIndex((tag) => tags[tag]) != -1;
 
 			return (

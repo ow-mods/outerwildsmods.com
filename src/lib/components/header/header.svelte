@@ -20,6 +20,5 @@
 		<NavigationLink href="/mods">Mods</NavigationLink>
 		<NavigationLink href="/custom-worlds">Custom Worlds</NavigationLink>
 		<NavigationLink href="/outer-wilds-alpha">Outer Wilds Alpha</NavigationLink>
-		<NavigationLink href="/all">All</NavigationLink>
 	</Navigation>
 </header>
