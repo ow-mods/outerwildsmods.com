@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export type TagStates = Record<ModTag, boolean>;
+	export type TagStates = Record<string, boolean>;
 </script>
 
 <script lang="ts">
@@ -16,7 +16,6 @@
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
-	import type { ModTag } from '$lib/helpers/api/get-mod-database';
 	import { tagList } from '$lib/store';
 
 	export let mods: ModsRequestItem[] = [];
@@ -25,17 +24,7 @@
 	let sortOrder: SortOrder = defaultSortOrder;
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
-	let tagStates: TagStates = {
-		audiovisual: true,
-		content: true,
-		gameplay: true,
-		integration: true,
-		library: true,
-		localization: true,
-		story: true,
-		tool: true,
-		tweaks: true,
-	};
+	let tagStates: TagStates = {};
 
 	const tags = $tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 

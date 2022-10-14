@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { ModTag } from '$lib/helpers/api/get-mod-database';
 	import type { TagStates } from './mod-grid/mod-grid.svelte';
 	import TagToggle from './tag-toggle.svelte';
 
 	export let tagStates: TagStates;
 	export let onChange: (tag: TagStates) => void;
-	export let tags: ModTag[];
+	export let tags: string[];
 
 	const getInitialState = (defaultState: boolean) => {
 		const newTagStates = { ...tagStates };
@@ -19,7 +18,7 @@
 		onChange(getInitialState(state));
 	};
 
-	const onToggleTag = (tag: ModTag) => {
+	const onToggleTag = (tag: string) => {
 		const initialState = allSelected ? getInitialState(false) : tagStates;
 
 		onChange({
@@ -32,7 +31,7 @@
 	let allSelected = false;
 
 	$: {
-		selectedCount = Object.values(tagStates).filter((tagState) => tagState).length;
+		selectedCount = tags.filter((tag) => tagStates[tag]).length;
 		allSelected = selectedCount == tags.length;
 
 		if (selectedCount == 0) {
