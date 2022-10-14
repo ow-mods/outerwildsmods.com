@@ -88,12 +88,13 @@
 	};
 
 	const onToggleTag = (tag: string) => {
-		const initialState = selectedTagCount == tags.length ? getInitialState(false) : tagStates;
+		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
 
-		tagStates = {
-			...initialState,
-			[tag]: !initialState[tag],
-		};
+		if (!toggledTag) {
+			currentTagStates[tag] = true;
+		}
+
+		tagStates = currentTagStates;
 	};
 
 	const onClearTags = () => {

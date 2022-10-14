@@ -30,6 +30,9 @@ const config = {
 			fontSize: {
 				base: '1.1rem',
 			},
+			aspectRatio: {
+				modThumbnail: '1 / 3',
+			},
 		},
 	},
 	plugins: [],
