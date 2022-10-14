@@ -12,7 +12,6 @@
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
-	import LinkButton from './button/link-button.svelte';
 	import { tagsState } from '$lib/store';
 	import TagsSelector from './tags-selector.svelte';
 
