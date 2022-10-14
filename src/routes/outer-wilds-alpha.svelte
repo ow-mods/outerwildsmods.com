@@ -5,7 +5,7 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import ModGrid from '$lib/components/mod-grid.svelte';
+	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import { modList } from '$lib/store';
 
 	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && mod.alpha);

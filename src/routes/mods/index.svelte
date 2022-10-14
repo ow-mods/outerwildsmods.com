@@ -2,7 +2,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { modList } from '$lib/store';
-	import ModGrid from '$lib/components/mod-grid.svelte';
+	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 </script>
 
 <svelte:head>

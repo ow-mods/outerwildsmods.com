@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from '../../routes/api/mods.json';
+	import type { ModsRequestItem } from '../../../routes/api/mods.json';
 	import {
 		SortOrder,
 		sortModList,
@@ -11,7 +11,7 @@
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
-	import TagsSelector from './tags-selector.svelte';
+	import TagsSelector from '../tags-selector.svelte';
 	import { tagList } from '$lib/store';
 
 	export let mods: ModsRequestItem[] = [];
