@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tagsState } from '$lib/store';
+	import TagToggle from './tag-toggle.svelte';
 
 	const onClickTag = (tag: string) => {
 		tagsState.set({
@@ -20,25 +21,9 @@
 
 <div class="flex gap-2 mb-2">
 	{#each Object.entries($tagsState) as [tag, selected]}
-		<button
-			class="px-1 rounded bg-dark text-sm border-dark border outline outline-background hover:bg-background hover:outline-dark outline-2"
-			class:outline-accent={selected}
-			on:click={() => onClickTag(tag)}>{tag}</button
-		>
+		<TagToggle {selected} on:click={() => onClickTag(tag)}>{tag}</TagToggle>
 	{/each}
-	<button
-		class="px-1 rounded bg-dark text-sm border-dark border outline outline-background hover:bg-background hover:outline-dark outline-2"
-		on:click={() => setAll(false)}
-		title="None"
-	>
-		none
-	</button>
+	<TagToggle on:click={() => setAll(false)}>none</TagToggle>
 
-	<button
-		class="px-1 rounded bg-dark text-sm border-dark border outline outline-background hover:bg-background hover:outline-dark outline-2"
-		on:click={() => setAll(true)}
-		title="All"
-	>
-		all
-	</button>
+	<TagToggle on:click={() => setAll(true)}>all</TagToggle>
 </div>
