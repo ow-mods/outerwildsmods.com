@@ -4,11 +4,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { modList } from '$lib/store';
 
-	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && !mod.alpha);
-	const utilityModsUniqueNames = utilityMods.map((mod) => mod.uniqueName);
-	const standardMods = $modList.filter(
-		(mod) => (!mod.parent || utilityModsUniqueNames.includes(mod.parent)) && !mod.alpha
-	);
+	const standardMods = $modList.filter((mod) => !mod.alpha);
 </script>
 
 <svelte:head>

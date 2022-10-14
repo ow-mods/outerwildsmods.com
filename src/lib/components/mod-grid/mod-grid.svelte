@@ -78,7 +78,7 @@
 	};
 </script>
 
-<div class="flex gap-2 mb-2 items-center flex-wrap">
+<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
 	<div>
 		Sort:
 		<select
