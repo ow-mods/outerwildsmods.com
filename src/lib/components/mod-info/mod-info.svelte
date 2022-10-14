@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import CtaButton from '../button/cta-button.svelte';
-	import LinkButton from '../button/link-button.svelte';
+	import TagToggle from '../tag-toggle.svelte';
 
 	export let mod: ModsRequestItem;
 </script>
@@ -9,6 +9,11 @@
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
 	<div class="flex flex-col gap-4">
 		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
+		<div class="flex flex-wrap gap-1 text-sm">
+			{#each mod.tags as tag}
+				<span class="px-1 rounded bg-background" data-nosnippet>{tag}</span>
+			{/each}
+		</div>
 		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
 			<CtaButton href="/mod-manager">

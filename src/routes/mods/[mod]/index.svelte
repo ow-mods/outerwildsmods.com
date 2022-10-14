@@ -42,7 +42,7 @@
 
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import ModActions from '$lib/components/mod-info/mod-actions.svelte';
+	import ModActions from '$lib/components/mod-info/mod-info.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
