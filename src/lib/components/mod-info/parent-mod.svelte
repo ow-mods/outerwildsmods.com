@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { modList } from '$lib/store';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import ModCard from '../card-grid/mod-card.svelte';
+	import ModCard from '../mod-grid/mod-card.svelte';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	export let parentUniqueName: string | undefined;

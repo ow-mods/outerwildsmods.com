@@ -2,7 +2,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { modList } from '$lib/store';
-	import SortedModGrid from '$lib/components/sorted-mod-grid.svelte';
+	import ModGrid from '$lib/components/mod-grid.svelte';
 </script>
 
 <svelte:head>
@@ -14,6 +14,6 @@
 </svelte:head>
 <PageLayout>
 	<PageSection title="Available mods" id="mods">
-		<SortedModGrid mods={$modList} />
+		<ModGrid mods={$modList} />
 	</PageSection>
 </PageLayout>

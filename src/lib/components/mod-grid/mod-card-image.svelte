@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { listedImageSize } from '$lib/helpers/constants';
-
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 

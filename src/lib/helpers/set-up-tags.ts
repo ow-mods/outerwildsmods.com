@@ -1,17 +1,16 @@
-import { tagCounts, tagStates } from '$lib/store';
+import { tagList } from '$lib/store';
 import type { ModsRequestItem } from 'src/routes/api/mods.json';
 
 export const setUpTags = async (modList: ModsRequestItem[]) => {
-	const states: Record<string, boolean> = {};
+	const tags: Set<string> = new Set();
 	const counts: Record<string, number> = {};
 
 	for (const mod of modList) {
 		for (const tag of mod.tags) {
-			states[tag] = true;
+			tags.add(tag);
 			counts[tag] = (counts[tag] ?? 0) + 1;
 		}
 	}
 
-	tagStates.set(states);
-	tagCounts.set(counts);
+	tagList.set(Array.from(tags).sort((tagA, tagB) => (counts[tagB] ?? 0) - (counts[tagA] ?? 0)));
 };

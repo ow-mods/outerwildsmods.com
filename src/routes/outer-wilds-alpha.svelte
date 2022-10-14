@@ -5,8 +5,15 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import SortedModGrid from '$lib/components/sorted-mod-grid.svelte';
+	import ModGrid from '$lib/components/mod-grid.svelte';
 	import { modList } from '$lib/store';
+
+	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && mod.alpha);
+	const utilityModsUniqueNames = utilityMods.map((mod) => mod.uniqueName);
+	const standardMods = $modList.filter(
+		(mod) =>
+			!mod.utility && (!mod.parent || utilityModsUniqueNames.includes(mod.parent)) && mod.alpha
+	);
 </script>
 
 <svelte:head>
@@ -40,6 +47,6 @@
 			Wilds. To install mods with it, go to the manager settings and change the "Game version to use"
 			setting.
 		</p>
-		<SortedModGrid mods={$modList} />
+		<ModGrid mods={standardMods} />
 	</PageSection>
 </PageLayout>

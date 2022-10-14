@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import ModCard from '$lib/components/card-grid/mod-card.svelte';
-	import CardGrid from '$lib/components/card-grid/card-grid.svelte';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import type { ModsRequestItem } from '../../routes/api/mods.json';
 	import {
 		SortOrder,
@@ -12,8 +11,8 @@
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
-	import { tagStates } from '$lib/store';
 	import TagsSelector from './tags-selector.svelte';
+	import { tagList } from '$lib/store';
 
 	export let mods: ModsRequestItem[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
@@ -21,11 +20,11 @@
 	let sortOrder: SortOrder = defaultSortOrder;
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
+	let tagStates: Record<string, boolean> = {};
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
-			const tags = $tagStates;
-			const isTagSelected = mod.tags.findIndex((tag) => tags[tag]) != -1;
+			const isTagSelected = mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 
 			return (
 				isTagSelected &&
@@ -41,6 +40,12 @@
 		}
 
 		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
+	}
+
+	$: {
+		for (const tag of $tagList) {
+			tagStates[tag] = true;
+		}
 	}
 
 	onMount(() => {
@@ -66,6 +71,10 @@
 		}
 		return false;
 	}
+
+	const onChangeTags = (states: Record<string, boolean>) => {
+		tagStates = states;
+	};
 </script>
 
 <div class="flex items-top sm:flex-row flex-col sm:gap-4">
@@ -100,9 +109,9 @@
 		{/if}
 	</div>
 </div>
-<TagsSelector />
-<CardGrid>
+<TagsSelector {tagStates} onChange={onChangeTags} />
+<div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />
 	{/each}
-</CardGrid>
+</div>

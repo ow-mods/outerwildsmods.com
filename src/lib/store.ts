@@ -15,6 +15,4 @@ export const octokit = writable<Octokit | undefined>();
 
 export const downloadHistory = writable<DownloadHistory | undefined>();
 
-export const tagStates = writable<Record<string, boolean>>();
-
-export const tagCounts = writable<Record<string, number>>();
+export const tagList = writable<string[]>();

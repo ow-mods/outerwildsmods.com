@@ -2,7 +2,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import { page } from '$app/stores';
 	import ModAddons from '$lib/components/mod-addons.svelte';
-	import ModCard from '$lib/components/card-grid/mod-card.svelte';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { getModByPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';

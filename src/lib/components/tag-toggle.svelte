@@ -3,8 +3,9 @@
 </script>
 
 <button
-	class="px-1 rounded bg-dark text-sm border-dark border outline outline-background hover:bg-background hover:outline-dark outline-2"
-	class:outline-accent={selected}
+	class="px-1 rounded bg-dark text-sm border-dark"
+	class:text-accent={selected}
+	class:opacity-75={!selected}
 	on:click
 >
 	<slot />
