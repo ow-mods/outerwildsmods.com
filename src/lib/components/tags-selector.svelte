@@ -7,36 +7,48 @@
 	export let tagStates: TagStates;
 	export let onChange: (tag: TagStates) => void;
 
-	const setAll = (state: boolean) => {
+	const getInitialState = (defaultState: boolean) => {
 		const tags = { ...tagStates };
 		for (const tag of $tagList) {
-			tags[tag] = state;
+			tags[tag] = defaultState;
 		}
+		return tags;
+	};
 
-		onChange(tags);
+	const setAll = (state: boolean) => {
+		onChange(getInitialState(state));
 	};
 
 	const onToggleTag = (tag: ModTag) => {
+		const initialState = allSelected ? getInitialState(false) : tagStates;
+
 		onChange({
-			...tagStates,
-			[tag]: !tagStates[tag],
+			...initialState,
+			[tag]: !initialState[tag],
 		});
 	};
 
 	let selectedCount = 0;
+	let allSelected = false;
 
 	$: {
 		selectedCount = Object.values(tagStates).filter((tagState) => tagState).length;
+		allSelected = selectedCount == $tagList.length;
+
+		if (selectedCount == 0) {
+			setAll(true);
+		}
 	}
 </script>
 
 <div class="flex flex-wrap gap-2 mb-2">
 	{#each $tagList as tag}
-		<TagToggle selected={tagStates[tag]} on:click={() => onToggleTag(tag)}>{tag}</TagToggle>
+		<TagToggle selected={!allSelected && tagStates[tag]} on:click={() => onToggleTag(tag)}
+			>{tag}</TagToggle
+		>
 	{/each}
-	<TagToggle on:click={() => setAll(false)} selected={selectedCount == 0}>none</TagToggle>
 
-	<TagToggle on:click={() => setAll(true)} selected={selectedCount == $tagList.length}>
-		all
+	<TagToggle title="Clear" on:click={() => setAll(true)} selected={allSelected}>
+		<div class:grayscale={allSelected} class="text-xs">❌</div>
 	</TagToggle>
 </div>
