@@ -19,7 +19,7 @@
 	};
 </script>
 
-<div class="flex gap-2 mb-2">
+<div class="flex flex-wrap gap-2 mb-2">
 	{#each Object.entries($tagsState) as [tag, selected]}
 		<TagToggle {selected} on:click={() => onClickTag(tag)}>{tag}</TagToggle>
 	{/each}
