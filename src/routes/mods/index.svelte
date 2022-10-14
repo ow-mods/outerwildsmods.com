@@ -4,7 +4,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { modList } from '$lib/store';
 
-	const standardMods = $modList.filter((mod) => !mod.alpha);
+	const mods = $modList.filter((mod) => !mod.alpha);
 </script>
 
 <svelte:head>
@@ -16,6 +16,6 @@
 </svelte:head>
 <PageLayout>
 	<PageSection title="Available mods" id="mods">
-		<ModGrid mods={standardMods} />
+		<ModGrid {mods} />
 	</PageSection>
 </PageLayout>

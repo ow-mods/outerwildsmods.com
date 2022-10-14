@@ -8,12 +8,7 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import { modList } from '$lib/store';
 
-	const utilityMods = $modList.filter((mod) => mod.utility && !mod.parent && mod.alpha);
-	const utilityModsUniqueNames = utilityMods.map((mod) => mod.uniqueName);
-	const standardMods = $modList.filter(
-		(mod) =>
-			!mod.utility && (!mod.parent || utilityModsUniqueNames.includes(mod.parent)) && mod.alpha
-	);
+	const mods = $modList.filter((mod) => mod.alpha);
 </script>
 
 <svelte:head>
@@ -47,6 +42,6 @@
 			Wilds. To install mods with it, go to the manager settings and change the "Game version to use"
 			setting.
 		</p>
-		<ModGrid mods={standardMods} />
+		<ModGrid {mods} />
 	</PageSection>
 </PageLayout>
