@@ -25,6 +25,7 @@ export type Mod = {
 	};
 	alpha?: boolean;
 	authorDisplay?: string;
+	tags: string[];
 };
 
 export interface ModWithImage extends Mod {

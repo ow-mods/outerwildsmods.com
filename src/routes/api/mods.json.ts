@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import type sharp from 'sharp';
-import { listedImageSize, recentDownloadsDayCount } from '$lib/helpers/constants';
+import { listedImageSize } from '$lib/helpers/constants';
 import { getModDatabase } from '$lib/helpers/api/get-mod-database';
 import type { Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';

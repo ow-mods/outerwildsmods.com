@@ -7,7 +7,10 @@
 		const starData = await fetch('/api/stars.json');
 
 		if (modsResult.ok) {
-			modList.set(await modsResult.json());
+			const newModList = await modsResult.json();
+			modList.set(newModList);
+			setUpTags(newModList);
+
 			return {
 				props: {
 					starData: await starData.json(),
@@ -31,6 +34,7 @@
 	import '../styles/app.css';
 	import type { StarDataResponse } from './api/stars.json';
 	import Analytics from '$lib/components/analytics.svelte';
+	import { setUpTags as setUpTags } from '$lib/helpers/set-up-tags';
 
 	export let starData: StarDataResponse;
 </script>

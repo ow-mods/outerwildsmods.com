@@ -12,6 +12,9 @@
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
+	import LinkButton from './button/link-button.svelte';
+	import { tagsState } from '$lib/store';
+	import TagsSelector from './tags-selector.svelte';
 
 	export let mods: ModsRequestItem[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
@@ -22,18 +25,23 @@
 
 	$: {
 		function filterMod(mod: ModsRequestItem) {
-			return anyIncludes(filter, [
-				mod.author,
-				mod.description,
-				mod.name,
-				mod.repo,
-				mod.uniqueName,
-				mod.authorDisplay,
-			]);
+			const tags = $tagsState;
+			const isTagSelected = mod.tags.findIndex((tag) => tags[tag]) != -1;
+
+			return (
+				isTagSelected &&
+				anyIncludes(filter, [
+					mod.author,
+					mod.description,
+					mod.name,
+					mod.repo,
+					mod.uniqueName,
+					mod.authorDisplay,
+				])
+			);
 		}
 
-		filteredMods = sortModList(mods, sortOrder);
-		if (filter) filteredMods = filteredMods.filter(filterMod);
+		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
 	}
 
 	onMount(() => {
@@ -50,6 +58,8 @@
 	}
 
 	function anyIncludes(term: string, list: (string | undefined)[]) {
+		if (!term) return true;
+
 		for (const listItem of list) {
 			if (!listItem) continue;
 
@@ -91,6 +101,7 @@
 		{/if}
 	</div>
 </div>
+<TagsSelector />
 <CardGrid>
 	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />
