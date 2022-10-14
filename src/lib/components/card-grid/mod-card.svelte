@@ -12,15 +12,13 @@
 	export let hideDescription = false;
 </script>
 
-<li class="list-none block min-w-fit">
-	<a
-		href={`/mods/${getModPathName(mod.name)}/`}
-		sveltekit:prefetch
-		class="link mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline flex flex-col-reverse justify-end"
-	>
-		<ModCardDetails {mod}>
-			{hideDescription ? '' : mod.description}
-		</ModCardDetails>
-		<ModCardImage {mod} {lazy} />
-	</a>
-</li>
+<a
+	href={`/mods/${getModPathName(mod.name)}/`}
+	sveltekit:prefetch
+	class="link mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline flex flex-col-reverse justify-end"
+>
+	<ModCardDetails {mod}>
+		{hideDescription ? '' : mod.description}
+	</ModCardDetails>
+	<ModCardImage {mod} {lazy} />
+</a>
