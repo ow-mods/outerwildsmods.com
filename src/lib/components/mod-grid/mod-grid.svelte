@@ -77,9 +77,9 @@
 	};
 </script>
 
-<div class="flex items-top sm:flex-row flex-col sm:gap-4">
+<div class="flex gap-2 mb-2 items-center flex-wrap">
 	<div>
-		Sort {mods.length} items:
+		Sort:
 		<select
 			class="input"
 			value={sortOrder}
@@ -107,6 +107,9 @@
 				❌
 			</button>
 		{/if}
+	</div>
+	<div>
+		{filteredMods.length} items
 	</div>
 </div>
 <TagsSelector {tagStates} onChange={onChangeTags} {tags} />
