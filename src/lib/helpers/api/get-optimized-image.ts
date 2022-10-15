@@ -96,7 +96,7 @@ export const getOptimizedImage = async (
 			format,
 		};
 	} else {
-		const resizedSharpImage = sharpImage.resize({ width, height, fit, position: 'left' });
+		const resizedSharpImage = sharpImage.resize({ width, height, fit });
 		const resizedImage = await resizedSharpImage.toFile(optimizedImagePath);
 
 		let openGraphUrl = fullOptimizedImageUrl;
