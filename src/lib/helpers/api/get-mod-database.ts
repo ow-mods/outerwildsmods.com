@@ -46,11 +46,11 @@ export type ModDatabase = {
 	alphaReleases: Mod[];
 };
 
-function sortReleases(releaseA: Mod, releaseB: Mod) {
+const sortReleases = (releaseA: Mod, releaseB: Mod) => {
 	return releaseB.downloadCount - releaseA.downloadCount;
-}
+};
 
-export async function getModDatabase(): Promise<ModDatabase> {
+export const getModDatabase = async (): Promise<ModDatabase> => {
 	const cachedModDatabase = await readFromStore(modDatabase);
 
 	if (cachedModDatabase) {
@@ -71,4 +71,4 @@ export async function getModDatabase(): Promise<ModDatabase> {
 		releases: database.releases.sort(sortReleases),
 		alphaReleases: database.alphaReleases.sort(sortReleases),
 	};
-}
+};

@@ -14,7 +14,7 @@ export const formatNumber = (value: number, digits = 1) => {
 	const magnitude = magnitudeMap
 		.slice()
 		.reverse()
-		.find(function (item) {
+		.find((item) => {
 			return value >= item.value;
 		});
 	return magnitude

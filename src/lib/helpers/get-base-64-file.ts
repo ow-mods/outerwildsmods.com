@@ -2,7 +2,7 @@ export const getBase64File = (file: File, asUrl = false) =>
 	new Promise<string>((resolve, reject) => {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
-		reader.onload = function () {
+		reader.onload = () => {
 			const result = reader.result as string;
 			if (asUrl) {
 				resolve(result);
@@ -14,7 +14,7 @@ export const getBase64File = (file: File, asUrl = false) =>
 				resolve(resultAsUrl);
 			}
 		};
-		reader.onerror = function (error) {
+		reader.onerror = (error) => {
 			reject(error);
 		};
 	});

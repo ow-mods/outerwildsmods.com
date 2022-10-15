@@ -93,8 +93,8 @@ export const get: RequestHandler = async () => {
 	return { body: JSON.stringify(mods) };
 };
 
-function filterFulfilledPromiseSettleResults<T>(
+const filterFulfilledPromiseSettleResults = <T>(
 	result: PromiseSettledResult<T>
-): result is PromiseFulfilledResult<T> {
+): result is PromiseFulfilledResult<T> => {
 	return result.status === 'fulfilled';
-}
+};

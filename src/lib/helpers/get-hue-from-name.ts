@@ -1,4 +1,4 @@
-const stringToNumber = function (str: string, seed = 3) {
+const stringToNumber = (str: string, seed = 3) => {
 	let h1 = 0xdeadbeef ^ seed,
 		h2 = 0x41c6ce57 ^ seed;
 	for (let i = 0, ch; i < str.length; i++) {

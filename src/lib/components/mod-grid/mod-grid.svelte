@@ -30,7 +30,7 @@
 	const tags = $tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
 	$: {
-		function filterMod(mod: ModsRequestItem) {
+		const filterMod = (mod: ModsRequestItem) => {
 			const isTagSelected =
 				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 
@@ -46,7 +46,7 @@
 					...mod.tags,
 				])
 			);
-		}
+		};
 
 		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
 	}
@@ -62,13 +62,13 @@
 		}
 	});
 
-	function setSortOrder(sortOrderString: string) {
+	const setSortOrder = (sortOrderString: string) => {
 		if (isSortOrder(sortOrderString)) {
 			sortOrder = sortOrderString;
 		}
-	}
+	};
 
-	function anyIncludes(term: string, list: (string | undefined)[]) {
+	const anyIncludes = (term: string, list: (string | undefined)[]) => {
 		if (!term) return true;
 
 		for (const listItem of list) {
@@ -77,7 +77,7 @@
 			if (listItem.toLocaleLowerCase().includes(term.toLocaleLowerCase())) return true;
 		}
 		return false;
-	}
+	};
 
 	const getInitialState = (defaultState: boolean) => {
 		const newTagStates = { ...tagStates };

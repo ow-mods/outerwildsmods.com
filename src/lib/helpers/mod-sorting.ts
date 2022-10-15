@@ -1,5 +1,5 @@
 import type { ModsRequestItem } from '../../routes/api/mods.json';
-import { recentDownloadsDayCount, recentViewsDayCount } from './constants';
+import { recentViewsDayCount } from './constants';
 
 export const sortOrderParamName = 'sortOrder' as const;
 
@@ -40,16 +40,16 @@ export const sortOrders = {
 
 export type SortOrder = keyof typeof sortOrders;
 
-export function isSortOrder(key: string): key is SortOrder {
+export const isSortOrder = (key: string): key is SortOrder => {
 	return Object.keys(sortOrders).includes(key);
-}
+};
 
-export function sortModList(
+export const sortModList = (
 	modList: ModsRequestItem[],
 	sortOrder: SortOrder,
 	count = 0,
 	excludeIds: string[] = []
-) {
+) => {
 	const sortedList = modList
 		.sort(sortOrders[sortOrder].compareFunction)
 		.filter((mod) => !excludeIds.includes(mod.uniqueName));
@@ -58,4 +58,4 @@ export function sortModList(
 	} else {
 		return sortedList;
 	}
-}
+};
