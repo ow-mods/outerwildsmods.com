@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	const measurementId = 'G-2QQN7V5WE1';
-
 	$: {
 		if (typeof gtag !== 'undefined') {
-			gtag('config', measurementId, {
+			gtag('config', 'G-2QQN7V5WE1', {
 				page_title: document.title,
 				page_path: $page.url.pathname,
 			});
@@ -14,16 +12,16 @@
 </script>
 
 <svelte:head>
-	<script async src="https://www.googletagmanager.com/gtag/js?id={measurementId}">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-2QQN7V5WE1">
 	</script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
-		const gtag = (...args) => {
+		window.gtag = (...args) => {
 			dataLayer.push(args);
 		};
 
 		gtag('js', new Date());
-		gtag('config', measurementId);
+		gtag('config', 'G-2QQN7V5WE1');
 	</script>
 </svelte:head>
