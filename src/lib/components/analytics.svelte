@@ -19,8 +19,8 @@
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
-		const gtag = () => {
-			dataLayer.push(arguments);
+		const gtag = (...args) => {
+			dataLayer.push(args);
 		};
 
 		gtag('js', new Date());
