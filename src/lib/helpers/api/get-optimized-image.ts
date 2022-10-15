@@ -96,7 +96,9 @@ export const getOptimizedImage = async (
 			format,
 		};
 	} else {
-		const resizedSharpImage = sharpImage.resize({ width, height, fit });
+		const resizedSharpImage = sharpImage
+			.resize({ width, height, fit })
+			.webp({ effort: 6, smartSubsample: true });
 		const resizedImage = await resizedSharpImage.toFile(optimizedImagePath);
 
 		let openGraphUrl = fullOptimizedImageUrl;
