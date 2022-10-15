@@ -5,6 +5,7 @@
 
 	export let mod: ModsRequestItem;
 	export let lazy = false;
+	export let hover = false;
 </script>
 
 <div class="relative">
@@ -29,11 +30,11 @@
 	>
 		↓ {mod.formattedDownloadCount}
 	</span>
-	<div
-		class="hidden absolute left-0 bottom-0 p-1 group-hover:flex flex-wrap gap-1 pointer-events-none"
-	>
-		{#each mod.tags as tag}
-			<TagToggle>{tag}</TagToggle>
-		{/each}
-	</div>
+	{#if hover}
+		<div class="absolute left-0 bottom-0 p-1 flex flex-wrap gap-1 pointer-events-none">
+			{#each mod.tags as tag}
+				<TagToggle>{tag}</TagToggle>
+			{/each}
+		</div>
+	{/if}
 </div>
