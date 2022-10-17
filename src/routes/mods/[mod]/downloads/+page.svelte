@@ -16,9 +16,7 @@
 
 	$: (async () => {
 		if (compareWithMod) {
-			const modDownloadhistoryResponse = await fetch(
-				`/api/${compareWithMod.uniqueName}/downloads.json`
-			);
+			const modDownloadhistoryResponse = await fetch(`/api/${compareWithMod.uniqueName}/downloads`);
 
 			if (modDownloadhistoryResponse.ok) {
 				compareWithHistory = await modDownloadhistoryResponse.json();
