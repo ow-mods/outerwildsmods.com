@@ -1,4 +1,3 @@
-import type { RequestHandler } from '@sveltejs/kit';
 import type sharp from 'sharp';
 import { listedImageSize } from '$lib/helpers/constants';
 import { getModDatabase } from '$lib/helpers/api/get-mod-database';
@@ -9,6 +8,7 @@ import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
 import { getImageMap } from '$lib/helpers/api/get-image-map';
 import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
+import type { RequestHandler } from './$types';
 
 const supportedTypes: (keyof sharp.FormatEnum)[] = [
 	'png',

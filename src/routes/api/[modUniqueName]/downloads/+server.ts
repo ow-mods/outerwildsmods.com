@@ -1,11 +1,7 @@
 import { getModDownloadHistory } from '$lib/helpers/api/get-download-history';
 import type { HistoryPoint } from '$lib/helpers/api/history-points';
-import type { RequestHandler } from '@sveltejs/kit';
 import { chunk } from 'lodash-es';
-
-type Params = {
-	modUniqueName: string;
-};
+import type { RequestHandler } from './$types';
 
 const maxHistoryPointCount = 500;
 
@@ -15,7 +11,7 @@ const brokenCountStartTimestamp = 1642806000;
 const brokenCountEndTimestamp = 1642892400;
 const brokenCountOffset = 90;
 
-export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } }) => {
+export const GET: RequestHandler = async ({ params: { modUniqueName } }) => {
 	try {
 		const downloadHistory = await getModDownloadHistory(modUniqueName);
 

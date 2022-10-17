@@ -1,14 +1,9 @@
-import type { RequestHandler } from '@sveltejs/kit';
 import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
 import { isSortOrder, sortModList } from '$lib/helpers/mod-sorting';
+import type { RequestHandler } from './$types';
 
-type Params = {
-	modCount: string;
-	sortOrder: string;
-};
-
-export const GET: RequestHandler<Params> = async ({ params }) => {
+export const GET: RequestHandler = async ({ params }) => {
 	const { modCount, sortOrder } = params;
 
 	const modCountNumber = parseInt(modCount);

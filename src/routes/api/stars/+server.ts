@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
 type StarData = {
 	x: number;
