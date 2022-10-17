@@ -8,7 +8,7 @@
 		getDateText,
 		getFirstPoint,
 		getLastPoint,
-		HistoryPoint,
+		type HistoryPoint,
 	} from '../../helpers/api/history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
