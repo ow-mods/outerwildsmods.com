@@ -1,4 +1,4 @@
-import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 
 export const getModPathName = (modName: string) => modName.replace(/\W/g, '').toLowerCase();
 

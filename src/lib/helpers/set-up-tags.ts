@@ -1,5 +1,5 @@
 import { tagList } from '$lib/store';
-import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 
 export const setUpTags = async (modList: ModsRequestItem[]) => {
 	const tags: Set<string> = new Set(['untagged']);

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ChartLine from './chart-line.svelte';
 	import ChartTooltip from './chart-tooltip.svelte';
 	import {

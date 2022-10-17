@@ -1,4 +1,4 @@
-import type { ModsRequestItem } from '../routes/api/mods/+server';
+import type { ModsRequestItem } from '../routes/api/mods.json/+server';
 import { writable } from 'svelte/store';
 import type { OctokitAuthenticatedUser } from './octokit';
 import type { Octokit } from 'octokit';

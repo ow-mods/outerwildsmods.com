@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 
 	export let mod: Pick<ModsRequestItem, 'name'>;
 </script>

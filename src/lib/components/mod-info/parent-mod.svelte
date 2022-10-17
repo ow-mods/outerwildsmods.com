@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { modList } from '$lib/store';
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 

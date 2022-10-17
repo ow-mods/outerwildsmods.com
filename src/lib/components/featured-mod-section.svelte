@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import FeaturedModRow from './featured-mod-row.svelte';
 	import { type SortOrder, sortOrderParamName } from '$lib/helpers/mod-sorting';
 

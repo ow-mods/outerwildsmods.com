@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 			error: new Error(`Could not find mod ${params.mod}.`),
 		};
 
-	const result = await fetch(`/api/${mod.uniqueName}`);
+	const result = await fetch(`/api/mod/${mod.uniqueName}.json`);
 
 	if (!result.ok) {
 		return {

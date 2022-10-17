@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { modList } from '$lib/store';
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ModGrid from './mod-grid/mod-grid.svelte';
 
 	export let mod: ModsRequestItem;

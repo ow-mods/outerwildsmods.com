@@ -17,7 +17,7 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		};
 	}
 
-	const modDownloadHistoryResponse = await fetch(`/api/${currentMod.uniqueName}/downloads`);
+	const modDownloadHistoryResponse = await fetch(`/api/${currentMod.uniqueName}/downloads.json`);
 
 	if (modDownloadHistoryResponse.status !== 200) {
 		console.error(

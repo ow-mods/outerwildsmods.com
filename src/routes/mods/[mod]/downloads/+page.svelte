@@ -2,7 +2,7 @@
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
@@ -16,7 +16,9 @@
 
 	$: (async () => {
 		if (compareWithMod) {
-			const modDownloadhistoryResponse = await fetch(`/api/${compareWithMod.uniqueName}/downloads`);
+			const modDownloadhistoryResponse = await fetch(
+				`/api/${compareWithMod.uniqueName}/downloads.json`
+			);
 
 			if (modDownloadhistoryResponse.ok) {
 				compareWithHistory = await modDownloadhistoryResponse.json();

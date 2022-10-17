@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getModPathName } from '$lib/helpers/mod-path-name';
-	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
 

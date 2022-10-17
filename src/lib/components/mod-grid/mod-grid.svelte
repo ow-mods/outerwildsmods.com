@@ -6,7 +6,7 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from '../../../routes/api/mods/+server';
+	import type { ModsRequestItem } from '../../../routes/api/mods.json/+server';
 	import {
 		sortModList,
 		sortOrders,
