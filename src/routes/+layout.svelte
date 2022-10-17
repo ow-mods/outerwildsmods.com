@@ -5,15 +5,14 @@
 	import '../styles/components.css';
 	import '../styles/utilities.css';
 	import '../styles/app.css';
-	import type { StarDataResponse } from './api/stars/+server';
 	import Analytics from '$lib/components/analytics.svelte';
-	import { setUpTags as setUpTags } from '$lib/helpers/set-up-tags';
+	import type { PageData } from './$types';
 
-	export let starData: StarDataResponse;
+	export let data: PageData;
 </script>
 
 <Analytics />
-<Header {starData} />
+<Header starData={data.starData} />
 <main class="bg-background overflow-hidden">
 	<slot />
 </main>
