@@ -39,7 +39,7 @@
   },
   "scripts": {
     "dev": "vite dev",
-    "build": "svelte-kit build && pnpm run post:build",
+    "build": "vite build && pnpm run post:build",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "deploy": "gh-pages -t -d build",
