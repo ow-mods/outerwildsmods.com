@@ -1,31 +1,3 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-	import { modList } from '$lib/store';
-
-	export const load: Load = async ({ fetch }) => {
-		const modsResult = await fetch('/api/mods');
-		const starData = await fetch('/api/stars');
-
-		if (modsResult.ok) {
-			const newModList = await modsResult.json();
-			console.log('modlist', newModList.length);
-			modList.set(newModList);
-			setUpTags(newModList);
-
-			return {
-				props: {
-					starData: await starData.json(),
-				},
-			};
-		}
-
-		return {
-			status: modsResult.status,
-			error: new Error(`Could not load mods`),
-		};
-	};
-</script>
-
 <script lang="ts">
 	import Header from '$lib/components/header/header.svelte';
 	import Footer from '$lib/components/footer.svelte';
