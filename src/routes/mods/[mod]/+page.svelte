@@ -46,7 +46,7 @@
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
 	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 	import { listedImageSize, websiteUrl } from '$lib/helpers/constants';
 	import { page } from '$app/stores';

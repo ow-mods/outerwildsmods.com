@@ -1,4 +1,4 @@
-import type { ModsRequestItem } from '../routes/api/mods.json';
+import type { ModsRequestItem } from '../routes/api/mods/+server';
 import { writable } from 'svelte/store';
 import type { OctokitAuthenticatedUser } from './octokit';
 import type { Octokit } from 'octokit';
@@ -13,6 +13,6 @@ export const githubUser = writable<OctokitAuthenticatedUser | undefined>();
 
 export const octokit = writable<Octokit | undefined>();
 
-export const downloadHistory = writable<DownloadHistory | undefined>();
+export const downloadHistory = writable<DownloadHistory | undefined>([]);
 
-export const tagList = writable<string[]>();
+export const tagList = writable<string[]>([]);

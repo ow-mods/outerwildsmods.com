@@ -3,11 +3,12 @@
 	import { modList } from '$lib/store';
 
 	export const load: Load = async ({ fetch }) => {
-		const modsResult = await fetch('/api/mods.json');
-		const starData = await fetch('/api/stars.json');
+		const modsResult = await fetch('/api/mods');
+		const starData = await fetch('/api/stars');
 
 		if (modsResult.ok) {
 			const newModList = await modsResult.json();
+			console.log('modlist', newModList.length);
 			modList.set(newModList);
 			setUpTags(newModList);
 
@@ -32,7 +33,7 @@
 	import '../styles/components.css';
 	import '../styles/utilities.css';
 	import '../styles/app.css';
-	import type { StarDataResponse } from './api/stars.json';
+	import type { StarDataResponse } from './api/stars/+server';
 	import Analytics from '$lib/components/analytics.svelte';
 	import { setUpTags as setUpTags } from '$lib/helpers/set-up-tags';
 

@@ -8,34 +8,28 @@ type Params = {
 	sortOrder: string;
 };
 
-export const get: RequestHandler<Params> = async ({ params }) => {
+export const GET: RequestHandler<Params> = async ({ params }) => {
 	const { modCount, sortOrder } = params;
 
 	const modCountNumber = parseInt(modCount);
 
 	if (isNaN(modCountNumber)) {
-		return {
-			status: 500,
-			body: `modCount (${modCount}) is NaN.`,
-		};
+		return new Response(`modCount (${modCount}) is NaN.`, { status: 500 });
 	}
 
 	if (!isSortOrder(sortOrder)) {
-		return {
-			status: 500,
-			body: `sortOrder (${sortOrder}) isn't a valid sort order.`,
-		};
+		return new Response(`sortOrder (${sortOrder}) isn't a valid sort order.`, { status: 500 });
 	}
 
 	const mods = await readFromStore(modList);
 	const sortedMods = sortModList(mods, sortOrder);
 
-	return {
-		body: JSON.stringify(
+	return new Response(
+		JSON.stringify(
 			sortedMods
 				.filter((mod) => !mod.utility)
 				.map((mod) => mod.uniqueName)
 				.slice(0, modCountNumber)
-		),
-	};
+		)
+	);
 };

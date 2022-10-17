@@ -24,7 +24,7 @@ const round = (value: number, magnitude: number) => Math.round(value * magnitude
 const random = (min: number, max: number, roundMagnitude: number) =>
 	round(Math.random() * (max - min) + min, roundMagnitude);
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
 	const starData1: StarData[] = [];
 	const starData2: StarData[] = [];
 
@@ -52,5 +52,5 @@ export const get: RequestHandler = async () => {
 		height,
 	};
 
-	return { body: JSON.stringify(starDataResponse) };
+	return new Response(JSON.stringify(starDataResponse));
 };

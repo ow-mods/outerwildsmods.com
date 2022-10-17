@@ -1,4 +1,4 @@
-import type { ModsRequestItem } from '../../routes/api/mods.json';
+import type { ModsRequestItem } from '../../routes/api/mods/+server';
 import { recentViewsDayCount } from './constants';
 
 export const sortOrderParamName = 'sortOrder' as const;

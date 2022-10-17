@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods/+server';
 	import CtaButton from '../button/cta-button.svelte';
 	import TagToggle from '../tag-toggle.svelte';
 

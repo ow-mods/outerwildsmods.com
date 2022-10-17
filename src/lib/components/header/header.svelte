@@ -3,7 +3,7 @@
 	import Navigation from '$lib/components/navigation/navigation.svelte';
 	import Stars from '$lib/components/header/stars.svelte';
 	import NavigationLink from '../navigation/navigation-link.svelte';
-	import type { StarDataResponse } from 'src/routes/api/stars.json';
+	import type { StarDataResponse } from 'src/routes/api/stars/+server';
 
 	export let starData: StarDataResponse;
 </script>

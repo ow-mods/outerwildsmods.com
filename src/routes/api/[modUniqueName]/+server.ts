@@ -10,16 +10,13 @@ type Params = {
 	modUniqueName: string;
 };
 
-export const get: RequestHandler<Params> = async ({ params }) => {
+export const GET: RequestHandler<Params> = async ({ params }) => {
 	const { modUniqueName } = params;
 
 	const mod = (await readFromStore(modList)).find(({ uniqueName }) => uniqueName === modUniqueName);
 
 	if (!mod) {
-		return {
-			status: 500,
-			error: new Error(`Failed to find mod ${modUniqueName}`),
-		};
+		return new Response(`Failed to find mod ${modUniqueName}`, { status: 500 });
 	}
 
 	const rawContentUrl = getRawContentUrl(mod);
@@ -27,10 +24,10 @@ export const get: RequestHandler<Params> = async ({ params }) => {
 	const images = getAllMarkdownImages(readme);
 	const externalImages = rawContentUrl ? await getImageMap(rawContentUrl, images) : {};
 
-	return {
-		body: JSON.stringify({
+	return new Response(
+		JSON.stringify({
 			...(readme ? { readme } : undefined),
 			externalImages,
-		}),
-	};
+		})
+	);
 };

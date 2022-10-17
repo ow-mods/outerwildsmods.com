@@ -28,21 +28,16 @@ export interface ModsRequestItem extends Mod {
 	rawContentUrl: string | null;
 }
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
 	const cachedModList = await readFromStore(modList);
 	if (cachedModList && cachedModList.length > 0) {
-		return {
-			body: JSON.stringify(cachedModList),
-		};
+		return new Response(JSON.stringify(cachedModList));
 	}
 
 	const modDatabase = await getModDatabase();
 
 	if (!modDatabase) {
-		return {
-			status: 500,
-			body: 'Failed to retrieve database',
-		};
+		return new Response('Failed to retrieve database', { status: 500 });
 	}
 
 	const allReleases = [...modDatabase.releases, ...modDatabase.alphaReleases];
@@ -90,7 +85,7 @@ export const get: RequestHandler = async () => {
 
 	modList.set(mods);
 
-	return { body: JSON.stringify(mods) };
+	return new Response(JSON.stringify(mods));
 };
 
 const filterFulfilledPromiseSettleResults = <T>(
