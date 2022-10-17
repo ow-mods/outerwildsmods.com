@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { listedImageSize } from '$lib/helpers/constants';
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import TagToggle from '../tag-toggle.svelte';
@@ -18,11 +19,13 @@
 		</div>
 	{/if}
 	<img
-		class="w-full"
+		class="w-full h-full"
 		alt={mod.name}
 		src={mod.imageUrl || '/images/placeholder.webp'}
 		loading={mod.imageUrl && lazy ? 'lazy' : 'eager'}
 		style={mod.imageUrl ? undefined : getHueFromText(mod.name)}
+		width={listedImageSize.width}
+		height={listedImageSize.height}
 	/>
 	<span
 		class="absolute right-0 top-0 text-xs opacity-75 text-white bg-black px-1 rounded-bl-md"
