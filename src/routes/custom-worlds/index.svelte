@@ -21,7 +21,7 @@
 </script>
 
 <svelte:head>
-	<title>Custom Worlds for Outer Wilds</title>
+	<title>Custom content for Outer Wilds</title>
 	<meta
 		name="description"
 		content="Download custom planets, solar systems, and more content for Outer Wilds."
@@ -30,21 +30,21 @@
 
 <PageLayout>
 	{#if newHorizons}
-		<PageSection title="Custom Worlds" id="custom-worlds">
+		<PageSection title="Custom Content" id="custom-worlds">
 			<div class="flex flex-col md:flex-row gap-8">
 				<ModCard mod={newHorizons} />
 				<div>
 					<p class="mt-0">
 						New Horizons is a world creation tool capable of creating new planets and star systems,
-						and even editing planets from the base game. If you want to make your own custom worlds,
-						the NH documentation has most of the info you need to get started. The easiest way is by
-						cloning the NH Addon Template. No coding knowledge is required!
+						and even editing planets from the base game. If you want to add your own custom content
+						to the game, the NH documentation has most of the info you need to get started. The
+						easiest way is by cloning the NH Addon Template. No coding knowledge is required!
 						<LinkList links={newHorizonsLinks} />
 					</p>
 				</div>
 			</div>
 		</PageSection>
-		<PageSection title="Available Custom Worlds" id="available-worlds">
+		<PageSection title="Available Custom Content" id="available-worlds">
 			<ModAddons mod={newHorizons} />
 		</PageSection>
 	{/if}
