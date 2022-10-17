@@ -8,10 +8,7 @@ export const prerender = true;
 
 export const load: PageLoad = async ({ fetch, params }) => {
 	const mods = await readFromStore(modList);
-	console.log('mods here', mods.length);
-	console.log('mods here', mods.map((mod) => mod.name).join(', '));
 	const currentMod = mods.find(({ name }) => params.mod === getModPathName(name));
-	console.log('params.mod', params.mod);
 
 	if (!currentMod) {
 		return {

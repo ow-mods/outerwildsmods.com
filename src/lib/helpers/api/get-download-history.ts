@@ -37,7 +37,7 @@ export type DownloadHistory = {
 const getDownloadHistory = async () => {
 	try {
 		const downloadHistoryCache = await readFromStore(downloadHistory);
-		if (downloadHistoryCache) return downloadHistoryCache;
+		if (downloadHistoryCache.length > 0) return downloadHistoryCache;
 
 		const result = await fetch(
 			'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json'

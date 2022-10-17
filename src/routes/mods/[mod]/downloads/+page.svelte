@@ -44,7 +44,7 @@
 		</div>
 		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
 		<div class="flex justify-between flex-wrap">
-			<div>
+			<div class="mb-4">
 				<span>Compare with:</span>
 				<select
 					class="input"
