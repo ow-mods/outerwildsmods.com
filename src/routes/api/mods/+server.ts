@@ -93,3 +93,5 @@ const filterFulfilledPromiseSettleResults = <T>(
 ): result is PromiseFulfilledResult<T> => {
 	return result.status === 'fulfilled';
 };
+
+export const prerender = true;

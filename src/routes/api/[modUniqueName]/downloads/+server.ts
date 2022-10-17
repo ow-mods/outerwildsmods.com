@@ -82,3 +82,5 @@ export const GET: RequestHandler = async ({ params: { modUniqueName } }) => {
 		return new Response('[]');
 	}
 };
+
+export const prerender = true;
