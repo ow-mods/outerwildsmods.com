@@ -28,16 +28,6 @@ const config = {
 			// concurrency: 2,
 		},
 		trailingSlash: 'always',
-		vite: {
-			optimizeDeps: {
-				exclude: ['marked'],
-			},
-			resolve: {
-				alias: {
-					'node-fetch': 'isomorphic-fetch',
-				},
-			},
-		},
 	},
 };
 

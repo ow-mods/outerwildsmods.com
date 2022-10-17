@@ -4,7 +4,8 @@
   "type": "module",
   "devDependencies": {
     "@sveltejs/adapter-static": "1.0.0-next.28",
-    "@sveltejs/kit": "1.0.0-next.286",
+    "@sveltejs/kit": "1.0.0-next.516",
+    "vite": "^3.1.8",
     "@types/commonmark": "^0.27.5",
     "@types/gtag.js": "^0.0.11",
     "@types/lodash-es": "^4.17.6",
@@ -37,7 +38,7 @@
     "typescript": "^4.6.3"
   },
   "scripts": {
-    "dev": "svelte-kit dev",
+    "dev": "vite dev",
     "build": "svelte-kit build && pnpm run post:build",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
