@@ -3,7 +3,7 @@ import { setUpTags } from '$lib/helpers/set-up-tags';
 import type { LayoutLoad } from './$types';
 import type { StarDataResponse } from './api/stars/+server';
 
-export const csr = false;
+// export const csr = false;
 export const prerender = true;
 
 export const load: LayoutLoad = async ({ fetch }) => {

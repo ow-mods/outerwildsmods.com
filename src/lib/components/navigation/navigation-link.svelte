@@ -18,7 +18,6 @@
 	class:hover:bg-opacity-50={!isActive}
 	class="bg-background text-sm py-1 px-2 rounded sm:rounded-b-none font-normal"
 	{href}
-	sveltekit:prefetch
 >
 	<slot />
 </a>

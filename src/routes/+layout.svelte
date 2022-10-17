@@ -13,7 +13,7 @@
 
 <Analytics />
 <Header starData={data.starData} />
-<main class="bg-background overflow-hidden">
+<main class="bg-background overflow-hidden" data-sveltekit-prefetch>
 	<slot />
 </main>
 <Footer />
