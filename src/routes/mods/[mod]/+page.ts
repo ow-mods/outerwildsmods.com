@@ -1,15 +1,10 @@
-import type { Load } from '@sveltejs/kit';
 import { readFromStore } from '$lib/helpers/read-from-store';
 import { modList } from '$lib/store';
 import { getModByPathName } from '$lib/helpers/mod-path-name';
-import type { ModsRequestItem } from 'src/routes/api/mods/+server';
 import type { ImageMap } from '$lib/helpers/api/get-image-map';
+import type { PageLoad } from './$types';
 
-type Params = {
-	mod: string;
-};
-
-export const load: Load<Params> = async ({ fetch, params }) => {
+export const load: PageLoad = async ({ fetch, params }) => {
 	const mods = await readFromStore(modList);
 	const mod = getModByPathName(mods, params.mod);
 

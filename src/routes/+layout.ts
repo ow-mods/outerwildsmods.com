@@ -16,7 +16,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 		setUpTags(newModList);
 
 		return {
-			starData: starData.json() as StarDataResponse,
+			starData: starData.json() as Promise<StarDataResponse>,
 		};
 	}
 };

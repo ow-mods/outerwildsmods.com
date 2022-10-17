@@ -6,9 +6,10 @@
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
+	import type { PageData } from './$types';
 
-	export let modDownloadHistory: HistoryPoint[] = [];
-	export let mod: ModsRequestItem;
+	export let data: PageData;
+	const { modDownloadHistory, mod } = data;
 
 	let compareWithMod: ModsRequestItem | null = null;
 	let compareWithHistory: HistoryPoint[] = [];
