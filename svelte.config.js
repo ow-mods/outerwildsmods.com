@@ -17,6 +17,11 @@ const config = {
 				// So I'm ignoring these errors.
 				if (path.startsWith('/images/optimized/')) return;
 
+				// Some images seem to still be missing.
+				// Temporarily ignore them.
+				// TODO: this needs to be fixed by using the original images at compile time.
+				if (path.endsWith('.webp') || path.endsWith('.svg')) return;
+
 				// Protocol URLs will 404 on prerender, gotta ignore those.
 				if (path.includes('outer-wilds-mod://')) return;
 
