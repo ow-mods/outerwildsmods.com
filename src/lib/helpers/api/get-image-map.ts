@@ -44,8 +44,8 @@ export const getImageMap = async (
 					originalUrl: url,
 					imageInfo: await getImageData(baseUrl, url, width, height),
 				};
-			} catch {
-				throw new Error(`Failed to get image ${url}`);
+			} catch (error) {
+				throw new Error(`Failed to get image ${url}: ${error}`);
 			}
 		})
 	);
