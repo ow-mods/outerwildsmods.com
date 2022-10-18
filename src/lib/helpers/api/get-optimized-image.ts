@@ -53,7 +53,7 @@ export const getOptimizedImage = async (
 		throw new Error(`Failed to download image ${imageUrl}`);
 	}
 
-	const sharpImage = sharp(downloadedImagePath, { animated: true });
+	const sharpImage = sharp(downloadedImagePath, { animated: true, limitInputPixels: false });
 	const imageMetadata = await sharpImage.metadata();
 	const width = Math.min(800, resizeWidth ?? imageMetadata.width ?? 0);
 	const resizeRatio = imageMetadata.width ? width / imageMetadata.width : 1;
