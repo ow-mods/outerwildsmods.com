@@ -6,7 +6,7 @@ const config = {
 	preprocess: [
 		preprocess({
 			postcss: true,
-			preserve: ['module'],
+			preserve: ['module', 'ld+json'],
 		}),
 	],
 	kit: {
