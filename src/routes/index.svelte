@@ -64,6 +64,14 @@
 		content="Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
 	/>
 	<link rel="canonical" href={websiteUrl} />
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"url": "http://outerwildsmods.com",
+			"logo": "http://outerwildsmods.com/images/icon-large.png"
+		}
+	</script>
 </svelte:head>
 
 <PageLayout>
