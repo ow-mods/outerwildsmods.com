@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
@@ -12,7 +11,7 @@
 </script>
 
 <a
-	href={`/mods/${getModPathName(mod.name)}/`}
+	href={`/mods/${mod.slug}/`}
 	sveltekit:prefetch
 	on:pointerenter={() => (hover = true)}
 	on:pointerleave={() => (hover = false)}

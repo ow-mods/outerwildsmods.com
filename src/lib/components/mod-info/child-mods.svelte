@@ -4,7 +4,6 @@
 	import { modList } from '$lib/store';
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	const maxChildModCount = 5;
@@ -17,7 +16,7 @@
 		childMods = $modList
 			.filter((otherMod) => otherMod.parent === mod.uniqueName)
 			.slice(0, maxChildModCount);
-		addonsPath = `/mods/${getModPathName(mod.name)}/addons `;
+		addonsPath = `/mods/${mod.slug}/addons `;
 	}
 </script>
 

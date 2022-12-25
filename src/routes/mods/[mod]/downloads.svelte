@@ -5,7 +5,7 @@
 
 	export const load: Load = async ({ fetch, params }) => {
 		const mods = await readFromStore(modList);
-		const currentMod = mods.find(({ name }) => params.mod === getModPathName(name));
+		const currentMod = mods.find(({ slug }) => params.mod === slug);
 
 		if (!currentMod) {
 			return {
@@ -46,10 +46,8 @@
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
-	import { getModPathName } from '$lib/helpers/mod-path-name';
 	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
-	import { recentDownloadsDayCount } from '$lib/helpers/constants';
 
 	export let modDownloadHistory: HistoryPoint[] = [];
 	export let mod: ModsRequestItem;
