@@ -1,25 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import type sharp from 'sharp';
-import { listedImageSize } from '$lib/helpers/constants';
 import { getModDatabase } from '$lib/helpers/api/get-mod-database';
 import type { Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { formatNumber } from '$lib/helpers/format-number';
-import { getModThumbnail } from '$lib/helpers/api/get-mod-thumbnail';
-import { getImageMap } from '$lib/helpers/api/get-image-map';
 import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
-
-const supportedTypes: (keyof sharp.FormatEnum)[] = [
-	'png',
-	'jpg',
-	'jpeg',
-	'gif',
-	'webp',
-	'raw',
-	'tif',
-	'tiff',
-];
 
 export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
@@ -54,24 +39,9 @@ export const get: RequestHandler = async () => {
 			let openGraphImageUrl: string | null = null;
 
 			try {
-				const thumbnail = await getModThumbnail(mod);
-
-				const externalImages =
-					thumbnail && rawContentUrl
-						? await getImageMap(
-								rawContentUrl,
-								[thumbnail],
-								listedImageSize.width,
-								listedImageSize.height
-						  )
-						: {};
-
-				const firstExternalImage = Object.values(externalImages).filter(
-					(image) => image?.format && supportedTypes.includes(image.format)
-				)[0];
-
-				imageUrl = firstExternalImage?.url ?? null;
-				openGraphImageUrl = firstExternalImage?.openGraphUrl ?? null;
+				imageUrl = `https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/thumbnails/${mod.uniqueName}.webp`;
+				// TODO use gif for opengraph animated images
+				openGraphImageUrl = imageUrl;
 			} catch (error) {
 				console.error(`Failed to retrieve thumbnail image for ${mod.uniqueName}: ${error}`);
 			}
