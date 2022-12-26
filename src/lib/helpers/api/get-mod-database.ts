@@ -27,6 +27,7 @@ export type Mod = {
 	authorDisplay?: string;
 	tags: string[];
 	slug: string;
+	hasThumbnail: boolean;
 };
 
 export interface ModWithImage extends Mod {

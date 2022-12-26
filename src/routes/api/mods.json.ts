@@ -39,7 +39,9 @@ export const get: RequestHandler = async () => {
 			let openGraphImageUrl: string | null = null;
 
 			try {
-				imageUrl = `https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/thumbnails/${mod.uniqueName}.webp`;
+				imageUrl = mod.hasThumbnail
+					? `https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/thumbnails/${mod.uniqueName}.webp`
+					: null;
 				// TODO use gif for opengraph animated images
 				openGraphImageUrl = imageUrl;
 			} catch (error) {
