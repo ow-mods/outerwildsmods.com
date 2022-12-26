@@ -1,4 +1,4 @@
-import sharp, { FitEnum } from 'sharp';
+import sharp from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import type { ImageInfo } from './get-image-map';
@@ -40,11 +40,7 @@ export const downloadImage = async (imageUrl: string, fileName: string): Promise
 	return fullImagePath;
 };
 
-export const getOptimizedImage = async (
-	imageUrl: string,
-	resizeWidth?: number,
-	resizeHeight?: number
-): Promise<ImageInfo | null> => {
+export const getImageInfo = async (imageUrl: string): Promise<ImageInfo | null> => {
 	const encodedImageUrl = hash(imageUrl).toString();
 
 	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
@@ -55,68 +51,17 @@ export const getOptimizedImage = async (
 
 	const sharpImage = sharp(downloadedImagePath, { animated: true, limitInputPixels: false });
 	const imageMetadata = await sharpImage.metadata();
-	const width = Math.min(800, resizeWidth ?? imageMetadata.width ?? 0);
-	const resizeRatio = imageMetadata.width ? width / imageMetadata.width : 1;
-	const height = resizeHeight ?? imageMetadata.height ?? 0 * resizeRatio;
-	const format = imageMetadata.format;
-	const isSvg = format === 'svg';
-	const isAnimatedThumbnail = Boolean(resizeWidth) && (imageMetadata.pages ?? 0) > 1;
+	const width = imageMetadata.width;
+	const height = imageMetadata.height;
 
 	if (!width || !height) {
 		throw new Error('failed to read image dimensions');
 	}
 
-	const fit: keyof FitEnum = resizeWidth ? 'cover' : 'inside';
-
-	const staticDir = import.meta.env.PROD ? 'build' : 'static';
-	const optimizedDir = '/images/optimized';
-	const fileOutputDir = `${staticDir}${optimizedDir}`;
-
-	// TODO file name doesn't reflect real size. Maybe it shouldn't 🤷‍♂️
-	const getFileName = (extension: string) =>
-		`${encodedImageUrl}-w${width}h${height}f${fit}.${extension}`;
-
-	const fileName = getFileName(isSvg ? 'svg' : 'webp');
-	const optimizedImagePath = `${fileOutputDir}/${fileName}`;
-
-	if (!fs.existsSync(fileOutputDir)) {
-		await fsp.mkdir(fileOutputDir, { recursive: true });
-	}
-
-	const fullOptimizedImageUrl = `${optimizedDir}/${fileName}`;
-
-	if (isSvg) {
-		await fsp.copyFile(downloadedImagePath, optimizedImagePath);
-
-		return {
-			url: fullOptimizedImageUrl,
-			openGraphUrl: fullOptimizedImageUrl,
-			width,
-			height,
-			format,
-		};
-	} else {
-		const resizedSharpImage = sharpImage
-			.resize({ width, height, fit })
-			.webp({ smartSubsample: true });
-		const resizedImage = await resizedSharpImage.toFile(optimizedImagePath);
-
-		let openGraphUrl = fullOptimizedImageUrl;
-
-		if (isAnimatedThumbnail) {
-			const openGraphFileName = getFileName('gif');
-			const openGraphImagePath = `${fileOutputDir}/${openGraphFileName}`;
-			openGraphUrl = `${optimizedDir}/${openGraphFileName}`;
-
-			await resizedSharpImage.toFile(openGraphImagePath);
-		}
-
-		return {
-			url: fullOptimizedImageUrl,
-			openGraphUrl,
-			width: resizedImage.width,
-			height: resizedImage.height / (imageMetadata.pages ?? 1),
-			format,
-		};
-	}
+	return {
+		url: imageUrl,
+		openGraphUrl: imageUrl,
+		width,
+		height,
+	};
 };
