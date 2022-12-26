@@ -82,8 +82,8 @@
 		<meta property="og:site_name " content="Outer Wilds Mods" />
 
 		{#if mod.imageUrl}
-			<meta property="og:image" content="{websiteUrl}{mod.openGraphImageUrl}" />
-			<meta property="twitter:image" content="{websiteUrl}{mod.openGraphImageUrl}" />
+			<meta property="og:image" content={mod.openGraphImageUrl} />
+			<meta property="twitter:image" content={mod.openGraphImageUrl} />
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta property="og:image:width" content="{listedImageSize.width}px" />
 			<meta property="og:image:height" content="{listedImageSize.height}px" />
