@@ -4,8 +4,6 @@ import { modList } from '$lib/store';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from '../$types';
 
-export const prerender = true;
-
 export const load: PageLoad = async ({ fetch, params }) => {
 	const mods = await readFromStore(modList);
 	const currentMod = mods.find(({ slug }) => params.mod === slug);

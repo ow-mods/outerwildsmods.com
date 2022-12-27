@@ -54,5 +54,3 @@ export const GET: RequestHandler = async () => {
 
 	return new Response(JSON.stringify(starDataResponse));
 };
-
-export const prerender = true;

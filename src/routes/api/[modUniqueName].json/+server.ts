@@ -27,5 +27,3 @@ export const GET: RequestHandler<Params> = async ({ params }) => {
 		})
 	);
 };
-
-export const prerender = true;

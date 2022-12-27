@@ -86,5 +86,3 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 		return new Response(JSON.stringify([]));
 	}
 };
-
-export const prerender = true;
