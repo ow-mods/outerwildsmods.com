@@ -5,6 +5,8 @@ import type { ImageInfo } from './get-image-map';
 import type { Mod } from './get-mod-database';
 import { getRawContentUrl } from '../get-raw-content-url';
 
+const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
+
 export const getImageInfo = async (
 	mod: Mod,
 	imageUrl: string,
@@ -62,12 +64,12 @@ export const downloadImage = async (imageUrl: string, fileName: string): Promise
 		await fsp.mkdir(temporaryDirectory, { recursive: true });
 	}
 
-	const relativeImagePath = `${temporaryDirectory}/${fileName}`;
+	const imagePath = getPath(`${temporaryDirectory}/${fileName}`);
 
 	const image = await response.arrayBuffer();
-	await fsp.writeFile(relativeImagePath, Buffer.from(image));
+	await fsp.writeFile(imagePath, Buffer.from(image));
 
-	return relativeImagePath;
+	return imagePath;
 };
 
 const getFullImageUrl = (rawContentUrl: string, imageUrl: string) => {
