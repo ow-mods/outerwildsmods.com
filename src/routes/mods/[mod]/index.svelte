@@ -3,7 +3,6 @@
 	import { readFromStore } from '$lib/helpers/read-from-store';
 	import { modList } from '$lib/store';
 	import { getModByPathName } from '$lib/helpers/mod-path-name';
-	import { getModRepoName } from '$lib/helpers/get-mod-repo-name';
 
 	type Params = {
 		mod: string;
