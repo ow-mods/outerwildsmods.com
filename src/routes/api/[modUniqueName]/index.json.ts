@@ -1,7 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
-import { getAllMarkdownImages } from '$lib/helpers/api/get-markdown-images';
 import { getImageMap } from '$lib/helpers/api/get-image-map';
 import { readFromStore } from '$lib/helpers/read-from-store';
 import { modList } from '$lib/store';
@@ -22,10 +20,8 @@ export const get: RequestHandler<Params> = async ({ params }) => {
 		};
 	}
 
-	const rawContentUrl = getRawContentUrl(mod);
 	const readme = await getModReadme(mod);
-	const images = getAllMarkdownImages(readme);
-	const externalImages = rawContentUrl ? await getImageMap(rawContentUrl, images) : {};
+	const externalImages = readme ? await getImageMap(mod, readme) : {};
 
 	return {
 		body: JSON.stringify({

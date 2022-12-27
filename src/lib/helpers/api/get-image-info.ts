@@ -2,6 +2,8 @@ import sharp from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import type { ImageInfo } from './get-image-map';
+import type { Mod } from './get-mod-database';
+import { getRawContentUrl } from '../get-raw-content-url';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
@@ -40,13 +42,24 @@ export const downloadImage = async (imageUrl: string, fileName: string): Promise
 	return fullImagePath;
 };
 
-export const getImageInfo = async (imageUrl: string): Promise<ImageInfo | null> => {
+export const getImageInfo = async (mod: Mod, imageUrl: string): Promise<ImageInfo | null> => {
+	const rawContentUrl = getRawContentUrl(mod);
+
+	const fullImageUrl = imageUrl.startsWith('http')
+		? // GitHub allows embedding images that actually point to webpages on github.com, so we have to replace the URLs here
+		  imageUrl.replace(
+				/^https?:\/\/github.com\/(.+)\/(.+)\/blob\/(.+)\//gm,
+				'https://raw.githubusercontent.com/$1/$2/$3/'
+		  )
+		: // For relative URLs we also have to resolve them
+		  `${rawContentUrl}/${imageUrl}`;
+
 	const encodedImageUrl = hash(imageUrl).toString();
 
-	const downloadedImagePath = await downloadImage(imageUrl, encodedImageUrl);
+	const downloadedImagePath = await downloadImage(fullImageUrl, encodedImageUrl);
 
 	if (!downloadedImagePath) {
-		throw new Error(`Failed to download image ${imageUrl}`);
+		throw new Error(`Failed to download image ${fullImageUrl}`);
 	}
 
 	const sharpImage = sharp(downloadedImagePath, { animated: true, limitInputPixels: false });
@@ -59,8 +72,8 @@ export const getImageInfo = async (imageUrl: string): Promise<ImageInfo | null> 
 	}
 
 	return {
-		url: imageUrl,
-		openGraphUrl: imageUrl,
+		url: fullImageUrl,
+		openGraphUrl: fullImageUrl,
 		width,
 		height,
 	};

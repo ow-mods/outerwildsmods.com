@@ -13,15 +13,6 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			onError: ({ status, path, referrer, referenceType }) => {
-				// Generated optimized images won't be found by the crawler.
-				// So I'm ignoring these errors.
-				if (path.startsWith('/images/optimized/')) return;
-
-				// Some images seem to still be missing.
-				// Temporarily ignore them.
-				// TODO: this needs to be fixed by using the original images at compile time.
-				if (path.endsWith('.webp') || path.endsWith('.svg')) return;
-
 				// Protocol URLs will 404 on prerender, gotta ignore those.
 				if (path.includes('outer-wilds-mod://')) return;
 
