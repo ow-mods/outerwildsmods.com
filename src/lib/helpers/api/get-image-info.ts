@@ -20,10 +20,7 @@ export const getImageInfo = async (
 
 	const fullImageUrl = getFullImageUrl(rawContentUrl, imageUrl);
 
-	const downloadedImagePath = await downloadImage(
-		fullImageUrl,
-		path.join(mod.slug, index.toString())
-	);
+	const downloadedImagePath = await downloadImage(fullImageUrl, mod.slug, index.toString());
 
 	if (!downloadedImagePath) {
 		throw new Error(`Failed to download image ${fullImageUrl}`);
@@ -50,7 +47,11 @@ export const getImageInfo = async (
 // because we just want to read the image dimensions.
 // Image dimensions are useful for SEO, since we can place them in the HTML to prevent\
 // layout shifts during page loading.
-export const downloadImage = async (imageUrl: string, fileName: string): Promise<string | null> => {
+export const downloadImage = async (
+	imageUrl: string,
+	slug: string,
+	fileName: string
+): Promise<string | null> => {
 	const response = await fetch(imageUrl);
 
 	if (!response.ok) {
@@ -58,7 +59,7 @@ export const downloadImage = async (imageUrl: string, fileName: string): Promise
 		return null;
 	}
 
-	const temporaryDirectory = 'tmp/thumbnails';
+	const temporaryDirectory = path.join('tmp', 'thumbnails', slug);
 
 	if (!fs.existsSync(temporaryDirectory)) {
 		await fsp.mkdir(temporaryDirectory, { recursive: true });
