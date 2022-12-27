@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ChartLine from './chart-line.svelte';
 	import ChartTooltip from './chart-tooltip.svelte';
 	import {
@@ -8,7 +8,7 @@
 		getDateText,
 		getFirstPoint,
 		getLastPoint,
-		HistoryPoint,
+		type HistoryPoint
 	} from '../../helpers/api/history-points';
 
 	export let historyPoints: HistoryPoint[] = [];
@@ -18,7 +18,7 @@
 
 	const chartSize = {
 		y: 100,
-		x: 500,
+		x: 500
 	} as const;
 
 	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
@@ -30,7 +30,7 @@
 
 	let mousePosition = {
 		x: 0,
-		y: 0,
+		y: 0
 	};
 	let hoveredPoint: HistoryPoint | null = null;
 	let hoveredPointCompare: HistoryPoint | null = null;

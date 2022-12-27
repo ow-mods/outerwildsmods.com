@@ -1,17 +1,17 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
-	import { getDateText, HistoryPoint } from '$lib/helpers/api/history-points';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import { getDateText, type HistoryPoint } from '$lib/helpers/api/history-points';
 
 	const tooltipOffset = {
 		x: -40,
-		y: 30,
+		y: 30
 	} as const;
 
 	export let mod: ModsRequestItem;
 	export let compareWithMod: ModsRequestItem | null;
 	export let mousePosition = {
 		x: 0,
-		y: 0,
+		y: 0
 	};
 	export let hoveredPoint: HistoryPoint | null = null;
 	export let hoveredPointCompare: HistoryPoint | null = null;

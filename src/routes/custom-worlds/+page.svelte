@@ -1,5 +1,4 @@
 <script lang="ts">
-	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
@@ -11,12 +10,12 @@
 	const newHorizonsLinks = [
 		{
 			text: 'New Horizons Documentation',
-			href: 'https://nh.outerwildsmods.com/',
+			href: 'https://nh.outerwildsmods.com/'
 		},
 		{
 			text: 'New Horizons Addon Template',
-			href: 'https://github.com/xen-42/ow-new-horizons-config-template',
-		},
+			href: 'https://github.com/xen-42/ow-new-horizons-config-template'
+		}
 	];
 </script>
 

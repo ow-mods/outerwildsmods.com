@@ -3,7 +3,7 @@
 	import LinkButton from '../button/link-button.svelte';
 	import { modList } from '$lib/store';
 	import ModCard from '../mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	const maxChildModCount = 5;

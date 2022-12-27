@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
 
@@ -12,7 +12,6 @@
 
 <a
 	href={`/mods/${mod.slug}/`}
-	sveltekit:prefetch
 	on:pointerenter={() => (hover = true)}
 	on:pointerleave={() => (hover = false)}
 	class="group link mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background outline-4 outline-dark hover:outline flex flex-col justify-start"

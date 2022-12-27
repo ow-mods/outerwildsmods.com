@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import { type RequestHandler, error } from '@sveltejs/kit';
 import { getModDatabase } from '$lib/helpers/api/get-mod-database';
 import type { Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
@@ -14,21 +14,16 @@ export interface ModsRequestItem extends Mod {
 	rawContentUrl: string | null;
 }
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
 	const cachedModList = await readFromStore(modList);
 	if (cachedModList && cachedModList.length > 0) {
-		return {
-			body: JSON.stringify(cachedModList),
-		};
+		return new Response(JSON.stringify(cachedModList));
 	}
 
 	const modDatabase = await getModDatabase();
 
 	if (!modDatabase) {
-		return {
-			status: 500,
-			body: 'Failed to retrieve database',
-		};
+		throw error(500, 'Failed to retrieve database');
 	}
 
 	const allReleases = [...modDatabase.releases, ...modDatabase.alphaReleases];
@@ -50,7 +45,7 @@ export const get: RequestHandler = async () => {
 				openGraphImageUrl,
 				formattedDownloadCount: formatNumber(mod.downloadCount),
 				rawContentUrl,
-				tags: mod.tags.length > 0 ? mod.tags : ['untagged'],
+				tags: mod.tags.length > 0 ? mod.tags : ['untagged']
 			};
 		})
 	);
@@ -59,7 +54,7 @@ export const get: RequestHandler = async () => {
 
 	modList.set(mods);
 
-	return { body: JSON.stringify(mods) };
+	return new Response(JSON.stringify(mods));
 };
 
 const filterFulfilledPromiseSettleResults = <T>(
@@ -67,3 +62,5 @@ const filterFulfilledPromiseSettleResults = <T>(
 ): result is PromiseFulfilledResult<T> => {
 	return result.status === 'fulfilled';
 };
+
+export const prerender = true;

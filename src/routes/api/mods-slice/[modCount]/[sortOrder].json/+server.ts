@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import { error, type RequestHandler } from '@sveltejs/kit';
 import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
 import { isSortOrder, sortModList } from '$lib/helpers/mod-sorting';
@@ -8,34 +8,30 @@ type Params = {
 	sortOrder: string;
 };
 
-export const get: RequestHandler<Params> = async ({ params }) => {
+export const GET: RequestHandler<Params> = async ({ params }) => {
 	const { modCount, sortOrder } = params;
 
 	const modCountNumber = parseInt(modCount);
 
 	if (isNaN(modCountNumber)) {
-		return {
-			status: 500,
-			body: `modCount (${modCount}) is NaN.`,
-		};
+		throw error(500, `modCount (${modCount}) is NaN.`);
 	}
 
 	if (!isSortOrder(sortOrder)) {
-		return {
-			status: 500,
-			body: `sortOrder (${sortOrder}) isn't a valid sort order.`,
-		};
+		throw error(500, `sortOrder (${sortOrder}) isn't a valid sort order.`);
 	}
 
 	const mods = await readFromStore(modList);
 	const sortedMods = sortModList(mods, sortOrder);
 
-	return {
-		body: JSON.stringify(
+	return new Response(
+		JSON.stringify(
 			sortedMods
 				.filter((mod) => !mod.utility)
 				.map((mod) => mod.uniqueName)
 				.slice(0, modCountNumber)
-		),
-	};
+		)
+	);
 };
+
+export const prerender = true;

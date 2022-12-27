@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { StarDataResponse } from 'src/routes/api/stars.json';
+	import type { StarDataResponse } from 'src/routes/api/stars.json/+server';
 
 	export let starData: StarDataResponse | undefined;
 </script>
