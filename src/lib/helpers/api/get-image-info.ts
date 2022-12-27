@@ -5,58 +5,23 @@ import type { ImageInfo } from './get-image-map';
 import type { Mod } from './get-mod-database';
 import { getRawContentUrl } from '../get-raw-content-url';
 
-const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
-
-const hash = (input: string) => {
-	let hash = 0,
-		i,
-		chr;
-	if (input.length === 0) return hash;
-	for (i = 0; i < input.length; i++) {
-		chr = input.charCodeAt(i);
-		hash = (hash << 5) - hash + chr;
-		hash |= 0; // Convert to 32bit integer
-	}
-	return hash;
-};
-
-export const downloadImage = async (imageUrl: string, fileName: string): Promise<string | null> => {
-	const response = await fetch(imageUrl);
-
-	if (!response.ok) {
-		return null;
-	}
-
-	const temporaryDirectory = 'tmp/original';
-
-	if (!fs.existsSync(temporaryDirectory)) {
-		await fsp.mkdir(temporaryDirectory, { recursive: true });
-	}
-
-	const relativeImagePath = `${temporaryDirectory}/${fileName}`;
-	const fullImagePath = getPath(relativeImagePath);
-
-	const image = await response.arrayBuffer();
-	await fsp.writeFile(fullImagePath, Buffer.from(image));
-
-	return fullImagePath;
-};
-
-export const getImageInfo = async (mod: Mod, imageUrl: string): Promise<ImageInfo | null> => {
+export const getImageInfo = async (
+	mod: Mod,
+	imageUrl: string,
+	index: number
+): Promise<ImageInfo | null> => {
 	const rawContentUrl = getRawContentUrl(mod);
 
-	const fullImageUrl = imageUrl.startsWith('http')
-		? // GitHub allows embedding images that actually point to webpages on github.com, so we have to replace the URLs here
-		  imageUrl.replace(
-				/^https?:\/\/github.com\/(.+)\/(.+)\/blob\/(.+)\//gm,
-				'https://raw.githubusercontent.com/$1/$2/$3/'
-		  )
-		: // For relative URLs we also have to resolve them
-		  `${rawContentUrl}/${imageUrl}`;
+	if (rawContentUrl === null) {
+		throw new Error(`Failed to get image info for ${mod.uniqueName}: missing raw content url`);
+	}
 
-	const encodedImageUrl = hash(imageUrl).toString();
+	const fullImageUrl = getFullImageUrl(rawContentUrl, imageUrl);
 
-	const downloadedImagePath = await downloadImage(fullImageUrl, encodedImageUrl);
+	const downloadedImagePath = await downloadImage(
+		fullImageUrl,
+		path.join(mod.slug, index.toString())
+	);
 
 	if (!downloadedImagePath) {
 		throw new Error(`Failed to download image ${fullImageUrl}`);
@@ -77,4 +42,41 @@ export const getImageInfo = async (mod: Mod, imageUrl: string): Promise<ImageInf
 		width,
 		height,
 	};
+};
+
+// We download the image to a temporary folder, and we don't persist it,
+// because we just want to read the image dimensions.
+// Image dimensions are useful for SEO, since we can place them in the HTML to prevent\
+// layout shifts during page loading.
+export const downloadImage = async (imageUrl: string, fileName: string): Promise<string | null> => {
+	const response = await fetch(imageUrl);
+
+	if (!response.ok) {
+		console.log(`Failed to download image ${imageUrl}: ${response.statusText}`);
+		return null;
+	}
+
+	const temporaryDirectory = 'tmp/thumbnails';
+
+	if (!fs.existsSync(temporaryDirectory)) {
+		await fsp.mkdir(temporaryDirectory, { recursive: true });
+	}
+
+	const relativeImagePath = `${temporaryDirectory}/${fileName}`;
+
+	const image = await response.arrayBuffer();
+	await fsp.writeFile(relativeImagePath, Buffer.from(image));
+
+	return relativeImagePath;
+};
+
+const getFullImageUrl = (rawContentUrl: string, imageUrl: string) => {
+	return imageUrl.startsWith('http')
+		? // GitHub allows embedding images that actually point to webpages on github.com, so we have to replace the URLs here
+		  imageUrl.replace(
+				/^https?:\/\/github.com\/(.+)\/(.+)\/blob\/(.+)\//gm,
+				'https://raw.githubusercontent.com/$1/$2/$3/'
+		  )
+		: // For relative URLs we also have to resolve them
+		  `${rawContentUrl}/${imageUrl}`;
 };

@@ -5,6 +5,7 @@ import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { formatNumber } from '$lib/helpers/format-number';
 import { modList } from '$lib/store';
 import { readFromStore } from '$lib/helpers/read-from-store';
+import { thumbnailUrlBase } from '$lib/helpers/constants';
 
 export interface ModsRequestItem extends Mod {
 	imageUrl: string | null;
@@ -39,9 +40,7 @@ export const get: RequestHandler = async () => {
 			let openGraphImageUrl: string | null = null;
 
 			try {
-				imageUrl = mod.hasThumbnail
-					? `https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/thumbnails/${mod.uniqueName}.webp`
-					: null;
+				imageUrl = mod.hasThumbnail ? `${thumbnailUrlBase}/${mod.uniqueName}.webp` : null;
 				// TODO use gif for opengraph animated images
 				openGraphImageUrl = imageUrl;
 			} catch (error) {

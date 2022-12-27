@@ -17,11 +17,11 @@ export const getImageMap = async (mod: Mod, readme: string): Promise<ImageMap> =
 	const imageUrls = getAllMarkdownImages(readme);
 
 	const imageInfoResults = await Promise.allSettled(
-		imageUrls.map(async (url) => {
+		imageUrls.map(async (url, index) => {
 			try {
 				return {
 					originalUrl: url,
-					imageInfo: await getImageInfo(mod, url),
+					imageInfo: await getImageInfo(mod, url, index),
 				};
 			} catch (error) {
 				throw new Error(`Failed to get image ${url}: ${error}`);

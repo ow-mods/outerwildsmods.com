@@ -6,3 +6,6 @@ export const listedImageSize = {
 export const websiteUrl = 'https://outerwildsmods.com';
 
 export const recentViewsDayCount = 30;
+
+export const thumbnailUrlBase =
+	'https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/thumbnails';
