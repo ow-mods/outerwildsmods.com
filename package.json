@@ -5,11 +5,14 @@
   "private": true,
   "devDependencies": {
     "@sveltejs/adapter-auto": "^1.0.0",
+    "@sveltejs/adapter-static": "^1.0.0",
     "@sveltejs/kit": "^1.0.0",
     "@types/lodash-es": "^4.17.6",
+    "@types/sharp": "^0.31.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "autoprefixer": "^10.4.13",
+    "commonmark": "^0.30.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-svelte3": "^4.0.0",
@@ -17,16 +20,14 @@
     "postcss": "^8.4.20",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.8.1",
+    "sharp": "^0.31.3",
     "svelte": "^3.54.0",
     "svelte-check": "^2.9.2",
     "svelte-markdown": "^0.2.3",
     "tailwindcss": "^3.2.4",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
-    "vite": "^4.0.0",
-    "@types/sharp": "^0.31.0",
-    "commonmark": "^0.30.0",
-    "sharp": "^0.31.3"
+    "vite": "^4.0.0"
   },
   "scripts": {
     "dev": "vite dev",
