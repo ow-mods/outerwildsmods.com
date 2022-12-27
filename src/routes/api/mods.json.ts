@@ -33,19 +33,17 @@ export const get: RequestHandler = async () => {
 
 	const allReleases = [...modDatabase.releases, ...modDatabase.alphaReleases];
 
-	const modsResult = await Promise.allSettled(
+	const modsResult = await Promise.allSettled<ModsRequestItem>(
 		allReleases.map(async (mod) => {
 			const rawContentUrl = getRawContentUrl(mod);
 			let imageUrl: string | null = null;
 			let openGraphImageUrl: string | null = null;
 
-			try {
-				imageUrl = mod.hasThumbnail ? `${thumbnailUrlBase}/${mod.uniqueName}.webp` : null;
-				// TODO use gif for opengraph animated images
-				openGraphImageUrl = imageUrl;
-			} catch (error) {
-				console.error(`Failed to retrieve thumbnail image for ${mod.uniqueName}: ${error}`);
-			}
+			imageUrl = mod.thumbnail.main ? `${thumbnailUrlBase}/${mod.thumbnail.main}` : null;
+			openGraphImageUrl = mod.thumbnail.openGraph
+				? `${thumbnailUrlBase}/${mod.thumbnail.openGraph}`
+				: null;
+
 			return {
 				...mod,
 				imageUrl,
