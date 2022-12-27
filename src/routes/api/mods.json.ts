@@ -42,7 +42,7 @@ export const get: RequestHandler = async () => {
 			imageUrl = mod.thumbnail.main ? `${thumbnailUrlBase}/${mod.thumbnail.main}` : null;
 			openGraphImageUrl = mod.thumbnail.openGraph
 				? `${thumbnailUrlBase}/${mod.thumbnail.openGraph}`
-				: null;
+				: imageUrl;
 
 			return {
 				...mod,
