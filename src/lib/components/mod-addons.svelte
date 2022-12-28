@@ -6,7 +6,11 @@
 	export let modList: ModsRequestItem[];
 	export let tagList: string[];
 
-	const addons = modList.filter((otherMod) => otherMod.parent === mod?.uniqueName);
+	let addons: ModsRequestItem[] = [];
+
+	$: {
+		addons = modList.filter((otherMod) => otherMod.parent === mod?.uniqueName);
+	}
 </script>
 
 {#if addons.length > 0}

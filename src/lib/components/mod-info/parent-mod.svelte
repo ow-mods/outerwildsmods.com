@@ -6,7 +6,11 @@
 	export let parentUniqueName: string | undefined;
 	export let modList: ModsRequestItem[];
 
-	const parentMod = modList.find((otherMod) => otherMod.uniqueName === parentUniqueName);
+	let parentMod: ModsRequestItem | undefined;
+
+	$: {
+		parentMod = modList.find((otherMod) => otherMod.uniqueName === parentUniqueName);
+	}
 </script>
 
 {#if parentMod}
