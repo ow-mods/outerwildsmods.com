@@ -7,9 +7,21 @@
 	import { listedImageSize, websiteUrl } from '$lib/helpers/constants';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 
 	export let data: PageData;
-	const { mod, readme, externalImages, modList } = data;
+	const { modList } = data;
+
+	let mod: ModsRequestItem | undefined;
+	let readme: string | undefined;
+	let externalImages: ImageMap[];
+
+	$: {
+		mod = data.mod;
+		readme = data.readme;
+		externalImages = data.externalImages;
+	}
 
 	const getDescriptionTerminator = (modDescription: string) => {
 		if (modDescription === '') {
@@ -29,7 +41,7 @@
 
 <svelte:head>
 	{#if mod}
-		<title>{data.mod.name} - {mod.description}</title>
+		<title>{mod.name} - {mod.description}</title>
 		<meta name="description" content={getPageDescription(mod.description, mod.name)} />
 		<meta property="og:title" content={mod.name} />
 		<meta property="og:description" content={mod.description} />
