@@ -30,3 +30,5 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		externalImages
 	};
 };
+
+export const csr = false;
