@@ -5,7 +5,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { modList } = data;
+	const { modList, tagList } = data;
 
 	const mods = modList.filter((mod) => !mod.alpha);
 </script>
@@ -19,6 +19,6 @@
 </svelte:head>
 <PageLayout>
 	<PageSection title="Available mods" id="mods">
-		<ModGrid {mods} />
+		<ModGrid {mods} {tagList} />
 	</PageSection>
 </PageLayout>

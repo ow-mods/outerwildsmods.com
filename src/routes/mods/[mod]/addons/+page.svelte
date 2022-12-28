@@ -4,13 +4,13 @@
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { getModByPathName } from '$lib/helpers/mod-path-name';
+	import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { modList } = data;
 
-	const mod = getModByPathName(modList, $page.params.mod ?? '');
+	const mod = getModBySlug(modList, $page.params.mod ?? '');
 </script>
 
 <svelte:head>

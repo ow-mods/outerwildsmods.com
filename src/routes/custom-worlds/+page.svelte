@@ -7,7 +7,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { modList } = data;
+	const { modList, tagList } = data;
 
 	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 	const newHorizonsLinks = [
@@ -47,7 +47,7 @@
 			</div>
 		</PageSection>
 		<PageSection title="Available Custom Content" id="available-worlds">
-			<ModAddons mod={newHorizons} {modList} />
+			<ModAddons mod={newHorizons} {modList} {tagList} />
 		</PageSection>
 	{/if}
 </PageLayout>

@@ -9,7 +9,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { modList } = data;
+	const { modList, tagList } = data;
 
 	const mods = modList.filter((mod) => mod.alpha);
 </script>
@@ -45,6 +45,6 @@
 			Wilds. To install mods with it, go to the manager settings and change the "Game version to use"
 			setting.
 		</p>
-		<ModGrid {mods} />
+		<ModGrid {mods} {tagList} />
 	</PageSection>
 </PageLayout>

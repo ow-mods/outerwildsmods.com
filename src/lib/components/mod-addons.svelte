@@ -4,10 +4,11 @@
 
 	export let mod: ModsRequestItem;
 	export let modList: ModsRequestItem[];
+	export let tagList: string[];
 
 	const addons = modList.filter((otherMod) => otherMod.parent === mod?.uniqueName);
 </script>
 
 {#if addons.length > 0}
-	<ModGrid mods={addons} />
+	<ModGrid mods={addons} {tagList} />
 {/if}

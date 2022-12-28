@@ -1,5 +1,4 @@
 import { modDatabaseUrl } from '../constants';
-import { readFromStore } from '../read-from-store';
 
 export type Mod = {
 	name: string;

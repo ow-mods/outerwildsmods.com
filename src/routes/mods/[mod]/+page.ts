@@ -1,9 +1,9 @@
-import { getModByPathName } from '$lib/helpers/mod-path-name';
+import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch, params, parent }) => {
 	const mods = (await parent()).modList;
-	const mod = getModByPathName(mods, params.mod);
+	const mod = getModBySlug(mods, params.mod);
 
 	if (!mod)
 		return {

@@ -1,4 +1,4 @@
 import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 
-export const getModByPathName = (modList: ModsRequestItem[], pathName: string) =>
+export const getModBySlug = (modList: ModsRequestItem[], pathName: string) =>
 	modList.find((mod) => mod.slug === pathName.toLowerCase());
