@@ -1,7 +1,6 @@
 import { modDatabase } from '$lib/store';
+import { modDatabaseUrl } from '../constants';
 import { readFromStore } from '../read-from-store';
-
-const DATABASE_URL = 'https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/database.json';
 
 export type Mod = {
 	name: string;
@@ -62,7 +61,7 @@ export const getModDatabase = async (): Promise<ModDatabase> => {
 		return cachedModDatabase;
 	}
 
-	const response = await fetch(DATABASE_URL);
+	const response = await fetch(modDatabaseUrl);
 	if (response.status !== 200) {
 		throw new Error(`Response not OK, status: ${response.status} ${response.statusText}`);
 	}
@@ -74,6 +73,6 @@ export const getModDatabase = async (): Promise<ModDatabase> => {
 	return {
 		...database,
 		releases: database.releases.sort(sortReleases),
-		alphaReleases: database.alphaReleases.sort(sortReleases),
+		alphaReleases: database.alphaReleases.sort(sortReleases)
 	};
 };
