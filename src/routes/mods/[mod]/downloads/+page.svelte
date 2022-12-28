@@ -43,7 +43,7 @@
 			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
 		</div>
 		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-		<div class="flex justify-between flex-wrap">
+		<div class="flex justify-between flex-wrap mb-2">
 			<div>
 				<span>Compare with:</span>
 				<select
