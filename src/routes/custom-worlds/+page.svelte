@@ -41,8 +41,8 @@
 						and even editing planets from the base game. If you want to add your own custom content
 						to the game, the NH documentation has most of the info you need to get started. The
 						easiest way is by cloning the NH Addon Template. No coding knowledge is required!
-						<LinkList links={newHorizonsLinks} />
 					</p>
+					<LinkList links={newHorizonsLinks} />
 				</div>
 			</div>
 		</PageSection>
