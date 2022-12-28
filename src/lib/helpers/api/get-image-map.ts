@@ -3,10 +3,9 @@ import { getAllMarkdownImages } from './get-markdown-images';
 import type { Mod } from './get-mod-database';
 
 export type ImageInfo = {
-	width: number;
-	height: number;
+	width?: number;
+	height?: number;
 	url: string;
-	openGraphUrl: string;
 };
 
 export type ImageMap = Record<string, ImageInfo | null>;
@@ -21,7 +20,7 @@ export const getImageMap = async (mod: Mod, readme: string): Promise<ImageMap> =
 			try {
 				return {
 					originalUrl: url,
-					imageInfo: await getImageInfo(mod, url, index),
+					imageInfo: await getImageInfo(mod, url, index)
 				};
 			} catch (error) {
 				throw new Error(`Failed to get image ${url}: ${error}`);
@@ -31,7 +30,7 @@ export const getImageMap = async (mod: Mod, readme: string): Promise<ImageMap> =
 
 	for (const imageInfoResult of imageInfoResults) {
 		if (imageInfoResult.status === 'rejected') {
-			console.error(`Failed to get image info for ${mod.uniqueName}: ${imageInfoResult.reason}`);
+			console.error(`Broken image info for ${mod.uniqueName}: ${imageInfoResult.reason}`);
 			continue;
 		}
 
@@ -39,7 +38,7 @@ export const getImageMap = async (mod: Mod, readme: string): Promise<ImageMap> =
 		const imageInfo = resultValue.imageInfo;
 
 		if (!imageInfo) {
-			console.error(`Failed to get image info for ${mod.uniqueName}: no imageInfo`);
+			console.error(`Broken image info for ${mod.uniqueName}: no imageInfo`);
 			continue;
 		}
 
