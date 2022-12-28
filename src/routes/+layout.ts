@@ -1,10 +1,10 @@
-import type { LayoutServerLoad } from './$types';
+import type { LayoutLoad } from './$types';
 import { modList } from '$lib/store';
 import { setUpTags } from '$lib/helpers/set-up-tags';
 import { error } from '@sveltejs/kit';
 import type { StarDataResponse } from './api/stars.json/+server';
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
+export const load: LayoutLoad = async ({ fetch }) => {
 	const modsResult = await fetch('/api/mods.json');
 	const starData = await fetch('/api/stars.json');
 
