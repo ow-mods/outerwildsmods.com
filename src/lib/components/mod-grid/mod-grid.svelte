@@ -102,8 +102,7 @@
 	};
 </script>
 
-<!-- Temporarily disabling features that require JavaScript until some issues are fixed -->
-<!-- <div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
+<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
 	<div>
 		Sort:
 		<select
@@ -138,7 +137,7 @@
 		{filteredMods.length} items
 	</div>
 </div>
-<TagsSelector {tagStates} {onToggleTag} onClear={onClearTags} {tags} /> -->
+<TagsSelector {tagStates} {onToggleTag} onClear={onClearTags} {tags} />
 <div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
 		<ModCard lazy={index > 3} {mod} />
