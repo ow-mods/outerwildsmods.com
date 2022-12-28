@@ -1,8 +1,8 @@
 import type { LayoutLoad } from './$types';
-import { modList } from '$lib/store';
 import { setUpTags } from '$lib/helpers/set-up-tags';
 import { error } from '@sveltejs/kit';
 import type { StarDataResponse } from './api/stars.json/+server';
+import type { ModsRequestItem } from './api/mods.json/+server';
 
 export const load: LayoutLoad = async ({ fetch }) => {
 	const modsResult = await fetch('/api/mods.json');
@@ -10,11 +10,11 @@ export const load: LayoutLoad = async ({ fetch }) => {
 
 	if (modsResult.ok) {
 		const newModList = await modsResult.json();
-		modList.set(newModList);
 		setUpTags(newModList);
 
 		return {
-			starData: (await starData.json()) as StarDataResponse
+			starData: (await starData.json()) as StarDataResponse,
+			modList: newModList as ModsRequestItem[]
 		};
 	}
 

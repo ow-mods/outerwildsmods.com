@@ -3,10 +3,13 @@
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { modList } from '$lib/store';
 	import LinkList from '$lib/components/link-list.svelte';
+	import type { PageData } from './$types';
 
-	const newHorizons = $modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
+	export let data: PageData;
+	const { modList } = data;
+
+	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 	const newHorizonsLinks = [
 		{
 			text: 'New Horizons Documentation',
@@ -44,7 +47,7 @@
 			</div>
 		</PageSection>
 		<PageSection title="Available Custom Content" id="available-worlds">
-			<ModAddons mod={newHorizons} />
+			<ModAddons mod={newHorizons} {modList} />
 		</PageSection>
 	{/if}
 </PageLayout>

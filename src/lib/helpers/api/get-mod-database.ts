@@ -1,4 +1,3 @@
-import { modDatabase } from '$lib/store';
 import { modDatabaseUrl } from '../constants';
 import { readFromStore } from '../read-from-store';
 
@@ -54,11 +53,14 @@ const sortReleases = (releaseA: Mod, releaseB: Mod) => {
 	return releaseB.downloadCount - releaseA.downloadCount;
 };
 
-export const getModDatabase = async (): Promise<ModDatabase> => {
-	const cachedModDatabase = await readFromStore(modDatabase);
+let cachedModDatabase: ModDatabase | undefined;
 
+export const getModDatabase = async (): Promise<ModDatabase> => {
 	if (cachedModDatabase) {
+		console.log('### using cached database');
 		return cachedModDatabase;
+	} else {
+		console.log('### getting new database');
 	}
 
 	const response = await fetch(modDatabaseUrl);
@@ -68,7 +70,7 @@ export const getModDatabase = async (): Promise<ModDatabase> => {
 
 	const database: ModDatabase = await response.json();
 
-	modDatabase.set(database);
+	cachedModDatabase = database;
 
 	return {
 		...database,

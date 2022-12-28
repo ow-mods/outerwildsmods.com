@@ -3,8 +3,6 @@ import { getModDatabase } from '$lib/helpers/api/get-mod-database';
 import type { Mod } from '$lib/helpers/api/get-mod-database';
 import { getRawContentUrl } from '$lib/helpers/get-raw-content-url';
 import { formatNumber } from '$lib/helpers/format-number';
-import { modList } from '$lib/store';
-import { readFromStore } from '$lib/helpers/read-from-store';
 import { thumbnailUrlBase } from '$lib/helpers/constants';
 
 export interface ModsRequestItem extends Mod {
@@ -14,8 +12,9 @@ export interface ModsRequestItem extends Mod {
 	rawContentUrl: string | null;
 }
 
+let cachedModList: ModsRequestItem[] | undefined;
+
 export const GET: RequestHandler = async () => {
-	const cachedModList = await readFromStore(modList);
 	if (cachedModList && cachedModList.length > 0) {
 		return new Response(JSON.stringify(cachedModList));
 	}
@@ -52,7 +51,7 @@ export const GET: RequestHandler = async () => {
 
 	const mods = modsResult.filter(filterFulfilledPromiseSettleResults).map((result) => result.value);
 
-	modList.set(mods);
+	cachedModList = mods;
 
 	return new Response(JSON.stringify(mods));
 };

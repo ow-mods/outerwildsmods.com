@@ -4,12 +4,11 @@
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
-	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { modDownloadHistory, mod } = data;
+	const { modDownloadHistory, mod, modList } = data;
 
 	let compareWithMod: ModsRequestItem | null = null;
 	let compareWithHistory: HistoryPoint[] = [];
@@ -28,7 +27,7 @@
 		}
 	})();
 
-	const modsExceptSelf = $modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
+	const modsExceptSelf = modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
 </script>
 
 <svelte:head>

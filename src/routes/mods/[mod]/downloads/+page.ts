@@ -1,11 +1,9 @@
 import type { HistoryPoint } from '$lib/helpers/api/history-points';
-import { readFromStore } from '$lib/helpers/read-from-store';
-import { modList } from '$lib/store';
 import { error } from '@sveltejs/kit';
-import type { PageLoad } from '../$types';
+import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch, params }) => {
-	const mods = await readFromStore(modList);
+export const load: PageLoad = async ({ fetch, params, parent }) => {
+	const mods = (await parent()).modList;
 	const currentMod = mods.find(({ slug }) => params.mod === slug);
 
 	if (!currentMod) {
@@ -31,5 +29,3 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		mod: currentMod
 	};
 };
-
-export const csr = false;

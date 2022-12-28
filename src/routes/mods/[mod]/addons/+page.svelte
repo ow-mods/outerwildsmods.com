@@ -5,9 +5,12 @@
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { getModByPathName } from '$lib/helpers/mod-path-name';
-	import { modList } from '$lib/store';
+	import type { PageData } from './$types';
 
-	const mod = getModByPathName($modList, $page.params.mod ?? '');
+	export let data: PageData;
+	const { modList } = data;
+
+	const mod = getModByPathName(modList, $page.params.mod ?? '');
 </script>
 
 <svelte:head>
@@ -20,7 +23,7 @@
 	{#if mod}
 		<ModCard {mod} />
 		<PageSection title="Addons for {mod.name}" id="addons-{mod.uniqueName}">
-			<ModAddons {mod} />
+			<ModAddons {mod} {modList} />
 		</PageSection>
 	{:else}
 		<div>Mod not found</div>

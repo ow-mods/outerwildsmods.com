@@ -6,9 +6,12 @@
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
-	import { modList } from '$lib/store';
+	import type { PageData } from './$types';
 
-	const mods = $modList.filter((mod) => mod.alpha);
+	export let data: PageData;
+	const { modList } = data;
+
+	const mods = modList.filter((mod) => mod.alpha);
 </script>
 
 <svelte:head>

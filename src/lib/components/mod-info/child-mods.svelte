@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-database';
 	import LinkButton from '../button/link-button.svelte';
-	import { modList } from '$lib/store';
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
@@ -9,11 +8,12 @@
 	const maxChildModCount = 5;
 
 	export let mod: Mod;
+	export let modList: ModsRequestItem[];
 
 	let childMods: ModsRequestItem[] = [];
 	let addonsPath = '';
 	$: {
-		childMods = $modList
+		childMods = modList
 			.filter((otherMod) => otherMod.parent === mod.uniqueName)
 			.slice(0, maxChildModCount);
 		addonsPath = `/mods/${mod.slug}/addons `;

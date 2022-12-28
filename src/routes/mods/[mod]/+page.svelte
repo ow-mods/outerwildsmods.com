@@ -9,7 +9,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { mod, readme, externalImages } = data;
+	const { mod, readme, externalImages, modList } = data;
 
 	const getDescriptionTerminator = (modDescription: string) => {
 		if (modDescription === '') {
@@ -58,8 +58,8 @@
 			{/if}
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
 				<ModActions {mod} />
-				<ChildMods {mod} />
-				<ParentMod parentUniqueName={mod.parent} />
+				<ChildMods {mod} {modList} />
+				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
 	{/if}
