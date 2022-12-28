@@ -31,3 +31,5 @@ export const load: PageLoad = async ({ fetch, params }) => {
 		mod: currentMod
 	};
 };
+
+export const csr = false;
