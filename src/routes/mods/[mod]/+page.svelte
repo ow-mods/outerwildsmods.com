@@ -6,9 +6,9 @@
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import { listedImageSize, websiteUrl } from '$lib/helpers/constants';
 	import { page } from '$app/stores';
-	import type { PageData } from './$types';
+	import type { PageServerData } from './$types';
 
-	export let data: PageData;
+	export let data: PageServerData;
 	const { mod, readme, externalImages } = data;
 
 	const getDescriptionTerminator = (modDescription: string) => {

@@ -2,9 +2,9 @@ import type { HistoryPoint } from '$lib/helpers/api/history-points';
 import { readFromStore } from '$lib/helpers/read-from-store';
 import { modList } from '$lib/store';
 import { error } from '@sveltejs/kit';
-import type { PageLoad } from '../$types';
+import type { PageServerLoad } from '../$types';
 
-export const load: PageLoad = async ({ fetch, params }) => {
+export const load: PageServerLoad = async ({ fetch, params }) => {
 	const mods = await readFromStore(modList);
 	const currentMod = mods.find(({ slug }) => params.mod === slug);
 
