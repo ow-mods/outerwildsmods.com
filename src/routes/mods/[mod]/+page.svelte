@@ -15,7 +15,7 @@
 
 	let mod: ModsRequestItem | undefined;
 	let readme: string | undefined;
-	let externalImages: ImageMap[];
+	let externalImages: ImageMap;
 
 	$: {
 		mod = data.mod;
