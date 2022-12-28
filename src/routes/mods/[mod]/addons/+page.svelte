@@ -18,9 +18,7 @@
 
 <PageLayout>
 	{#if mod}
-		<div class="max-w-xs m-auto">
-			<ModCard {mod} />
-		</div>
+		<ModCard {mod} />
 		<PageSection title="Addons for {mod.name}" id="addons-{mod.uniqueName}">
 			<ModAddons {mod} />
 		</PageSection>
