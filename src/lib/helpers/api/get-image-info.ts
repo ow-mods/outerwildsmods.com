@@ -23,23 +23,27 @@ export const getImageInfo = async (
 	const downloadedImagePath = await downloadImage(fullImageUrl, mod.slug, index.toString());
 
 	if (!downloadedImagePath) {
-		throw new Error(`Failed to download image ${fullImageUrl}`);
+		return {
+			url: fullImageUrl
+		};
 	}
 
 	const sharpImage = sharp(downloadedImagePath, { animated: true, limitInputPixels: false });
 	const imageMetadata = await sharpImage.metadata();
 	const width = imageMetadata.width;
-	const height = imageMetadata.height;
+	const height = imageMetadata.pageHeight ?? imageMetadata.height;
 
 	if (!width || !height) {
-		throw new Error('failed to read image dimensions');
+		console.error(`Failed to read image dimensions for ${fullImageUrl}`);
+		return {
+			url: fullImageUrl
+		};
 	}
 
 	return {
 		url: fullImageUrl,
-		openGraphUrl: fullImageUrl,
 		width,
-		height,
+		height
 	};
 };
 
@@ -52,25 +56,30 @@ export const downloadImage = async (
 	slug: string,
 	fileName: string
 ): Promise<string | null> => {
-	const response = await fetch(imageUrl);
+	try {
+		const response = await fetch(imageUrl);
 
-	if (!response.ok) {
-		console.log(`Failed to download image ${imageUrl}: ${response.statusText}`);
+		if (!response.ok) {
+			console.log(`Failed to download image ${imageUrl}: ${response.statusText}`);
+			return null;
+		}
+
+		const temporaryDirectory = path.join('tmp', 'thumbnails', slug);
+
+		if (!fs.existsSync(temporaryDirectory)) {
+			await fsp.mkdir(temporaryDirectory, { recursive: true });
+		}
+
+		const imagePath = getPath(`${temporaryDirectory}/${fileName}`);
+
+		const image = await response.arrayBuffer();
+		await fsp.writeFile(imagePath, Buffer.from(image));
+
+		return imagePath;
+	} catch (error) {
+		console.error(`Error downloading image ${imageUrl}: ${error}`);
 		return null;
 	}
-
-	const temporaryDirectory = path.join('tmp', 'thumbnails', slug);
-
-	if (!fs.existsSync(temporaryDirectory)) {
-		await fsp.mkdir(temporaryDirectory, { recursive: true });
-	}
-
-	const imagePath = getPath(`${temporaryDirectory}/${fileName}`);
-
-	const image = await response.arrayBuffer();
-	await fsp.writeFile(imagePath, Buffer.from(image));
-
-	return imagePath;
 };
 
 const getFullImageUrl = (rawContentUrl: string, imageUrl: string) => {
