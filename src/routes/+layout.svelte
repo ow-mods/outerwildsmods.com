@@ -6,9 +6,9 @@
 	import '../styles/utilities.css';
 	import '../styles/app.css';
 	import Analytics from '$lib/components/analytics.svelte';
-	import type { LayoutServerData } from './$types';
+	import type { LayoutData } from './$types';
 
-	export let data: LayoutServerData;
+	export let data: LayoutData;
 </script>
 
 <Analytics />
