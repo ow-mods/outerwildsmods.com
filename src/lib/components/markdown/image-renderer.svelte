@@ -16,4 +16,5 @@
 	alt={text}
 	height={imageInfo?.height}
 	width={imageInfo?.width}
+	loading="lazy"
 />
