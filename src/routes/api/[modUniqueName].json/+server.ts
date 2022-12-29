@@ -19,12 +19,12 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	}
 
 	const readme = await getModReadme(mod);
-	const externalImages = readme ? await getImageMap(mod, readme) : {};
+	const imageMap = readme ? await getImageMap(mod, readme) : {};
 
 	return new Response(
 		JSON.stringify({
 			...(readme ? { readme } : undefined),
-			externalImages
+			imageMap
 		})
 	);
 };

@@ -1,3 +1,4 @@
+import type { ImageMap } from '$lib/helpers/api/get-image-map';
 import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
 import type { PageLoad } from './$types';
 
@@ -20,11 +21,13 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 		};
 	}
 
-	const { readme, externalImages } = await result.json();
+	const json = await result.json();
+	const readme: string = json.readme;
+	const imageMap: ImageMap = json.imageMap;
 
 	return {
 		mod,
 		readme,
-		externalImages
+		imageMap
 	};
 };

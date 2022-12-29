@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import type { ImageMap } from '$lib/helpers/api/get-image-map';
+	import { getMarkdownContext } from './markdown-context';
 
 	export let href = '';
 	export let title: string | undefined = undefined;
 	export let text = '';
-	const externalImages = getContext<ImageMap | undefined>('externalImages');
+	const imageMap = getMarkdownContext('imageMap');
 
-	const imageInfo = externalImages && externalImages[href];
+	const imageInfo = imageMap && imageMap[href];
 </script>
 
 <img
