@@ -56,10 +56,7 @@ let cachedModDatabase: ModDatabase | undefined;
 
 export const getModDatabase = async (): Promise<ModDatabase> => {
 	if (cachedModDatabase) {
-		console.log('### using cached database');
 		return cachedModDatabase;
-	} else {
-		console.log('### getting new database');
 	}
 
 	const response = await fetch(modDatabaseUrl);
