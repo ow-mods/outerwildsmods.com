@@ -1,9 +1,33 @@
 <script lang="ts">
+	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import CtaButton from '../button/cta-button.svelte';
-	import TagToggle from '../tag-toggle.svelte';
 
 	export let mod: ModsRequestItem;
+
+	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅'];
+	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥'];
+	const trioIcons = ['👪', '👨‍👦‍👦'];
+	const moreIcons = ['👨‍👨‍👦‍👦'];
+
+	let iconList = singleIcons;
+
+	if (mod.authorDisplay) {
+		const authorCount = mod.authorDisplay.split(/&| and |,/).length;
+
+		if (authorCount > 3) {
+			iconList = moreIcons;
+		} else if (authorCount > 2) {
+			iconList = trioIcons;
+		} else if (authorCount > 1) {
+			iconList = duoIcons;
+		}
+	}
+
+	const author = mod.authorDisplay ?? mod.author;
+
+	const iconIndex = stringToNumber(author) % iconList.length;
+	const modIcon = iconList[iconIndex];
 </script>
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
@@ -33,7 +57,7 @@
 		<div class="text-sm flex flex-col gap-2">
 			<div>
 				<a class="link break-words flex gap-1 items-center" href="https://github.com/{mod.author}">
-					<span>🙋</span>
+					<span class="text-xl -mx-1">{modIcon}</span>
 					<span>{mod.authorDisplay ?? mod.author}</span>
 				</a>
 			</div>
