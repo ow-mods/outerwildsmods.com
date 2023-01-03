@@ -5,8 +5,8 @@
 		return {
 			props: {
 				message: `${status}: ${error?.message}`,
-				stack: error?.stack,
-			},
+				stack: error?.stack
+			}
 		};
 	};
 </script>
