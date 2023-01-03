@@ -5,10 +5,7 @@ node_modules
 /package
 .env
 .env.*
-.vercel
-.output
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
 tmp
-.pnpm-debug.log
-
-# Optimized images generated from external sources
-static/images/optimized

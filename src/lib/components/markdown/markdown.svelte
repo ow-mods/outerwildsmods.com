@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { setContext } from 'svelte';
 	import SvelteMarkdown from 'svelte-markdown';
 	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 	import ImageRenderer from './image-renderer.svelte';
 	import LinkRenderer from './link-renderer.svelte';
+	import { setMarkdownContext } from './markdown-context';
 
 	export let readme: string;
-	export let externalImages: ImageMap;
-	export let rawContentUrl: string | null;
+	export let imageMap: ImageMap;
+	export let rawContentUrl: string;
 
-	setContext('rawContentUrl', rawContentUrl);
-	setContext('externalImages', externalImages);
+	setMarkdownContext('rawContentUrl', rawContentUrl);
+	setMarkdownContext('imageMap', imageMap);
 </script>
 
 <div class="flex-1 markdown">
@@ -18,7 +18,7 @@
 		source={readme}
 		renderers={{
 			image: ImageRenderer,
-			link: LinkRenderer,
+			link: LinkRenderer
 		}}
 	/>
 </div>

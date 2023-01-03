@@ -24,7 +24,7 @@ const round = (value: number, magnitude: number) => Math.round(value * magnitude
 const random = (min: number, max: number, roundMagnitude: number) =>
 	round(Math.random() * (max - min) + min, roundMagnitude);
 
-export const get: RequestHandler = async () => {
+export const GET: RequestHandler = async () => {
 	const starData1: StarData[] = [];
 	const starData2: StarData[] = [];
 
@@ -34,14 +34,14 @@ export const get: RequestHandler = async () => {
 			y: random(0, height, 1),
 			opacity: random(0.1, 0.8, 10),
 			radius: random(0.1, 1.2, 10),
-			id: i,
+			id: i
 		});
 		starData2.push({
 			x: random(0, width, 1),
 			y: random(0, height, 1),
 			opacity: random(0.1, 0.8, 10),
 			radius: random(0.1, 1.2, 10),
-			id: i,
+			id: i
 		});
 	}
 
@@ -49,8 +49,8 @@ export const get: RequestHandler = async () => {
 		starData1,
 		starData2,
 		width,
-		height,
+		height
 	};
 
-	return { body: JSON.stringify(starDataResponse) };
+	return new Response(JSON.stringify(starDataResponse));
 };

@@ -5,7 +5,7 @@ export type HistoryPoint = {
 
 export const defaultPoint: HistoryPoint = {
 	DownloadCount: 0,
-	UnixTimestamp: 0,
+	UnixTimestamp: 0
 } as const;
 
 export const getFirstPoint = (mainPoints: HistoryPoint[], otherPoints: HistoryPoint[]) => {
@@ -67,8 +67,8 @@ export const getClosestPoint = (
 const getDate = (historyPoint: HistoryPoint) => new Date(historyPoint.UnixTimestamp * 1000);
 
 export const getDateText = (historyPoint: HistoryPoint) =>
-	getDate(historyPoint).toLocaleDateString(undefined, {
+	getDate(historyPoint).toLocaleDateString(new Intl.Locale('en-GB'), {
 		day: '2-digit',
 		month: 'short',
-		year: 'numeric',
+		year: 'numeric'
 	});

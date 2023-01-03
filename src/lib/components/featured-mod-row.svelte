@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 
 	export let mods: ModsRequestItem[];
 </script>

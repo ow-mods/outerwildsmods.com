@@ -2,44 +2,47 @@
 	import LinkList from '$lib/components/link-list.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { modList } from '$lib/store';
 	import DiscordIcon from '$lib/components/discord-icon.svelte';
 	import { sortModList } from '$lib/helpers/mod-sorting';
 	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
+	import type { PageData } from './$types';
 
 	const infoLinks = [
 		{
 			text: 'Steam',
-			href: 'https://store.steampowered.com/app/753640/Outer_Wilds',
+			href: 'https://store.steampowered.com/app/753640/Outer_Wilds'
 		},
 		{
 			text: 'Epic',
-			href: 'https://www.epicgames.com/store/en-US/product/outerwilds',
+			href: 'https://www.epicgames.com/store/en-US/product/outerwilds'
 		},
 		{
 			text: 'Official website',
-			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html',
-		},
+			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html'
+		}
 	];
 
 	const forModdersLinks = [
 		{
 			text: 'Read the OWML docs to learn how to make mods',
-			href: 'https://owml.outerwildsmods.com',
+			href: 'https://owml.outerwildsmods.com'
 		},
 		{
 			text: 'Outer Wilds mod template',
-			href: 'https://github.com/ow-mods/ow-mod-template',
-		},
+			href: 'https://github.com/ow-mods/ow-mod-template'
+		}
 	];
 
 	const modsPerCategory = 3;
 
-	const nonAddonList = $modList.filter(
+	export let data: PageData;
+	const { modList } = data;
+
+	const nonAddonList = modList.filter(
 		(mod) => !mod.parent && !mod.utility && !mod.alpha && mod.imageUrl
 	);
-	const nhAddonList = $modList.filter((mod) => mod.parent === 'xen.NewHorizons' && !mod.utility);
+	const nhAddonList = modList.filter((mod) => mod.parent === 'xen.NewHorizons' && !mod.utility);
 
 	const hotMods = sortModList(nonAddonList, 'hot', modsPerCategory);
 	const hotWorlds = sortModList(nhAddonList, 'hot', modsPerCategory);
@@ -83,7 +86,7 @@
 				href="https://www.mobiusdigitalgames.com/outer-wilds.html">Outer Wilds</a
 			>, which add new features, improvements, extra content, and more. Use the
 			<a class="link" href="/mod-manager">Mod Manager</a> to easily download and install these mods.
-			There are currently a total of {$modList.length} mods, addons, and utilities.
+			There are currently a total of {modList.length} mods, addons, and utilities.
 		</p>
 	</PageSection>
 	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />

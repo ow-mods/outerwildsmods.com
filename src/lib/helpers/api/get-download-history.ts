@@ -1,6 +1,4 @@
-import { downloadHistory } from '$lib/store';
 import { flatten } from 'lodash-es';
-import { readFromStore } from '../read-from-store';
 import { getModDatabase } from './get-mod-database';
 import type { HistoryPoint } from './history-points';
 
@@ -19,14 +17,14 @@ const lowerCaseKeys = <TValue>(record: Record<string, TValue>) => {
 const previousRepoNames: Record<string, string[]> = lowerCaseKeys({
 	'https://github.com/raicuparta/nomai-vr': ['https://github.com/Raicuparta/NomaiVR'],
 	'https://github.com/misternebula/quantum-space-buddies': [
-		'https://github.com/Raicuparta/quantum-space-buddies',
+		'https://github.com/Raicuparta/quantum-space-buddies'
 	],
 	'https://github.com/Outer-Wilds-New-Horizons/new-horizons': [
-		'https://github.com/xen-42/outer-wilds-new-horizons',
+		'https://github.com/xen-42/outer-wilds-new-horizons'
 	],
 	'https://github.com/Outer-Wilds-New-Horizons/nh-examples': [
-		'https://github.com/xen-42/ow-new-horizons-examples',
-	],
+		'https://github.com/xen-42/ow-new-horizons-examples'
+	]
 });
 
 export type DownloadHistory = {
@@ -34,9 +32,10 @@ export type DownloadHistory = {
 	Updates: HistoryPoint[];
 }[];
 
+let downloadHistoryCache: DownloadHistory | undefined;
+
 const getDownloadHistory = async () => {
 	try {
-		const downloadHistoryCache = await readFromStore(downloadHistory);
 		if (downloadHistoryCache) return downloadHistoryCache;
 
 		const result = await fetch(
@@ -48,7 +47,7 @@ const getDownloadHistory = async () => {
 		}
 
 		const resultJson: DownloadHistory = await result.json();
-		downloadHistory.set(resultJson);
+		downloadHistoryCache = resultJson;
 
 		return resultJson;
 	} catch (error) {

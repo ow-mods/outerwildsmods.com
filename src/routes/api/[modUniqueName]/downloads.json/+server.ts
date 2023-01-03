@@ -15,9 +15,7 @@ const brokenCountStartTimestamp = 1642806000;
 const brokenCountEndTimestamp = 1642892400;
 const brokenCountOffset = 90;
 
-export const get: RequestHandler<Params, HistoryPoint[]> = async ({
-	params: { modUniqueName },
-}) => {
+export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } }) => {
 	try {
 		const downloadHistory = await getModDownloadHistory(modUniqueName);
 
@@ -25,9 +23,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 
 		if (!firstResult) {
 			console.warn(`Could not find first history point for ${modUniqueName}`);
-			return {
-				body: [],
-			};
+			return new Response(JSON.stringify([]));
 		}
 
 		const cleanedUpResults = downloadHistory.filter(({ UnixTimestamp }) => {
@@ -40,12 +36,12 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 					if (UnixTimestamp > brokenCountStartTimestamp) {
 						return {
 							UnixTimestamp,
-							DownloadCount: DownloadCount - brokenCountOffset,
+							DownloadCount: DownloadCount - brokenCountOffset
 						};
 					}
 					return {
 						UnixTimestamp,
-						DownloadCount,
+						DownloadCount
 					};
 			  })
 			: cleanedUpResults;
@@ -57,7 +53,7 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 		const aggregatedPoints = pointChunks.map((pointChunk) => {
 			const historyPoint: HistoryPoint = {
 				DownloadCount: 0,
-				UnixTimestamp: 0,
+				UnixTimestamp: 0
 			};
 			for (const point of pointChunk) {
 				historyPoint.DownloadCount += point.DownloadCount;
@@ -84,13 +80,9 @@ export const get: RequestHandler<Params, HistoryPoint[]> = async ({
 			return historyPoint;
 		});
 
-		return {
-			body: cleanedUpDownloadHistory,
-		};
+		return new Response(JSON.stringify(cleanedUpDownloadHistory));
 	} catch (error) {
 		console.error(`Failed to get download history for ${modUniqueName}. ${error}`);
-		return {
-			body: [],
-		};
+		return new Response(JSON.stringify([]));
 	}
 };

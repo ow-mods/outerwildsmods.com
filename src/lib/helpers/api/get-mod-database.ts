@@ -1,7 +1,4 @@
-import { modDatabase } from '$lib/store';
-import { readFromStore } from '../read-from-store';
-
-const DATABASE_URL = 'https://raw.githubusercontent.com/ow-mods/ow-mod-db/master/database.json';
+import { modDatabaseUrl } from '../constants';
 
 export type Mod = {
 	name: string;
@@ -26,6 +23,11 @@ export type Mod = {
 	alpha?: boolean;
 	authorDisplay?: string;
 	tags: string[];
+	slug: string;
+	thumbnail: {
+		main?: string;
+		openGraph?: string;
+	};
 };
 
 export interface ModWithImage extends Mod {
@@ -50,25 +52,25 @@ const sortReleases = (releaseA: Mod, releaseB: Mod) => {
 	return releaseB.downloadCount - releaseA.downloadCount;
 };
 
-export const getModDatabase = async (): Promise<ModDatabase> => {
-	const cachedModDatabase = await readFromStore(modDatabase);
+let cachedModDatabase: ModDatabase | undefined;
 
+export const getModDatabase = async (): Promise<ModDatabase> => {
 	if (cachedModDatabase) {
 		return cachedModDatabase;
 	}
 
-	const response = await fetch(DATABASE_URL);
+	const response = await fetch(modDatabaseUrl);
 	if (response.status !== 200) {
 		throw new Error(`Response not OK, status: ${response.status} ${response.statusText}`);
 	}
 
 	const database: ModDatabase = await response.json();
 
-	modDatabase.set(database);
+	cachedModDatabase = database;
 
 	return {
 		...database,
 		releases: database.releases.sort(sortReleases),
-		alphaReleases: database.alphaReleases.sort(sortReleases),
+		alphaReleases: database.alphaReleases.sort(sortReleases)
 	};
 };

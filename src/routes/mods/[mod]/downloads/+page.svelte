@@ -1,58 +1,14 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-
-	export const prerender = true;
-
-	export const load: Load = async ({ fetch, params }) => {
-		const mods = await readFromStore(modList);
-		const currentMod = mods.find(({ name }) => params.mod === getModPathName(name));
-
-		if (!currentMod) {
-			return {
-				status: 404,
-				error: new Error(`Could not find mod ${params.mod}`),
-			};
-		}
-
-		const modDownloadhistoryResponse = await fetch(`/api/${currentMod.uniqueName}/downloads.json`);
-
-		if (modDownloadhistoryResponse.status !== 200) {
-			console.error(
-				`Failed to get mod download history from local API: ${modDownloadhistoryResponse.status}. ${modDownloadhistoryResponse.statusText}`
-			);
-			return {
-				props: {
-					modDownloadHistory: [],
-					mod: currentMod,
-				},
-			};
-		}
-
-		const modDownloadHistory: HistoryPoint[] = await modDownloadhistoryResponse.json();
-
-		return {
-			props: {
-				modDownloadHistory,
-				mod: currentMod,
-			},
-		};
-	};
-</script>
-
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import { readFromStore } from '$lib/helpers/read-from-store';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
-	import { getModPathName } from '$lib/helpers/mod-path-name';
-	import { modList } from '$lib/store';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
-	import { recentDownloadsDayCount } from '$lib/helpers/constants';
+	import type { PageData } from './$types';
 
-	export let modDownloadHistory: HistoryPoint[] = [];
-	export let mod: ModsRequestItem;
+	export let data: PageData;
+	const { modDownloadHistory, mod, modList } = data;
 
 	let compareWithMod: ModsRequestItem | null = null;
 	let compareWithHistory: HistoryPoint[] = [];
@@ -71,7 +27,7 @@
 		}
 	})();
 
-	const modsExceptSelf = $modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
+	const modsExceptSelf = modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
 </script>
 
 <svelte:head>
@@ -86,7 +42,7 @@
 			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
 		</div>
 		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-		<div class="flex justify-between flex-wrap">
+		<div class="flex justify-between flex-wrap mb-2">
 			<div>
 				<span>Compare with:</span>
 				<select

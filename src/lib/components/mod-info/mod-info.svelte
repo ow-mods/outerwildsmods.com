@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json';
+	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import CtaButton from '../button/cta-button.svelte';
 	import TagToggle from '../tag-toggle.svelte';
 
@@ -41,7 +41,9 @@
 				<a class="link" href={mod.repo}>📄 Source Code</a>
 			</div>
 			<div>
-				<a class="link" href="./downloads/">📈 {mod.formattedDownloadCount} downloads</a>
+				<a class="link" href="/mods/{mod.slug}/downloads/"
+					>📈 {mod.formattedDownloadCount} downloads</a
+				>
 			</div>
 			<div>
 				<a class="link" href={mod.downloadUrl}>

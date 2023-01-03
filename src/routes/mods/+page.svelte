@@ -2,9 +2,12 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { modList } from '$lib/store';
+	import type { PageData } from './$types';
 
-	const mods = $modList.filter((mod) => !mod.alpha);
+	export let data: PageData;
+	const { modList, tagList } = data;
+
+	const mods = modList.filter((mod) => !mod.alpha);
 </script>
 
 <svelte:head>
@@ -16,6 +19,6 @@
 </svelte:head>
 <PageLayout>
 	<PageSection title="Available mods" id="mods">
-		<ModGrid {mods} />
+		<ModGrid {mods} {tagList} />
 	</PageSection>
 </PageLayout>
