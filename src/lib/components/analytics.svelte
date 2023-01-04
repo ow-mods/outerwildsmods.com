@@ -5,7 +5,7 @@
 		if (typeof gtag !== 'undefined') {
 			gtag('config', 'G-2QQN7V5WE1', {
 				page_title: document.title,
-				page_path: $page.url.pathname
+				page_path: $page.url.pathname,
 			});
 		}
 	}

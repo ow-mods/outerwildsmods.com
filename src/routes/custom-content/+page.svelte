@@ -11,12 +11,12 @@
 	const newHorizonsLinks = [
 		{
 			text: 'New Horizons Documentation',
-			href: 'https://nh.outerwildsmods.com/'
+			href: 'https://nh.outerwildsmods.com/',
 		},
 		{
 			text: 'New Horizons Addon Template',
-			href: 'https://github.com/xen-42/ow-new-horizons-config-template'
-		}
+			href: 'https://github.com/xen-42/ow-new-horizons-config-template',
+		},
 	];
 </script>
 

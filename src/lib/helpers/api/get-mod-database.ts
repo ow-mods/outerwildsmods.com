@@ -71,6 +71,6 @@ export const getModDatabase = async (): Promise<ModDatabase> => {
 	return {
 		...database,
 		releases: database.releases.sort(sortReleases),
-		alphaReleases: database.alphaReleases.sort(sortReleases)
+		alphaReleases: database.alphaReleases.sort(sortReleases),
 	};
 };

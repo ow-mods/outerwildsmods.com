@@ -11,27 +11,27 @@
 	const infoLinks = [
 		{
 			text: 'Steam',
-			href: 'https://store.steampowered.com/app/753640/Outer_Wilds'
+			href: 'https://store.steampowered.com/app/753640/Outer_Wilds',
 		},
 		{
 			text: 'Epic',
-			href: 'https://www.epicgames.com/store/en-US/product/outerwilds'
+			href: 'https://www.epicgames.com/store/en-US/product/outerwilds',
 		},
 		{
 			text: 'Official website',
-			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html'
-		}
+			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html',
+		},
 	];
 
 	const forModdersLinks = [
 		{
 			text: 'Read the OWML docs to learn how to make mods',
-			href: 'https://owml.outerwildsmods.com'
+			href: 'https://owml.outerwildsmods.com',
 		},
 		{
 			text: 'Outer Wilds mod template',
-			href: 'https://github.com/ow-mods/ow-mod-template'
-		}
+			href: 'https://github.com/ow-mods/ow-mod-template',
+		},
 	];
 
 	const modsPerCategory = 3;

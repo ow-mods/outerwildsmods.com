@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import CtaButton from '../button/cta-button.svelte';
-	import TagToggle from '../tag-toggle.svelte';
 
 	export let mod: ModsRequestItem;
 </script>

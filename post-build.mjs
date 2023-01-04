@@ -7,7 +7,7 @@ const generateSitemap = async () => {
 	const pages = await globby([
 		'build/**/*.html',
 		'!build/404*',
-		'!build/mods/*/downloads/index.html'
+		'!build/mods/*/downloads/index.html',
 	]);
 
 	const pageUrls = pages

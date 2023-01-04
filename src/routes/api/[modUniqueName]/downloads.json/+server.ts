@@ -36,12 +36,12 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 					if (UnixTimestamp > brokenCountStartTimestamp) {
 						return {
 							UnixTimestamp,
-							DownloadCount: DownloadCount - brokenCountOffset
+							DownloadCount: DownloadCount - brokenCountOffset,
 						};
 					}
 					return {
 						UnixTimestamp,
-						DownloadCount
+						DownloadCount,
 					};
 			  })
 			: cleanedUpResults;
@@ -53,7 +53,7 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 		const aggregatedPoints = pointChunks.map((pointChunk) => {
 			const historyPoint: HistoryPoint = {
 				DownloadCount: 0,
-				UnixTimestamp: 0
+				UnixTimestamp: 0,
 			};
 			for (const point of pointChunk) {
 				historyPoint.DownloadCount += point.DownloadCount;

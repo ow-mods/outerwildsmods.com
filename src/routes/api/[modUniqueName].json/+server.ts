@@ -24,7 +24,7 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	return new Response(
 		JSON.stringify({
 			...(readme ? { readme } : undefined),
-			imageMap
+			imageMap,
 		})
 	);
 };

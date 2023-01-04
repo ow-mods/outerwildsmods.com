@@ -12,7 +12,7 @@
 		sortModList,
 		sortOrders,
 		isSortOrder,
-		sortOrderParamName
+		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
@@ -43,7 +43,7 @@
 					mod.repo,
 					mod.uniqueName,
 					mod.authorDisplay,
-					...mod.tags
+					...mod.tags,
 				])
 			);
 		};
@@ -77,14 +77,6 @@
 			if (listItem.toLocaleLowerCase().includes(term.toLocaleLowerCase())) return true;
 		}
 		return false;
-	};
-
-	const getInitialState = (defaultState: boolean) => {
-		const newTagStates = { ...tagStates };
-		for (const tag of tags) {
-			newTagStates[tag] = defaultState;
-		}
-		return newTagStates;
 	};
 
 	const onToggleTag = (tag: string) => {
