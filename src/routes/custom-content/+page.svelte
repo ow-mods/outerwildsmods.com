@@ -30,7 +30,7 @@
 
 <PageLayout>
 	{#if newHorizons}
-		<PageSection title="Custom Content" id="custom-worlds">
+		<PageSection title="Custom Content" id="custom-content">
 			<div class="flex flex-col md:flex-row gap-8">
 				<ModCard mod={newHorizons} />
 				<div>

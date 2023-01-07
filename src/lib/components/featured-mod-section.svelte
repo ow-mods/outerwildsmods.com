@@ -17,7 +17,8 @@
 			<LinkButton href="/mods?{sortOrderParamName}={sortOrder}">More Mods ›</LinkButton>
 		</FeaturedModRow>
 		<FeaturedModRow mods={addons}>
-			<LinkButton href="/custom-worlds?{sortOrderParamName}={sortOrder}">More Content ›</LinkButton>
+			<LinkButton href="/custom-content?{sortOrderParamName}={sortOrder}">More Content ›</LinkButton
+			>
 		</FeaturedModRow>
 	</div>
 </PageSection>
