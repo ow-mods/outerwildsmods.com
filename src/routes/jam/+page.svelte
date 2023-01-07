@@ -1,13 +1,41 @@
 <script lang="ts">
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { modList, tagList } = data;
 
 	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
+
+	let startDate = '';
+	let endDate = '';
+	let timeZone = '';
+
+	const getDateString = (epoch: number) => {
+		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
+			day: '2-digit',
+			month: 'short',
+			weekday: 'long',
+			hour: '2-digit',
+			minute: '2-digit',
+		});
+	};
+
+	const setDateStrings = () => {
+		startDate = getDateString(1673715600000);
+		endDate = getDateString(1674406800000);
+		timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	};
+
+	onMount(() => {
+		setDateStrings();
+	});
+
+	setDateStrings();
 </script>
 
 <svelte:head>
@@ -17,6 +45,7 @@
 
 <PageLayout>
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
+		<PageSectionImage imageUrl="/images/jam.webp" title="New Horizons Jam" height={400} />
 		<p>
 			This is a jam where participants will have one week to create a unique New Horizons addon
 			based on our theme. Sound interesting? Scroll down for more details!
@@ -40,11 +69,12 @@
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
 		<p>
-			Start: <strong>0:00 GMT Monday 9th January 2023</strong>
+			Jam start: <strong>{startDate}</strong>
 		</p>
 		<p>
-			End: <strong>0:00 GMT Monday 16th January</strong>
+			Jam end: <strong>{endDate}</strong>
 		</p>
+		<small>(Time zone: {timeZone})</small>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
@@ -60,13 +90,32 @@
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
 		<p>
-			<strong>TL;DR</strong>: Upload a New Horizons addon with no custom code during the jam period,
-			and give it the <code>jam</code> tag when submitting to the mod database.
-
-			<a class="link" href="https://nh.outerwildsmods.com/tutorials/getting_started.html">
+			To participate, you will need to submit a New Horizons addon to the Outer Wilds mod database. <a
+				class="link"
+				href="https://nh.outerwildsmods.com/tutorials/getting_started.html"
+			>
 				Read the New Horizon docs to learn how to make your addon
 			</a>.
+			<strong>TL;DR</strong>: Upload a New Horizons addon with no custom code during the jam period,
+			and give it the <code>jam</code> tag when submitting to the mod database.
 		</p>
+		<p>
+			When you submit your addon to the database, you will need to include the <code>jam</code> tag,
+			together with any other tags that make sense for your addon. Every New Horizons addon
+			typically also has the <code>content</code> tag, since they add custom content to the game.
+		</p>
+		<img alt="" src="/images/jam-tag.webp" width={400} />
+		<p>
+			You must upload a release of your addon within the jam deadline. It's OK if you submit the mod
+			to the database after the deadline is over, as long as you uploaded a valid release within the
+			deadline.
+		</p>
+		<p>
+			⚠️ Be careful not to overwrite releases, as this would change the submission date. Always
+			upload new releases separately. If you're using the New Horizons template and letting it take
+			care of creating releases for you, then you shouldn't need to worry about this.
+		</p>
+		<img alt="" src="/images/jam-deadline.webp" />
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<ul class="my-4">
