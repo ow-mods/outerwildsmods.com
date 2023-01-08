@@ -49,7 +49,7 @@
 </script>
 
 <svelte:head>
-	<title>New Horizons Planet Jam</title>
+	<title>Outer Wilds New Horizons Jam</title>
 	<meta name="description" content="Create an addon for New Horizons and win cash prizes!" />
 </svelte:head>
 
@@ -57,21 +57,16 @@
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
 		<PageSectionImage imageUrl="/images/jam.webp" title="New Horizons Jam" height={400} />
 		<p>
-			This is a jam where participants will have one week to create a unique New Horizons addon
-			based on our theme. Sound interesting? Scroll down for more details!
+			Welcome to the New Horizons Jam! In this jam, you'll have one week to create custom content
+			for Outer Wilds, following a theme that will be revealed once the jam starts.
 		</p>
-	</PageSection>
-	<PageSection title="About New Horizons" id="nh-info" isNarrow>
 		<p>
-			New Horizons (shortened to NH) is a modding framework for <a
-				class="link"
-				href="https://outerwilds.com">Outer Wilds</a
-			>
-			that allows creators to create custom planets, dialogue, and ship log entries without having to
-			touch C#. Configuration is done entirely through JSON and XML documents, for more info, visit the
-			<a class="link" target="_blank" rel="noreferrer" href="https://nh.outerwildsmods.com"
-				>New Horizons Docs</a
-			>.
+			To add custom content to Outer Wilds, you will use <a class="link" href="/mods/newhorizons"
+				>New Horizons</a
+			>. You can decide what kind of content you wanna create. You can stick to the original Outer
+			Wilds solar system and just modify some existing planets, or add a few new ones. Or maybe
+			you'll create a completely new system with new planets. Or you can go even further by using
+			custom models, textures, sounds, dialogue, etc. Or anything in between!
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
@@ -160,11 +155,9 @@
 	<PageSection title="Rules" id="rules" isNarrow>
 		<ul class="my-4">
 			<p>
-				🌑 <strong
-					>Submissions must be an addon for
-					<a class="link" href="https://outerwildsmods.com/mods/newhorizons">
-						New Horizons
-					</a></strong
+				🌑 <strong>
+					Submissions must be an addon for
+					<a class="link" href="/mods/newhorizons"> New Horizons </a></strong
 				>.
 			</p>
 			<p>
