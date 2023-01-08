@@ -71,6 +71,7 @@
 			<a class="link" href="https://nh.outerwildsmods.com"> New Horizons Docs</a> explain what's possible
 			to create using this mod.
 		</p>
+		<p><strong>No programming knowledge is required!</strong></p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		<p class="text-xl flex flex-col m-auto w-fit gap-4">To Be Revealed 🤫</p>
