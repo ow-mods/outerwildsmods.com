@@ -184,7 +184,6 @@
 			</p>
 			<ModGrid
 				mods={newHorizonsAddons}
-				{tagList}
 				tagBlocklist={['story', 'tweaks', 'gameplay']}
 				allowFiltering={false}
 			/>
