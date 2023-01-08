@@ -1,15 +1,19 @@
 <script lang="ts">
 	import ModAddons from '$lib/components/mod-addons.svelte';
+	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { onMount } from 'svelte';
+	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { modList, tagList } = data;
 
-	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
+	const newHorizonsUniqueName = 'xen.NewHorizons';
+
+	const newHorizons = modList.find((mod) => mod.uniqueName === newHorizonsUniqueName);
 
 	let startDate = '';
 	let endDate = '';
@@ -36,6 +40,12 @@
 	});
 
 	setDateStrings();
+
+	let newHorizonsAddons: ModsRequestItem[] = [];
+
+	$: {
+		newHorizonsAddons = modList.filter((otherMod) => otherMod.parent === newHorizonsUniqueName);
+	}
 </script>
 
 <svelte:head>
@@ -142,7 +152,12 @@
 				These are some of the mods made with New Horizons. You can use them as inspiration for your
 				own creations, or look at their source code to figure out how stuff is done.
 			</p>
-			<ModAddons mod={newHorizons} {modList} {tagList} />
+			<ModGrid
+				mods={newHorizonsAddons}
+				{tagList}
+				tagBlocklist={['story', 'tweaks', 'gameplay']}
+				allowFiltering={false}
+			/>
 		</PageSection>
 	{/if}
 </PageLayout>

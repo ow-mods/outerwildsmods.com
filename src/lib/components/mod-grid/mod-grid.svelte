@@ -20,6 +20,8 @@
 	export let mods: ModsRequestItem[] = [];
 	export let tagList: string[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
+	export let tagBlocklist: string[] = [];
+	export let allowFiltering = true;
 
 	let sortOrder: SortOrder = defaultSortOrder;
 	let filter = '';
@@ -31,11 +33,14 @@
 
 	$: {
 		const filterMod = (mod: ModsRequestItem) => {
-			const isTagSelected =
+			const isModTagSelected =
 				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 
+			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlocklist.includes(tag)) != -1;
+
 			return (
-				isTagSelected &&
+				!containsBlockedTag &&
+				isModTagSelected &&
 				anyIncludes(filter, [
 					mod.author,
 					mod.description,
@@ -94,41 +99,43 @@
 	};
 </script>
 
-<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
-	<div>
-		Sort:
-		<select
-			class="input"
-			value={sortOrder}
-			on:change={(event) => {
-				if (!event || !event.currentTarget) return;
-				const url = new URL($page.url);
-				url.searchParams.set(sortOrderParamName, event.currentTarget.value);
-				setSortOrder(event.currentTarget.value);
+{#if allowFiltering}
+	<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
+		<div>
+			Sort:
+			<select
+				class="input"
+				value={sortOrder}
+				on:change={(event) => {
+					if (!event || !event.currentTarget) return;
+					const url = new URL($page.url);
+					url.searchParams.set(sortOrderParamName, event.currentTarget.value);
+					setSortOrder(event.currentTarget.value);
 
-				goto(url.href);
-			}}
-		>
-			{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
-				<option value={sortOrderId}>{sortOrder.title}</option>
-			{/each}
-		</select>
-	</div>
-	<div class="relative flex">
-		<input class="input px-2 grayscale flex-1" bind:value={filter} placeholder="Search 🔎" />
-		{#if filter}
-			<button
-				class="absolute right-1 top-2 p-1 leading-none text-xs grayscale bg-dark"
-				on:click={() => (filter = '')}
+					goto(url.href);
+				}}
 			>
-				❌
-			</button>
-		{/if}
+				{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
+					<option value={sortOrderId}>{sortOrder.title}</option>
+				{/each}
+			</select>
+		</div>
+		<div class="relative flex">
+			<input class="input px-2 grayscale flex-1" bind:value={filter} placeholder="Search 🔎" />
+			{#if filter}
+				<button
+					class="absolute right-1 top-2 p-1 leading-none text-xs grayscale bg-dark"
+					on:click={() => (filter = '')}
+				>
+					❌
+				</button>
+			{/if}
+		</div>
+		<div>
+			{filteredMods.length} items
+		</div>
 	</div>
-	<div>
-		{filteredMods.length} items
-	</div>
-</div>
+{/if}
 <TagsSelector {tagStates} {onToggleTag} onClear={onClearTags} {tags} />
 <div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
