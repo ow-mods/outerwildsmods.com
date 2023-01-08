@@ -99,7 +99,7 @@
 			<span>🥉Third place: <strong>$50</strong></span>
 		</div>
 		<p>
-			All winners will also get a special role on <a class="link" href="#talk">
+			Amounts in USD. All winners will also get a special role on <a class="link" href="#talk">
 				our Discord server
 			</a>. There will also be some extra Steam keys for winners or other participants, still to be
 			decided.
