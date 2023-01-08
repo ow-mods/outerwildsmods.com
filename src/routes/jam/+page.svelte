@@ -74,6 +74,12 @@
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		<p class="text-xl flex flex-col m-auto w-fit gap-4">To Be Revealed 🤫</p>
+		<p>
+			The theme will be revealed on the day the jam starts. <a class="link" href="#talk">
+				Join our Discord
+			</a> if you wanna be notified as soon as it is revealed, or just come back here at the start date
+			and check again.
+		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
@@ -89,8 +95,10 @@
 			<span>🥉Third place: <strong>$50</strong></span>
 		</div>
 		<p>
-			All winners will also get a special role on our Discord server. There will also be some extra
-			Steam keys for winners or other participants, still to be decided.
+			All winners will also get a special role on <a class="link" href="#talk">
+				our Discord server
+			</a>. There will also be some extra Steam keys for winners or other participants, still to be
+			decided.
 		</p>
 		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
 	</PageSection>
@@ -207,7 +215,10 @@
 			Prize rewards will be split equally among all team members, no exceptions. That means you will
 			get half the prize if you're on a two person team.
 		</p>
-		<p>If you're looking for a team, go to our Discord (linked below) and ask around there.</p>
+		<p>
+			If you're looking for a team, <a class="link" href="#talk"> join our Discord </a> and ask around
+			there.
+		</p>
 	</PageSection>
 	<PageSection title="Talk to us" id="talk" isNarrow>
 		<p>
