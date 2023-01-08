@@ -99,6 +99,10 @@
 		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
+		<p class="bg-darker p-2 rounded">
+			<strong>TL;DR</strong>: Upload a New Horizons addon with <u>no custom code</u> during the jam
+			period, and give it the <code>jam</code> tag when submitting to the mod database.
+		</p>
 		<p>
 			To participate, you will need to submit a New Horizons addon to the Outer Wilds mod database. <a
 				class="link"
@@ -106,26 +110,52 @@
 			>
 				Read the New Horizon docs to learn how to make your addon
 			</a>.
-			<strong>TL;DR</strong>: Upload a New Horizons addon with no custom code during the jam period,
-			and give it the <code>jam</code> tag when submitting to the mod database.
 		</p>
+		<p>
+			<u>Your addon can not use custom code</u>. That means the only dll file in your mod should be
+			the <code>NewHorizonsConfig.dll</code> file that's included in the
+			<a class="link" href="https://github.com/Outer-Wilds-New-Horizons/nh-addon-template">
+				New Horizons Addon Template
+			</a>. You can, however, use
+			<a class="link" href="https://nh.outerwildsmods.com/tutorials/details.html#asset-bundles">
+				asset bundles
+			</a> to add custom content to your addon (models, textures, sounds, etc).
+		</p>
+		<h3>Upload a release within the deadline</h3>
+		<img alt="" src="/images/jam-deadline.webp" />
+		<p>
+			If you're using the
+			<a class="link" href="https://github.com/Outer-Wilds-New-Horizons/nh-addon-template">
+				New Horizons Addon Template
+			</a>
+			to create your addon (which you should), it will automatically create new addon releases when you
+			bump the version in your <code>manifest.json</code> file, as described in the
+			<a class="link" href="https://nh.outerwildsmods.com/tutorials/publishing.html">
+				New Horizons Docs
+			</a>
+		</p>
+		<p>
+			You must upload a release of your addon within the jam deadline. It's OK if you submit the mod
+			to the database after the deadline is over, as long as a valid release was uploaded within the
+			deadline.
+		</p>
+		<p>
+			⚠️ <u>Be careful not to overwrite releases</u>, as this would change the upload date. Always
+			upload new releases separately. If you're using the New Horizons template and letting it take
+			care of creating releases for you, then you shouldn't need to worry about this.
+		</p>
+		<p>
+			If you upload new releases to your jam mod after the deadline has passed, those releases will
+			be ignored. The most recent release that was uploaded within the deadline will be your
+			submission.
+		</p>
+		<h3>Use the <code>jam</code> tag when submitting to the mod database</h3>
+		<img alt="" src="/images/jam-tag.webp" width={400} />
 		<p>
 			When you submit your addon to the database, you will need to include the <code>jam</code> tag,
 			together with any other tags that make sense for your addon. Every New Horizons addon
 			typically also has the <code>content</code> tag, since they add custom content to the game.
 		</p>
-		<img alt="" src="/images/jam-tag.webp" width={400} />
-		<p>
-			You must upload a release of your addon within the jam deadline. It's OK if you submit the mod
-			to the database after the deadline is over, as long as you uploaded a valid release within the
-			deadline.
-		</p>
-		<p>
-			⚠️ Be careful not to overwrite releases, as this would change the submission date. Always
-			upload new releases separately. If you're using the New Horizons template and letting it take
-			care of creating releases for you, then you shouldn't need to worry about this.
-		</p>
-		<img alt="" src="/images/jam-deadline.webp" />
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<ul class="my-4">
