@@ -58,8 +58,11 @@
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
 		<img src="/images/jam.webp" alt="New Horizons Jam" />
 		<p>
-			Welcome to the New Horizons Jam! In this jam, you'll have one week to create custom content
-			for Outer Wilds, following a theme that will be revealed once the jam starts.
+			Welcome to the <strong>New Horizons Jam</strong>! In this jam, you'll have one week to create
+			custom content for
+			<a class="link" href="https://store.steampowered.com/app/753640/Outer_Wilds/">
+				Outer Wilds
+			</a>, following a theme that will be revealed once the jam starts.
 		</p>
 		<p>
 			To add custom content to Outer Wilds, you will use <a class="link" href="/mods/newhorizons"
