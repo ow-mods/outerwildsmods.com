@@ -76,13 +76,10 @@
 		<p class="text-xl flex flex-col m-auto w-fit gap-4">To Be Revealed 🤫</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
-		<p>
-			Jam start: <strong>{startDate}</strong>
-		</p>
-		<p>
-			Jam end: <strong>{endDate}</strong>
-		</p>
-		<small>(Time zone: {timeZone})</small>
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+			<span>🟢 Jam start: <strong>{startDate}</strong></span>
+			<span>🔴 Jam end: <strong>{endDate}</strong></span>
+		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
