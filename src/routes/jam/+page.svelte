@@ -56,7 +56,7 @@
 
 <PageLayout>
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
-		<PageSectionImage imageUrl="/images/jam.webp" title="New Horizons Jam" height={400} />
+		<img src="/images/jam.webp" alt="New Horizons Jam" />
 		<p>
 			Welcome to the New Horizons Jam! In this jam, you'll have one week to create custom content
 			for Outer Wilds, following a theme that will be revealed once the jam starts.
