@@ -20,7 +20,7 @@ export const getImageMap = async (mod: Mod, readme: string): Promise<ImageMap> =
 			try {
 				return {
 					originalUrl: url,
-					imageInfo: await getImageInfo(mod, url, index)
+					imageInfo: await getImageInfo(mod, url, index),
 				};
 			} catch (error) {
 				throw new Error(`Failed to get image ${url}: ${error}`);

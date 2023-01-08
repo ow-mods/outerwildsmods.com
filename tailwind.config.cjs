@@ -3,7 +3,7 @@ module.exports = {
 	mode: 'jit',
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	corePlugins: {
-		preflight: false
+		preflight: false,
 	},
 	theme: {
 		screens: {
@@ -12,7 +12,7 @@ module.exports = {
 			md: '768px',
 			lg: '1024px',
 			xl: '1280px',
-			'2xl': '1536px'
+			'2xl': '1536px',
 		},
 		colors: {
 			white: '#ffffff',
@@ -24,13 +24,13 @@ module.exports = {
 			dark: '#191a1b',
 			darker: '#121416',
 			transparent: 'transparent',
-			error: '#f04747'
+			error: '#f04747',
 		},
 		extend: {
 			fontSize: {
-				base: '1.1rem'
-			}
-		}
+				base: '1.1rem',
+			},
+		},
 	},
-	plugins: []
+	plugins: [],
 };

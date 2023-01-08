@@ -2,36 +2,36 @@
 	import LinkList from '$lib/components/link-list.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import DiscordIcon from '$lib/components/discord-icon.svelte';
 	import { sortModList } from '$lib/helpers/mod-sorting';
 	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
+	import DiscordLink from '$lib/components/discord-link.svelte';
 
 	const infoLinks = [
 		{
 			text: 'Steam',
-			href: 'https://store.steampowered.com/app/753640/Outer_Wilds'
+			href: 'https://store.steampowered.com/app/753640/Outer_Wilds',
 		},
 		{
 			text: 'Epic',
-			href: 'https://www.epicgames.com/store/en-US/product/outerwilds'
+			href: 'https://www.epicgames.com/store/en-US/product/outerwilds',
 		},
 		{
 			text: 'Official website',
-			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html'
-		}
+			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html',
+		},
 	];
 
 	const forModdersLinks = [
 		{
 			text: 'Read the OWML docs to learn how to make mods',
-			href: 'https://owml.outerwildsmods.com'
+			href: 'https://owml.outerwildsmods.com',
 		},
 		{
 			text: 'Outer Wilds mod template',
-			href: 'https://github.com/ow-mods/ow-mod-template'
-		}
+			href: 'https://github.com/ow-mods/ow-mod-template',
+		},
 	];
 
 	const modsPerCategory = 3;
@@ -88,6 +88,11 @@
 			<a class="link" href="/mod-manager">Mod Manager</a> to easily download and install these mods.
 			There are currently a total of {modList.length} mods, addons, and utilities.
 		</p>
+		<p class="bg-darker p-2 rounded">
+			<strong class="bg-cta px-1 rounded text-white">New Horizons Jam</strong> We're having a mod
+			jam! You can participate and win cash prizes! No programming knowledge required.
+			<a class="link" href="/jam">Click here to learn more.</a>
+		</p>
 	</PageSection>
 	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />
 	<FeaturedModSection
@@ -102,12 +107,7 @@
 		description="Join our Discord server if you need support, wanna learn about making mods, or just to chat with this wonderful modding community:"
 		isNarrow
 	>
-		<a
-			class="link flex gap-4 items-center text-xl justify-center mt-4"
-			href="https://discord.gg/9vE5aHxcF9"
-		>
-			<DiscordIcon /> Outer Wilds Modding Discord Server
-		</a>
+		<DiscordLink />
 	</PageSection>
 	<PageSection
 		title="Become a modder"

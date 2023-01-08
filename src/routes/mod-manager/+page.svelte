@@ -1,7 +1,5 @@
 <script lang="ts">
 	import CtaButton from '$lib/components/button/cta-button.svelte';
-	import LinkButton from '$lib/components/button/link-button.svelte';
-
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';

@@ -9,7 +9,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 	if (!mod)
 		return {
 			status: 404,
-			error: new Error(`Could not find mod ${params.mod}.`)
+			error: new Error(`Could not find mod ${params.mod}.`),
 		};
 
 	const result = await fetch(`/api/${mod.uniqueName}.json`);
@@ -17,7 +17,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 	if (!result.ok) {
 		return {
 			status: result.status,
-			error: new Error(`Could not load mod. ${await result.text()}`)
+			error: new Error(`Could not load mod. ${await result.text()}`),
 		};
 	}
 
@@ -28,6 +28,6 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 	return {
 		mod,
 		readme,
-		imageMap
+		imageMap,
 	};
 };

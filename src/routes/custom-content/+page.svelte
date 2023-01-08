@@ -5,20 +5,18 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import LinkList from '$lib/components/link-list.svelte';
 	import type { PageData } from './$types';
-
 	export let data: PageData;
 	const { modList, tagList } = data;
-
 	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 	const newHorizonsLinks = [
 		{
 			text: 'New Horizons Documentation',
-			href: 'https://nh.outerwildsmods.com/'
+			href: 'https://nh.outerwildsmods.com/',
 		},
 		{
 			text: 'New Horizons Addon Template',
-			href: 'https://github.com/xen-42/ow-new-horizons-config-template'
-		}
+			href: 'https://github.com/xen-42/ow-new-horizons-config-template',
+		},
 	];
 </script>
 
@@ -32,7 +30,7 @@
 
 <PageLayout>
 	{#if newHorizons}
-		<PageSection title="Custom Content" id="custom-worlds">
+		<PageSection title="Custom Content" id="custom-content">
 			<div class="flex flex-col md:flex-row gap-8">
 				<ModCard mod={newHorizons} />
 				<div>

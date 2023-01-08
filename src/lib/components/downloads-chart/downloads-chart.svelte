@@ -8,8 +8,9 @@
 		getDateText,
 		getFirstPoint,
 		getLastPoint,
-		type HistoryPoint
+		type HistoryPoint,
 	} from '../../helpers/api/history-points';
+	import type { FocusEventHandler, MouseEventHandler } from 'svelte/elements';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
@@ -18,7 +19,7 @@
 
 	const chartSize = {
 		y: 100,
-		x: 500
+		x: 500,
 	} as const;
 
 	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
@@ -30,7 +31,7 @@
 
 	let mousePosition = {
 		x: 0,
-		y: 0
+		y: 0,
 	};
 	let hoveredPoint: HistoryPoint | null = null;
 	let hoveredPointCompare: HistoryPoint | null = null;
@@ -62,11 +63,11 @@
 		hoveredPointCompare = null;
 	};
 
-	const handleMouseMove: svelte.JSX.MouseEventHandler<SVGSVGElement> = (event) => {
+	const handleMouseMove: MouseEventHandler<SVGSVGElement> = (event) => {
 		updatePointer(event.offsetX, event.offsetY, event.currentTarget.getBoundingClientRect().width);
 	};
 
-	const handleFocus: svelte.JSX.FocusEventHandler<SVGSVGElement> = (event) => {
+	const handleFocus: FocusEventHandler<SVGSVGElement> = (event) => {
 		const rect = event.currentTarget.getBoundingClientRect();
 		updatePointer(rect.width / 2, rect.height / 2, rect.width);
 	};

@@ -18,7 +18,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 		);
 		return {
 			modDownloadHistory: [],
-			mod: currentMod
+			mod: currentMod,
 		};
 	}
 
@@ -26,6 +26,6 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 
 	return {
 		modDownloadHistory,
-		mod: currentMod
+		mod: currentMod,
 	};
 };

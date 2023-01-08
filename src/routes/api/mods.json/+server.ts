@@ -44,7 +44,7 @@ export const GET: RequestHandler = async () => {
 				openGraphImageUrl,
 				formattedDownloadCount: formatNumber(mod.downloadCount),
 				rawContentUrl,
-				tags: mod.tags.length > 0 ? mod.tags : ['untagged']
+				tags: mod.tags.length > 0 ? mod.tags : ['untagged'],
 			};
 		})
 	);

@@ -24,7 +24,7 @@ export const getImageInfo = async (
 
 	if (!downloadedImagePath) {
 		return {
-			url: fullImageUrl
+			url: fullImageUrl,
 		};
 	}
 
@@ -36,14 +36,14 @@ export const getImageInfo = async (
 	if (!width || !height) {
 		console.error(`Failed to read image dimensions for ${fullImageUrl}`);
 		return {
-			url: fullImageUrl
+			url: fullImageUrl,
 		};
 	}
 
 	return {
 		url: fullImageUrl,
 		width,
-		height
+		height,
 	};
 };
 

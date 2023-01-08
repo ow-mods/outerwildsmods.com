@@ -16,7 +16,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 		return {
 			starData,
 			modList,
-			tagList
+			tagList,
 		};
 	}
 

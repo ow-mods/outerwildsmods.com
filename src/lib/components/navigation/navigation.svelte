@@ -1,4 +1,4 @@
-<div class="navigation-wrapper max-w-screen-sm mx-auto px-4">
+<div class="navigation-wrapper max-w-screen-sm mx-auto px-4 mt-2">
 	<label
 		class="block text-2xl p-1 mb-2 bg-background rounded sm:hidden"
 		for="navigation-menu-button"
