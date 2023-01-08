@@ -94,6 +94,37 @@
 		</p>
 		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
 	</PageSection>
+	<PageSection title="Rules" id="rules" isNarrow>
+		<p>
+			🌑 <strong>
+				Submissions must be an addon for
+				<a class="link" href="/mods/newhorizons"> New Horizons </a></strong
+			>.
+		</p>
+		<p>
+			📜 <strong>No custom code</strong>. Submissions must use the basic New Horizons config dll.
+			That means you're limited to using the New Horizons JSON configs, XML text assets, and asset
+			bundles created in Unity, which can include custom textures, models, sounds, etc. Basically
+			everything New Horizons supports, except custom code.
+		</p>
+		<p>
+			🛠️ <strong>All assets must be made during the jam</strong>, except of course those already
+			included in the game.
+		</p>
+		<p>
+			⏱️ <strong>
+				There must be at least one release uploaded to GitHub within the jam deadline.
+			</strong> Releases made outside the deadline won't be considered.
+		</p>
+		<p>
+			👮 <strong>
+				All entries must follow the
+				<a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">
+					Mobius Digital Fan Content Policy
+				</a></strong
+			>.
+		</p>
+	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
 		<p class="bg-darker p-2 rounded">
 			<strong>TL;DR</strong>: Upload a New Horizons addon with <u>no custom code</u> during the jam
@@ -164,37 +195,6 @@
 			When you submit your addon to the database, you will need to include the <code>jam</code> tag,
 			together with any other tags that make sense for your addon. Every New Horizons addon
 			typically also has the <code>content</code> tag, since they add custom content to the game.
-		</p>
-	</PageSection>
-	<PageSection title="Rules" id="rules" isNarrow>
-		<p>
-			🌑 <strong>
-				Submissions must be an addon for
-				<a class="link" href="/mods/newhorizons"> New Horizons </a></strong
-			>.
-		</p>
-		<p>
-			📜 <strong>No custom code</strong>. Submissions must use the basic New Horizons config dll.
-			That means you're limited to using the New Horizons JSON configs, XML text assets, and asset
-			bundles created in Unity, which can include custom textures, models, sounds, etc. Basically
-			everything New Horizons supports, except custom code.
-		</p>
-		<p>
-			🛠️ <strong>All assets must be made during the jam</strong>, except of course those already
-			included in the game.
-		</p>
-		<p>
-			⏱️ <strong>
-				There must be at least one release uploaded to GitHub within the jam deadline.
-			</strong> Releases made outside the deadline won't be considered.
-		</p>
-		<p>
-			👮 <strong>
-				All entries must follow the
-				<a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">
-					Mobius Digital Fan Content Policy
-				</a></strong
-			>.
 		</p>
 	</PageSection>
 	<PageSection title="Teams" id="teams" isNarrow>
