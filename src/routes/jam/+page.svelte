@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DiscordLink from '$lib/components/discord-link.svelte';
 	import ModAddons from '$lib/components/mod-addons.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
@@ -168,37 +169,56 @@
 		</p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
-		<ul class="my-4">
-			<p>
-				🌑 <strong>
-					Submissions must be an addon for
-					<a class="link" href="/mods/newhorizons"> New Horizons </a></strong
-				>.
-			</p>
-			<p>
-				📜 <strong>No custom code</strong>. Submissions must use the basic New Horizons config dll.
-				That means you're limited to using the New Horizons JSON configs, XML text assets, and asset
-				bundles created in Unity, which can include custom textures, models, sounds, etc. Basically
-				everything New Horizons supports, except custom code.
-			</p>
-			<p>
-				🛠️ <strong>All assets must be made during the jam</strong>, except of course those already
-				included in the game.
-			</p>
-			<p>
-				⏱️ <strong>
-					There must be at least one release uploaded to GitHub within the jam deadline.
-				</strong> Releases made outside the deadline won't be considered.
-			</p>
-			<p>
-				👮 <strong>
-					All entries must follow the
-					<a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">
-						Mobius Digital Fan Content Policy
-					</a></strong
-				>.
-			</p>
-		</ul>
+		<p>
+			🌑 <strong>
+				Submissions must be an addon for
+				<a class="link" href="/mods/newhorizons"> New Horizons </a></strong
+			>.
+		</p>
+		<p>
+			📜 <strong>No custom code</strong>. Submissions must use the basic New Horizons config dll.
+			That means you're limited to using the New Horizons JSON configs, XML text assets, and asset
+			bundles created in Unity, which can include custom textures, models, sounds, etc. Basically
+			everything New Horizons supports, except custom code.
+		</p>
+		<p>
+			🛠️ <strong>All assets must be made during the jam</strong>, except of course those already
+			included in the game.
+		</p>
+		<p>
+			⏱️ <strong>
+				There must be at least one release uploaded to GitHub within the jam deadline.
+			</strong> Releases made outside the deadline won't be considered.
+		</p>
+		<p>
+			👮 <strong>
+				All entries must follow the
+				<a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">
+					Mobius Digital Fan Content Policy
+				</a></strong
+			>.
+		</p>
+	</PageSection>
+	<PageSection title="Teams" id="teams" isNarrow>
+		<p>
+			You are allowed to form teams as you wish. But we'd prefer for teams to be on the smaller size
+			(2-3 people), because otherwise we might not have enough submissions to make the jam
+			interesting.
+		</p>
+		<p>
+			Prize rewards will be split equally among all team members, no exceptions. That means you will
+			get half the prize if you're on a two person team.
+		</p>
+		<p>If you're looking for a team, go to our Discord (linked below) and ask around there.</p>
+	</PageSection>
+	<PageSection title="Talk to us" id="talk" isNarrow>
+		<p>
+			Join our Discord server if you have more questions, or just wanna discuss anything related to
+			the jam, modding, etc. We have a <code>#nh-jam</code> channel specifically for this. Also make
+			sure to go to the <code>#get-roles</code> channel and get the Jam role, so you can be notified
+			of jam updates.
+		</p>
+		<DiscordLink />
 	</PageSection>
 	{#if newHorizons}
 		<PageSection title="Inspiration" id="available-worlds">
