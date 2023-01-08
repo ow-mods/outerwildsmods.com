@@ -79,6 +79,7 @@
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			<span>🟢 Jam start: <strong>{startDate}</strong></span>
 			<span>🔴 Jam end: <strong>{endDate}</strong></span>
+			<small>(Time zone: {timeZone})</small>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
