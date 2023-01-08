@@ -129,8 +129,8 @@
 			</strong> Releases made outside the deadline won't be considered.
 		</p>
 		<p>
-			🙋 <strong>You can only make one submission.</strong> You can't submit multiple mods, or submit
-			one mod solo and one in a team, or participate in multiple teams.
+			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
+			or submit one mod solo and one in a team, or participate in multiple teams.
 		</p>
 		<p>
 			👮 <strong>
