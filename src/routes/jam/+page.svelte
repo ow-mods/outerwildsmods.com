@@ -66,7 +66,9 @@
 			>. You can decide what kind of content you wanna create. You can stick to the original Outer
 			Wilds solar system and just modify some existing planets, or add a few new ones. Or maybe
 			you'll create a completely new system with new planets. Or you can go even further by using
-			custom models, textures, sounds, dialogue, etc. Or anything in between!
+			custom models, textures, sounds, dialogue, etc. Or anything in between! The
+			<a class="link" href="https://nh.outerwildsmods.com"> New Horizons Docs</a> explain what's possible
+			to create using this mod.
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
@@ -115,6 +117,19 @@
 			<a class="link" href="https://nh.outerwildsmods.com/tutorials/details.html#asset-bundles">
 				asset bundles
 			</a> to add custom content to your addon (models, textures, sounds, etc).
+		</p>
+		<h3>Use these tools to create your content</h3>
+		<img alt="" src="/images/jam-edit.webp" />
+		<p>
+			The <a class="link" href="https://nh.outerwildsmods.com/tutorials/getting_started.html">
+				New Horizons Docs
+			</a>
+			explain in detail how to edit the required JSON files with editors like Visual Studio Code. But
+			you can also use the
+			<a class="link" href="https://nh.outerwildsmods.com/editor.html">
+				New Horizons Config Editor App
+			</a>, which gives you a more friendly interface for creating, editing, and managing all of the
+			addon files.
 		</p>
 		<h3>Upload a release within the deadline</h3>
 		<img alt="" src="/images/jam-deadline.webp" />
