@@ -160,10 +160,14 @@
 	<PageSection title="Rules" id="rules" isNarrow>
 		<ul class="my-4">
 			<li>
-				All mods must be an addon for New Horizons and use the basic config dll. That means you're
-				limited to using the New Horizons JSON configs, XML text assets, and asset bundles created
-				in Unity, which can include custom textures, meshes, sounds, etc. Basically everything New
-				Horizons supports, except custom code.
+				Submissions must be an addon for
+				<a class="link" href="https://outerwildsmods.com/mods/newhorizons"> New Horizons </a>.
+			</li>
+			<li>
+				<u>No custom code</u>. Submissions must use the basic New Horizons config dll. That means
+				you're limited to using the New Horizons JSON configs, XML text assets, and asset bundles
+				created in Unity, which can include custom textures, models, sounds, etc. Basically
+				everything New Horizons supports, except custom code.
 			</li>
 			<li>
 				All assets (including New Horizons config files) must be made within the jam time limit.
@@ -173,6 +177,10 @@
 				<a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">
 					Mobius Digital Fan Content Policy
 				</a>.
+			</li>
+			<li>
+				There must be at least one release uploaded to GitHub within the jam deadline. Releases made
+				outside the deadline won't be considered.
 			</li>
 		</ul>
 	</PageSection>
