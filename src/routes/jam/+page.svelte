@@ -45,8 +45,8 @@
 	const formatTimePart = (unit: string, value: number) =>
 		`${value} ${value === 1 ? unit : `${unit}s`}`;
 
-	const setUpTimeLeft = () => {
-		secondsLeft = Math.floor((endTimestamp - new Date().valueOf()) / 1000);
+	const setUpCountdown = () => {
+		secondsLeft = Math.floor((startTimestamp - new Date().valueOf()) / 1000);
 		minutesLeft = Math.floor(secondsLeft / 60);
 		hoursLeft = Math.floor(minutesLeft / 60);
 		daysLeft = Math.floor(hoursLeft / 24);
@@ -63,10 +63,10 @@
 		`;
 	};
 
-	setInterval(() => setUpTimeLeft(), 1000);
+	setInterval(() => setUpCountdown(), 1000);
 	onMount(() => {
 		setUpTimeValues();
-		setUpTimeLeft();
+		setUpCountdown();
 	});
 
 	setUpTimeValues();
