@@ -106,7 +106,7 @@
 		<p><strong>No programming knowledge is required!</strong></p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		<p class="text-xl flex flex-col m-auto w-fit gap-4 font-semibold">
+		<p class="text-xl font-semibold">
 			To be revealed in {countdownText}
 		</p>
 		<p>
