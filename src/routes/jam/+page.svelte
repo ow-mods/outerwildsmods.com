@@ -1,24 +1,29 @@
 <script lang="ts">
 	import DiscordLink from '$lib/components/discord-link.svelte';
-	import ModAddons from '$lib/components/mod-addons.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { onMount } from 'svelte';
 	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const { modList, tagList } = data;
+	const { modList } = data;
 
 	const newHorizonsUniqueName = 'xen.NewHorizons';
 
 	const newHorizons = modList.find((mod) => mod.uniqueName === newHorizonsUniqueName);
 
-	let startDate = '';
-	let endDate = '';
-	let timeZone = '';
+	const startTimestamp = 1673715600000;
+	const endTimestamp = 1674406800000;
+	let startDateText = '';
+	let endDateText = '';
+	let timeZoneText = '';
+	let countdownText = '';
+	let daysLeft = 0;
+	let hoursLeft = 0;
+	let minutesLeft = 0;
+	let secondsLeft = 0;
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
@@ -30,17 +35,41 @@
 		});
 	};
 
-	const setDateStrings = () => {
-		startDate = getDateString(1673715600000);
-		endDate = getDateString(1674406800000);
-		timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+	const setUpTimeValues = () => {
+		startDateText = getDateString(startTimestamp);
+		endDateText = getDateString(endTimestamp);
+		timeZoneText = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		countdownText = endDateText;
 	};
 
+	const formatTimePart = (unit: string, value: number) =>
+		`${value} ${value === 1 ? unit : `${unit}s`}`;
+
+	const setUpTimeLeft = () => {
+		secondsLeft = Math.floor((endTimestamp - new Date().valueOf()) / 1000);
+		minutesLeft = Math.floor(secondsLeft / 60);
+		hoursLeft = Math.floor(minutesLeft / 60);
+		daysLeft = Math.floor(hoursLeft / 24);
+
+		hoursLeft = hoursLeft - daysLeft * 24;
+		minutesLeft = minutesLeft - daysLeft * 24 * 60 - hoursLeft * 60;
+		secondsLeft = secondsLeft - daysLeft * 24 * 60 * 60 - hoursLeft * 60 * 60 - minutesLeft * 60;
+
+		countdownText = `
+			${formatTimePart('day', daysLeft)}, 
+			${formatTimePart('hour', hoursLeft)}, 
+			${formatTimePart('minute', minutesLeft)}, and
+			${formatTimePart('second', secondsLeft)}
+		`;
+	};
+
+	setInterval(() => setUpTimeLeft(), 1000);
 	onMount(() => {
-		setDateStrings();
+		setUpTimeValues();
+		setUpTimeLeft();
 	});
 
-	setDateStrings();
+	setUpTimeValues();
 
 	let newHorizonsAddons: ModsRequestItem[] = [];
 
@@ -77,7 +106,9 @@
 		<p><strong>No programming knowledge is required!</strong></p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		<p class="text-xl flex flex-col m-auto w-fit gap-4">To Be Revealed 🤫</p>
+		<p class="text-xl flex flex-col m-auto w-fit gap-4 font-semibold">
+			To be revealed in {countdownText}
+		</p>
 		<p>
 			The theme will be revealed on the day the jam starts. <a class="link" href="#talk">
 				Join our Discord
@@ -87,9 +118,9 @@
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🟢 Jam start: <strong>{startDate}</strong></span>
-			<span>🔴 Jam end: <strong>{endDate}</strong></span>
-			<small>(Time zone: {timeZone})</small>
+			<span>🟢 Jam start: <strong>{startDateText}</strong></span>
+			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
+			<small>(Time zone: {timeZoneText})</small>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
