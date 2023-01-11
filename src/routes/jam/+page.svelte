@@ -151,10 +151,6 @@
 			everything New Horizons supports, except custom code.
 		</p>
 		<p>
-			🛠️ <strong>All assets must be made during the jam</strong>, except of course those already
-			included in the game.
-		</p>
-		<p>
 			⏱️ <strong>
 				There must be at least one release uploaded to GitHub within the jam deadline.
 			</strong> Releases made outside the deadline won't be considered.
