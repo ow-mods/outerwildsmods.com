@@ -3,7 +3,7 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
 
@@ -24,6 +24,8 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
+	let theme = '';
+	let timer: NodeJS.Timer | undefined;
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
@@ -62,11 +64,17 @@
 			${formatTimePart('second', secondsLeft)}
 		`;
 	};
-
-	setInterval(() => setUpCountdown(), 1000);
 	onMount(() => {
 		setUpTimeValues();
 		setUpCountdown();
+
+		timer = setInterval(() => setUpCountdown(), 1000);
+	});
+
+	onDestroy(() => {
+		if (timer) {
+			clearInterval(timer);
+		}
 	});
 
 	setUpTimeValues();
@@ -106,9 +114,15 @@
 		<p><strong>No programming knowledge is required!</strong></p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		<p class="text-xl font-semibold">
-			To be revealed in {countdownText}
-		</p>
+		{#if theme}
+			<p class="text-xl font-semibold">
+				The theme is {theme}
+			</p>
+		{:else}
+			<p class="text-xl font-semibold">
+				To be revealed in {countdownText}
+			</p>
+		{/if}
 		<p>
 			The theme will be revealed on the day the jam starts. <a class="link" href="#talk">
 				Join our Discord
