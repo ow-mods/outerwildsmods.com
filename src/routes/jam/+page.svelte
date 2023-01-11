@@ -170,11 +170,10 @@
 			</strong>.
 		</p>
 		<p>
-			🛠️ <strong>You can use any assets you have a license to use.</strong> If you're allowed to use
-			them in an open source project, you're allowed to use them in the jam. So you can use any royalty
-			free assets you find (models, textures, sounds, etc), but you must be careful to understand and
-			follow their licenses, just like you would in any open source project. And of course, these assets
-			must also follow the digital content policy mentioned above.
+			🛠️ <strong>You can use any assets you have a license to use.</strong> Besides using assets already
+			available in the game, you're allowed to use assets you find (models, textures, sounds, etc), but
+			you must be careful to understand and follow their licenses, just like you would in any open source
+			project. And of course, these assets must also follow the digital content policy mentioned above.
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
