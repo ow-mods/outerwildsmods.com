@@ -140,7 +140,7 @@
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
 			🌑 <strong>
-				Submissions must be an addon for
+				Submissions must be an open source addon for
 				<a class="link" href="/mods/newhorizons"> New Horizons </a></strong
 			>.
 		</p>
@@ -153,7 +153,9 @@
 		<p>
 			⏱️ <strong>
 				There must be at least one release uploaded to GitHub within the jam deadline.
-			</strong> Releases made outside the deadline won't be considered.
+			</strong>
+			You can make as many releases as you want, but releases made outside the deadline won't be considered.
+			<u>Do not to overwrite releases, as this will change the upload date of that release.</u>
 		</p>
 		<p>
 			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
@@ -161,11 +163,18 @@
 		</p>
 		<p>
 			👮 <strong>
-				All entries must follow the
+				All submissions must follow the
 				<a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">
 					Mobius Digital Fan Content Policy
 				</a>
 			</strong>.
+		</p>
+		<p>
+			🛠️ <strong>You can use any assets you have a license to use.</strong> If you're allowed to use
+			them in an open source project, you're allowed to use them in the jam. So you can use any royalty
+			free assets you find (models, textures, sounds, etc), but you must be careful to understand and
+			follow their licenses, just like you would in any open source project. And of course, these assets
+			must also follow the digital content policy mentioned above.
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
