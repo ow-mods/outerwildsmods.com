@@ -5,7 +5,7 @@
 	export let firstPoint: HistoryPoint;
 	export let widthMultiplier: number;
 	export let minDownloads: number;
-	export let heightMuliplier: number;
+	export let heightMultiplier: number;
 	export let chartHeight: number;
 	export let hoveredPoint: HistoryPoint | null = null;
 	export let color: string;
@@ -13,7 +13,7 @@
 	$: getX = (historyPoint: HistoryPoint) =>
 		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
 	$: getY = (historyPoint: HistoryPoint) =>
-		(historyPoint.DownloadCount - minDownloads) * heightMuliplier + chartHeight;
+		(historyPoint.DownloadCount - minDownloads) * heightMultiplier + chartHeight;
 </script>
 
 <polyline
