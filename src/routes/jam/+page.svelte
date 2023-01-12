@@ -45,8 +45,8 @@
 		countdownText = endDateText;
 	};
 
-	const formatTimePart = (unit: string, value: number, suffix = '') =>
-		`${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
+	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
+		value <= 0 && aggregate <= 0 ? '' : `${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
 
 	const setUpTheme = async () => {
 		theme = (await fetch(jamThemeUrl).then((result) => result.text())).trim();
@@ -76,10 +76,10 @@
 		secondsLeft = secondsLeft - daysLeft * 24 * 60 * 60 - hoursLeft * 60 * 60 - minutesLeft * 60;
 
 		countdownText = `
-			${formatTimePart('day', daysLeft, ', ')}
-			${formatTimePart('hour', hoursLeft, ', ')}
-			${formatTimePart('minute', minutesLeft, ', and ')}
-			${formatTimePart('second', secondsLeft)}
+			${formatTimePart('day', daysLeft, 0, ', ')}
+			${formatTimePart('hour', hoursLeft, daysLeft, ', ')}
+			${formatTimePart('minute', minutesLeft, daysLeft + hoursLeft, ', and ')}
+			${formatTimePart('second', secondsLeft, daysLeft + hoursLeft + minutesLeft)}
 		`;
 	};
 	onMount(() => {
