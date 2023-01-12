@@ -27,7 +27,7 @@
 	$: minDownloads = 0;
 	$: maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
 	$: widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	$: heightMuliplier = -chartSize.y / (maxDownloads - minDownloads);
+	$: heightMultiplier = -chartSize.y / (maxDownloads - minDownloads);
 
 	let mousePosition = {
 		x: 0,
@@ -101,7 +101,7 @@
 					<ChartLine
 						chartHeight={chartSize.y}
 						{firstPoint}
-						{heightMuliplier}
+						{heightMultiplier}
 						{minDownloads}
 						{widthMultiplier}
 						{historyPoints}
@@ -111,7 +111,7 @@
 					<ChartLine
 						chartHeight={chartSize.y}
 						{firstPoint}
-						{heightMuliplier}
+						{heightMultiplier}
 						{minDownloads}
 						{widthMultiplier}
 						historyPoints={comparePoints}
