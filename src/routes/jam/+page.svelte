@@ -42,7 +42,7 @@
 		startDateText = getDateString(startTimestamp);
 		endDateText = getDateString(endTimestamp);
 		timeZoneText = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		countdownText = startDateText;
+		countdownText = `${startDateText} (${timeZoneText})`;
 	};
 
 	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
