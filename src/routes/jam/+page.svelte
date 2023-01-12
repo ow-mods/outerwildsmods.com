@@ -3,7 +3,6 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { jamThemeUrl } from '$lib/helpers/constants';
 	import { onMount, onDestroy } from 'svelte';
 	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
@@ -45,32 +44,11 @@
 		countdownText = endDateText;
 	};
 
-	const formatTimePart = (unit: string, value: number, suffix = '') =>
-		value > 0 ? `${value} ${value === 1 ? unit : `${unit}s`}${suffix}` : '';
-
-	const setUpTheme = async () => {
-		theme = (await fetch(jamThemeUrl).then((result) => result.text())).trim();
-		if (theme) {
-			clearInterval(timer);
-			timer = undefined;
-			console.log('fetched theme', theme);
-		} else {
-			theme = '...';
-		}
-		console.log('no theme, waiting...');
-	};
-
-	const date = new Date().valueOf() + 10000;
+	const formatTimePart = (unit: string, value: number) =>
+		`${value} ${value === 1 ? unit : `${unit}s`}`;
 
 	const setUpCountdown = () => {
-		const millisecondsLeft = date - new Date().valueOf();
-
-		if (millisecondsLeft < 1000) {
-			setUpTheme();
-			return;
-		}
-
-		secondsLeft = Math.floor(millisecondsLeft / 1000);
+		secondsLeft = Math.floor((startTimestamp - new Date().valueOf()) / 1000);
 		minutesLeft = Math.floor(secondsLeft / 60);
 		hoursLeft = Math.floor(minutesLeft / 60);
 		daysLeft = Math.floor(hoursLeft / 24);
@@ -80,9 +58,9 @@
 		secondsLeft = secondsLeft - daysLeft * 24 * 60 * 60 - hoursLeft * 60 * 60 - minutesLeft * 60;
 
 		countdownText = `
-			${formatTimePart('day', daysLeft, ', ')}
-			${formatTimePart('hour', hoursLeft, ', ')}
-			${formatTimePart('minute', minutesLeft, ', and ')}
+			${formatTimePart('day', daysLeft)}, 
+			${formatTimePart('hour', hoursLeft)}, 
+			${formatTimePart('minute', minutesLeft)}, and
 			${formatTimePart('second', secondsLeft)}
 		`;
 	};
