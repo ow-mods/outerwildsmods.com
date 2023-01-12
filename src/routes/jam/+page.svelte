@@ -53,17 +53,13 @@
 		if (theme) {
 			clearInterval(timer);
 			timer = undefined;
-			console.log('fetched theme', theme);
 		} else {
 			theme = '...';
 		}
-		console.log('no theme, waiting...');
 	};
 
-	const date = new Date().valueOf() + 10000;
-
 	const setUpCountdown = () => {
-		const millisecondsLeft = date - new Date().valueOf();
+		const millisecondsLeft = startTimestamp - new Date().valueOf();
 
 		if (millisecondsLeft < 1000) {
 			setUpTheme();
