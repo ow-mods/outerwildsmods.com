@@ -46,7 +46,7 @@
 	};
 
 	const formatTimePart = (unit: string, value: number, suffix = '') =>
-		value > 0 ? `${value} ${value === 1 ? unit : `${unit}s`}${suffix}` : '';
+		`${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
 
 	const setUpTheme = async () => {
 		theme = (await fetch(jamThemeUrl).then((result) => result.text())).trim();
