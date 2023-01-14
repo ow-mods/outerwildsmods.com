@@ -134,19 +134,24 @@
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if theme}
 			<p class="text-xl font-semibold">
-				The theme is {theme}
+				The themes are {theme}
+			</p>
+			<p>
+				You can chose to follow one of the themes, or both. You won't be penalized for only
+				following one theme. Make sure you read the <a href="#rules" class="link">rules</a>
+				and the <a href="#criteria" class="link">judging criteria</a>.
 			</p>
 		{:else}
 			<p class="text-xl font-semibold">
 				To be revealed in {countdownText}
 			</p>
+			<p>
+				The theme will be revealed on the day the jam starts. <a class="link" href="#talk">
+					Join our Discord
+				</a> if you wanna be notified as soon as it is revealed, or just come back here at the start
+				date and check again.
+			</p>
 		{/if}
-		<p>
-			The theme will be revealed on the day the jam starts. <a class="link" href="#talk">
-				Join our Discord
-			</a> if you wanna be notified as soon as it is revealed, or just come back here at the start date
-			and check again.
-		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
@@ -206,6 +211,45 @@
 			available in the game, you're allowed to use assets you find (models, textures, sounds, etc), but
 			you must be careful to understand and follow their licenses, just like you would in any open source
 			project. And of course, these assets must also follow the digital content policy mentioned above.
+		</p>
+	</PageSection>
+	<PageSection title="Judging Criteria" id="criteria" isNarrow>
+		<p>
+			After the jam deadline has ended, we will play each submission and review them based on the
+			following criteria:
+		</p>
+		<p>
+			<strong>💭 How well does it follow the themes?</strong> There are two themes. You can chose to
+			follow one of the themes, or both. You won't be penalized for only following one theme. A submission
+			that only follows one theme really well can be as good as a submission that follows both themes
+			kinda well.
+		</p>
+		<p>
+			<strong>💅 How polished is it?</strong> We will value quality over quantity. One highly polished
+			planet is better than 20 empty planets.
+		</p>
+		<p>
+			<strong>🌑 How well does it leverage New Horizons?</strong> The point of the jam is to take NH
+			to its limits, so we will prefer submissions that take full advantage of what NH has to offer and
+			use it in creative ways. But again, quality over quantity: it's better to use a few features really
+			well, than trying to cramp all the features in there with no need for them.
+		</p>
+		<p>
+			<strong>🖼️ How well are the assets used?</strong> Whether you add your own custom assets (models,
+			textures, sounds, etc), or reuse the ones included in the game, they should fit the world they
+			are used in. We'll take into account the overall quality of the visuals/audio and how it all fits
+			together. So a highly detailed custom model with high resolution textures doesn't really mean anything
+			if everything around it doesn't follow the same standards.
+		</p>
+		<p>
+			<strong>👤 Overall opinion.</strong> The judges are (allegedly) people, so the review process will
+			be mostly driven by personal opinion. The judging criteria are guidelines we'll use while reviewing
+			the submissions, they're not strict rules or values to be fed into a formula.
+		</p>
+		<p>
+			These guidelines can change depending on how the jam is going. We might also take a shot at
+			community voting, if there are enough submissions to justify it and we can set up a good
+			system for it.
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
@@ -278,45 +322,6 @@
 			When you submit your addon to the database, you will need to include the <code>jam</code> tag,
 			together with any other tags that make sense for your addon. Every New Horizons addon
 			typically also has the <code>content</code> tag, since they add custom content to the game.
-		</p>
-	</PageSection>
-	<PageSection title="Judging Criteria" id="criteria" isNarrow>
-		<p>
-			After the jam deadline has ended, we will play each submission and review them based on the
-			following criteria:
-		</p>
-		<p>
-			<strong>💭 How well does it follow the themes?</strong> There are two themes. You can chose to
-			follow one of the themes, or both. You won't be penalized for only following one theme. A submission
-			that only follows one theme really well can be as good as a submission that follows both themes
-			kinda well.
-		</p>
-		<p>
-			<strong>💅 How polished is it?</strong> We will value quality over quantity. One highly polished
-			planet is better than 20 empty planets.
-		</p>
-		<p>
-			<strong>🌑 How well does it leverage New Horizons?</strong> The point of the jam is to take NH
-			to its limits, so we will prefer submissions that take full advantage of what NH has to offer and
-			use it in creative ways. But again, quality over quantity: it's better to use a few features really
-			well, than trying to cramp all the features in there with no need for them.
-		</p>
-		<p>
-			<strong>🖼️ How well are the assets used?</strong> Whether you add your own custom assets (models,
-			textures, sounds, etc), or reuse the ones included in the game, they should fit the world they
-			are used in. We'll take into account the overall quality of the visuals/audio and how it all fits
-			together. So a highly detailed custom model with high resolution textures doesn't really mean anything
-			if everything around it doesn't follow the same standards.
-		</p>
-		<p>
-			<strong>👤 Overall opinion.</strong> The judges are (allegedly) people, so the review process will
-			be mostly driven by personal opinion. The judging criteria are guidelines we'll use while reviewing
-			the submissions, they're not strict rules or values to be fed into a formula.
-		</p>
-		<p>
-			These guidelines can change depending on how the jam is going. We might also take a shot at
-			community voting, if there are enough submissions to justify it and we can set up a good
-			system for it.
 		</p>
 	</PageSection>
 	<PageSection title="Teams" id="teams" isNarrow>
