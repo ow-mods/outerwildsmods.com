@@ -180,6 +180,10 @@
 			everything New Horizons supports, except custom code.
 		</p>
 		<p>
+			🛤️ <strong>No extra dependencies</strong>. The mod you submit must only have one dependency:
+			New Horizons. It can not depend on any other mods.
+		</p>
+		<p>
 			⏱️ <strong>
 				There must be at least one release uploaded to GitHub within the jam deadline.
 			</strong>
