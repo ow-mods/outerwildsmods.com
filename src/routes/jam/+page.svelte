@@ -42,7 +42,7 @@
 		startDateText = getDateString(startTimestamp);
 		endDateText = getDateString(endTimestamp);
 		timeZoneText = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		countdownText = `${startDateText} (${timeZoneText})`;
+		countdownText = `${endDateText} (${timeZoneText})`;
 	};
 
 	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
@@ -59,7 +59,7 @@
 	};
 
 	const setUpCountdown = () => {
-		const millisecondsLeft = startTimestamp - new Date().valueOf();
+		const millisecondsLeft = endTimestamp - new Date().valueOf();
 
 		if (millisecondsLeft < 1000) {
 			setUpTheme();
@@ -150,6 +150,7 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
+		<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
