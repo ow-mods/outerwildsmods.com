@@ -132,26 +132,17 @@
 		<p><strong>No programming knowledge is required!</strong></p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		{#if theme}
-			<p class="text-xl font-semibold">
-				The themes are {theme}
-			</p>
-			<p>
-				You can chose to follow one of the themes, or both. You won't be penalized for only
-				following one theme. Make sure you read the <a href="#rules" class="link">rules</a>
-				and the <a href="#criteria" class="link">judging criteria</a>.
-			</p>
-		{:else}
-			<p class="text-xl font-semibold">
-				To be revealed in {countdownText}
-			</p>
-			<p>
-				The theme will be revealed on the day the jam starts. <a class="link" href="#talk">
-					Join our Discord
-				</a> if you wanna be notified as soon as it is revealed, or just come back here at the start
-				date and check again.
-			</p>
-		{/if}
+		<p class="text-xl">
+			The themes are <strong>CLOCKWORK</strong> and <strong>LAYERS</strong>
+		</p>
+		<p>
+			You decide how to interpret the themes. You can chose to follow one of the themes, or both.
+			You won't be penalized for only following one theme. Make sure you read the <a
+				href="#rules"
+				class="link">rules</a
+			>
+			and the <a href="#criteria" class="link">judging criteria</a>.
+		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
