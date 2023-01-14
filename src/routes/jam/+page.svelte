@@ -280,6 +280,45 @@
 			typically also has the <code>content</code> tag, since they add custom content to the game.
 		</p>
 	</PageSection>
+	<PageSection title="Judging Criteria" id="criteria" isNarrow>
+		<p>
+			After the jam deadline has ended, we will play each submission and review them based on the
+			following criteria:
+		</p>
+		<p>
+			<strong>💭 How well does it follow the themes?</strong> There are two themes. You can chose to
+			follow one of the themes, or both. You won't be penalized for only following one theme. A submission
+			that only follows one theme really well can be as good as a submission that follows both themes
+			kinda well.
+		</p>
+		<p>
+			<strong>💅 How polished is it?</strong> We will value quality over quantity. One highly polished
+			planet is better than 20 empty planets.
+		</p>
+		<p>
+			<strong>🌑 How well does it leverage New Horizons?</strong> The point of the jam is to take NH
+			to its limits, so we will prefer submissions that take full advantage of what NH has to offer and
+			use it in creative ways. But again, quality over quantity: it's better to use a few features really
+			well, than trying to cramp all the features in there with no need for them.
+		</p>
+		<p>
+			<strong>🖼️ How well are the assets used?</strong> Whether you add your own custom assets (models,
+			textures, sounds, etc), or reuse the ones included in the game, they should fit the world they
+			are used in. We'll take into account the overall quality of the visuals/audio and how it all fits
+			together. So a highly detailed custom model with high resolution textures doesn't really mean anything
+			if everything around it doesn't follow the same standards.
+		</p>
+		<p>
+			<strong>👤 Overall opinion.</strong> The judges are (allegedly) people, so the review process will
+			be mostly driven by personal opinion. The judging criteria are guidelines we'll use while reviewing
+			the submissions, they're not strict rules or values to be fed into a formula.
+		</p>
+		<p>
+			These guidelines can change depending on how the jam is going. We might also take a shot at
+			community voting, if there are enough submissions to justify it and we can set up a good
+			system for it.
+		</p>
+	</PageSection>
 	<PageSection title="Teams" id="teams" isNarrow>
 		<p>
 			You are allowed to form teams as you wish. But we'd prefer for teams to be on the smaller size
