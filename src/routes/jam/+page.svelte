@@ -97,10 +97,11 @@
 
 	setUpTimeValues();
 
-	let newHorizonsAddons: ModsRequestItem[] = [];
+	let jamMods: ModsRequestItem[] = [];
 
 	$: {
-		newHorizonsAddons = modList.filter((otherMod) => otherMod.parent === newHorizonsUniqueName);
+		jamMods = modList.filter((mod) => mod.tags.includes('jam'));
+		console.log('jamMods', jamMods)
 	}
 </script>
 
@@ -331,7 +332,7 @@
 			get half the prize if you're on a two person team.
 		</p>
 		<p>
-			If you're looking for a team, <a class="link" href="#talk"> join our Discord </a> and ask around
+			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around
 			there.
 		</p>
 	</PageSection>
@@ -345,15 +346,14 @@
 		<DiscordLink />
 	</PageSection>
 	{#if newHorizons}
-		<PageSection title="Inspiration" id="available-worlds">
+		<PageSection title="Jam Submissions" id="submissions">
 			<p>
-				These are some of the mods made with New Horizons. You can use them as inspiration for your
-				own creations, or look at their source code to figure out how stuff is done.
+				Here are the mods that have been submitted to the jam so far. Try them!
 			</p>
 			<ModGrid
-				mods={newHorizonsAddons}
-				tagBlocklist={['story', 'tweaks', 'gameplay']}
+				mods={jamMods}
 				allowFiltering={false}
+				defaultSortOrder="leastDownloaded"
 			/>
 		</PageSection>
 	{/if}

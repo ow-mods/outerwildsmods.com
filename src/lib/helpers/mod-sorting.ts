@@ -15,6 +15,11 @@ export const sortOrders = {
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
 			modB.downloadCount - modA.downloadCount,
 	},
+	leastDownloaded: {
+		title: 'Least downloaded',
+		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) =>
+			modA.downloadCount - modB.downloadCount,
+	},
 	mostViewsXDays: {
 		title: `Recent views (${recentViewsDayCount} days)`,
 		compareFunction: (modA: ModsRequestItem, modB: ModsRequestItem) => {
