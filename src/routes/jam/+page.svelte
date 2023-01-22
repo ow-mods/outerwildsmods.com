@@ -16,7 +16,7 @@
 	const newHorizons = modList.find((mod) => mod.uniqueName === newHorizonsUniqueName);
 
 	const startTimestamp = 1673715600000;
-	const endTimestamp = 1674406800000;
+	const endTimestamp = 1674464400000;
 	let startDateText = '';
 	let endDateText = '';
 	let timeZoneText = '';
