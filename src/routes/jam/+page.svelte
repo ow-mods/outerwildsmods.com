@@ -3,8 +3,7 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { jamThemeUrl } from '$lib/helpers/constants';
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
 
@@ -20,13 +19,6 @@
 	let startDateText = '';
 	let endDateText = '';
 	let timeZoneText = '';
-	let countdownText = '';
-	let daysLeft = 0;
-	let hoursLeft = 0;
-	let minutesLeft = 0;
-	let secondsLeft = 0;
-	let theme = '';
-	let timer: NodeJS.Timer | undefined;
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
@@ -42,57 +34,10 @@
 		startDateText = getDateString(startTimestamp);
 		endDateText = getDateString(endTimestamp);
 		timeZoneText = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		countdownText = `${endDateText} (${timeZoneText})`;
 	};
 
-	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
-		value <= 0 && aggregate <= 0 ? '' : `${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
-
-	const setUpTheme = async () => {
-		theme = (await fetch(jamThemeUrl).then((result) => result.text())).trim();
-		if (theme) {
-			clearInterval(timer);
-			timer = undefined;
-		} else {
-			theme = '...';
-		}
-	};
-
-	const setUpCountdown = () => {
-		const millisecondsLeft = endTimestamp - new Date().valueOf();
-
-		if (millisecondsLeft < 1000) {
-			setUpTheme();
-			return;
-		}
-
-		secondsLeft = Math.floor(millisecondsLeft / 1000);
-		minutesLeft = Math.floor(secondsLeft / 60);
-		hoursLeft = Math.floor(minutesLeft / 60);
-		daysLeft = Math.floor(hoursLeft / 24);
-
-		hoursLeft = hoursLeft - daysLeft * 24;
-		minutesLeft = minutesLeft - daysLeft * 24 * 60 - hoursLeft * 60;
-		secondsLeft = secondsLeft - daysLeft * 24 * 60 * 60 - hoursLeft * 60 * 60 - minutesLeft * 60;
-
-		countdownText = `
-			${formatTimePart('day', daysLeft, 0, ', ')}
-			${formatTimePart('hour', hoursLeft, daysLeft, ', ')}
-			${formatTimePart('minute', minutesLeft, daysLeft + hoursLeft, ', and ')}
-			${formatTimePart('second', secondsLeft, daysLeft + hoursLeft + minutesLeft)}
-		`;
-	};
 	onMount(() => {
 		setUpTimeValues();
-		setUpCountdown();
-
-		timer = setInterval(() => setUpCountdown(), 1000);
-	});
-
-	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
-		}
 	});
 
 	setUpTimeValues();
@@ -101,7 +46,7 @@
 
 	$: {
 		jamMods = modList.filter((mod) => mod.tags.includes('jam'));
-		console.log('jamMods', jamMods)
+		console.log('jamMods', jamMods);
 	}
 </script>
 
@@ -151,7 +96,10 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
-		<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
+		<p>
+			The jam has ended! The judges are now playing all the submissions, and will decide on the
+			winners soon.
+		</p>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
@@ -347,14 +295,8 @@
 	</PageSection>
 	{#if newHorizons}
 		<PageSection title="Jam Submissions" id="submissions">
-			<p>
-				Here are the mods that have been submitted to the jam so far. Try them!
-			</p>
-			<ModGrid
-				mods={jamMods}
-				allowFiltering={false}
-				defaultSortOrder="leastDownloaded"
-			/>
+			<p>Here are the mods that have been submitted to the jam so far. Try them!</p>
+			<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 		</PageSection>
 	{/if}
 </PageLayout>
