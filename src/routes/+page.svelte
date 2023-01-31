@@ -88,11 +88,6 @@
 			<a class="link" href="/mod-manager">Mod Manager</a> to easily download and install these mods.
 			There are currently a total of {modList.length} mods, addons, and utilities.
 		</p>
-		<p class="bg-darker p-2 rounded">
-			<strong class="bg-cta px-1 rounded text-white">New Horizons Jam</strong> We're having a mod
-			jam! You can participate and win cash prizes! No programming knowledge required.
-			<a class="link" href="/jam">Click here to learn more.</a>
-		</p>
 	</PageSection>
 	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />
 	<FeaturedModSection
