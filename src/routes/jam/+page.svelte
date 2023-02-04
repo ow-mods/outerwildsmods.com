@@ -70,7 +70,7 @@
 			<strong>The jam is over!</strong> After playing through them all, the judges voted on the submissions,
 			and in the end some of the results were tied. We decided to make a last minute change. Instead
 			of offering three different prizes for first, second, and third places, we increased the prize
-			pool and are instead having three winners: two submissions in first place, and two in second! Here
+			pool and are instead having four winners: two submissions in first place, and two in second! Here
 			are the results:
 		</p>
 		<div class="text-center">
