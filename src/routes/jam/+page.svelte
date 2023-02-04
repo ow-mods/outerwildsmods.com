@@ -1,5 +1,6 @@
 <script lang="ts">
 	import DiscordLink from '$lib/components/discord-link.svelte';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
@@ -43,9 +44,17 @@
 	setUpTimeValues();
 
 	let jamMods: ModsRequestItem[] = [];
+	let firstPlaceMods: ModsRequestItem[] = [];
+	let secondPlaceMods: ModsRequestItem[] = [];
 
 	$: {
 		jamMods = modList.filter((mod) => mod.tags.includes('jam'));
+		firstPlaceMods = jamMods.filter((mod) =>
+			['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
+		);
+		secondPlaceMods = jamMods.filter((mod) =>
+			['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
+		);
 		console.log('jamMods', jamMods);
 	}
 </script>
@@ -57,6 +66,36 @@
 
 <PageLayout>
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
+		<p>
+			<strong>The jam is over!</strong> After playing through them all, the judges voted on the submissions,
+			and in the end some of the results were tied. We decided to make a last minute change. Instead
+			of offering three different prizes for first, second, and third places, we increased the prize
+			pool and are instead having three winners: two submissions in first place, and two in second! Here
+			are the results:
+		</p>
+		<div class="text-center">
+			<div class="bg-darker p-2 rounded mb-4">
+				<h3 class="m-0">🥇 First place</h3>
+				<div class="mb-2">($100 to each team)</div>
+				<div class="flex gap-2">
+					{#each firstPlaceMods as mod}
+						<ModCard {mod} />
+					{/each}
+				</div>
+			</div>
+			<div class="bg-darker p-2 rounded">
+				<h3 class="m-0">🥈 Second place</h3>
+				<div class="mb-2">($75 to each team)</div>
+				<div class="flex gap-2">
+					{#each secondPlaceMods as mod}
+						<ModCard {mod} />
+					{/each}
+				</div>
+			</div>
+		</div>
+		<p>Below this section you can find the original page for this jam.</p>
+	</PageSection>
+	<PageSection title="New Horizons Jam (Original page)" id="nh-jam" isNarrow>
 		<img src="/images/jam.webp" alt="New Horizons Jam" />
 		<p>
 			Welcome to the <strong>New Horizons Jam</strong>! In this jam, you'll have one week to create
@@ -96,10 +135,6 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
-		<p>
-			The jam has ended! The judges are now playing all the submissions, and will decide on the
-			winners soon.
-		</p>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
