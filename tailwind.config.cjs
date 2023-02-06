@@ -30,6 +30,9 @@ module.exports = {
 			fontSize: {
 				base: '1.1rem',
 			},
+			aspectRatio: {
+				thumbnail: '3 / 1',
+			},
 		},
 	},
 	plugins: [],
