@@ -93,9 +93,39 @@
 				</div>
 			</div>
 		</div>
-		<p>Below this section you can find the original page for this jam.</p>
 	</PageSection>
-	<PageSection title="New Horizons Jam (Original page)" id="nh-jam" isNarrow>
+	<PageSection title="Credits" id="credits" isNarrow>
+		<div class="flex justify-evenly text-center">
+			<div>
+				<h4>Organizers</h4>
+				<div>Idiot</div>
+				<div>JohnCorby</div>
+				<div>Nebula</div>
+				<div>Raicuparta</div>
+				<div>Xen</div>
+			</div>
+			<div>
+				<h4>Judges</h4>
+				<div>Bird</div>
+				<div>Book</div>
+				<div>Bunnie</div>
+				<div>JohnCorby</div>
+				<div>MegaPiggy</div>
+				<div>Nebula</div>
+				<div>Vesper</div>
+				<div>Xen</div>
+			</div>
+			<div>
+				<h4>Money</h4>
+				<div>Book</div>
+				<div>Nebula</div>
+				<div>Pixie</div>
+				<div>Raicuparta</div>
+				<div>Xen</div>
+			</div>
+		</div>
+	</PageSection>
+	<PageSection title="New Horizons Jam (Original page)" id="nh-jam-original" isNarrow>
 		<img src="/images/jam.webp" alt="New Horizons Jam" />
 		<p>
 			Welcome to the <strong>New Horizons Jam</strong>! In this jam, you'll have one week to create
