@@ -20,7 +20,8 @@
 	export let mods: ModsRequestItem[] = [];
 	export let tagList: string[] = [];
 	export let defaultSortOrder: SortOrder = 'hot';
-	export let tagBlocklist: string[] = [];
+	export let tagBlockList: string[] = [];
+	export let tagAllowList: string[] = [];
 	export let allowFiltering = true;
 
 	let sortOrder: SortOrder = defaultSortOrder;
@@ -36,9 +37,12 @@
 			const isModTagSelected =
 				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 
-			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlocklist.includes(tag)) != -1;
+			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
+			const containsAllowedTag =
+				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
 
 			return (
+				containsAllowedTag &&
 				!containsBlockedTag &&
 				isModTagSelected &&
 				anyIncludes(filter, [

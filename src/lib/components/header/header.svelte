@@ -19,7 +19,6 @@
 		<NavigationLink href="/mod-manager">Mod Manager</NavigationLink>
 		<NavigationLink href="/mods">Mods</NavigationLink>
 		<NavigationLink href="/jam">Jam</NavigationLink>
-		<NavigationLink href="/custom-content">Custom Content</NavigationLink>
 		<NavigationLink href="/outer-wilds-alpha">Outer Wilds Alpha</NavigationLink>
 	</Navigation>
 </header>
