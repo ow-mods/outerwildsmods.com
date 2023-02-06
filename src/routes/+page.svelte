@@ -34,29 +34,19 @@
 		},
 	];
 
-	const modsPerCategory = 3;
+	const modsPerCategory = 6;
 
 	export let data: PageData;
 	const { modList } = data;
 
-	const nonAddonList = modList.filter(
-		(mod) => !mod.parent && !mod.utility && !mod.alpha && mod.imageUrl
-	);
-	const nhAddonList = modList.filter((mod) => mod.parent === 'xen.NewHorizons' && !mod.utility);
+	const nonAddonList = modList.filter((mod) => !mod.utility && !mod.alpha && mod.imageUrl);
 
 	const hotMods = sortModList(nonAddonList, 'hot', modsPerCategory);
-	const hotWorlds = sortModList(nhAddonList, 'hot', modsPerCategory);
 	const updatedMods = sortModList(
 		nonAddonList,
 		'updated',
 		modsPerCategory,
 		hotMods.map((mod) => mod.uniqueName)
-	);
-	const updatedWorlds = sortModList(
-		nhAddonList,
-		'updated',
-		modsPerCategory,
-		hotWorlds.map((mod) => mod.uniqueName)
 	);
 </script>
 
@@ -89,13 +79,8 @@
 			There are currently a total of {modList.length} mods, addons, and utilities.
 		</p>
 	</PageSection>
-	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />
-	<FeaturedModSection
-		title="Recently Updated Mods"
-		sortOrder="updated"
-		mods={updatedMods}
-		addons={updatedWorlds}
-	/>
+	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} />
+	<FeaturedModSection title="Recently Updated Mods" sortOrder="updated" mods={updatedMods} />
 	<PageSection
 		title="Support and modding talk"
 		id="community"
