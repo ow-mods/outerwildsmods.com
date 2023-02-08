@@ -10,7 +10,7 @@
 	};
 
 	const judges = {
-		Bird: '',
+		Bird: 'CrypticBird',
 		Book: 'Nageld',
 		Bunnie: 'BUNN1E5',
 		MegaPiggy: 'MegaPiggy',
