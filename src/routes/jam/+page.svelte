@@ -7,13 +7,11 @@
 	import { onMount } from 'svelte';
 	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
+	import JamCredits from './jam-credits.svelte';
+	import JamWinnerBlock from './jam-winner-block.svelte';
 
 	export let data: PageData;
 	const { modList } = data;
-
-	const newHorizonsUniqueName = 'xen.NewHorizons';
-
-	const newHorizons = modList.find((mod) => mod.uniqueName === newHorizonsUniqueName);
 
 	const startTimestamp = 1673715600000;
 	const endTimestamp = 1674493200000;
@@ -70,62 +68,24 @@
 			<strong>The jam is over!</strong> After playing through them all, the judges voted on the submissions,
 			and in the end some of the results were tied. We decided to make a last minute change. Instead
 			of offering three different prizes for first, second, and third places, we increased the prize
-			pool and are instead having four winners: two submissions in first place, and two in second! Here
-			are the results:
+			pool and are instead having four winners: two submissions in first place, and two in second!
 		</p>
-		<div class="text-center">
-			<div class="bg-darker p-2 rounded mb-4">
-				<h3 class="m-0">🥇 First place</h3>
-				<div class="mb-2">($100 to each team)</div>
-				<div class="flex gap-2">
-					{#each firstPlaceMods as mod}
-						<ModCard {mod} />
-					{/each}
-				</div>
-			</div>
-			<div class="bg-darker p-2 rounded">
-				<h3 class="m-0">🥈 Second place</h3>
-				<div class="mb-2">($75 to each team)</div>
-				<div class="flex gap-2">
-					{#each secondPlaceMods as mod}
-						<ModCard {mod} />
-					{/each}
-				</div>
-			</div>
-		</div>
+	</PageSection>
+	<PageSection title="Results" id="results" isNarrow>
+		<JamWinnerBlock title="🥇 First place" subtitle="($100 to each team)" mods={firstPlaceMods} />
+		<JamWinnerBlock title="🥈 Second place" subtitle="($75 to each team)" mods={secondPlaceMods} />
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
-		<div class="flex justify-evenly text-center">
-			<div>
-				<h4>Organizers</h4>
-				<div>Idiot</div>
-				<div>JohnCorby</div>
-				<div>Nebula</div>
-				<div>Raicuparta</div>
-				<div>Xen</div>
-			</div>
-			<div>
-				<h4>Judges</h4>
-				<div>Bird</div>
-				<div>Book</div>
-				<div>Bunnie</div>
-				<div>JohnCorby</div>
-				<div>MegaPiggy</div>
-				<div>Nebula</div>
-				<div>Vesper</div>
-				<div>Xen</div>
-			</div>
-			<div>
-				<h4>Money</h4>
-				<div>Book</div>
-				<div>Nebula</div>
-				<div>Pixie</div>
-				<div>Raicuparta</div>
-				<div>Xen</div>
-			</div>
-		</div>
+		<JamCredits />
 	</PageSection>
-	<PageSection title="New Horizons Jam (Original page)" id="nh-jam-original" isNarrow>
+	<PageSection title="Submissions" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
+	</PageSection>
+	<PageSection title="Original Jam Page" id="nh-jam-original" isNarrow>
+		<p>
+			The following sections contain all the information originally included in this jam page, while
+			the jam was still running.
+		</p>
 		<img src="/images/jam.webp" alt="New Horizons Jam" />
 		<p>
 			Welcome to the <strong>New Horizons Jam</strong>! In this jam, you'll have one week to create
@@ -358,10 +318,4 @@
 		</p>
 		<DiscordLink />
 	</PageSection>
-	{#if newHorizons}
-		<PageSection title="Jam Submissions" id="submissions">
-			<p>Here are the mods that have been submitted to the jam so far. Try them!</p>
-			<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
-		</PageSection>
-	{/if}
 </PageLayout>
