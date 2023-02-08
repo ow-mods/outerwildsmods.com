@@ -29,7 +29,7 @@
 	};
 </script>
 
-<div class="flex justify-evenly">
+<div class="flex flex-col justify-evenly items-center md:flex-row md:items-start gap-8">
 	<JamCreditColumn title="Organizers" people={organizers} />
 	<JamCreditColumn title="Judges" people={judges} />
 	<JamCreditColumn title="Donators" people={donators} />
