@@ -7,56 +7,22 @@
 	import { websiteUrl } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
 	import DiscordLink from '$lib/components/discord-link.svelte';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
-	const infoLinks = [
-		{
-			text: 'Steam',
-			href: 'https://store.steampowered.com/app/753640/Outer_Wilds',
-		},
-		{
-			text: 'Epic',
-			href: 'https://www.epicgames.com/store/en-US/product/outerwilds',
-		},
-		{
-			text: 'Official website',
-			href: 'https://www.mobiusdigitalgames.com/outer-wilds.html',
-		},
-	];
-
-	const forModdersLinks = [
-		{
-			text: 'Read the OWML docs to learn how to make mods',
-			href: 'https://owml.outerwildsmods.com',
-		},
-		{
-			text: 'Outer Wilds mod template',
-			href: 'https://github.com/ow-mods/ow-mod-template',
-		},
-	];
-
-	const modsPerCategory = 3;
+	const modsPerCategory = 6;
 
 	export let data: PageData;
 	const { modList } = data;
+	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 
-	const nonAddonList = modList.filter(
-		(mod) => !mod.parent && !mod.utility && !mod.alpha && mod.imageUrl
-	);
-	const nhAddonList = modList.filter((mod) => mod.parent === 'xen.NewHorizons' && !mod.utility);
+	const filteredModList = modList.filter((mod) => !mod.utility && !mod.alpha && mod.imageUrl);
 
-	const hotMods = sortModList(nonAddonList, 'hot', modsPerCategory);
-	const hotWorlds = sortModList(nhAddonList, 'hot', modsPerCategory);
+	const hotMods = sortModList(filteredModList, 'hot', modsPerCategory);
 	const updatedMods = sortModList(
-		nonAddonList,
+		filteredModList,
 		'updated',
 		modsPerCategory,
 		hotMods.map((mod) => mod.uniqueName)
-	);
-	const updatedWorlds = sortModList(
-		nhAddonList,
-		'updated',
-		modsPerCategory,
-		hotWorlds.map((mod) => mod.uniqueName)
 	);
 </script>
 
@@ -89,13 +55,8 @@
 			There are currently a total of {modList.length} mods, addons, and utilities.
 		</p>
 	</PageSection>
-	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} addons={hotWorlds} />
-	<FeaturedModSection
-		title="Recently Updated Mods"
-		sortOrder="updated"
-		mods={updatedMods}
-		addons={updatedWorlds}
-	/>
+	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} />
+	<FeaturedModSection title="Recently Updated Mods" sortOrder="updated" mods={updatedMods} />
 	<PageSection
 		title="Support and modding talk"
 		id="community"
@@ -110,8 +71,38 @@
 		description="If you want to make your own mods, the OWML documentation has most of the info you need to get started. The easiest way to start is by cloning the mod template project and following the instructions there. Also, that Discord server linked above is full of people who will help you."
 		isNarrow
 	>
-		<LinkList links={forModdersLinks} />
+		<LinkList
+			links={[
+				{
+					text: 'Read the OWML docs to learn how to make mods',
+					href: 'https://owml.outerwildsmods.com',
+				},
+				{
+					text: 'Outer Wilds mod template',
+					href: 'https://github.com/ow-mods/ow-mod-template',
+				},
+			]}
+		/>
 	</PageSection>
+	{#if newHorizons}
+		<PageSection title="Create custom content with New Horizons" id="become-a-modder" isNarrow>
+			<ModCard mod={newHorizons} />
+			<p>
+				With <a class="link" href="/mods/newhorizons">New Horizons</a>, you can create new planets
+				and edit existing ones. Create new stories with character dialogue, translatable text, ship
+				log entries, etc. You can make custom content without any coding knowledge, but you can also
+				add your own code to further improve your creations.
+			</p>
+			<LinkList
+				links={[
+					{
+						text: 'Read the New Horizons docs',
+						href: 'https://nh.outerwildsmods.com/',
+					},
+				]}
+			/>
+		</PageSection>
+	{/if}
 	<PageSection
 		title="Outer Wilds?"
 		id="outer-wilds"
@@ -119,6 +110,21 @@
 		imageUrl="/images/outer-wilds.webp"
 		isNarrow
 	>
-		<LinkList links={infoLinks} />
+		<LinkList
+			links={[
+				{
+					text: 'Steam',
+					href: 'https://store.steampowered.com/app/753640/Outer_Wilds',
+				},
+				{
+					text: 'Epic',
+					href: 'https://www.epicgames.com/store/en-US/product/outerwilds',
+				},
+				{
+					text: 'Official website',
+					href: 'https://www.mobiusdigitalgames.com/outer-wilds.html',
+				},
+			]}
+		/>
 	</PageSection>
 </PageLayout>
