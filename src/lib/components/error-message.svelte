@@ -10,6 +10,6 @@
 		<PageSectionDescription
 			description="Sorry. Not sure what you were looking for but I didn't find it. Try using the navigation buttons at the top of the page to find what you want."
 		/>
-		<PageSectionImage title="Error" imageUrl="/images/error.png" height={300} />
+		<PageSectionImage title="Error" imageUrl="/images/error.png" />
 	</PageSectionColumns>
 </PageSection>

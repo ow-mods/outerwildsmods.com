@@ -7,6 +7,7 @@
 	import '../styles/app.css';
 	import Analytics from '$lib/components/analytics.svelte';
 	import type { LayoutData } from './$types';
+	import { page } from '$app/stores';
 
 	export let data: LayoutData;
 </script>
@@ -14,6 +15,8 @@
 <Analytics />
 <Header starData={data.starData} />
 <main class="bg-background overflow-hidden" data-sveltekit-preload-data="hover">
-	<slot />
+	{#key $page.url.pathname}
+		<slot />
+	{/key}
 </main>
 <Footer />
