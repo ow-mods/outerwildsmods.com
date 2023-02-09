@@ -15,6 +15,8 @@
 <Analytics />
 <Header starData={data.starData} />
 <main class="bg-background overflow-hidden" data-sveltekit-preload-data="hover">
+	<!-- Using the pathname as a key forces components to remount on navigating.
+		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
 	{#key $page.url.pathname}
 		<slot />
 	{/key}
