@@ -53,7 +53,6 @@
 		secondPlaceMods = jamMods.filter((mod) =>
 			['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
 		);
-		console.log('jamMods', jamMods);
 	}
 </script>
 
