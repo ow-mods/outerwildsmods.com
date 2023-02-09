@@ -10,14 +10,11 @@
 	export let mod: Mod;
 	export let modList: ModsRequestItem[];
 
-	let childMods: ModsRequestItem[] = [];
-	let addonsPath = '';
-	$: {
-		childMods = modList
-			.filter((otherMod) => otherMod.parent === mod.uniqueName)
-			.slice(0, maxChildModCount);
-		addonsPath = `/mods/${mod.slug}/addons `;
-	}
+	let childMods = modList
+		.filter((otherMod) => otherMod.parent === mod.uniqueName)
+		.slice(0, maxChildModCount);
+
+	let addonsPath = `/mods/${mod.slug}/addons `;
 </script>
 
 {#if childMods.length > 0}

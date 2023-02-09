@@ -1,11 +1,9 @@
 <script lang="ts">
 	import DiscordLink from '$lib/components/discord-link.svelte';
-	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageLayout from '$lib/components/page-layout.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { onMount } from 'svelte';
-	import type { ModsRequestItem } from '../api/mods.json/+server';
 	import type { PageData } from './$types';
 	import JamCredits from './jam-credits.svelte';
 	import JamWinnerBlock from './jam-winner-block.svelte';
@@ -41,19 +39,13 @@
 
 	setUpTimeValues();
 
-	let jamMods: ModsRequestItem[] = [];
-	let firstPlaceMods: ModsRequestItem[] = [];
-	let secondPlaceMods: ModsRequestItem[] = [];
-
-	$: {
-		jamMods = modList.filter((mod) => mod.tags.includes('jam'));
-		firstPlaceMods = jamMods.filter((mod) =>
-			['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
-		);
-		secondPlaceMods = jamMods.filter((mod) =>
-			['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
-		);
-	}
+	const jamMods = modList.filter((mod) => mod.tags.includes('jam'));
+	const firstPlaceMods = jamMods.filter((mod) =>
+		['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
+	);
+	const secondPlaceMods = jamMods.filter((mod) =>
+		['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
+	);
 </script>
 
 <svelte:head>

@@ -7,21 +7,9 @@
 	import { listedImageSize, websiteUrl } from '$lib/helpers/constants';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
-	import type { ImageMap } from '$lib/helpers/api/get-image-map';
 
 	export let data: PageData;
-	const { modList } = data;
-
-	let mod: ModsRequestItem | undefined;
-	let readme: string | undefined;
-	let imageMap: ImageMap;
-
-	$: {
-		mod = data.mod;
-		readme = data.readme;
-		imageMap = data.imageMap ?? {};
-	}
+	const { modList, mod, readme, imageMap } = data;
 
 	const getDescriptionTerminator = (modDescription: string) => {
 		if (modDescription === '') {
