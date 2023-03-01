@@ -7,7 +7,6 @@ export const websiteUrl = 'https://outerwildsmods.com';
 
 export const recentViewsDayCount = 30;
 
-const databaseUrlBase = 'https://raw.githubusercontent.com/ow-mods/ow-mod-db/master';
+const databaseUrlBase = 'https://ow-mods.github.io/ow-mod-db';
 export const thumbnailUrlBase = `${databaseUrlBase}/thumbnails`;
 export const modDatabaseUrl = `${databaseUrlBase}/database.json`;
-export const jamThemeUrl = 'http://141.148.63.115:8000/jam-theme.txt';
