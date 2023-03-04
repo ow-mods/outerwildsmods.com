@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageLayout from '$lib/components/page-layout.svelte';
-	import ModActions from '$lib/components/mod-info/mod-info.svelte';
+	import ModInfo from '$lib/components/mod-info/mod-info.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
@@ -57,7 +57,7 @@
 				{/key}
 			{/if}
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
-				<ModActions {mod} />
+				<ModInfo {mod} />
 				<ChildMods {mod} {modList} />
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>

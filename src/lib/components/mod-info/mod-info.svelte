@@ -2,6 +2,7 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import CtaButton from '../button/cta-button.svelte';
+	import TagToggle from '../tag-toggle.svelte';
 
 	export let mod: ModsRequestItem;
 
@@ -35,7 +36,9 @@
 		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
 		<div class="flex flex-wrap gap-1 text-sm">
 			{#each mod.tags as tag}
-				<span class="px-1 rounded bg-background font-normal" data-nosnippet>{tag}</span>
+				<a href="/mods?tag={tag}" class="link px-1 rounded bg-background font-xs" data-nosnippet>
+					{tag}
+				</a>
 			{/each}
 		</div>
 		<p class="m-0 break-words text-sm">{mod.description}</p>
