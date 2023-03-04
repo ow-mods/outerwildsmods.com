@@ -16,6 +16,7 @@
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
+	import { modTagParamName } from '$lib/helpers/get-mod-tags';
 
 	export let mods: ModsRequestItem[] = [];
 	export let tagList: string[] = [];
@@ -69,11 +70,21 @@
 		if (isSortOrder(sortOrderParam)) {
 			sortOrder = sortOrderParam;
 		}
+
+		tagStates = {};
+		const tagParams = $page.url.searchParams.getAll(modTagParamName);
+		for (const tagParam of tagParams) {
+			tagStates[tagParam] = true;
+		}
 	});
 
 	const setSortOrder = (sortOrderString: string) => {
 		if (isSortOrder(sortOrderString)) {
 			sortOrder = sortOrderString;
+
+			const url = new URL($page.url);
+			url.searchParams.set(sortOrderParamName, sortOrderString);
+			goto(url.href);
 		}
 	};
 
@@ -96,6 +107,14 @@
 		}
 
 		tagStates = currentTagStates;
+
+		const url = new URL($page.url);
+		url.searchParams.delete(modTagParamName);
+		for (const [tagName, tagValue] of Object.entries(tagStates)) {
+			if (!tagValue) continue;
+			url.searchParams.append(modTagParamName, tagName);
+		}
+		goto(url.href);
 	};
 
 	const onClearTags = () => {
@@ -112,11 +131,7 @@
 				value={sortOrder}
 				on:change={(event) => {
 					if (!event || !event.currentTarget) return;
-					const url = new URL($page.url);
-					url.searchParams.set(sortOrderParamName, event.currentTarget.value);
 					setSortOrder(event.currentTarget.value);
-
-					goto(url.href);
 				}}
 			>
 				{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
