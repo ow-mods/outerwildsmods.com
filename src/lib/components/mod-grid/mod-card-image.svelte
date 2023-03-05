@@ -7,6 +7,7 @@
 	export let mod: ModsRequestItem;
 	export let lazy = false;
 	export let hover = false;
+	export let showDetails = false;
 
 	let imageSrc = mod.openGraphImageUrl;
 	$: {
@@ -32,13 +33,13 @@
 		width={listedImageSize.width}
 		height={listedImageSize.height}
 	/>
-	<span
-		class="absolute right-0 top-0 text-xs opacity-75 text-white bg-black px-1 rounded-bl-md"
-		data-nosnippet
-	>
-		↓ {mod.formattedDownloadCount}
-	</span>
-	{#if hover}
+	{#if hover || showDetails}
+		<span
+			class="absolute right-0 top-0 text-xs opacity-75 text-light bg-dark px-1 rounded-bl-md grayscale"
+			data-nosnippet
+		>
+			{mod.formattedDownloadCount} downloads
+		</span>
 		<div class="absolute left-0 bottom-0 p-1 flex flex-wrap gap-1 pointer-events-none">
 			{#each mod.tags as tag}
 				<TagToggle>{tag}</TagToggle>

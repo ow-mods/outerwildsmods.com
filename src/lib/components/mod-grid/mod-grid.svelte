@@ -30,6 +30,7 @@
 	let filteredMods: ModsRequestItem[] = mods;
 	let tagStates: TagStates = {};
 	let selectedTagCount = 0;
+	let showDetails = false;
 
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
@@ -151,6 +152,16 @@
 			{/if}
 		</div>
 		<div>
+			<label class="py-1 px-2 bg-dark rounded cursor-pointer">
+				<input
+					type="checkbox"
+					class="accent-accent bg-accent text-white"
+					bind:checked={showDetails}
+				/>
+				Show details
+			</label>
+		</div>
+		<div>
 			{filteredMods.length} items
 		</div>
 	</div>
@@ -158,6 +169,6 @@
 <TagsSelector {tagStates} {onToggleTag} onClear={onClearTags} {tags} />
 <div class="grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-3">
 	{#each filteredMods as mod, index (mod.uniqueName)}
-		<ModCard lazy={index > 3} {mod} />
+		<ModCard lazy={index > 3} {mod} {showDetails} />
 	{/each}
 </div>
