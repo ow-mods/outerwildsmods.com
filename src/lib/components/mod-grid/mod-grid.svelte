@@ -8,10 +8,10 @@
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import type { ModsRequestItem } from '../../../routes/api/mods.json/+server';
 	import {
-		type SortOrder,
+		type SortOrderId,
 		sortModList,
 		sortOrders,
-		isSortOrder,
+		isSortOrderId,
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
 	import { onMount } from 'svelte';
@@ -20,12 +20,12 @@
 
 	export let mods: ModsRequestItem[] = [];
 	export let tagList: string[] = [];
-	export let defaultSortOrder: SortOrder = 'hot';
+	export let defaultSortOrder: SortOrderId = 'hot';
 	export let tagBlockList: string[] = [];
 	export let tagAllowList: string[] = [];
 	export let allowFiltering = true;
 
-	let sortOrder: SortOrder = defaultSortOrder;
+	let selectedSortOrderId: SortOrderId = defaultSortOrder;
 	let filter = '';
 	let filteredMods: ModsRequestItem[] = mods;
 	let tagStates: TagStates = {};
@@ -59,7 +59,7 @@
 			);
 		};
 
-		filteredMods = sortModList(mods, sortOrder).filter(filterMod);
+		filteredMods = sortModList(mods, selectedSortOrderId).filter(filterMod);
 	}
 
 	$: {
@@ -68,8 +68,8 @@
 
 	onMount(() => {
 		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
-		if (isSortOrder(sortOrderParam)) {
-			sortOrder = sortOrderParam;
+		if (isSortOrderId(sortOrderParam)) {
+			selectedSortOrderId = sortOrderParam;
 		}
 
 		tagStates = {};
@@ -79,12 +79,12 @@
 		}
 	});
 
-	const setSortOrder = (sortOrderString: string) => {
-		if (isSortOrder(sortOrderString)) {
-			sortOrder = sortOrderString;
+	const setSortOrder = (sortOrderId: string) => {
+		if (isSortOrderId(sortOrderId)) {
+			selectedSortOrderId = sortOrderId;
 
 			const url = new URL($page.url);
-			url.searchParams.set(sortOrderParamName, sortOrderString);
+			url.searchParams.set(sortOrderParamName, sortOrderId);
 			goto(url.href);
 		}
 	};
@@ -125,21 +125,22 @@
 
 {#if allowFiltering}
 	<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
-		<div>
-			Sort:
-			<select
-				class="input"
-				value={sortOrder}
-				on:change={(event) => {
-					if (!event || !event.currentTarget) return;
-					setSortOrder(event.currentTarget.value);
-				}}
-			>
-				{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
-					<option value={sortOrderId}>{sortOrder.title}</option>
-				{/each}
-			</select>
-		</div>
+		<select
+			id="haha"
+			class="input w-60"
+			value={selectedSortOrderId}
+			on:change={(event) => {
+				if (!event || !event.currentTarget) return;
+				setSortOrder(event.currentTarget.value);
+			}}
+		>
+			<option hidden value={selectedSortOrderId}>
+				Sort by: {sortOrders[selectedSortOrderId].title}
+			</option>
+			{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
+				<option value={sortOrderId}>{sortOrder.title}</option>
+			{/each}
+		</select>
 		<div class="relative flex">
 			<input
 				class="input px-2 flex-1 h-7 placeholder:grayscale"
@@ -166,7 +167,7 @@
 			</label>
 		</div>
 		<div>
-			{filteredMods.length} items
+			{filteredMods.length} results
 		</div>
 	</div>
 {/if}

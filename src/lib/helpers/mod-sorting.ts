@@ -43,15 +43,15 @@ export const sortOrders = {
 	},
 } as const;
 
-export type SortOrder = keyof typeof sortOrders;
+export type SortOrderId = keyof typeof sortOrders;
 
-export const isSortOrder = (key: string): key is SortOrder => {
+export const isSortOrderId = (key: string): key is SortOrderId => {
 	return Object.keys(sortOrders).includes(key);
 };
 
 export const sortModList = (
 	modList: ModsRequestItem[],
-	sortOrder: SortOrder,
+	sortOrder: SortOrderId,
 	count = 0,
 	excludeIds: string[] = []
 ) => {

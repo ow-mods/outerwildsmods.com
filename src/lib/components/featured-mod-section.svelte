@@ -3,10 +3,10 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import FeaturedModRow from './featured-mod-row.svelte';
-	import { type SortOrder, sortOrderParamName } from '$lib/helpers/mod-sorting';
+	import { type SortOrderId, sortOrderParamName } from '$lib/helpers/mod-sorting';
 
 	export let mods: ModsRequestItem[];
-	export let sortOrder: SortOrder;
+	export let sortOrder: SortOrderId;
 	export let title: string;
 </script>
 
