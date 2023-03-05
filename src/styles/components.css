@@ -11,6 +11,6 @@
 		@apply flex-1 rounded bg-dark py-1 px-2;
 	}
 	.input {
-		@apply bg-dark p-1 rounded;
+		@apply bg-dark p-1 rounded h-7;
 	}
 }

@@ -128,7 +128,7 @@
 		<div>
 			Sort:
 			<select
-				class="input h-7"
+				class="input"
 				value={sortOrder}
 				on:change={(event) => {
 					if (!event || !event.currentTarget) return;
@@ -156,7 +156,7 @@
 			{/if}
 		</div>
 		<div>
-			<label class="py-1 px-2 bg-dark rounded cursor-pointer h-7 flex flex-row items-center gap-1">
+			<label class="input px-2 cursor-pointer flex flex-row items-center gap-1">
 				<input
 					type="checkbox"
 					class="accent-accent bg-accent text-white"
