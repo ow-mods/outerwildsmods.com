@@ -128,7 +128,7 @@
 		<div>
 			Sort:
 			<select
-				class="input"
+				class="input h-7"
 				value={sortOrder}
 				on:change={(event) => {
 					if (!event || !event.currentTarget) return;
@@ -141,10 +141,14 @@
 			</select>
 		</div>
 		<div class="relative flex">
-			<input class="input px-2 grayscale flex-1" bind:value={filter} placeholder="Search 🔎" />
+			<input
+				class="input px-2 flex-1 h-7 placeholder:grayscale"
+				bind:value={filter}
+				placeholder="Search 🔎"
+			/>
 			{#if filter}
 				<button
-					class="absolute right-1 top-2 p-1 leading-none text-xs grayscale bg-dark"
+					class="absolute right-1 top-1 p-1 leading-none text-xs grayscale bg-dark"
 					on:click={() => (filter = '')}
 				>
 					❌
@@ -152,7 +156,7 @@
 			{/if}
 		</div>
 		<div>
-			<label class="py-1 px-2 bg-dark rounded cursor-pointer">
+			<label class="py-1 px-2 bg-dark rounded cursor-pointer h-7 flex flex-row items-center gap-1">
 				<input
 					type="checkbox"
 					class="accent-accent bg-accent text-white"
