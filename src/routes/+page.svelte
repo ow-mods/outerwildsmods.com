@@ -9,21 +9,20 @@
 	import DiscordLink from '$lib/components/discord-link.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
-	const modsPerCategory = 6;
+	const modsPerCategory = 3;
 
 	export let data: PageData;
 	const { modList } = data;
 	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 
-	const filteredModList = modList.filter((mod) => !mod.utility && !mod.alpha && mod.imageUrl);
+	const filteredModList = modList.filter((mod) => !mod.utility && !mod.alpha);
 
 	const hotMods = sortModList(filteredModList, 'hot', modsPerCategory);
-	const updatedMods = sortModList(
-		filteredModList,
-		'updated',
-		modsPerCategory,
-		hotMods.map((mod) => mod.uniqueName)
-	);
+	const newMods = sortModList(filteredModList, 'newest', modsPerCategory, hotMods);
+	const updatedMods = sortModList(filteredModList, 'updated', modsPerCategory, [
+		...hotMods,
+		...newMods,
+	]);
 </script>
 
 <svelte:head>
@@ -55,8 +54,13 @@
 			There are currently a total of {modList.length} mods, addons, and utilities.
 		</p>
 	</PageSection>
-	<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} />
-	<FeaturedModSection title="Recently Updated Mods" sortOrder="updated" mods={updatedMods} />
+	<PageSection id="mods" title="Some of our mods">
+		<div class="flex gap-8 text-center md:flex-row flex-col">
+			<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} />
+			<FeaturedModSection title="New Mods" sortOrder="newest" mods={newMods} />
+			<FeaturedModSection title="Recently Updated" sortOrder="updated" mods={updatedMods} />
+		</div>
+	</PageSection>
 	<PageSection
 		title="Support and modding talk"
 		id="community"

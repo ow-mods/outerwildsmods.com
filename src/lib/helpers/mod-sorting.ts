@@ -53,11 +53,11 @@ export const sortModList = (
 	modList: ModsRequestItem[],
 	sortOrder: SortOrderId,
 	count = 0,
-	excludeIds: string[] = []
+	excludeMods: ModsRequestItem[] = []
 ) => {
 	const sortedList = modList
 		.sort(sortOrders[sortOrder].compareFunction)
-		.filter((mod) => !excludeIds.includes(mod.uniqueName));
+		.filter((mod) => !excludeMods.find((excludedMod) => mod.uniqueName == excludedMod.uniqueName));
 	if (count > 0) {
 		return sortedList.slice(0, count);
 	} else {

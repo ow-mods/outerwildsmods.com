@@ -1,19 +1,28 @@
 <script lang="ts">
-	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
-	import FeaturedModRow from './featured-mod-row.svelte';
 	import { type SortOrderId, sortOrderParamName } from '$lib/helpers/mod-sorting';
+	import ModCard from './mod-grid/mod-card.svelte';
 
 	export let mods: ModsRequestItem[];
 	export let sortOrder: SortOrderId;
 	export let title: string;
+
+	let href = `/mods?${sortOrderParamName}=${sortOrder}`;
 </script>
 
-<PageSection {title} id={sortOrder}>
-	<div class="flex flex-col gap-4">
-		<FeaturedModRow {mods}>
-			<LinkButton href="/mods?{sortOrderParamName}={sortOrder}">More Mods ›</LinkButton>
-		</FeaturedModRow>
+<div class="m-auto md:w-0 flex-1 flex flex-col gap-2">
+	<LinkButton {href}>
+		<span class="text-xl">
+			{title}
+		</span>
+	</LinkButton>
+	{#each mods as mod (mod?.uniqueName)}
+		<ModCard hideDescription {mod} />
+	{/each}
+	<div class="flex flex-col justify-center">
+		<LinkButton isSmall {href}>
+			More {title}...
+		</LinkButton>
 	</div>
-</PageSection>
+</div>
