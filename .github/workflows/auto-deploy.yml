@@ -2,9 +2,8 @@ name: Auto Deploy
 on:
   push:
     branches: [master]
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
+  repository_dispatch:
 permissions:
   contents: read
   pages: write
