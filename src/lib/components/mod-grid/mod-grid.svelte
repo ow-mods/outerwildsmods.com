@@ -66,7 +66,7 @@
 		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
 	}
 
-	onMount(() => {
+	$: {
 		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
 		if (isSortOrderId(sortOrderParam)) {
 			selectedSortOrderId = sortOrderParam;
@@ -77,7 +77,7 @@
 		for (const tagParam of tagParams) {
 			tagStates[tagParam] = true;
 		}
-	});
+	}
 
 	const setSortOrder = (sortOrderId: string) => {
 		if (isSortOrderId(sortOrderId)) {
