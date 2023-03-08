@@ -6,7 +6,7 @@
 </script>
 
 <a
-	class="button link outline outline-4 outline-background hover:outline-dark hover:bg-background bg-dark justify-center h-full"
+	class="button link hover:bg-background bg-dark justify-center h-full"
 	class:py-1={isSmall}
 	class:text-sm={isSmall}
 	{href}
