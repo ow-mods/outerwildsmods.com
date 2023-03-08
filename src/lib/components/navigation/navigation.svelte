@@ -1,6 +1,6 @@
-<div class="navigation-wrapper max-w-screen-sm mx-auto px-4 mt-2">
+<div class="navigation-wrapper max-w-screen-sm mx-auto px-4 mt-2 select-none">
 	<label
-		class="block text-2xl p-1 mb-2 bg-background rounded sm:hidden"
+		class="link block text-2xl p-1 mb-2 bg-background rounded sm:hidden bg-opacity-50"
 		for="navigation-menu-button"
 	>
 		☰
