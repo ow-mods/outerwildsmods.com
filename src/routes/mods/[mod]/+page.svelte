@@ -42,7 +42,6 @@
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta property="og:image:width" content="{listedImageSize.width}px" />
 			<meta property="og:image:height" content="{listedImageSize.height}px" />
-			<meta name="theme-color" content="#ffab8a" />
 		{/if}
 	{/if}
 </svelte:head>

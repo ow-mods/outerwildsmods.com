@@ -8,7 +8,6 @@
 	export let heightMultiplier: number;
 	export let chartHeight: number;
 	export let hoveredPoint: HistoryPoint | null = null;
-	export let color: string;
 
 	$: getX = (historyPoint: HistoryPoint) =>
 		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
@@ -20,11 +19,11 @@
 	fill="none"
 	class="opacity-80"
 	stroke-width="1"
-	stroke={color}
+	stroke="currentColor"
 	points={historyPoints
 		.map((historyPoint) => `${getX(historyPoint)},${getY(historyPoint)}`)
 		.join(' ')}
 />
 {#if hoveredPoint}
-	<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} fill={color} />
+	<circle cy={getY(hoveredPoint)} cx={getX(hoveredPoint)} r={3} fill="currentColor" />
 {/if}

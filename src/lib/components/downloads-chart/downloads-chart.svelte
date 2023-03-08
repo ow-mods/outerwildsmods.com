@@ -88,7 +88,7 @@
 				on:mouseout={resetPointer}
 				on:blur={resetPointer}
 			>
-				<g class="pointer-events-none">
+				<g class="pointer-events-none ">
 					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
 					<line
 						class="stroke-light opacity-80"
@@ -98,26 +98,28 @@
 						x2="100%"
 						y2="100%"
 					/>
-					<ChartLine
-						chartHeight={chartSize.y}
-						{firstPoint}
-						{heightMultiplier}
-						{minDownloads}
-						{widthMultiplier}
-						{historyPoints}
-						{hoveredPoint}
-						color="#ffab8a"
-					/>
-					<ChartLine
-						chartHeight={chartSize.y}
-						{firstPoint}
-						{heightMultiplier}
-						{minDownloads}
-						{widthMultiplier}
-						historyPoints={comparePoints}
-						hoveredPoint={hoveredPointCompare}
-						color="#35823f"
-					/>
+					<g class="text-accent">
+						<ChartLine
+							chartHeight={chartSize.y}
+							{firstPoint}
+							{heightMultiplier}
+							{minDownloads}
+							{widthMultiplier}
+							{historyPoints}
+							{hoveredPoint}
+						/>
+					</g>
+					<g class="text-cta">
+						<ChartLine
+							chartHeight={chartSize.y}
+							{firstPoint}
+							{heightMultiplier}
+							{minDownloads}
+							{widthMultiplier}
+							historyPoints={comparePoints}
+							hoveredPoint={hoveredPointCompare}
+						/>
+					</g>
 				</g>
 			</svg>
 		</div>

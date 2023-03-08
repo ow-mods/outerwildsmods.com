@@ -6,15 +6,13 @@
 	import '../styles/utilities.css';
 	import '../styles/app.css';
 	import Analytics from '$lib/components/analytics.svelte';
-	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
 	import { websiteUrl } from '$lib/helpers/constants';
-
-	export let data: LayoutData;
 </script>
 
 <svelte:head>
 	<link rel="canonical" href="{websiteUrl}{$page.url.pathname}" />
+	<meta name="theme-color" content="#161a20" />
 </svelte:head>
 
 <Analytics />

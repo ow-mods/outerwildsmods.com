@@ -42,22 +42,20 @@
 			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
 		</div>
 		<PageSectionTitle id="downloads">{mod.name} downloads over time</PageSectionTitle>
-		<div class="flex justify-between flex-wrap mb-2">
-			<div>
-				<span>Compare with:</span>
-				<select
-					class="input"
-					on:change={(event) => {
-						compareWithMod =
-							modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
-					}}
-				>
-					<option value={null}>None</option>
-					{#each modsExceptSelf as mod}
-						<option value={mod.uniqueName}>{mod.name}</option>
-					{/each}
-				</select>
-			</div>
+		<div class="mb-2">
+			<span>Compare with:</span>
+			<select
+				class="input w-full py-0"
+				on:change={(event) => {
+					compareWithMod =
+						modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
+				}}
+			>
+				<option value={null}>None</option>
+				{#each modsExceptSelf as mod}
+					<option value={mod.uniqueName}>{mod.name}</option>
+				{/each}
+			</select>
 		</div>
 		<DownloadsChart
 			historyPoints={modDownloadHistory}
