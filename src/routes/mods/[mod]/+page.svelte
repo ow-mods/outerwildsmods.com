@@ -34,7 +34,6 @@
 		<meta property="og:title" content={mod.name} />
 		<meta property="og:description" content={mod.description} />
 		<meta property="og:url" content="{websiteUrl}{$page.url.pathname}" />
-		<link rel="canonical" href="{websiteUrl}{$page.url.pathname}" />
 		<meta property="og:site_name " content="Outer Wilds Mods" />
 
 		{#if mod.imageUrl}
