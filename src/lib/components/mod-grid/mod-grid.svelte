@@ -66,7 +66,7 @@
 		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
 	}
 
-	$: {
+	$: if (!import.meta.env.SSR) {
 		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
 		if (isSortOrderId(sortOrderParam)) {
 			selectedSortOrderId = sortOrderParam;
