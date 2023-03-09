@@ -6,14 +6,14 @@
 	let video: HTMLVideoElement | undefined;
 	$: {
 		if (video) {
-			video.playbackRate = 0.3;
+			video.playbackRate = 1;
 		}
 	}
 </script>
 
 <header class="text-center overflow-hidden">
 	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
-	<div>
+	<div class="gradient">
 		<div class="max-w-screen-lg m-auto relative background">
 			<div class="mix-blend-screen">
 				<div class="video-gradient absolute w-full h-full z-10" />
@@ -24,7 +24,7 @@
 					bind:this={video}
 					class="absolute w-full object-contain object-right h-full"
 				>
-					<source src="/images/header-planet.mp4" type="video/mp4" />
+					<source src="/images/header-planet-loop.mp4" type="video/mp4" />
 				</video>
 			</div>
 			<div class="p-4 text-4xl m-0">
