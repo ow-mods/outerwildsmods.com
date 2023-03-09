@@ -21,7 +21,7 @@
 	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
 	<div class="gradient">
 		<div class="max-w-screen-lg m-auto relative background">
-			<div class="mix-blend-screen">
+			<div class="mix-blend-screen pointer-events-none">
 				<div class="video-gradient absolute w-full h-full z-10" />
 				<video
 					autoplay
