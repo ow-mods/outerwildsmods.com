@@ -14,7 +14,7 @@
 <PageContainer
 	title="Outer Wilds Mods - Find the best mods for Outer Wilds"
 	description="Full list of mods for Outer Wilds. Including mods for VR, multiplayer, and cheats."
-	imageUrl="{websiteUrl}/images/icon-large.png"
+	imageUrl="{websiteUrl}/images/opengraph.webp"
 	imageWidth={256}
 	imageHeight={256}
 >

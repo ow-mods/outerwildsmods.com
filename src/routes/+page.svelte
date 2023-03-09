@@ -39,9 +39,9 @@
 <PageContainer
 	title="Outer Wilds Mods - Download and Install Mods for Outer Wilds"
 	description="Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
-	imageUrl="{websiteUrl}/images/icon-large.png"
-	imageWidth={256}
-	imageHeight={256}
+	imageUrl="{websiteUrl}/images/opengraph.webp"
+	imageWidth={1200}
+	imageHeight={600}
 >
 	<PageSection isNarrow id="outer-wilds-mods">
 		<h1 class="text-base inline">Outer Wilds Mods</h1>
