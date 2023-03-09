@@ -58,7 +58,7 @@
 
 <style>
 	header {
-		background-image: url(/images/header/background.webp);
+		background-image: url(/images/header/background.png);
 		/* this must be set to auto so that we know the real pixel size of the background image, to be able to animate it perfectly */
 		background-size: auto;
 		background-position: center;
