@@ -7,6 +7,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import type { PageData } from './$types';
+	import { websiteUrl } from '$lib/helpers/constants';
 
 	export let data: PageData;
 	const { modList, tagList } = data;
@@ -14,15 +15,13 @@
 	const mods = modList.filter((mod) => mod.alpha);
 </script>
 
-<svelte:head>
-	<title>Outer Wilds Alpha - Outer Wilds Mods</title>
-	<meta
-		name="description"
-		content="Download Outer Wilds Alpha. Find all of the available mods for the Alpha version of Outer Wilds."
-	/>
-</svelte:head>
-
-<PageContainer>
+<PageContainer
+	title="Outer Wilds Alpha - Outer Wilds Mods"
+	description="Download Outer Wilds Alpha. Find all of the available mods for the Alpha version of Outer Wilds."
+	imageUrl="{websiteUrl}/images/alpha.webp"
+	imageWidth={700}
+	imageHeight={400}
+>
 	<PageSection title="Outer Wilds Alpha" id="alpha" isNarrow>
 		<PageSectionColumns>
 			<PageSectionImage imageUrl="/images/alpha.webp" title="Outer Wilds Alpha" />

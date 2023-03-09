@@ -6,6 +6,7 @@
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
+	import { listedImageSize } from '$lib/helpers/constants';
 
 	export let data: PageData;
 	const { modDownloadHistory, mod, modList } = data;
@@ -30,13 +31,13 @@
 	const modsExceptSelf = modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
 </script>
 
-<svelte:head>
-	{#if mod}
-		<title>{mod.name} - Downloads Chart</title>
-	{/if}
-</svelte:head>
-
-<PageContainer>
+<PageContainer
+	title="{mod.name} - Downloads Chart - Outer Wilds Mods"
+	description="Download history graph for the Outer Wilds Mod '{mod.name}'"
+	imageUrl={mod.openGraphImageUrl ?? mod.imageUrl}
+	imageWidth={listedImageSize.width}
+	imageHeight={listedImageSize.height}
+>
 	<div>
 		<div class="flex mb-4">
 			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>

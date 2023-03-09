@@ -6,6 +6,7 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
 	import type { PageData } from './$types';
+	import { listedImageSize } from '$lib/helpers/constants';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -13,19 +14,19 @@
 	const mod = getModBySlug(modList, $page.params.mod ?? '');
 </script>
 
-<svelte:head>
-	{#if mod}
-		<title>Addons for {mod.name}</title>
-	{/if}
-</svelte:head>
-
-<PageContainer>
-	{#if mod}
+{#if mod}
+	<PageContainer
+		title="Addons for {mod.name} - Outer Wilds Mods"
+		description="List of addons for the Outer Wilds mod '{mod.name}'"
+		imageUrl={mod.openGraphImageUrl ?? mod.imageUrl}
+		imageWidth={listedImageSize.width}
+		imageHeight={listedImageSize.height}
+	>
 		<ModCard {mod} />
 		<PageSection title="Addons for {mod.name}" id="addons-{mod.uniqueName}">
 			<ModAddons {mod} {modList} />
 		</PageSection>
-	{:else}
-		<div>Mod not found</div>
-	{/if}
-</PageContainer>
+	</PageContainer>
+{:else}
+	<div>Mod not found</div>
+{/if}

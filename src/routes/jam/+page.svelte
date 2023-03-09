@@ -3,6 +3,7 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import { websiteUrl } from '$lib/helpers/constants';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import JamCredits from './jam-credits.svelte';
@@ -48,12 +49,13 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Outer Wilds New Horizons Jam</title>
-	<meta name="description" content="Create an addon for New Horizons and win cash prizes!" />
-</svelte:head>
-
-<PageContainer>
+<PageContainer
+	title="Outer Wilds New Horizons Jam"
+	description="Create an addon for New Horizons and win cash prizes!"
+	imageUrl="{websiteUrl}/images/jam.webp"
+	imageWidth={665}
+	imageHeight={416}
+>
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
 		<p>
 			<strong>The jam is over!</strong> After playing through them all, the judges voted on the submissions,

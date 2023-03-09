@@ -4,6 +4,7 @@
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import WindowsIcon from '$lib/components/windows-icon.svelte';
+	import { websiteUrl } from '$lib/helpers/constants';
 
 	const repoUrl = 'https://github.com/ow-mods/ow-mod-manager';
 	const downloadUrl = `${repoUrl}/releases/latest/download`;
@@ -11,15 +12,13 @@
 	const portableDownloadUrl = `${downloadUrl}/OuterWildsModManager-Portable.zip`;
 </script>
 
-<svelte:head>
-	<title>Outer Wilds Mod Manager - Download Windows app</title>
-	<meta
-		name="description"
-		content="Download, install, and manage Outer Wilds mods using the Outer Wilds Mod Manager for Windows."
-	/>
-</svelte:head>
-
-<PageContainer>
+<PageContainer
+	title="Outer Wilds Mod Manager - Download Windows app"
+	description="Download, install, and manage Outer Wilds mods using the Outer Wilds Mod Manager for Windows."
+	imageUrl="{websiteUrl}/images/mod-manager.webp"
+	imageWidth={887}
+	imageHeight={416}
+>
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
 			<PageSectionImage imageUrl="/images/mod-manager.webp" title="Outer Wilds Mod Manager" />

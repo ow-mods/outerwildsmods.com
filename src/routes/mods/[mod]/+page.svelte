@@ -4,50 +4,21 @@
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
-	import { listedImageSize, websiteUrl } from '$lib/helpers/constants';
-	import { page } from '$app/stores';
+	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
-
-	const getDescriptionTerminator = (modDescription: string) => {
-		if (modDescription === '') {
-			return '';
-		}
-		if (modDescription.endsWith('.')) {
-			return ' ';
-		}
-		return '. ';
-	};
-
-	const getPageDescription = (modDescription = '', modName: string) =>
-		`${modDescription}${getDescriptionTerminator(
-			modDescription
-		)}Download and install ${modName} mod for Outer Wilds using the Mod Manager.`;
 </script>
 
-<svelte:head>
-	{#if mod}
-		<title>{mod.name} - {mod.description}</title>
-		<meta name="description" content={getPageDescription(mod.description, mod.name)} />
-		<meta property="og:title" content={mod.name} />
-		<meta property="og:description" content={mod.description} />
-		<meta property="og:url" content="{websiteUrl}{$page.url.pathname}" />
-		<meta property="og:site_name " content="Outer Wilds Mods" />
-
-		{#if mod.imageUrl}
-			<meta property="og:image" content={mod.openGraphImageUrl} />
-			<meta property="twitter:image" content={mod.openGraphImageUrl} />
-			<meta name="twitter:card" content="summary_large_image" />
-			<meta property="og:image:width" content="{listedImageSize.width}px" />
-			<meta property="og:image:height" content="{listedImageSize.height}px" />
-		{/if}
-	{/if}
-</svelte:head>
-
-<PageContainer>
-	{#if mod}
+{#if mod}
+	<PageContainer
+		title={mod.name}
+		description={mod.description}
+		imageUrl={mod.openGraphImageUrl ?? mod.imageUrl}
+		imageWidth={listedImageSize.width}
+		imageHeight={listedImageSize.height}
+	>
 		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme && mod.rawContentUrl}
 				{#key mod.uniqueName}
@@ -60,5 +31,5 @@
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
-	{/if}
-</PageContainer>
+	</PageContainer>
+{/if}

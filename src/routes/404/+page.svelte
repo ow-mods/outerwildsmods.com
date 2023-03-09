@@ -3,10 +3,9 @@
 	import PageContainer from '$lib/components/page-container.svelte';
 </script>
 
-<svelte:head>
-	<title>404 - Outer Wilds Mods</title>
-</svelte:head>
-
-<PageContainer>
+<PageContainer
+	title="Not Found - Outer Wilds Mods"
+	description="Something went wrong on the Outer Wilds Mods website"
+>
 	<ErrorMessage />
 </PageContainer>

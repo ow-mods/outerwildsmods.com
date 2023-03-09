@@ -26,11 +26,6 @@
 </script>
 
 <svelte:head>
-	<title>Outer Wilds Mods - Download and Install Mods for Outer Wilds</title>
-	<meta
-		name="description"
-		content="Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
-	/>
 	{@html `<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
@@ -41,7 +36,13 @@
 	</script>`}
 </svelte:head>
 
-<PageContainer>
+<PageContainer
+	title="Outer Wilds Mods - Download and Install Mods for Outer Wilds"
+	description="Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
+	imageUrl="{websiteUrl}/images/icon-large.png"
+	imageWidth={256}
+	imageHeight={256}
+>
 	<PageSection isNarrow id="outer-wilds-mods">
 		<h1 class="text-base inline">Outer Wilds Mods</h1>
 		<p class="m-0 inline">
