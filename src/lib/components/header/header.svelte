@@ -6,7 +6,7 @@
 	let video: HTMLVideoElement | undefined;
 	$: {
 		if (video) {
-			video.playbackRate = 0.3;
+			video.playbackRate = 0.2;
 		}
 	}
 </script>
@@ -49,7 +49,7 @@
 		/* this must be set to auto so that we know the real pixel size of the background image, to be able to animate it perfectly */
 		background-size: auto;
 		background-position: center;
-		animation: slide 60s linear infinite;
+		animation: slide 120s linear infinite;
 	}
 	.background {
 		background-image: url(/images/header/video-mask.webp);
