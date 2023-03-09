@@ -6,7 +6,7 @@
 	let video: HTMLVideoElement | undefined;
 	$: {
 		if (video) {
-			video.playbackRate = 1;
+			video.playbackRate = 0.3;
 		}
 	}
 </script>
