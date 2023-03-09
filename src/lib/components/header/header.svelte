@@ -13,7 +13,7 @@
 
 <header class="text-center overflow-hidden">
 	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
-	<div class="gradient">
+	<div>
 		<div class="max-w-screen-lg m-auto relative background">
 			<div class="mix-blend-screen">
 				<div class="video-gradient absolute w-full h-full z-10" />
@@ -22,7 +22,7 @@
 					muted
 					loop
 					bind:this={video}
-					class="absolute w-full object-contain object-right h-full brightness-75"
+					class="absolute w-full object-contain object-right h-full"
 				>
 					<source src="/images/header-planet.mp4" type="video/mp4" />
 				</video>
@@ -44,6 +44,7 @@
 <style>
 	header {
 		background-image: url(/images/header-stars.webp);
+		/* this must be set to auto so that we know the real pixel size of the background image, to be able to animate it perfectly */
 		background-size: auto;
 		background-position: center;
 		animation: slide 60s linear infinite;
@@ -66,6 +67,7 @@
 			background-position-x: 0;
 		}
 		100% {
+			/* this offset value must match the width of the background image in the .background class */
 			background-position-x: -460px;
 		}
 	}
