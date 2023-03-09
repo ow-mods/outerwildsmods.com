@@ -44,8 +44,9 @@
 <style>
 	header {
 		background-image: url(/images/header-stars.webp);
-		background-size: contain;
+		background-size: auto;
 		background-position: center;
+		animation: slide 60s linear infinite;
 	}
 	.background {
 		background-image: url(/images/header-planet.webp);
@@ -59,5 +60,13 @@
 	}
 	.video-gradient {
 		background: linear-gradient(90deg, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 1) 100%);
+	}
+	@keyframes slide {
+		0% {
+			background-position-x: 0;
+		}
+		100% {
+			background-position-x: -460px;
+		}
 	}
 </style>
