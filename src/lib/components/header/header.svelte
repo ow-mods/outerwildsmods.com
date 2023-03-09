@@ -1,16 +1,47 @@
 <script lang="ts">
 	import GithubCorner from '$lib/components/header/github-corner.svelte';
 	import Navigation from '$lib/components/navigation/navigation.svelte';
+	import { onMount } from 'svelte';
 	import NavigationLink from '../navigation/navigation-link.svelte';
+
+	let isVideoVisible = false;
+	let video: HTMLVideoElement | undefined;
+	$: {
+		if (video) {
+			video.playbackRate = 0.2;
+			video.currentTime = 0;
+		}
+	}
+	onMount(() => {
+		isVideoVisible = true;
+	});
 </script>
 
-<header class="relative text-center overflow-hidden">
+<header class="text-center overflow-hidden bg-black">
+	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
 	<div class="gradient">
-		<div class="background max-w-screen-lg m-auto">
-			<GithubCorner
-				href="https://github.com/ow-mods"
-				tooltip="Outer Wilds Mods ecosystem on GitHub"
-			/>
+		<div class="max-w-screen-lg m-auto relative background">
+			<div class="mix-blend-screen">
+				<div class="video-gradient absolute w-full h-full z-10" />
+				<video
+					autoplay
+					muted
+					loop
+					playsinline
+					bind:this={video}
+					class="absolute w-full object-contain object-right h-full"
+					class:opacity-0={!isVideoVisible}
+					poster="/images/header/video-placeholder.webp"
+				>
+					<source src="/images/header/video.mp4" type="video/mp4" />
+				</video>
+				<img
+					alt=""
+					class:opacity-0={isVideoVisible}
+					src="/images/header/video-placeholder.webp"
+					class="absolute w-full object-contain object-right h-full"
+				/>
+			</div>
 			<div class="p-4 text-4xl m-0">
 				<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
 			</div>
@@ -27,12 +58,14 @@
 
 <style>
 	header {
-		background-image: url(/images/header-stars.webp);
-		background-size: contain;
+		background-image: url(/images/header/background.webp);
+		/* this must be set to auto so that we know the real pixel size of the background image, to be able to animate it perfectly */
+		background-size: auto;
 		background-position: center;
+		animation: slide 120s linear infinite;
 	}
 	.background {
-		background-image: url(/images/header-planet.webp);
+		background-image: url(/images/header/video-mask.webp);
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position-x: right;
@@ -40,5 +73,17 @@
 	}
 	.gradient {
 		background: radial-gradient(circle, transparent 30%, black 100%);
+	}
+	.video-gradient {
+		background: linear-gradient(90deg, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 1) 100%);
+	}
+	@keyframes slide {
+		0% {
+			background-position-x: 0;
+		}
+		100% {
+			/* this offset value must match the width of the background image in the .background class */
+			background-position-x: -460px;
+		}
 	}
 </style>
