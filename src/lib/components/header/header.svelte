@@ -8,7 +8,7 @@
 	let video: HTMLVideoElement | undefined;
 	$: {
 		if (video) {
-			video.playbackRate = 0.2;
+			video.playbackRate = 1;
 			video.currentTime = 0;
 		}
 	}
