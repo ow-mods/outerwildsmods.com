@@ -21,10 +21,12 @@
 					autoplay
 					muted
 					loop
+					playsinline
 					bind:this={video}
 					class="absolute w-full object-contain object-right h-full"
+					poster="/images/header/video-placeholder.webp"
 				>
-					<source src="/images/header-planet-loop.mp4" type="video/mp4" />
+					<source src="/images/header/video.mp4" type="video/mp4" />
 				</video>
 			</div>
 			<div class="p-4 text-4xl m-0">
@@ -43,14 +45,14 @@
 
 <style>
 	header {
-		background-image: url(/images/header-stars.webp);
+		background-image: url(/images/header/background.webp);
 		/* this must be set to auto so that we know the real pixel size of the background image, to be able to animate it perfectly */
 		background-size: auto;
 		background-position: center;
 		animation: slide 60s linear infinite;
 	}
 	.background {
-		background-image: url(/images/header-planet.webp);
+		background-image: url(/images/header/video-mask.webp);
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position-x: right;
