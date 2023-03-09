@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DiscordLink from '$lib/components/discord-link.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
@@ -53,7 +53,7 @@
 	<meta name="description" content="Create an addon for New Horizons and win cash prizes!" />
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
 		<p>
 			<strong>The jam is over!</strong> After playing through them all, the judges voted on the submissions,
@@ -309,4 +309,4 @@
 		</p>
 		<DiscordLink />
 	</PageSection>
-</PageLayout>
+</PageContainer>

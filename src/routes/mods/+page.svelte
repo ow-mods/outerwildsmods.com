@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import type { PageData } from './$types';
 
@@ -17,8 +17,8 @@
 		content="Full list of mods for Outer Wilds. Including mods for VR, multiplayer, and cheats."
 	/>
 </svelte:head>
-<PageLayout>
+<PageContainer>
 	<PageSection title="Available mods" id="mods">
 		<ModGrid {mods} {tagList} />
 	</PageSection>
-</PageLayout>
+</PageContainer>

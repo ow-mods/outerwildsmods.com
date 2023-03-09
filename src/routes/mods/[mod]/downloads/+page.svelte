@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
@@ -36,7 +36,7 @@
 	{/if}
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	<div>
 		<div class="flex mb-4">
 			<LinkButton href=".." isSmall>‹ Back to {mod.name}</LinkButton>
@@ -63,5 +63,5 @@
 			{mod}
 			{compareWithMod}
 		/>
-	</div></PageLayout
+	</div></PageContainer
 >

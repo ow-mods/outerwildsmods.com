@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LinkList from '$lib/components/link-list.svelte';
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { sortModList } from '$lib/helpers/mod-sorting';
 	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
@@ -41,7 +41,7 @@
 	</script>`}
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	<PageSection isNarrow id="outer-wilds-mods">
 		<h1 class="text-base inline">Outer Wilds Mods</h1>
 		<p class="m-0 inline">
@@ -130,4 +130,4 @@
 			]}
 		/>
 	</PageSection>
-</PageLayout>
+</PageContainer>

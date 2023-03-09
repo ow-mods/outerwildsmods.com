@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CtaButton from '$lib/components/button/cta-button.svelte';
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import WindowsIcon from '$lib/components/windows-icon.svelte';
@@ -19,7 +19,7 @@
 	/>
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
 			<PageSectionImage imageUrl="/images/mod-manager.webp" title="Outer Wilds Mod Manager" />
@@ -88,4 +88,4 @@
 			</a>
 		</p>
 	</PageSection>
-</PageLayout>
+</PageContainer>

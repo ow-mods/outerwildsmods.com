@@ -12,14 +12,14 @@
 </script>
 
 <script lang="ts">
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import ErrorMessage from '$lib/components/error-message.svelte';
 
 	export let message = '';
 	export let stack = '';
 </script>
 
-<PageLayout>
+<PageContainer>
 	<ErrorMessage />
 	<code class="whitespace-pre-wrap break-words">{message}</code>
 	<div class="bg-dark rounded px-2">
@@ -27,4 +27,4 @@
 			<code>{stack}</code>
 		</pre>
 	</div>
-</PageLayout>
+</PageContainer>

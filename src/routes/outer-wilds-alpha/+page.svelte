@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LinkButton from '$lib/components/button/link-button.svelte';
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
@@ -22,7 +22,7 @@
 	/>
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	<PageSection title="Outer Wilds Alpha" id="alpha" isNarrow>
 		<PageSectionColumns>
 			<PageSectionImage imageUrl="/images/alpha.webp" title="Outer Wilds Alpha" />
@@ -47,4 +47,4 @@
 		</p>
 		<ModGrid {mods} {tagList} />
 	</PageSection>
-</PageLayout>
+</PageContainer>

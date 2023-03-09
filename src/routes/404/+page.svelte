@@ -1,12 +1,12 @@
 <script>
 	import ErrorMessage from '$lib/components/error-message.svelte';
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 </script>
 
 <svelte:head>
 	<title>404 - Outer Wilds Mods</title>
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	<ErrorMessage />
-</PageLayout>
+</PageContainer>

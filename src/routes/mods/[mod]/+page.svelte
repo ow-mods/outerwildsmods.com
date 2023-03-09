@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PageLayout from '$lib/components/page-layout.svelte';
+	import PageContainer from '$lib/components/page-container.svelte';
 	import ModInfo from '$lib/components/mod-info/mod-info.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
@@ -46,7 +46,7 @@
 	{/if}
 </svelte:head>
 
-<PageLayout>
+<PageContainer>
 	{#if mod}
 		<div class="flex flex-col md:flex-row gap-4">
 			{#if readme && mod.rawContentUrl}
@@ -61,4 +61,4 @@
 			</div>
 		</div>
 	{/if}
-</PageLayout>
+</PageContainer>
