@@ -1,17 +1,23 @@
 <script lang="ts">
 	import GithubCorner from '$lib/components/header/github-corner.svelte';
 	import Navigation from '$lib/components/navigation/navigation.svelte';
+	import { onMount } from 'svelte';
 	import NavigationLink from '../navigation/navigation-link.svelte';
 
+	let isVideoVisible = false;
 	let video: HTMLVideoElement | undefined;
 	$: {
 		if (video) {
 			video.playbackRate = 0.2;
+			video.currentTime = 0;
 		}
 	}
+	onMount(() => {
+		isVideoVisible = true;
+	});
 </script>
 
-<header class="text-center overflow-hidden">
+<header class="text-center overflow-hidden bg-black">
 	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
 	<div class="gradient">
 		<div class="max-w-screen-lg m-auto relative background">
@@ -24,10 +30,17 @@
 					playsinline
 					bind:this={video}
 					class="absolute w-full object-contain object-right h-full"
+					class:opacity-0={!isVideoVisible}
 					poster="/images/header/video-placeholder.webp"
 				>
 					<source src="/images/header/video.mp4" type="video/mp4" />
 				</video>
+				<img
+					alt=""
+					class:opacity-0={isVideoVisible}
+					src="/images/header/video-placeholder.webp"
+					class="absolute w-full object-contain object-right h-full"
+				/>
 			</div>
 			<div class="p-4 text-4xl m-0">
 				<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
