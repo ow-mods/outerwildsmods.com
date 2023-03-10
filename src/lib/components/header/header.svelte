@@ -4,11 +4,14 @@
 	import { onMount } from 'svelte';
 	import NavigationLink from '../navigation/navigation-link.svelte';
 
-	let imageSource = '/images/header/video-placeholder.webp';
+	const fallbackImage = '/images/header/video-placeholder.webp';
+
+	let imageSource = fallbackImage;
 	onMount(() => {
-		// ImageDecoder is require for animated avif.
 		if ('ImageDecoder' in window) {
 			imageSource = '/images/header/video.avif';
+		} else {
+			imageSource = '/images/header/video.webp';
 		}
 	});
 </script>
@@ -22,11 +25,14 @@
 			</div>
 			<picture>
 				<source srcset={imageSource} type="image/avif" />
-				<source srcset="/images/header/video-placeholder.webp" type="image/webp" />
+				<source srcset="/images/header/video.webp" type="image/webp" />
 				<img
 					src="/images/header/video-placeholder.webp"
 					alt=""
 					class="mix-blend-screen pointer-events-none absolute top-0 right-0 h-full object-contain -mr-16"
+					on:error={() => {
+						imageSource = fallbackImage;
+					}}
 				/>
 			</picture>
 			<Navigation>
