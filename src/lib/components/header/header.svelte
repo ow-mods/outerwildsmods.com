@@ -6,7 +6,10 @@
 
 	let imageSource = '/images/header/video-placeholder.webp';
 	onMount(() => {
-		imageSource = '/images/header/video.avif';
+		// ImageDecoder is require for animated avif.
+		if ('ImageDecoder' in window) {
+			imageSource = '/images/header/video.avif';
+		}
 	});
 </script>
 
@@ -17,6 +20,7 @@
 			<div class="mix-blend-screen pointer-events-none">
 				<picture>
 					<source srcset={imageSource} type="image/avif" />
+					<source srcset="/images/header/video-placeholder.webp" type="image/webp" />
 					<img
 						src="/images/header/video-placeholder.webp"
 						class="absolute w-full object-contain object-right h-full"
