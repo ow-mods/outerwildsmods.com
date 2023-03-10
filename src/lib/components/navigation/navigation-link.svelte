@@ -16,7 +16,7 @@
 	class:bg-opacity-100={isActive}
 	class:bg-opacity-50={!isActive}
 	class:link={!isActive}
-	class="bg-background text-sm py-1 px-2 rounded sm:rounded-b-none font-normal relative"
+	class="bg-background text-sm py-1 px-2 rounded xs:rounded-b-none font-normal relative whitespace-nowrap"
 	{href}
 >
 	{#if label}

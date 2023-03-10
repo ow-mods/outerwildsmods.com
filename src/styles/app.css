@@ -7,4 +7,6 @@ body {
 	selection:text-dark
 	selection:bg-accent
 	selection:bg-opacity-60;
+
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
 }
