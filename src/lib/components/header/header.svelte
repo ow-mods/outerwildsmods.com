@@ -20,17 +20,15 @@
 			<div class="p-4 text-4xl m-0">
 				<a class="text-white font-thin" href="/">Outer Wilds Mods</a>
 			</div>
-			<div class="mix-blend-screen pointer-events-none absolute w-full h-full top-0 right-0">
-				<picture>
-					<source srcset={imageSource} type="image/avif" />
-					<source srcset="/images/header/video-placeholder.webp" type="image/webp" />
-					<img
-						src="/images/header/video-placeholder.webp"
-						class="object-contain object-right w-full h-full"
-						alt=""
-					/>
-				</picture>
-			</div>
+			<picture>
+				<source srcset={imageSource} type="image/avif" />
+				<source srcset="/images/header/video-placeholder.webp" type="image/webp" />
+				<img
+					src="/images/header/video-placeholder.webp"
+					alt=""
+					class="mix-blend-screen pointer-events-none absolute top-0 right-0 h-full object-contain -mr-16"
+				/>
+			</picture>
 			<Navigation>
 				<NavigationLink href="/" exact>Home</NavigationLink>
 				<NavigationLink href="/mod-manager">Manager</NavigationLink>
