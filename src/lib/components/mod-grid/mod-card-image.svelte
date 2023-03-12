@@ -18,7 +18,7 @@
 <div class="relative bg-black">
 	{#if !imageSrc}
 		<div
-			class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-2xl p-3 text-center z-10"
+			class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-lg xs:text-2xl py-3 text-center z-10 overflow-hidden"
 			data-nosnippet
 		>
 			{mod.name}
