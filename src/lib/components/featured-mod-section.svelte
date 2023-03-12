@@ -11,7 +11,7 @@
 	let href = `/mods?${sortOrderParamName}=${sortOrder}`;
 </script>
 
-<div class="m-auto md:w-0 flex-1 flex flex-col gap-2">
+<div class="m-auto md:w-0 flex-1 flex flex-col gap-2 max-w-full">
 	<LinkButton {href}>
 		<span class="text-xl">
 			{title}
