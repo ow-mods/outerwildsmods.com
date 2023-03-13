@@ -2,11 +2,11 @@
 	import PageContainer from '$lib/components/page-container.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
+	import type { ModsRequestItem } from '../../../api/mods.json/+server';
 
 	export let data: PageData;
 	const { modDownloadHistory, mod, modList } = data;
