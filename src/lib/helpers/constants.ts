@@ -10,3 +10,4 @@ export const recentViewsDayCount = 30;
 const databaseUrlBase = 'https://ow-mods.github.io/ow-mod-db';
 export const thumbnailUrlBase = `${databaseUrlBase}/thumbnails`;
 export const modDatabaseUrl = `${databaseUrlBase}/database.json`;
+export const linkedFromNotificationParamName = 'linked-from-notification';

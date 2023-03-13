@@ -6,6 +6,17 @@
 	import '../styles/utilities.css';
 	import '../styles/app.css';
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
+
+	onMount(() => {
+		if ($page.status == 200 && $page.url.searchParams.has(linkedFromNotificationParamName)) {
+			const url = new URL($page.url);
+			url.searchParams.delete(linkedFromNotificationParamName);
+			goto(url.href);
+		}
+	});
 </script>
 
 <Header />

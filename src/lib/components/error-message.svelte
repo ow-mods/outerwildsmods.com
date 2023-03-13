@@ -5,10 +5,13 @@
 	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
+	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 
 	let linkedFromNotification = false;
 	onMount(() => {
-		linkedFromNotification = Boolean($page.url.searchParams.get('linked-from-notification'));
+		linkedFromNotification =
+			Boolean($page.url.searchParams.get(linkedFromNotificationParamName)) &&
+			$page.route.id === '/mods/[mod]';
 	});
 </script>
 
