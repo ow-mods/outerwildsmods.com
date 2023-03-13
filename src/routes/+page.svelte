@@ -15,7 +15,7 @@
 	const { modList } = data;
 	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 
-	const filteredModList = modList.filter((mod) => !mod.utility && !mod.alpha);
+	const filteredModList = modList.filter((mod) => !mod.alpha);
 
 	const hotMods = sortModList(filteredModList, 'hot', modsPerCategory);
 	const newMods = sortModList(filteredModList, 'newest', modsPerCategory, hotMods);
