@@ -2,7 +2,6 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import CtaButton from '../button/cta-button.svelte';
-	import TagToggle from '../tag-toggle.svelte';
 
 	export let mod: ModsRequestItem;
 
@@ -12,6 +11,7 @@
 	const moreIcons = ['👨‍👨‍👦‍👦'];
 
 	let iconList = singleIcons;
+	let clickedInstall = false;
 
 	if (mod.authorDisplay) {
 		const authorCount = mod.authorDisplay.split(/&| and |,/).length;
@@ -32,6 +32,10 @@
 
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
+
+	const selectElementText = (node: Node) => {
+		window.getSelection()?.selectAllChildren(node);
+	};
 </script>
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
@@ -46,18 +50,31 @@
 		</div>
 		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
-			<CtaButton href={installLink}>
-				<div>
-					<div>Install mod using</div>
+			<!-- The new manager doesn't support Alpha mods yet, so we point to the old manager. -->
+			{#if mod.alpha}
+				<CtaButton href="/mod-manager#old">
 					<div>
-						{#if mod.alpha} Legacy {/if}Mod Manager
+						<div>Install mod using</div>
+						<div>Mod Manager</div>
 					</div>
-				</div>
-			</CtaButton>
-			{#if !mod.alpha}
-				<div>
-					Requires that the <a href="/mod-manager" class="link">Mod Manager</a> is installed and ran
-					at least once.
+				</CtaButton>
+			{:else}
+				<CtaButton
+					href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}"
+					on:click={() => {
+						clickedInstall = true;
+					}}
+				>
+					Install Mod
+				</CtaButton>
+			{/if}
+			{#if clickedInstall}
+				<div class="text-xs bg-background rounded p-2 flex flex-col gap-2">
+					<div>Installing...</div>
+					<div>
+						If nothing happens, <a class="link" href="/mod-manager">download the Manager</a> and try
+						again.
+					</div>
 				</div>
 			{/if}
 		</div>
@@ -72,14 +89,27 @@
 				<a class="link" href={mod.repo}>📄 Source Code</a>
 			</div>
 			<div>
-				<a class="link" href="/mods/{mod.slug}/downloads/"
-					>📈 {mod.formattedDownloadCount} downloads</a
-				>
+				<a class="link" href="/mods/{mod.slug}/downloads/">
+					📈 {mod.formattedDownloadCount} downloads
+				</a>
 			</div>
 			<div>
 				<a class="link" href={mod.downloadUrl}>
 					🗃️ Download zip ({mod.version})
 				</a>
+			</div>
+			<div>
+				<code
+					on:click={(event) => {
+						selectElementText(event.currentTarget);
+					}}
+					on:keypress={(event) => {
+						selectElementText(event.currentTarget);
+					}}
+					class="text-xs text-light opacity-60 bg-darker p-1 rounded leading-none cursor-pointer"
+				>
+					{mod.uniqueName}
+				</code>
 			</div>
 		</div>
 	</div>
