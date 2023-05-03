@@ -52,7 +52,7 @@
 		<div class="flex flex-col gap-4">
 			<!-- The new manager doesn't support Alpha mods yet, so we point to the old manager. -->
 			{#if mod.alpha}
-				<CtaButton href="/mod-manager#old">
+				<CtaButton href="/mod-manager#legacy-man">
 					<div>
 						<div>Install mod using</div>
 						<div>Mod Manager</div>
@@ -60,7 +60,7 @@
 				</CtaButton>
 			{:else}
 				<CtaButton
-					href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}"
+					href="owmods://install-mod/{mod.uniqueName}"
 					on:click={() => {
 						clickedInstall = true;
 					}}
