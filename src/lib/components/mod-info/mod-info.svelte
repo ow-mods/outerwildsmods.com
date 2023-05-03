@@ -27,6 +27,9 @@
 
 	const author = mod.authorDisplay ?? mod.author;
 
+	const installLink =
+		mod.alpha ?? false ? '/mod-manager#legacy-man' : `owmods://install-mod/${mod.uniqueName}`;
+
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
 </script>
@@ -43,19 +46,20 @@
 		</div>
 		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
-			<CtaButton href="/mod-manager">
+			<CtaButton href={installLink}>
 				<div>
 					<div>Install mod using</div>
-					<div>Mod Manager</div>
+					<div>
+						{#if mod.alpha} Legacy {/if}Mod Manager
+					</div>
 				</div>
 			</CtaButton>
-			<!-- TODO: this install button is still acting a bit weird so I'm disabling it for now -->
-			<!-- <LinkButton href="outer-wilds-mod://{mod.alpha ? 'alpha::' : ''}{mod.uniqueName}" isExternal>
+			{#if !mod.alpha}
 				<div>
-					<div>Install Mod</div>
-					<div class="text-xs text-light opacity-50">(Mod Manager required)</div>
+					Requires that the <a href="/mod-manager" class="link">Mod Manager</a> is installed and ran
+					at least once.
 				</div>
-			</LinkButton> -->
+			{/if}
 		</div>
 		<div class="text-sm flex flex-col gap-2">
 			<div>

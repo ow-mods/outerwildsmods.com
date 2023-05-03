@@ -8,21 +8,10 @@
 	import DebianIcon from '$lib/components/icons/debian-icon.svelte';
 	import ArchIcon from '$lib/components/icons/arch-icon.svelte';
 	import AppImageIcon from '$lib/components/icons/app-image-icon.svelte';
+	import type { PageData } from './$types';
 	// import NixIcon from '$lib/components/icons/nix-icon.svelte';
 
-	const repoUrl = 'https://github.com/Bwc9876/ow-mod-man';
-	const aurUrl = 'https://aur.archlinux.org/packages/owmods-gui-bin';
-	const managerVersion = '0.3.1';
-	const downloadUrl = `${repoUrl}/releases/download/gui_v${managerVersion}`;
-	const installerDownloadUrl = `${downloadUrl}/Outer.Wilds.Mod.Manager_${managerVersion}_x64_en-US.msi`;
-	const appImageUrl = `${downloadUrl}/outer-wilds-mod-manager_${managerVersion}_amd64.AppImage `;
-	const debUrl = `${downloadUrl}/outer-wilds-mod-manager_${managerVersion}_amd64.deb`;
-
-	const cliVersion = '0.3.1';
-	const cliAurUrl = 'https://aur.archlinux.org/packages/owmods-cli-bin';
-	const cliDownloadUrl = `${repoUrl}/release/download/cli_v${cliVersion}`;
-	const cliDebUrl = `${cliDownloadUrl}/owmods-cli_${cliVersion}_amd64.deb`;
-	const cliTarUrl = `${cliDownloadUrl}/owmods.tar.zst`;
+	export let data: PageData;
 </script>
 
 <PageContainer
@@ -37,27 +26,22 @@
 			<PageSectionImage imageUrl="/images/mod-manager.webp" title="Outer Wilds Mod Manager" />
 		</div>
 		<div class="my-4">
-			<details open>
-				<summary>For Windows</summary>
-				<div class="mt-2">
-					<CtaButton href={installerDownloadUrl} rel="noopener noreferrer">
-						<WindowsIcon />
-						Download the Outer Wilds Mod Manager for Windows
-					</CtaButton>
-				</div>
-			</details>
+			<CtaButton href={data.installerDownloadUrl} rel="noopener noreferrer">
+				<WindowsIcon />
+				Download the Outer Wilds Mod Manager for Windows
+			</CtaButton>
 		</div>
 		<div>
 			<details>
 				<summary>For Linux</summary>
 				<div class="my-2">
-					<CtaButton href={debUrl} rel="noopener noreferrer">
+					<CtaButton href={data.debUrl} rel="noopener noreferrer">
 						<DebianIcon />
 						Download .deb package for Debian
 					</CtaButton>
 				</div>
 				<div class="my-2">
-					<CtaButton href={aurUrl} rel="noopener noreferrer">
+					<CtaButton href={data.aurUrl} rel="noopener noreferrer">
 						<ArchIcon />
 						AUR Package for Arch Linux
 					</CtaButton>
@@ -70,7 +54,7 @@
 					</CtaButton>
 				</div> -->
 				<div class="my-2">
-					<CtaButton href={appImageUrl} rel="noopener noreferrer">
+					<CtaButton href={data.appImageUrl} rel="noopener noreferrer">
 						<AppImageIcon />
 						Download AppImage For Linux
 					</CtaButton>
@@ -131,46 +115,35 @@
 		</p>
 	</PageSection>
 	<PageSection title="I Hate GUIs!" id="cli" isNarrow>
-		<p>That's not very nice, but a CLI version of the manager is available</p>
-		<p>On Windows:</p>
-		<ul>
-			<li>
-				You'll need to compile it with <a
-					class="link"
-					rel="noopener noreferrer"
-					href="https://www.rust-lang.org/tools/install">Rust</a
-				>
-			</li>
-			<li>
-				After installing rust and cargo, run <code>cargo install owmods_cli</code>
-			</li>
-		</ul>
-		<p>On Linux:</p>
-		<ul>
-			<li>
-				You can install <a class="link" rel="noopener noreferrer" href={cliAurUrl}>from the AUR</a> if
-				you're on an Arch based distro
-			</li>
-			<li>
-				You can install it <a class="link" rel="noopener noreferrer" href={cliDebUrl}
-					>from a .deb file</a
-				> provided in the GitHub releases
-			</li>
-			<li>
-				You can <a class="link" rel="noopener noreferrer" href={cliTarUrl}
-					>get the binary in a .tar.zst file</a
-				> provided in the GitHub releases
-			</li>
-			<li>Or you could follow the steps for Windows to install it via cargo</li>
-		</ul>
+		<p>That's not very nice, but a CLI version of the manager is available.</p>
+		<p>
+			Just follow the steps to compile <a class="link" href={`${data.repoUrl}/tree/main/owmods_cli`}
+				>on the GitHub repository</a
+			>. Or find the latest CLI release and download from there (if the format you need is
+			available).
+		</p>
 		<p>
 			Once installed, run <code>owmods help</code> for a list of available commands
+		</p>
+	</PageSection>
+	<PageSection title="Legacy Manager" id="legacy-man" isNarrow>
+		<p>
+			The legacy Outer Wilds Mod Manager is <a
+				href="https://github.com/ow-mods/ow-mod-manager/releases/latest/download/OuterWildsModManager-Installer.exe"
+				class="link">available here</a
+			> if you need to mod the alpha.
+		</p>
+		<p>
+			The legacy manager also <a
+				href="https://github.com/ow-mods/ow-mod-manager/releases/latest/download/OuterWildsModManager-Portable.zip"
+				class="link">has a portable version</a
+			>
 		</p>
 	</PageSection>
 	<PageSection title="More information" id="more-info" isNarrow>
 		<p>
 			For more information, check the{' '}
-			<a class="link" target="_blank" rel="noopener noreferrer" href={`${repoUrl}#readme`}>
+			<a class="link" target="_blank" rel="noopener noreferrer" href={`${data.repoUrl}#readme`}>
 				readme on GitHub
 			</a>
 		</p>
