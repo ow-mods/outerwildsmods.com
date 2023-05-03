@@ -126,7 +126,7 @@
 			Once installed, run <code>owmods help</code> for a list of available commands
 		</p>
 	</PageSection>
-	<PageSection title="Legacy Manager" id="legacy-man" isNarrow>
+	<PageSection title="Legacy Manager" id="legacy-manager" isNarrow>
 		<p>
 			The legacy Outer Wilds Mod Manager is <a
 				href="https://github.com/ow-mods/ow-mod-manager/releases/latest/download/OuterWildsModManager-Installer.exe"

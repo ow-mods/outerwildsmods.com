@@ -27,9 +27,6 @@
 
 	const author = mod.authorDisplay ?? mod.author;
 
-	const installLink =
-		mod.alpha ?? false ? '/mod-manager#legacy-man' : `owmods://install-mod/${mod.uniqueName}`;
-
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
 
@@ -52,7 +49,7 @@
 		<div class="flex flex-col gap-4">
 			<!-- The new manager doesn't support Alpha mods yet, so we point to the old manager. -->
 			{#if mod.alpha}
-				<CtaButton href="/mod-manager#legacy-man">
+				<CtaButton href="/mod-manager#legacy-manager">
 					<div>
 						<div>Install mod using</div>
 						<div>Mod Manager</div>
@@ -72,8 +69,8 @@
 				<div class="text-xs bg-background rounded p-2 flex flex-col gap-2">
 					<div>Installing...</div>
 					<div>
-						If nothing happens, <a class="link" href="/mod-manager">download the Manager</a> and try
-						again.
+						If nothing happens, <a class="link" href="/mod-manager">download the Manager</a> and open
+						it at least once, then try again.
 					</div>
 				</div>
 			{/if}
