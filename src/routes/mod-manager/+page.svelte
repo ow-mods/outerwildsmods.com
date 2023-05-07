@@ -70,7 +70,7 @@
 						href="https://www.mono-project.com/"
 						class="link"
 						target="_blank"
-						rel="noopener noreferrer">Mono</a
+						rel="noopener noreferrer">Mono 6.12.0</a
 					> is installed and available on the PATH
 				</p>
 			</details>
