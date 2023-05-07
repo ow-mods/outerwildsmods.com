@@ -46,6 +46,12 @@
 						AUR Package for Arch Linux
 					</CtaButton>
 				</div>
+				<!-- Waiting on PR approval for FlatHub -->
+				<!-- <div class="my-2">
+					<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" rel="noopener noreferrer">
+						Flatpak for Linux (Steam Deck)
+					</CtaButton>
+				</div> -->
 				<!-- Waiting on Loco to make a Nix pkg for the GUI -->
 				<!-- <div class="my-2">
 					<CtaButton href={aurUrl} rel="noopener noreferrer">
