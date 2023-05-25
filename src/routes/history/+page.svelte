@@ -104,8 +104,8 @@
 	const firstEvent = events[0];
 	const lastEvent = events[events.length - 1];
 
-	const min = firstEvent.date.valueOf();
-	const max = lastEvent.date.valueOf();
+	const minimumTimestamp = firstEvent.date.valueOf();
+	const maximumTimestamp = lastEvent.date.valueOf();
 	const timelineWidth = 50000;
 	const timelineMargin = 1000;
 	let selectedEvent = 1;
@@ -123,7 +123,8 @@
 	}
 
 	const getPositionInTimeline = (date: Date) =>
-		((date.valueOf() - min) / (max - min)) * timelineWidth + timelineMargin;
+		((date.valueOf() - minimumTimestamp) / (maximumTimestamp - minimumTimestamp)) * timelineWidth +
+		timelineMargin;
 
 	const getMonthWidth = (date: Date) =>
 		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 0)) -
@@ -135,12 +136,12 @@
 			?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 	};
 
-	const previous = () => {
-		selectEvent(Math.max(0, selectedEvent - 1));
+	const selectPreviousEvent = () => {
+		selectEvent(selectedEvent > 0 ? selectedEvent - 1 : events.length - 1);
 	};
 
-	const next = () => {
-		selectEvent(Math.min(events.length - 1, selectedEvent + 1));
+	const selectNextEvent = () => {
+		selectEvent(selectedEvent < events.length - 1 ? selectedEvent + 1 : 0);
 	};
 
 	const selectEvent = (eventIndex: number) => {
@@ -155,8 +156,8 @@
 
 <div class="m-4">
 	<div class="flex gap-2">
-		<button on:click={previous} class="link button bg-darker">Previous</button>
-		<button on:click={next} class="link button bg-darker">Next</button>
+		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
+		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
 	</div>
 	<div class="overflow-hidden">
 		<div class="relative h-40">
