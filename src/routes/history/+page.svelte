@@ -116,7 +116,7 @@
 	const finalYear = lastEvent.date.getFullYear();
 	const months: Date[] = [];
 
-	for (let year = initialYear; year < finalYear; year++) {
+	for (let year = initialYear; year <= finalYear; year++) {
 		for (let month = 0; month < 12; month++) {
 			months.push(new Date(year, month, 1));
 		}
