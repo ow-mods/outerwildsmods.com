@@ -159,11 +159,11 @@
 		<button on:click={next} class="link button bg-darker">Next</button>
 	</div>
 	<div class="overflow-hidden">
-		<div class="relative h-36">
-			<div class="pb-10">
+		<div class="relative h-40">
+			<div class="pb-8 pt-4">
 				{#each months as month}
 					<div
-						class="absolute bg-darker"
+						class="absolute bg-darker text-center py-1 rounded-full"
 						style="left: {getPositionInTimeline(month)}px; width: {getMonthWidth(month)}px"
 					>
 						{month.toLocaleString('default', { month: 'long' })}
