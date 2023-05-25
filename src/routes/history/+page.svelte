@@ -101,14 +101,33 @@
 		},
 	];
 
-	const min = events[0].date.valueOf();
-	const max = events[events.length - 1].date.valueOf();
+	const firstEvent = events[0];
+	const lastEvent = events[events.length - 1];
+
+	const min = firstEvent.date.valueOf();
+	const max = lastEvent.date.valueOf();
 	const timelineWidth = 50000;
 	const timelineMargin = 1000;
 	let selectedEvent = 1;
 
-	const getPositionInTimeline = (event: Event) =>
-		((event.date.valueOf() - min) / (max - min)) * timelineWidth + timelineMargin;
+	const initialMonth = firstEvent.date.getMonth();
+	const initialYear = firstEvent.date.getFullYear();
+	const finalMonth = lastEvent.date.getMonth();
+	const finalYear = lastEvent.date.getFullYear();
+	const months: Date[] = [];
+
+	for (let year = initialYear; year < finalYear; year++) {
+		for (let month = 0; month < 12; month++) {
+			months.push(new Date(year, month, 1));
+		}
+	}
+
+	const getPositionInTimeline = (date: Date) =>
+		((date.valueOf() - min) / (max - min)) * timelineWidth + timelineMargin;
+
+	const getMonthWidth = (date: Date) =>
+		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 0)) -
+		getPositionInTimeline(date);
 
 	const scrollToEvent = (eventIndex: number) => {
 		document
@@ -141,11 +160,21 @@
 	</div>
 	<div class="overflow-hidden">
 		<div class="relative h-36">
+			<div class="pb-10">
+				{#each months as month}
+					<div
+						class="absolute bg-darker"
+						style="left: {getPositionInTimeline(month)}px; width: {getMonthWidth(month)}px"
+					>
+						{month.toLocaleString('default', { month: 'long' })}
+					</div>
+				{/each}
+			</div>
 			{#each events as event, index}
 				<div
 					id="event-{index}"
 					class="absolute z-10 link"
-					style="left: {getPositionInTimeline(event)}px"
+					style="left: {getPositionInTimeline(event.date)}px"
 					on:click={() => selectEvent(index)}
 					on:keyup={() => selectEvent(index)}
 				>
