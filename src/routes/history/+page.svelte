@@ -109,6 +109,7 @@
 	const timelineWidth = 50000;
 	const timelineMargin = 1000;
 	let selectedEvent = 1;
+	let revealedEvent = 0;
 
 	const initialMonth = firstEvent.date.getMonth();
 	const initialYear = firstEvent.date.getFullYear();
@@ -147,6 +148,9 @@
 	const selectEvent = (eventIndex: number) => {
 		selectedEvent = eventIndex;
 		scrollToEvent(selectedEvent);
+		if (selectedEvent >= revealedEvent) {
+			revealedEvent = selectedEvent;
+		}
 	};
 
 	onMount(() => {
@@ -158,8 +162,10 @@
 	<div class="flex gap-2">
 		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
 		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
+		<span>Selected: {selectedEvent}</span>
+		<span>Revealed: {revealedEvent}</span>
 	</div>
-	<div class="overflow-hidden">
+	<div class="overflow-hidden my-20">
 		<div class="relative h-40">
 			<div class="pb-8 pt-4">
 				{#each months as month}
@@ -174,27 +180,43 @@
 			{#each events as event, index}
 				<div
 					id="event-{index}"
-					class="absolute z-10 link"
+					class="slow-transition absolute z-10 link"
+					class:opacity-0={index > revealedEvent}
 					style="left: {getPositionInTimeline(event.date)}px"
 					on:click={() => selectEvent(index)}
 					on:keyup={() => selectEvent(index)}
 				>
 					<div class="flex flex-col m-2 whitespace-nowrap relative">
 						<span
-							class="bg-white w-6 h-6 rounded-full transition"
+							class="bg-white w-6 h-6 rounded-full slow-transition"
 							class:scale-50={selectedEvent !== index}
 						/>
 						<span
-							class="rotate-12 top-6 left-1 absolute w-0 text-white"
+							class="rotate-12 top-6 left-1 absolute w-0 text-white slow-transition"
 							class:opacity-50={selectedEvent !== index}>{event.title}</span
 						>
 					</div>
 				</div>
 			{/each}
 			<div
-				style="min-width: {timelineWidth + timelineMargin * 2}px"
-				class="bg-accent h-2 m-4 rounded absolute"
+				style="min-width: {timelineWidth + timelineMargin * 2}px; left: {getPositionInTimeline(
+					events[revealedEvent].date
+				)}px"
+				class="bg-accent h-2 m-4 rounded absolute gaga fast-transition"
 			/>
 		</div>
 	</div>
 </div>
+
+<style>
+	.slow-transition {
+		transition: 1.5s;
+		transition-delay: 0.3s;
+	}
+	.fast-transition {
+		transition: 0.8s;
+	}
+	.gaga {
+		transform: translate(-100%, 0px);
+	}
+</style>
