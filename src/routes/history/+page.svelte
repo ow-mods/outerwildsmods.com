@@ -116,8 +116,10 @@
 	const finalMonth = lastEvent.date.getMonth();
 	const finalYear = lastEvent.date.getFullYear();
 	const months: Date[] = [];
+	const years: Date[] = [];
 
 	for (let year = initialYear; year <= finalYear; year++) {
+		years.push(new Date(year, 0, 1));
 		for (let month = 0; month < 12; month++) {
 			months.push(new Date(year, month, 1));
 		}
@@ -129,6 +131,10 @@
 
 	const getMonthWidth = (date: Date) =>
 		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 0)) -
+		getPositionInTimeline(date);
+
+	const getYearWidth = (date: Date) =>
+		getPositionInTimeline(new Date(date.getFullYear() + 1, date.getMonth(), 0)) -
 		getPositionInTimeline(date);
 
 	const scrollToEvent = (eventIndex: number) => {
@@ -237,14 +243,28 @@
 </script>
 
 <div class="m-4">
-	<div class="flex gap-2">
+	<div class="flex gap-2 mb-20">
 		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
 		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
 		<span>Selected: {selectedEvent}</span>
 		<span>Revealed: {revealedEvent}</span>
 	</div>
-	<div class="overflow-hidden my-20" id="piupi">
-		<div class="relative h-40">
+	<div class="overflow-auto" id="piupi">
+		<div class="relative h-60">
+			<div class="pb-8 pt-4">
+				{#each years as year}
+					<div
+						class="absolute bg-darker py-1 rounded-full"
+						style="left: {getPositionInTimeline(year)}px; width: {getYearWidth(year)}px"
+					>
+						<div class="relative">
+							<span class="sticky left-1/2 mx-20 inline-block text-xl font-semibold">
+								{year.toLocaleString('default', { year: 'numeric' })}
+							</span>
+						</div>
+					</div>
+				{/each}
+			</div>
 			<div class="pb-8 pt-4">
 				{#each months as month}
 					<div
