@@ -291,7 +291,7 @@
 				style="min-width: {timelineWidth + timelineMargin * 2}px; left: {getPositionInTimeline(
 					events[revealedEvent].date
 				)}px"
-				class="bg-accent h-2 m-4 rounded absolute timeline-line slow-transition"
+				class="bg-accent h-2 my-4 rounded absolute timeline-line slow-transition"
 			/>
 		</div>
 	</div>
