@@ -75,15 +75,16 @@
 		</p>
 		<p>
 			To revert the game to its original state, verify the game files integrity:
-			<ul>
-				<li>
-					<b>Steam</b>: Library > Right-click Outer Wilds > Properties > Local Files > Verify integrity of game files.
-				</li>
-				<li>
-					<b>Epic</b>: Library > Click three dots under Outer Wilds > Verify.
-				</li>
-			</ul>
 		</p>
+		<ul>
+			<li>
+				<b>Steam</b>: Library > Right-click Outer Wilds > Properties > Local Files > Verify integrity of game files.
+			</li>
+			<li>
+				<b>Epic</b>: Library > Click three dots under Outer Wilds > Verify.
+			</li>
+		</ul>
+
 	</PageSection>
 	<PageSection title="More information" id="more-info" isNarrow>
 		<p>
