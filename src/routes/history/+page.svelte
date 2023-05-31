@@ -225,7 +225,8 @@
 			<div class="pb-8 pt-4">
 				{#each years as year}
 					<div
-						class="absolute bg-darker py-1 rounded-full"
+						class="absolute bg-darker py-1 rounded-full slow-transition transition-delay"
+						class:opacity-50={year.getFullYear() !== events[selectedEvent].date.getFullYear()}
 						style="left: {getPositionInTimeline(year) + monthYearMargin}px; width: {getYearWidth(
 							year
 						)}px"
@@ -241,7 +242,8 @@
 			<div class="pb-8 pt-4">
 				{#each months as month}
 					<div
-						class="absolute bg-darker text-center py-1 rounded-full"
+						class="absolute bg-darker text-center py-1 rounded-full slow-transition transition-delay"
+						class:opacity-50={month.getMonth() !== events[selectedEvent].date.getMonth()}
 						style="left: {getPositionInTimeline(month) + monthYearMargin}px; width: {getMonthWidth(
 							month
 						)}px"
@@ -266,7 +268,7 @@
 						/>
 						<span
 							class="rotate-12 top-6 left-1 absolute w-0 text-white slow-transition transition-delay"
-							class:opacity-50={selectedEvent !== index}
+							class:opacity-40={selectedEvent !== index}
 							class:scale-50={revealedEvent < index}
 						>
 							{event.title}
