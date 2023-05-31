@@ -149,7 +149,7 @@
 		const element = document.getElementById(`event-${eventIndex}`);
 		if (!element) return;
 
-		scrollTo(getPositionInTimeline(events[eventIndex].date), 1500, 'easeInOutCubic', () => {});
+		scrollTo(getPositionInTimeline(events[eventIndex].date), 1500);
 	};
 
 	const selectPreviousEvent = () => {
@@ -172,51 +172,10 @@
 		selectEvent(1);
 	});
 
-	const easing = {
-		linear: function (t: number) {
-			return t;
-		},
-		easeInQuad: function (t: number) {
-			return t * t;
-		},
-		easeOutQuad: function (t: number) {
-			return t * (2 - t);
-		},
-		easeInOutQuad: function (t: number) {
-			return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-		},
-		easeInCubic: function (t: number) {
-			return t * t * t;
-		},
-		easeOutCubic: function (t: number) {
-			return --t * t * t + 1;
-		},
-		easeInOutCubic: function (t: number) {
-			return 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
-		},
-		easeInQuart: function (t: number) {
-			return t * t * t * t;
-		},
-		easeOutQuart: function (t: number) {
-			return 1 - --t * t * t * t;
-		},
-		easeInOutQuart: function (t: number) {
-			return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * --t * t * t * t;
-		},
-		easeInQuint: function (t: number) {
-			return t * t * t * t * t;
-		},
-		easeOutQuint: function (t: number) {
-			return 1 + --t * t * t * t * t;
-		},
-		easeInOutQuint: function (t: number) {
-			return t < 0.5 ? 16 * t * t * t * t * t : 1 + 16 * --t * t * t * t * t;
-		},
-	} as const;
+	// Close enough to easeInOut used in CSS.
+	const easeInOutCubic = (t: number) => 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
 
-	type Easing = keyof typeof easing;
-
-	function scrollTo(x: number, duration: number, easingFunction: Easing, callback: () => void) {
+	const scrollTo = (x: number, duration: number) => {
 		var start = Date.now();
 		const elem = document.getElementById('timeline-scroll');
 		if (!elem) return;
@@ -224,28 +183,26 @@
 		const to = x - elem.clientWidth / 2;
 
 		if (from === to) {
-			callback();
-			return; /* Prevent scrolling to the Y point if already there */
+			return;
 		}
 
 		function min(a: number, b: number) {
 			return a < b ? a : b;
 		}
 
-		function scroll(timestamp: number) {
+		function scroll() {
 			if (!elem) return;
 			var currentTime = Date.now(),
 				time = min(1, (currentTime - start) / duration),
-				easedT = easing[easingFunction](time);
+				easedT = easeInOutCubic(time);
 
 			elem.scrollLeft = easedT * (to - from) + from;
 
 			if (time < 1) requestAnimationFrame(scroll);
-			else if (callback) callback();
 		}
 
 		requestAnimationFrame(scroll);
-	}
+	};
 
 	let mods: Mod[] = [];
 
