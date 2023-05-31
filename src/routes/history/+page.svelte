@@ -113,6 +113,7 @@
 	const maximumTimestamp = lastEvent.date.valueOf();
 	const timelineWidth = 50000;
 	const timelineMargin = 1000;
+	const monthYearMargin = 2;
 	let selectedEvent = 1;
 	let revealedEvent = 0;
 
@@ -135,20 +136,20 @@
 		timelineMargin;
 
 	const getMonthWidth = (date: Date) =>
-		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 0)) -
-		getPositionInTimeline(date);
+		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 1)) -
+		getPositionInTimeline(date) -
+		monthYearMargin * 2;
 
 	const getYearWidth = (date: Date) =>
-		getPositionInTimeline(new Date(date.getFullYear() + 1, date.getMonth(), 0)) -
-		getPositionInTimeline(date);
+		getPositionInTimeline(new Date(date.getFullYear() + 1, date.getMonth(), 1)) -
+		getPositionInTimeline(date) -
+		monthYearMargin * 2;
 
 	const scrollToEvent = (eventIndex: number) => {
 		const element = document.getElementById(`event-${eventIndex}`);
 		if (!element) return;
 
-		scrollTo(getPositionInTimeline(events[eventIndex].date), 1500, 'easeInOutCubic', () =>
-			console.log('done')
-		);
+		scrollTo(getPositionInTimeline(events[eventIndex].date), 1500, 'easeInOutCubic', () => {});
 	};
 
 	const selectPreviousEvent = () => {
@@ -251,7 +252,6 @@
 	$: (async () => {
 		if (mods.length > 0) return;
 		mods = (await getModDatabase()).releases;
-		console.log('hello', mods);
 	})();
 </script>
 
@@ -269,7 +269,9 @@
 				{#each years as year}
 					<div
 						class="absolute bg-darker py-1 rounded-full"
-						style="left: {getPositionInTimeline(year)}px; width: {getYearWidth(year)}px"
+						style="left: {getPositionInTimeline(year) + monthYearMargin}px; width: {getYearWidth(
+							year
+						)}px"
 					>
 						<div class="relative">
 							<span class="sticky left-1/2 mx-4 inline-block text-xl font-semibold">
@@ -283,7 +285,9 @@
 				{#each months as month}
 					<div
 						class="absolute bg-darker text-center py-1 rounded-full"
-						style="left: {getPositionInTimeline(month)}px; width: {getMonthWidth(month)}px"
+						style="left: {getPositionInTimeline(month) + monthYearMargin}px; width: {getMonthWidth(
+							month
+						)}px"
 					>
 						{month.toLocaleString('default', { month: 'long' })}
 					</div>
@@ -292,7 +296,7 @@
 			{#each events as event, index}
 				<div
 					id="event-{index}"
-					class="slow-transition transition-delay absolute z-10 link"
+					class="slow-transition transition-delay absolute z-10 link flex justify-center w-0"
 					class:opacity-0={index > revealedEvent}
 					style="left: {getPositionInTimeline(event.date)}px"
 					on:click={() => selectEvent(index)}
