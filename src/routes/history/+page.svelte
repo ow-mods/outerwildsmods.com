@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getModDatabase, type Mod, type ModDatabase } from '$lib/helpers/api/get-mod-database';
 	import { onMount } from 'svelte';
 
 	type Event = {
@@ -98,6 +99,10 @@
 		{
 			date: new Date('2022/01/15'),
 			title: 'Modding Discord server',
+		},
+		{
+			date: new Date(),
+			title: 'Present',
 		},
 	];
 
@@ -212,7 +217,7 @@
 
 	function scrollTo(x: number, duration: number, easingFunction: Easing, callback: () => void) {
 		var start = Date.now();
-		const elem = document.getElementById('piupi');
+		const elem = document.getElementById('timeline-scroll');
 		if (!elem) return;
 		const from = elem.scrollLeft;
 		const to = x - elem.clientWidth / 2;
@@ -240,6 +245,14 @@
 
 		requestAnimationFrame(scroll);
 	}
+
+	let mods: Mod[] = [];
+
+	$: (async () => {
+		if (mods.length > 0) return;
+		mods = (await getModDatabase()).releases;
+		console.log('hello', mods);
+	})();
 </script>
 
 <div class="m-4">
@@ -248,9 +261,10 @@
 		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
 		<span>Selected: {selectedEvent}</span>
 		<span>Revealed: {revealedEvent}</span>
+		<span>Mods: {mods.length}</span>
 	</div>
-	<div class="overflow-auto" id="piupi">
-		<div class="relative h-60">
+	<div class="overflow-auto" id="timeline-scroll">
+		<div class="relative h-80">
 			<div class="pb-8 pt-4">
 				{#each years as year}
 					<div
@@ -258,7 +272,7 @@
 						style="left: {getPositionInTimeline(year)}px; width: {getYearWidth(year)}px"
 					>
 						<div class="relative">
-							<span class="sticky left-1/2 mx-20 inline-block text-xl font-semibold">
+							<span class="sticky left-1/2 mx-4 inline-block text-xl font-semibold">
 								{year.toLocaleString('default', { year: 'numeric' })}
 							</span>
 						</div>
@@ -299,11 +313,24 @@
 					</div>
 				</div>
 			{/each}
+			{#each mods as mod}
+				<div
+					id="mod-{mod.uniqueName}"
+					class="slow-transition transition-delay absolute z-20 link"
+					style="left: {getPositionInTimeline(new Date(mod.firstReleaseDate))}px"
+				>
+					<div class="flex flex-col m-4 whitespace-nowrap relative opacity-75">
+						<span
+							class="bg-background w-2 h-2 rounded-full slow-transition transition-delay scale-75"
+						/>
+					</div>
+				</div>
+			{/each}
 			<div
 				style="min-width: {timelineWidth + timelineMargin * 2}px; left: {getPositionInTimeline(
 					events[revealedEvent].date
 				)}px"
-				class="bg-accent h-2 m-4 rounded absolute gaga slow-transition"
+				class="bg-accent h-2 m-4 rounded absolute timeline-line slow-transition"
 			/>
 		</div>
 	</div>
@@ -317,7 +344,7 @@
 	.transition-delay {
 		transition-delay: 1.3s;
 	}
-	.gaga {
+	.timeline-line {
 		transform: translate(-100%, 0px);
 	}
 </style>
