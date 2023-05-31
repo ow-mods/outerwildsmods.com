@@ -73,6 +73,17 @@
 			You can uninstall the Mod Manager by searching for "Add or remove programs" in the start menu
 			(or in the control panel), and then finding Outer Wilds Mod Manager in the list.
 		</p>
+		<p>
+			To revert the game to its original state, verify the game files integrity:
+			<ul>
+				<li>
+					<b>Steam</b>: Library > Right-click Outer Wilds > Properties > Local Files > Verify integrity of game files.
+				</li>
+				<li>
+					<b>Epic</b>: Library > Click three dots under Outer Wilds > Verify.
+				</li>
+			</ul>
+		</p>
 	</PageSection>
 	<PageSection title="More information" id="more-info" isNarrow>
 		<p>
