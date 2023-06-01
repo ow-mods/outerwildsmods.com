@@ -9,7 +9,7 @@
 
 	const events: Event[] = [
 		{
-			date: new Date('2013/5/5'),
+			date: new Date('2012/12/10'),
 			title: 'Outer Wilds Alpha',
 		},
 		{
@@ -17,32 +17,40 @@
 			title: 'Outer Wilds released',
 		},
 		{
-			date: new Date('2019/06/15'),
-			title: 'TAImatem',
+			date: new Date('2019/06/08'),
+			title: 'TAImatem joins',
 		},
 		{
-			date: new Date('2019/12/5'),
-			title: 'AmazingAlek, OWML',
+			date: new Date('2019/12/08'),
+			title: 'Alek joins',
+		},
+		{
+			date: new Date('2019/12/18'),
+			title: 'First OWML release',
 		},
 		{
 			date: new Date('2019/12/28'),
-			title: '_nebula',
+			title: '_nebula joins',
 		},
 		{
-			date: new Date('2020/01/02'),
-			title: 'Raicuparta, NomaiVR',
+			date: new Date('2020/01/03'),
+			title: 'Nexus Mods page created',
 		},
 		{
-			date: new Date('2020/01/15'),
-			title: 'nexusmods.com',
+			date: new Date('2020/01/04'),
+			title: 'Raicuparta joins',
 		},
 		{
-			date: new Date('2020/02/02'),
-			title: 'QSB',
+			date: new Date('2020/01/06'),
+			title: 'First NomaiVR release',
 		},
 		{
-			date: new Date('2020/02/15'),
+			date: new Date('2020/02/01'),
 			title: 'Logan emails',
+		},
+		{
+			date: new Date('2020/03/01'),
+			title: 'First QSB release',
 		},
 		{
 			date: new Date('2020/03/15'),
