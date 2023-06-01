@@ -157,7 +157,7 @@
 		const element = document.getElementById(`event-${eventIndex}`);
 		if (!element) return;
 
-		scrollTo(getPositionInTimeline(events[eventIndex].date), 1500);
+		scrollTo(getPositionInTimeline(events[eventIndex].date), 500);
 	};
 
 	const selectPreviousEvent = () => {
@@ -183,12 +183,12 @@
 	// Close enough to easeInOut used in CSS.
 	const easeInOutCubic = (t: number) => 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
 
-	const scrollTo = (x: number, duration: number) => {
+	const scrollTo = (y: number, duration: number) => {
 		var start = Date.now();
-		const elem = document.getElementById('timeline-scroll');
+		const elem = document.scrollingElement;
 		if (!elem) return;
-		const from = elem.scrollLeft;
-		const to = x - elem.clientWidth / 2;
+		const from = elem.scrollTop;
+		const to = y - elem.clientHeight / 2;
 
 		if (from === to) {
 			return;
@@ -200,7 +200,7 @@
 				time = Math.min(1, (currentTime - start) / duration),
 				easedT = easeInOutCubic(time);
 
-			elem.scrollLeft = easedT * (to - from) + from;
+			elem.scrollTop = easedT * (to - from) + from;
 
 			if (time < 1) requestAnimationFrame(scroll);
 		}
@@ -217,101 +217,115 @@
 </script>
 
 <div class="m-4">
-	<div class="flex gap-2 mb-20">
+	<div class="flex gap-2 mb-20 fixed flex-col">
 		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
 		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
 		<span>Selected: {selectedEvent}</span>
 		<span>Revealed: {revealedEvent}</span>
 		<span>Mods: {mods.length}</span>
 	</div>
-	<div class="overflow-auto" id="timeline-scroll">
-		<div class="relative h-80">
-			<div class="pb-8 pt-4">
+	<div id="timeline-scroll">
+		<div
+			class="h-screen flex justify-center w-full gap-4"
+			style="min-height: {timelineWidth + timelineMargin * 2}px;"
+		>
+			<div class="relative w-24">
 				{#each years as year}
 					<div
-						class="absolute bg-darker py-1 rounded-full slow-transition transition-delay"
+						class="absolute bg-darker px-1 rounded-3xl slow-transition transition-delay w-full text-center"
 						class:opacity-50={year.getFullYear() !== events[selectedEvent].date.getFullYear()}
-						style="left: {getPositionInTimeline(year) + monthYearMargin}px; width: {getYearWidth(
+						style="top: {getPositionInTimeline(year) + monthYearMargin}px; height: {getYearWidth(
 							year
 						)}px"
 					>
-						<div class="relative">
-							<span class="sticky left-1/2 mx-4 inline-block text-xl font-semibold">
+						<div class="relative h-full">
+							<span class="sticky top-1/2 m-4 inline-block text-xl font-semibold">
 								{year.toLocaleString('default', { year: 'numeric' })}
 							</span>
 						</div>
 					</div>
 				{/each}
 			</div>
-			<div class="pb-8 pt-4">
+			<div class="relative w-32">
 				{#each months as month}
 					<div
-						class="absolute bg-darker text-center py-1 rounded-full slow-transition transition-delay font-semibold"
+						class="absolute bg-darker text-center py-1 rounded-3xl slow-transition transition-delay w-full"
 						class:opacity-50={month.getMonth() !== events[selectedEvent].date.getMonth()}
-						style="left: {getPositionInTimeline(month) + monthYearMargin}px; width: {getMonthWidth(
+						style="top: {getPositionInTimeline(month) + monthYearMargin}px; height: {getMonthWidth(
 							month
 						)}px"
 					>
-						{month.toLocaleString('default', { month: 'long' })}
+						<div class="relative h-full">
+							<span class="sticky top-1/2 m-4 inline-block font-semibold">
+								{month.toLocaleString('default', { month: 'long' })}
+							</span>
+						</div>
 					</div>
 				{/each}
 			</div>
-			{#each events as event, index}
-				<div
-					id="event-{index}"
-					class="slow-transition transition-delay absolute z-10 link flex justify-center w-0"
-					class:opacity-0={index > revealedEvent}
-					style="left: {getPositionInTimeline(event.date)}px"
-					on:click={() => selectEvent(index)}
-					on:keyup={() => selectEvent(index)}
-				>
-					<div class="flex flex-col m-2 whitespace-nowrap relative">
-						<span
-							class="bg-white w-6 h-6 rounded-full slow-transition transition-delay"
-							class:scale-50={selectedEvent !== index}
-						/>
-						<span
-							class="rotate-12 top-6 left-1 absolute w-0 text-white slow-transition transition-delay"
-							class:opacity-40={selectedEvent !== index}
-							class:scale-50={revealedEvent < index}
-						>
-							{event.title}
-						</span>
+			<div class="relative w-96 flex justify-center">
+				{#each events as event, index}
+					<div
+						id="event-{index}"
+						class="slow-transition transition-delay absolute z-10 link flex items-center h-0"
+						class:opacity-0={index > revealedEvent}
+						style="top: {getPositionInTimeline(event.date)}px"
+						on:click={() => selectEvent(index)}
+						on:keyup={() => selectEvent(index)}
+					>
+						<div class="flex gap-4 m-2 relative items-center">
+							<span
+								class="bg-white w-6 h-6 rounded-3xl slow-transition transition-delay"
+								class:scale-50={selectedEvent !== index}
+							/>
+							<span
+								class="absolute text-white slow-transition transition-delay w-44 leading-none will-change-transform text-xl"
+								class:left-10={index % 2 === 0}
+								class:right-10={index % 2 !== 0}
+								class:origin-left={index % 2 === 0}
+								class:origin-right={index % 2 !== 0}
+								class:text-right={index % 2 !== 0}
+								class:opacity-40={selectedEvent !== index}
+								class:scale-75={selectedEvent !== index}
+							>
+								{event.title}
+							</span>
+						</div>
 					</div>
-				</div>
-			{/each}
-			{#each mods as mod}
-				<div
-					id="mod-{mod.uniqueName}"
-					class="slow-transition transition-delay absolute z-20 link"
-					style="left: {getPositionInTimeline(new Date(mod.firstReleaseDate))}px"
-				>
-					<div class="flex flex-col m-4 whitespace-nowrap relative opacity-75">
-						<span
-							class="bg-background w-2 h-2 rounded-full slow-transition transition-delay scale-75"
-						/>
+				{/each}
+				{#each mods as mod}
+					<div
+						id="mod-{mod.uniqueName}"
+						class="slow-transition transition-delay absolute z-20 link"
+						style="top: {getPositionInTimeline(new Date(mod.firstReleaseDate))}px"
+					>
+						<div class="flex flex-col m-4 whitespace-nowrap relative opacity-75">
+							<span
+								class="bg-background w-2 h-2 rounded-3xl slow-transition transition-delay scale-75"
+							/>
+						</div>
 					</div>
-				</div>
-			{/each}
-			<div
-				style="min-width: {timelineWidth + timelineMargin * 2}px; left: {getPositionInTimeline(
-					events[revealedEvent].date
-				)}px"
-				class="bg-accent h-2 my-4 rounded absolute timeline-line slow-transition"
-			/>
+				{/each}
+				<div
+					style="min-height: {timelineWidth + timelineMargin * 2}px; top: {getPositionInTimeline(
+						events[revealedEvent].date
+					)}px;"
+					class="bg-accent w-2 mx-4 rounded absolute timeline-line slow-transition"
+				/>
+			</div>
 		</div>
 	</div>
 </div>
 
 <style>
 	.slow-transition {
-		transition: 1.5s;
+		transition: 0.5s;
 		transition-timing-function: ease-in-out;
 	}
 	.transition-delay {
-		transition-delay: 1.3s;
+		transition-delay: 0.3s;
 	}
 	.timeline-line {
-		transform: translate(-100%, 0px);
+		transform: translate(0, -100%);
 	}
 </style>
