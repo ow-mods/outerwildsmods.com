@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getModDatabase, type Mod, type ModDatabase } from '$lib/helpers/api/get-mod-database';
+	import { sortBy } from 'lodash-es';
 	import { onMount } from 'svelte';
 
 	type Event = {
@@ -123,8 +124,9 @@
 	const timelineMargin = 1000;
 	const monthYearMargin = 2;
 	let transitionTimeMs = 500;
-	let selectedEvent = 1;
-	let eventInProgress = 1;
+	let selectedEvent = 0;
+	let selectedEventImmediate = 0;
+	let revealedEventImmediate = 0;
 	let revealedEvent = 0;
 
 	const initialMonth = firstEvent.date.getMonth();
@@ -163,17 +165,18 @@
 	};
 
 	const selectPreviousEvent = () => {
-		selectEvent(selectedEvent > 0 ? selectedEvent - 1 : events.length - 1);
+		selectEvent(selectedEventImmediate > 0 ? selectedEventImmediate - 1 : events.length - 1);
 	};
 
 	const selectNextEvent = () => {
-		selectEvent(selectedEvent < events.length - 1 ? selectedEvent + 1 : 0);
+		selectEvent(selectedEventImmediate < events.length - 1 ? selectedEventImmediate + 1 : 0);
 	};
 
 	const selectEvent = (eventIndex: number) => {
-		if (eventIndex >= eventInProgress) {
-			eventInProgress = eventIndex;
+		if (eventIndex >= revealedEventImmediate) {
+			revealedEventImmediate = eventIndex;
 		}
+		selectedEventImmediate = eventIndex;
 		scrollToEvent(eventIndex);
 	};
 
@@ -218,7 +221,7 @@
 
 	$: (async () => {
 		if (mods.length > 0) return;
-		mods = (await getModDatabase()).releases;
+		mods = sortBy((await getModDatabase()).releases, 'firstReleaseDate');
 	})();
 </script>
 
@@ -276,7 +279,7 @@
 				{#each events as event, index}
 					<div
 						id="event-{index}"
-						class="slow-transition absolute z-10 link flex items-center h-0"
+						class="slow-transition absolute z-20 flex items-center h-0"
 						class:opacity-0={index > revealedEvent}
 						style="top: {getPositionInTimeline(event.date)}px"
 						on:click={() => selectEvent(index)}
@@ -288,13 +291,13 @@
 								class:scale-50={selectedEvent !== index}
 							/>
 							<span
-								class="absolute text-white slow-transition w-44 leading-none will-change-transform text-xl"
+								class="absolute text-white slow-transition w-44 leading-none will-change-transform text-xl bg-background p-2 rounded"
 								class:left-10={index % 2 === 0}
 								class:right-10={index % 2 !== 0}
 								class:origin-left={index % 2 === 0}
 								class:origin-right={index % 2 !== 0}
 								class:text-right={index % 2 !== 0}
-								class:opacity-40={selectedEvent !== index}
+								class:opacity-50={selectedEvent !== index}
 								class:scale-75={selectedEvent !== index}
 							>
 								{event.title}
@@ -302,20 +305,30 @@
 						</div>
 					</div>
 				{/each}
-				{#each mods as mod}
+				{#each mods as mod, index}
 					<div
 						id="mod-{mod.uniqueName}"
-						class="slow-transition absolute z-20 link"
+						class="slow-transition absolute z-10"
 						style="top: {getPositionInTimeline(new Date(mod.firstReleaseDate))}px"
 					>
-						<div class="flex flex-col m-4 whitespace-nowrap relative opacity-75">
+						<div class="flex flex-col m-4 relative opacity-75">
 							<span class="bg-background w-2 h-2 rounded-3xl slow-transition scale-75" />
+							<span
+								class="absolute text-white slow-transition w-32 leading-none will-change-transform text-xs opacity-10"
+								class:left-5={index % 2 === 0}
+								class:right-5={index % 2 !== 0}
+								class:origin-left={index % 2 === 0}
+								class:origin-right={index % 2 !== 0}
+								class:text-right={index % 2 !== 0}
+							>
+								{mod.name}
+							</span>
 						</div>
 					</div>
 				{/each}
 				<div
 					style="min-height: {timelineWidth + timelineMargin * 2}px; top: {getPositionInTimeline(
-						events[eventInProgress].date
+						events[revealedEventImmediate].date
 					)}px;"
 					class="bg-accent w-2 mx-4 rounded absolute timeline-line slow-transition"
 				/>
