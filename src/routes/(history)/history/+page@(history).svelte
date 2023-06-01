@@ -124,6 +124,7 @@
 	const monthYearMargin = 2;
 	let transitionTimeMs = 500;
 	let selectedEvent = 1;
+	let eventInProgress = 1;
 	let revealedEvent = 0;
 
 	const initialMonth = firstEvent.date.getMonth();
@@ -158,7 +159,7 @@
 		const element = document.getElementById(`event-${eventIndex}`);
 		if (!element) return;
 
-		scrollTo(getPositionInTimeline(events[eventIndex].date), transitionTimeMs);
+		scrollTo(eventIndex, transitionTimeMs);
 	};
 
 	const selectPreviousEvent = () => {
@@ -170,11 +171,10 @@
 	};
 
 	const selectEvent = (eventIndex: number) => {
-		selectedEvent = eventIndex;
-		scrollToEvent(selectedEvent);
-		if (selectedEvent >= revealedEvent) {
-			revealedEvent = selectedEvent;
+		if (eventIndex >= eventInProgress) {
+			eventInProgress = eventIndex;
 		}
+		scrollToEvent(eventIndex);
 	};
 
 	onMount(() => {
@@ -184,11 +184,12 @@
 	// Close enough to easeInOut used in CSS.
 	const easeInOutCubic = (t: number) => 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
 
-	const scrollTo = (y: number, duration: number) => {
+	const scrollTo = (eventIndex: number, duration: number) => {
 		var start = Date.now();
 		const elem = document.getElementById('timeline-scroll');
 		if (!elem) return;
 		const from = elem.scrollTop;
+		const y = getPositionInTimeline(events[eventIndex].date);
 		const to = y - elem.clientHeight / 2;
 
 		if (from === to) {
@@ -204,6 +205,10 @@
 			elem.scrollTop = easedT * (to - from) + from;
 
 			if (time < 1) requestAnimationFrame(scroll);
+			else {
+				if (revealedEvent < eventIndex) revealedEvent = eventIndex;
+				selectedEvent = eventIndex;
+			}
 		}
 
 		requestAnimationFrame(scroll);
@@ -235,7 +240,7 @@
 			<div class="relative w-24">
 				{#each years as year}
 					<div
-						class="absolute bg-darker px-1 rounded-3xl slow-transition transition-delay w-full text-center"
+						class="absolute bg-darker px-1 rounded-3xl slow-transition w-full text-center"
 						class:opacity-50={year.getFullYear() !== events[selectedEvent].date.getFullYear()}
 						style="top: {getPositionInTimeline(year) + monthYearMargin}px; height: {getYearWidth(
 							year
@@ -252,7 +257,7 @@
 			<div class="relative w-32">
 				{#each months as month}
 					<div
-						class="absolute bg-darker text-center py-1 rounded-3xl slow-transition transition-delay w-full"
+						class="absolute bg-darker text-center py-1 rounded-3xl slow-transition w-full"
 						class:opacity-50={month.getFullYear() !== events[selectedEvent].date.getFullYear() ||
 							month.getMonth() !== events[selectedEvent].date.getMonth()}
 						style="top: {getPositionInTimeline(month) + monthYearMargin}px; height: {getMonthWidth(
@@ -271,7 +276,7 @@
 				{#each events as event, index}
 					<div
 						id="event-{index}"
-						class="slow-transition transition-delay absolute z-10 link flex items-center h-0"
+						class="slow-transition absolute z-10 link flex items-center h-0"
 						class:opacity-0={index > revealedEvent}
 						style="top: {getPositionInTimeline(event.date)}px"
 						on:click={() => selectEvent(index)}
@@ -279,11 +284,11 @@
 					>
 						<div class="flex gap-4 m-2 relative items-center">
 							<span
-								class="bg-white w-6 h-6 rounded-3xl slow-transition transition-delay"
+								class="bg-white w-6 h-6 rounded-3xl slow-transition"
 								class:scale-50={selectedEvent !== index}
 							/>
 							<span
-								class="absolute text-white slow-transition transition-delay w-44 leading-none will-change-transform text-xl"
+								class="absolute text-white slow-transition w-44 leading-none will-change-transform text-xl"
 								class:left-10={index % 2 === 0}
 								class:right-10={index % 2 !== 0}
 								class:origin-left={index % 2 === 0}
@@ -300,19 +305,17 @@
 				{#each mods as mod}
 					<div
 						id="mod-{mod.uniqueName}"
-						class="slow-transition transition-delay absolute z-20 link"
+						class="slow-transition absolute z-20 link"
 						style="top: {getPositionInTimeline(new Date(mod.firstReleaseDate))}px"
 					>
 						<div class="flex flex-col m-4 whitespace-nowrap relative opacity-75">
-							<span
-								class="bg-background w-2 h-2 rounded-3xl slow-transition transition-delay scale-75"
-							/>
+							<span class="bg-background w-2 h-2 rounded-3xl slow-transition scale-75" />
 						</div>
 					</div>
 				{/each}
 				<div
 					style="min-height: {timelineWidth + timelineMargin * 2}px; top: {getPositionInTimeline(
-						events[revealedEvent].date
+						events[eventInProgress].date
 					)}px;"
 					class="bg-accent w-2 mx-4 rounded absolute timeline-line slow-transition"
 				/>
@@ -328,9 +331,6 @@
 	.slow-transition {
 		transition: var(--transition-time);
 		transition-timing-function: ease-in-out;
-	}
-	.transition-delay {
-		transition-delay: calc(var(--transition-time) / 2);
 	}
 	.timeline-line {
 		transform: translate(0, -100%);
