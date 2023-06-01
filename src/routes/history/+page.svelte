@@ -186,14 +186,10 @@
 			return;
 		}
 
-		function min(a: number, b: number) {
-			return a < b ? a : b;
-		}
-
 		function scroll() {
 			if (!elem) return;
 			var currentTime = Date.now(),
-				time = min(1, (currentTime - start) / duration),
+				time = Math.min(1, (currentTime - start) / duration),
 				easedT = easeInOutCubic(time);
 
 			elem.scrollLeft = easedT * (to - from) + from;
@@ -242,7 +238,7 @@
 			<div class="pb-8 pt-4">
 				{#each months as month}
 					<div
-						class="absolute bg-darker text-center py-1 rounded-full slow-transition transition-delay"
+						class="absolute bg-darker text-center py-1 rounded-full slow-transition transition-delay font-semibold"
 						class:opacity-50={month.getMonth() !== events[selectedEvent].date.getMonth()}
 						style="left: {getPositionInTimeline(month) + monthYearMargin}px; width: {getMonthWidth(
 							month
