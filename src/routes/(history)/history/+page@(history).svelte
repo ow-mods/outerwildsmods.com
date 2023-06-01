@@ -122,6 +122,7 @@
 	const timelineWidth = 50000;
 	const timelineMargin = 1000;
 	const monthYearMargin = 2;
+	let transitionTimeMs = 500;
 	let selectedEvent = 1;
 	let revealedEvent = 0;
 
@@ -157,7 +158,7 @@
 		const element = document.getElementById(`event-${eventIndex}`);
 		if (!element) return;
 
-		scrollTo(getPositionInTimeline(events[eventIndex].date), 500);
+		scrollTo(getPositionInTimeline(events[eventIndex].date), transitionTimeMs);
 	};
 
 	const selectPreviousEvent = () => {
@@ -185,7 +186,7 @@
 
 	const scrollTo = (y: number, duration: number) => {
 		var start = Date.now();
-		const elem = document.scrollingElement;
+		const elem = document.getElementById('timeline-scroll');
 		if (!elem) return;
 		const from = elem.scrollTop;
 		const to = y - elem.clientHeight / 2;
@@ -216,15 +217,17 @@
 	})();
 </script>
 
-<div class="m-4">
-	<div class="flex gap-2 mb-20 fixed flex-col">
+<div style="--transition-time: {transitionTimeMs}ms;">
+	<div class="flex gap-2 mb-20 fixed flex-col z-30">
 		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
 		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
+		<span>Transitions: {transitionTimeMs}ms</span>
+		<input type="range" min={0} max={3000} bind:value={transitionTimeMs} />
 		<span>Selected: {selectedEvent}</span>
 		<span>Revealed: {revealedEvent}</span>
 		<span>Mods: {mods.length}</span>
 	</div>
-	<div id="timeline-scroll">
+	<div id="timeline-scroll" class="overflow-auto relative wrapper">
 		<div
 			class="h-screen flex justify-center w-full gap-4"
 			style="min-height: {timelineWidth + timelineMargin * 2}px;"
@@ -319,12 +322,15 @@
 </div>
 
 <style>
+	.wrapper {
+		max-height: calc(100vh - 184px);
+	}
 	.slow-transition {
-		transition: 0.5s;
+		transition: var(--transition-time);
 		transition-timing-function: ease-in-out;
 	}
 	.transition-delay {
-		transition-delay: 0.3s;
+		transition-delay: calc(var(--transition-time) / 2);
 	}
 	.timeline-line {
 		transform: translate(0, -100%);
