@@ -250,7 +250,8 @@
 				{#each months as month}
 					<div
 						class="absolute bg-darker text-center py-1 rounded-3xl slow-transition transition-delay w-full"
-						class:opacity-50={month.getMonth() !== events[selectedEvent].date.getMonth()}
+						class:opacity-50={month.getFullYear() !== events[selectedEvent].date.getFullYear() ||
+							month.getMonth() !== events[selectedEvent].date.getMonth()}
 						style="top: {getPositionInTimeline(month) + monthYearMargin}px; height: {getMonthWidth(
 							month
 						)}px"
