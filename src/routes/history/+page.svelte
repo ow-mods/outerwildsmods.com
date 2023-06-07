@@ -195,7 +195,7 @@
 	});
 
 	// Close enough to easeInOut used in CSS.
-	const easeInOutCubic = (t: number) => 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
+	const easeInOutCubic = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
 	const scrollTo = (eventIndex: number) => {
 		const timeStart = Date.now();
@@ -215,7 +215,9 @@
 
 			scrollWrapper.scrollTop = easedT * (toScrollY - fromScrollY) + fromScrollY;
 			if (eventIndex >= revealedEventImmediate) {
-				lineElement.style.top = `${easedT * (eventY - previousEventY) + previousEventY}px`;
+				const lineTop = easedT * (eventY - previousEventY) + previousEventY;
+				lineElement.style.top = `${lineTop}px`;
+				lineElement.style.minHeight = `${lineTop - getPositionInTimeline(firstEvent.date)}px`;
 			}
 
 			if (time < 1) requestAnimationFrame(scroll);
@@ -340,12 +342,7 @@
 						</div>
 					</div>
 				{/each}
-				<div
-					bind:this={lineElement}
-					style="min-height: {getPositionInTimeline(events[revealedEventImmediate].date) -
-						getPositionInTimeline(firstEvent.date)}px;"
-					class="bg-accent w-2 mx-4 rounded absolute timeline-line"
-				/>
+				<div bind:this={lineElement} class="bg-accent w-2 mx-4 rounded absolute timeline-line" />
 			</div>
 		</div>
 	</div>
