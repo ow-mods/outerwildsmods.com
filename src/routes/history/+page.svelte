@@ -168,7 +168,7 @@
 		monthYearMargin * 2;
 
 	const scrollToEvent = (eventIndex: number) => {
-		const element = document.getElementById(`event-${eventIndex}`);
+		const element = timelineElements[eventIndex];
 		if (!element) return;
 
 		scrollTo(eventIndex);
@@ -226,6 +226,7 @@
 
 	let mods: Mod[] = [];
 	let scrollWrapper: HTMLDivElement;
+	const timelineElements: HTMLDivElement[] = [];
 
 	$: (async () => {
 		if (mods.length > 0) return;
@@ -286,7 +287,7 @@
 			<div class="relative w-96 flex justify-center">
 				{#each events as event, index}
 					<div
-						id="event-{index}"
+						bind:this={timelineElements[index]}
 						class="slow-transition absolute z-20 flex items-center h-0"
 						class:opacity-0={index > revealedEvent}
 						style="top: {getPositionInTimeline(event.date)}px"
