@@ -133,7 +133,7 @@
 	const timelineWidth = (maximumTimestamp - minimumTimestamp) * PixelsPerMillisecond;
 	const timelineMargin = 1000;
 	const monthYearMargin = 2;
-	let transitionTimeMs = 500;
+	let transitionTimeMs = 1500;
 	let selectedEvent = 0;
 	let selectedEventImmediate = 0;
 	let revealedEventImmediate = 0;
@@ -171,7 +171,7 @@
 		const element = document.getElementById(`event-${eventIndex}`);
 		if (!element) return;
 
-		scrollTo(eventIndex, transitionTimeMs);
+		scrollTo(eventIndex);
 	};
 
 	const selectPreviousEvent = () => {
@@ -191,31 +191,28 @@
 	};
 
 	onMount(() => {
-		selectEvent(1);
+		selectEvent(0);
 	});
 
 	// Close enough to easeInOut used in CSS.
 	const easeInOutCubic = (t: number) => 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
 
-	const scrollTo = (eventIndex: number, duration: number) => {
-		var start = Date.now();
-		const elem = document.getElementById('timeline-scroll');
-		if (!elem) return;
-		const from = elem.scrollTop;
+	const scrollTo = (eventIndex: number) => {
+		const start = Date.now();
+		const from = scrollWrapper.scrollTop;
 		const y = getPositionInTimeline(events[eventIndex].date);
-		const to = y - elem.clientHeight / 2;
+		const to = y - scrollWrapper.clientHeight / 2;
 
 		if (from === to) {
 			return;
 		}
 
 		function scroll() {
-			if (!elem) return;
-			var currentTime = Date.now(),
-				time = Math.min(1, (currentTime - start) / duration),
-				easedT = easeInOutCubic(time);
+			const currentTime = Date.now();
+			const time = Math.min(1, (currentTime - start) / transitionTimeMs);
+			const easedT = easeInOutCubic(time);
 
-			elem.scrollTop = easedT * (to - from) + from;
+			scrollWrapper.scrollTop = easedT * (to - from) + from;
 
 			if (time < 1) requestAnimationFrame(scroll);
 			else {
@@ -228,6 +225,7 @@
 	};
 
 	let mods: Mod[] = [];
+	let scrollWrapper: HTMLDivElement;
 
 	$: (async () => {
 		if (mods.length > 0) return;
@@ -245,7 +243,7 @@
 		<span>Revealed: {revealedEvent}</span>
 		<span>Mods: {mods.length}</span>
 	</div>
-	<div id="timeline-scroll" class="overflow-auto relative wrapper">
+	<div bind:this={scrollWrapper} class="overflow-auto relative wrapper">
 		<div
 			class="h-screen flex justify-center w-full gap-4"
 			style="min-height: calc({timelineWidth}px + 50vh);"
