@@ -198,21 +198,25 @@
 	const easeInOutCubic = (t: number) => 0.5 * (Math.sin((t - 0.5) * Math.PI) + 1);
 
 	const scrollTo = (eventIndex: number) => {
-		const start = Date.now();
-		const from = scrollWrapper.scrollTop;
-		const y = getPositionInTimeline(events[eventIndex].date);
-		const to = y - scrollWrapper.clientHeight / 2;
+		const timeStart = Date.now();
+		const fromScrollY = scrollWrapper.scrollTop;
+		const previousEventY = getPositionInTimeline(events[selectedEvent].date);
+		const eventY = getPositionInTimeline(events[eventIndex].date);
+		const toScrollY = eventY - scrollWrapper.clientHeight / 2;
 
-		if (from === to) {
+		if (fromScrollY === toScrollY) {
 			return;
 		}
 
 		function scroll() {
 			const currentTime = Date.now();
-			const time = Math.min(1, (currentTime - start) / transitionTimeMs);
+			const time = Math.min(1, (currentTime - timeStart) / transitionTimeMs);
 			const easedT = easeInOutCubic(time);
 
-			scrollWrapper.scrollTop = easedT * (to - from) + from;
+			scrollWrapper.scrollTop = easedT * (toScrollY - fromScrollY) + fromScrollY;
+			if (eventIndex >= revealedEventImmediate) {
+				lineElement.style.top = `${easedT * (eventY - previousEventY) + previousEventY}px`;
+			}
 
 			if (time < 1) requestAnimationFrame(scroll);
 			else {
@@ -226,6 +230,7 @@
 
 	let mods: Mod[] = [];
 	let scrollWrapper: HTMLDivElement;
+	let lineElement: HTMLDivElement;
 	const timelineElements: HTMLDivElement[] = [];
 
 	$: (async () => {
@@ -336,11 +341,10 @@
 					</div>
 				{/each}
 				<div
+					bind:this={lineElement}
 					style="min-height: {getPositionInTimeline(events[revealedEventImmediate].date) -
-						getPositionInTimeline(firstEvent.date)}px; top: {getPositionInTimeline(
-						events[revealedEventImmediate].date
-					)}px; bottom: {firstEvent.date}"
-					class="bg-accent w-2 mx-4 rounded absolute timeline-line slow-transition"
+						getPositionInTimeline(firstEvent.date)}px;"
+					class="bg-accent w-2 mx-4 rounded absolute timeline-line"
 				/>
 			</div>
 		</div>
