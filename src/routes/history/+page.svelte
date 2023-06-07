@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getModDatabase, type Mod, type ModDatabase } from '$lib/helpers/api/get-mod-database';
+	import { getModDatabase, type Mod } from '$lib/helpers/api/get-mod-database';
 	import { sortBy } from 'lodash-es';
 	import { onMount } from 'svelte';
 
@@ -9,6 +9,10 @@
 	};
 
 	const events: Event[] = [
+		{
+			date: new Date(0),
+			title: 'The Big Bang',
+		},
 		{
 			date: new Date('2012/12/10'),
 			title: 'Outer Wilds Alpha',
@@ -113,6 +117,10 @@
 			date: new Date(),
 			title: 'Present',
 		},
+		{
+			date: new Date(Math.pow(2, 31) * 1000),
+			title: 'Heat death of the Universe',
+		},
 	];
 
 	const firstEvent = events[0];
@@ -120,7 +128,9 @@
 
 	const minimumTimestamp = firstEvent.date.valueOf();
 	const maximumTimestamp = lastEvent.date.valueOf();
-	const timelineWidth = 50000;
+	console.log(maximumTimestamp - minimumTimestamp);
+	const PixelsPerMillisecond = 2e-7;
+	const timelineWidth = (maximumTimestamp - minimumTimestamp) * PixelsPerMillisecond;
 	const timelineMargin = 1000;
 	const monthYearMargin = 2;
 	let transitionTimeMs = 500;
@@ -238,7 +248,7 @@
 	<div id="timeline-scroll" class="overflow-auto relative wrapper">
 		<div
 			class="h-screen flex justify-center w-full gap-4"
-			style="min-height: {timelineWidth + timelineMargin * 2}px;"
+			style="min-height: calc({timelineWidth}px + 50vh);"
 		>
 			<div class="relative w-24">
 				{#each years as year}
@@ -327,9 +337,10 @@
 					</div>
 				{/each}
 				<div
-					style="min-height: {timelineWidth + timelineMargin * 2}px; top: {getPositionInTimeline(
+					style="min-height: {getPositionInTimeline(events[revealedEventImmediate].date) -
+						getPositionInTimeline(firstEvent.date)}px; top: {getPositionInTimeline(
 						events[revealedEventImmediate].date
-					)}px;"
+					)}px; bottom: {firstEvent.date}"
 					class="bg-accent w-2 mx-4 rounded absolute timeline-line slow-transition"
 				/>
 			</div>
