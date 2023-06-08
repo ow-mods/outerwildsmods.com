@@ -202,6 +202,8 @@
 		const fromScrollY = scrollWrapper.scrollTop;
 		const previousEventY = getPositionInTimeline(events[selectedEvent].date);
 		const eventY = getPositionInTimeline(events[eventIndex].date);
+		const distance = Math.abs(fromScrollY - eventY);
+		const distanceFactor = Math.pow(distance, 1 / 3) * 0.1;
 		const toScrollY = eventY - scrollWrapper.clientHeight / 2;
 
 		if (fromScrollY === toScrollY) {
@@ -210,11 +212,11 @@
 
 		function scroll() {
 			const currentTime = Date.now();
-			const time = Math.min(1, (currentTime - timeStart) / transitionTimeMs);
+			const time = Math.min(1, (currentTime - timeStart) / transitionTimeMs / distanceFactor);
 			const easedT = easeInOutCubic(time);
 
 			scrollWrapper.scrollTop = easedT * (toScrollY - fromScrollY) + fromScrollY;
-			if (eventIndex >= revealedEventImmediate) {
+			if (revealedEventImmediate > revealedEvent) {
 				const lineTop = easedT * (eventY - previousEventY) + previousEventY;
 				lineElement.style.top = `${lineTop}px`;
 				lineElement.style.minHeight = `${lineTop - getPositionInTimeline(firstEvent.date)}px`;
@@ -295,7 +297,7 @@
 				{#each events as event, index}
 					<div
 						bind:this={timelineElements[index]}
-						class="slow-transition absolute z-20 flex items-center h-0"
+						class="slow-transition absolute z-20 flex items-center h-0 cursor-pointer"
 						class:opacity-0={index > revealedEvent}
 						style="top: {getPositionInTimeline(event.date)}px"
 						on:click={() => selectEvent(index)}
