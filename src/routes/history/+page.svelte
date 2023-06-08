@@ -138,6 +138,9 @@
 	let selectedEventImmediate = 0;
 	let revealedEventImmediate = 0;
 	let revealedEvent = 0;
+	let scale = 1;
+	let previousScale = scale;
+	let scrollId = 0;
 
 	const initialMonth = firstEvent.date.getMonth();
 	const initialYear = firstEvent.date.getFullYear();
@@ -153,36 +156,38 @@
 		}
 	}
 
-	const getPositionInTimeline = (date: Date) =>
-		((date.valueOf() - minimumTimestamp) / (maximumTimestamp - minimumTimestamp)) * timelineWidth +
+	$: getPositionInTimeline = (date: Date) =>
+		((date.valueOf() - minimumTimestamp) / (maximumTimestamp - minimumTimestamp)) *
+			timelineWidth *
+			scale +
 		timelineMargin;
 
-	const getMonthWidth = (date: Date) =>
+	$: getMonthWidth = (date: Date) =>
 		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 1)) -
 		getPositionInTimeline(date) -
 		monthYearMargin * 2;
 
-	const getYearWidth = (date: Date) =>
+	$: getYearWidth = (date: Date) =>
 		getPositionInTimeline(new Date(date.getFullYear() + 1, date.getMonth(), 1)) -
 		getPositionInTimeline(date) -
 		monthYearMargin * 2;
 
-	const scrollToEvent = (eventIndex: number) => {
+	$: scrollToEvent = (eventIndex: number) => {
 		const element = timelineElements[eventIndex];
 		if (!element) return;
 
 		scrollTo(eventIndex);
 	};
 
-	const selectPreviousEvent = () => {
+	$: selectPreviousEvent = () => {
 		selectEvent(selectedEventImmediate > 0 ? selectedEventImmediate - 1 : events.length - 1);
 	};
 
-	const selectNextEvent = () => {
+	$: selectNextEvent = () => {
 		selectEvent(selectedEventImmediate < events.length - 1 ? selectedEventImmediate + 1 : 0);
 	};
 
-	const selectEvent = (eventIndex: number) => {
+	$: selectEvent = (eventIndex: number) => {
 		if (eventIndex >= revealedEventImmediate) {
 			revealedEventImmediate = eventIndex;
 		}
@@ -197,7 +202,9 @@
 	// Close enough to easeInOut used in CSS.
 	const easeInOutCubic = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
-	const scrollTo = (eventIndex: number) => {
+	$: scrollTo = (eventIndex: number, instant = false) => {
+		if (!scrollWrapper) return;
+
 		const timeStart = Date.now();
 		const fromScrollY = scrollWrapper.scrollTop;
 		const previousEventY = getPositionInTimeline(events[selectedEvent].date);
@@ -205,18 +212,22 @@
 		const distance = Math.abs(fromScrollY - eventY);
 		const distanceFactor = Math.pow(distance, 1 / 3) * 0.1;
 		const toScrollY = eventY - scrollWrapper.clientHeight / 2;
+		scrollId++;
+		const thisScrollId = scrollId;
 
 		if (fromScrollY === toScrollY) {
 			return;
 		}
 
 		function scroll() {
+			if (!scrollWrapper || !lineElement || thisScrollId != scrollId) return;
+
 			const currentTime = Date.now();
 			const time = Math.min(1, (currentTime - timeStart) / transitionTimeMs / distanceFactor);
-			const easedT = easeInOutCubic(time);
+			const easedT = instant ? 1 : easeInOutCubic(time);
 
 			scrollWrapper.scrollTop = easedT * (toScrollY - fromScrollY) + fromScrollY;
-			if (revealedEventImmediate > revealedEvent) {
+			if (eventIndex > revealedEvent || instant) {
 				const lineTop = easedT * (eventY - previousEventY) + previousEventY;
 				lineElement.style.top = `${lineTop}px`;
 				lineElement.style.minHeight = `${lineTop - getPositionInTimeline(firstEvent.date)}px`;
@@ -233,14 +244,21 @@
 	};
 
 	let mods: Mod[] = [];
-	let scrollWrapper: HTMLDivElement;
-	let lineElement: HTMLDivElement;
+	let scrollWrapper: HTMLDivElement | undefined;
+	let lineElement: HTMLDivElement | undefined;
 	const timelineElements: HTMLDivElement[] = [];
 
 	$: (async () => {
 		if (mods.length > 0) return;
 		mods = sortBy((await getModDatabase()).releases, 'firstReleaseDate');
 	})();
+
+	$: {
+		if (scale !== previousScale) {
+			previousScale = scale;
+			scrollTo(selectedEventImmediate, true);
+		}
+	}
 </script>
 
 <div style="--transition-time: {transitionTimeMs}ms;">
@@ -248,7 +266,16 @@
 		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
 		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
 		<span>Transitions: {transitionTimeMs}ms</span>
-		<input type="range" min={0} max={3000} bind:value={transitionTimeMs} />
+		<input type="range" min={100} max={3000} bind:value={transitionTimeMs} />
+		<span>Scale: {scale}</span>
+		<input
+			type="range"
+			min={0.1}
+			max={10}
+			bind:value={scale}
+			step={0.05}
+			on:change={() => scrollTo(selectedEventImmediate)}
+		/>
 		<span>Selected: {selectedEvent}</span>
 		<span>Revealed: {revealedEvent}</span>
 		<span>Mods: {mods.length}</span>
@@ -256,7 +283,7 @@
 	<div bind:this={scrollWrapper} class="overflow-auto relative wrapper">
 		<div
 			class="h-screen flex justify-center w-full gap-4"
-			style="min-height: calc({timelineWidth}px + 50vh);"
+			style="min-height: calc({timelineWidth * scale}px + 50vh);"
 		>
 			<div class="relative w-24">
 				{#each years as year}
@@ -268,7 +295,7 @@
 						)}px"
 					>
 						<div class="relative h-full">
-							<span class="sticky top-1/2 m-4 inline-block text-xl font-semibold">
+							<span class="sticky top-1/2 m-4 inline-block font-semibold h-0 leading-0">
 								{year.toLocaleString('default', { year: 'numeric' })}
 							</span>
 						</div>
@@ -286,7 +313,7 @@
 						)}px"
 					>
 						<div class="relative h-full">
-							<span class="sticky top-1/2 m-4 inline-block font-semibold">
+							<span class="sticky top-1/2 m-4 inline-block font-semibold h-0 leading-0">
 								{month.toLocaleString('default', { month: 'long' })}
 							</span>
 						</div>
@@ -355,10 +382,14 @@
 		max-height: calc(100vh - 184px);
 	}
 	.slow-transition {
-		transition: var(--transition-time);
+		transition-property: opacity;
+		transition-duration: var(--transition-time);
 		transition-timing-function: ease-in-out;
 	}
 	.timeline-line {
 		transform: translate(0, -100%);
+	}
+	.leading-0 {
+		line-height: 0;
 	}
 </style>
