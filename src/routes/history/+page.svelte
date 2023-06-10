@@ -14,6 +14,10 @@
 			title: 'The Big Bang',
 		},
 		{
+			date: new Date('2011/6/15'),
+			title: 'Spaceworthy',
+		},
+		{
 			date: new Date('2012/12/10'),
 			title: 'Outer Wilds Alpha',
 		},
@@ -196,7 +200,7 @@
 	};
 
 	onMount(() => {
-		selectEvent(0);
+		selectEvent(3);
 	});
 
 	// Close enough to easeInOut used in CSS.
