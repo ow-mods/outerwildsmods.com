@@ -11,7 +11,7 @@ The content of this website is generated at build time based on a few things:
 
 ## What to do if the website is down?
 
-If you notice the website is down, please notify the admins in the [Outer Wilds Modding Discord](https://discord.gg/9vE5aHxcF9). In the meantime, you can use [this mirror hosted on Vercel](https://outerwildsmods-com.vercel.app/). If both of these are down, then God help us all.
+If you notice the website is down, please notify the admins in the [Outer Wilds Modding Discord](https://discord.gg/9vE5aHxcF9). In the meantime, you can use [staging.outerwildsmods.com](https://staging.outerwildsmods.com). If both of these are down, then God help us all.
 
 ## Development setup
 
@@ -21,9 +21,14 @@ If you notice the website is down, please notify the admins in the [Outer Wilds 
 - Run `pnpm run dev`;
 - Server will run in localhost.
 
-## Testing PRs
+## Testing changes
 
-New PRs are automatically deployed to [a testing app on Vercel](https://outerwildsmods-com.vercel.app/). It's a good idea to test changes live, since some stuff might behave differently from the local environment.
+Before deploying changes live, it's a good idea to test them on the [staging website](https://github.com/ow-mods/staging.outerwildsmods.com). Just push to the master branch of the staging repo and changes will be deployed to [staging.outerwildsmods.com](https://staging.outerwildsmods.com). These two repos aren't kept automatically in sync, so one thing you can do is develop on a new branch in the `outerwildsmods.com` repo, and then use this command to force-push the changes to the staging repo:
+
+```
+git push https://github.com/ow-mods/staging.outerwildsmods.com.git master -f
+```
+
 
 ## Deploying to production
 
