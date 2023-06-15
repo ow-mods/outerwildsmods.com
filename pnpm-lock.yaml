@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: false
@@ -14,6 +14,9 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.11.0
     version: 1.11.0(svelte@3.56.0)(vite@4.1.4)
+  '@types/gtag.js':
+    specifier: ^0.0.12
+    version: 0.0.12
   '@types/lodash-es':
     specifier: ^4.17.6
     version: 4.17.6
@@ -445,6 +448,10 @@ packages:
 
   /@types/cookie@0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
+  /@types/gtag.js@0.0.12:
+    resolution: {integrity: sha512-YQV9bUsemkzG81Ea295/nF/5GijnD2Af7QhEofh7xu+kvCN6RdodgNwwGWXB5GMI3NoyvQo0odNctoH/qLMIpg==}
     dev: true
 
   /@types/json-schema@7.0.11:

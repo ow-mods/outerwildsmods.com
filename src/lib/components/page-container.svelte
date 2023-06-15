@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { websiteUrl } from '$lib/helpers/constants';
-	// import Analytics from './analytics.svelte';
+	import Analytics from './analytics.svelte';
 
 	export let title: string;
 	export let description: string;
@@ -37,7 +37,7 @@
 	{/if}
 </svelte:head>
 
-<!-- <Analytics /> -->
+<Analytics />
 
 <div class="max-w-screen-lg p-4 mx-auto">
 	<slot />
