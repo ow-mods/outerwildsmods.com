@@ -5,6 +5,7 @@
 	"private": true,
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-cloudflare": "^2.3.0",
 		"@sveltejs/adapter-static": "^2.0.1",
 		"@sveltejs/kit": "^1.11.0",
 		"@types/lodash-es": "^4.17.6",
@@ -29,6 +30,10 @@
 		"tslib": "^2.5.0",
 		"typescript": "^4.9.5",
 		"vite": "^4.1.4"
+	},
+	"engines": {
+		"node": "18",
+		"pnpm": "8.6.1"
 	},
 	"scripts": {
 		"dev": "vite dev --host",
