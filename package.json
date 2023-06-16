@@ -31,9 +31,6 @@
         "vite": "^4.1.4",
         "@types/gtag.js": "^0.0.12"
     },
-    "engines": {
-        "pnpm": ">=8.6"
-    },
     "scripts": {
         "dev": "vite dev --host",
         "build": "vite build && pnpm run post:build",
