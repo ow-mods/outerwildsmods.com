@@ -7,15 +7,8 @@
 	$: {
 		const rawContentUrl = getMarkdownContext('rawContentUrl');
 
-		if (rawContentUrl) {
-			if (!href.startsWith('http') && !href.startsWith('#')) {
-				processedHref = `${rawContentUrl}/${href}`;
-			} else {
-				const match = href.match(/^(?:https?:\/\/)?(www\.)?outerwildsmods\.com(\/.*)?$/);
-				if (match && match[2]) {
-					processedHref = match[2];
-				}
-			}
+		if (rawContentUrl && !href.startsWith('http') && !href.startsWith('#')) {
+			processedHref = `${rawContentUrl}/${href}`;
 		}
 	}
 </script>

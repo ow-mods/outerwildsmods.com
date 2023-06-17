@@ -29,7 +29,6 @@ Before deploying changes live, it's a good idea to test them on the [staging web
 git push https://github.com/ow-mods/staging.outerwildsmods.com.git master -f
 ```
 
-
 ## Deploying to production
 
 Anything that's merged to master will be deployed to production with the [Auto Deploy workflow](https://github.com/ow-mods/outerwildsmods.com/actions/workflows/auto-deploy.yml).
