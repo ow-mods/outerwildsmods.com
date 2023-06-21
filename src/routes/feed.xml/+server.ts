@@ -63,3 +63,5 @@ ${mods
 </channel>
 </rss>
 `;
+
+export const prerender = true;
