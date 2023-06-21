@@ -3,13 +3,10 @@ import { thumbnailUrlBase, websiteUrl } from '$lib/helpers/constants';
 import { sortOrders } from '$lib/helpers/mod-sorting';
 
 export const GET = async () => {
-	const headers = {
-		'Content-Type': 'application/xml',
-	};
 	const database = await getModDatabase();
 	const mods = database.releases.sort(sortOrders.newest.compareFunction);
 
-	return new Response(xml(mods), { headers });
+	return new Response(xml(mods));
 };
 
 function escapeXml(unsafe: string) {
@@ -37,11 +34,12 @@ const xml = (mods: Mod[]) => `<?xml version="1.0" encoding="utf-8"?>
    <title>Outer Wilds Mods</title>
    <description>List of mods for Outer Wilds</description>
    <link>${escapeXml(websiteUrl)}</link>
-   <atom:link href="${escapeXml(websiteUrl)}/rss/mods"
+   <atom:link href="${escapeXml(websiteUrl)}/feed.xml"
      rel="self" type="application/rss+xml" />
   <image>${escapeXml(websiteUrl)}/images/icon-large.png</image>
-${mods.map(
-	(mod) => `
+${mods
+	.map(
+		(mod) => `
     <item>
       <title>${escapeXml(mod.name)}</title>
       <link>${escapeXml(websiteUrl)}/mods/${escapeXml(mod.slug)}</link>
@@ -60,7 +58,8 @@ ${mods.map(
       </description>
     </item>
 `
-)}
+	)
+	.join('')}
 </channel>
 </rss>
 `;
