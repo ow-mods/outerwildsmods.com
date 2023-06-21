@@ -10,15 +10,26 @@ export type Mod = {
 	downloadUrl: string;
 	downloadCount: number;
 	installCount: number;
+	weeklyViewCount: number;
+	weeklyInstallCount: number;
 	viewCount: number;
 	latestReleaseDate: string;
 	firstReleaseDate: string;
+	repoUpdatedAt: string;
+	databaseEntryUpdatedAt: string;
+	latestReleaseDescription?: string;
+	latestPrereleaseDescription?: string;
 	required?: boolean;
 	utility?: boolean;
 	parent?: string;
 	readme?: {
 		htmlUrl: string;
 		downloadUrl: string;
+	};
+	prerelease?: {
+		version: string;
+		downloadUrl: string;
+		date: string;
 	};
 	alpha?: boolean;
 	authorDisplay?: string;
