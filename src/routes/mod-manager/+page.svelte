@@ -9,7 +9,7 @@
 	import ArchIcon from '$lib/components/icons/arch-icon.svelte';
 	import AppImageIcon from '$lib/components/icons/app-image-icon.svelte';
 	import type { PageData } from './$types';
-	// import NixIcon from '$lib/components/icons/nix-icon.svelte';
+	import NixIcon from '$lib/components/icons/nix-icon.svelte';
 
 	export let data: PageData;
 </script>
@@ -26,7 +26,7 @@
 			<PageSectionImage imageUrl="/images/mod-manager.webp" title="Outer Wilds Mod Manager" />
 		</div>
 		<div class="my-4">
-			<CtaButton href={data.installerDownloadUrl} rel="noopener noreferrer">
+			<CtaButton href={data.installerDownloadUrl} isExternal>
 				<WindowsIcon />
 				Download the Outer Wilds Mod Manager for Windows
 			</CtaButton>
@@ -35,32 +35,30 @@
 			<details>
 				<summary>For Linux</summary>
 				<div class="my-2">
-					<CtaButton href={data.debUrl} rel="noopener noreferrer">
+					<CtaButton href={data.debUrl} isExternal>
 						<DebianIcon />
 						Download .deb package for Debian
 					</CtaButton>
 				</div>
 				<div class="my-2">
-					<CtaButton href={data.aurUrl} rel="noopener noreferrer">
+					<CtaButton href={data.aurUrl} isExternal>
 						<ArchIcon />
 						AUR Package for Arch Linux
 					</CtaButton>
 				</div>
-				<!-- Waiting on PR approval for FlatHub -->
-				<!-- <div class="my-2">
-					<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" rel="noopener noreferrer">
+				<div class="my-2">
+					<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" isExternal>
 						Flatpak for Linux (Steam Deck)
 					</CtaButton>
-				</div> -->
-				<!-- Waiting on Loco to make a Nix pkg for the GUI -->
-				<!-- <div class="my-2">
-					<CtaButton href={aurUrl} rel="noopener noreferrer">
+				</div>
+				<div class="my-2">
+					<CtaButton href="https://github.com/loco-choco/ow-mod-man-flake" isExternal>
 						<NixIcon />
 						NixOS Package
 					</CtaButton>
-				</div> -->
+				</div>
 				<div class="my-2">
-					<CtaButton href={data.appImageUrl} rel="noopener noreferrer">
+					<CtaButton href={data.appImageUrl} isExternal>
 						<AppImageIcon />
 						Download AppImage For Linux
 					</CtaButton>
