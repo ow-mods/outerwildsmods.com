@@ -10,6 +10,7 @@
 	import AppImageIcon from '$lib/components/icons/app-image-icon.svelte';
 	import type { PageData } from './$types';
 	import NixIcon from '$lib/components/icons/nix-icon.svelte';
+	import FlatpakIcon from '$lib/components/icons/flatpak-icon.svelte';
 
 	export let data: PageData;
 </script>
@@ -48,6 +49,7 @@
 				</div>
 				<div class="my-2">
 					<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" isExternal>
+						<FlatpakIcon />
 						Flatpak for Linux (Steam Deck)
 					</CtaButton>
 				</div>
