@@ -64,7 +64,6 @@
 		url.search = $page.url.search;
 		const resp = await fetch(url);
 		theme = await resp.text();
-		console.log('found theme', theme);
 		if (theme) {
 			clearInterval(timer);
 			timer = undefined;
