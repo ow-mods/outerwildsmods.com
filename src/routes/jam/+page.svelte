@@ -112,7 +112,7 @@
 <PageContainer
 	title="Outer Wilds Mod Jam"
 	description="Create an mod for Outer Wilds and win cash prizes!"
-	imageUrl="{websiteUrl}/images/jam.webp"
+	imageUrl="{websiteUrl}/images/outer-wilds.webp"
 	imageWidth={665}
 	imageHeight={416}
 >
@@ -123,6 +123,7 @@
 				>Outer Wilds</a
 			>, following a theme that will be revealed once the jam starts.
 		</p>
+		<img src="/images/outer-wilds.webp" alt="Outer Wilds Mod Jam" />
 		<p>
 			Different from the <a href="/jam/jan-2023" class="link">last Jam</a> there will be no
 			restrictions this time. Read the
