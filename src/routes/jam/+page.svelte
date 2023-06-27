@@ -4,8 +4,9 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
+	import { page } from '$app/stores';
 
-	const startTimestamp = 1688166000000;
+	let startTimestamp = 1688166000000;
 	const endTimestamp = 1689375600000;
 	let targetTimestamp = 0;
 	let startDateText = '';
@@ -45,11 +46,23 @@
 		countdownText = `${targetDateText} (${timeZoneText})`;
 	};
 
+	const setUpTestTimestamp = () => {
+		const testTimestampText = $page.url.searchParams.get('testtimestamp');
+		if (testTimestampText) {
+			const testTimestamp = parseInt(testTimestampText);
+			if (!Number.isNaN(testTimestamp)) {
+				startTimestamp = testTimestamp;
+			}
+		}
+	};
+
 	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
 		value <= 0 && aggregate <= 0 ? '' : `${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
 
 	const setUpTheme = async () => {
-		const resp = await fetch(jamThemeUrl);
+		const url = new URL(jamThemeUrl);
+		url.search = $page.url.search;
+		const resp = await fetch(url);
 		theme = await resp.text();
 		console.log('found theme', theme);
 		if (theme) {
@@ -82,6 +95,7 @@
 	};
 
 	onMount(() => {
+		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
 		timer = setInterval(() => setUpCountdown(), 1000);
