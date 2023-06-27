@@ -4,13 +4,8 @@
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
-	const { modList } = data;
 
 	const startTimestamp = 1688166000000;
-	// const startTimestamp = 1687730400000;
 	const endTimestamp = 1689375600000;
 	let targetTimestamp = 0;
 	let startDateText = '';
@@ -25,8 +20,7 @@
 	let theme = '';
 	let timer: NodeJS.Timer | undefined;
 
-	const jamThemeUrl =
-		'https://script.google.com/macros/s/AKfycbyH4yzbZFCPt1dbRLmTJhkHrNkR_du0RATmN_Zar5sN-T652rGAfbHavgtIfyZcW43C/exec';
+	const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
@@ -57,6 +51,7 @@
 	const setUpTheme = async () => {
 		const resp = await fetch(jamThemeUrl);
 		theme = await resp.text();
+		console.log('found theme', theme);
 		if (theme) {
 			clearInterval(timer);
 			timer = undefined;
@@ -64,6 +59,7 @@
 			theme = '...';
 		}
 	};
+
 	const setUpCountdown = () => {
 		const millisecondsLeft = getTargetTimestamp() - Date.now();
 		if (startTimestamp - Date.now() < 1000) {
@@ -126,7 +122,7 @@
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
 			<p class="text-xl">
-				The theme is <strong>{theme === '' ? 'Loading...' : theme}</strong>
+				The theme is <strong>{theme || 'Loading...'}</strong>
 			</p>
 		{:else}
 			<p>
