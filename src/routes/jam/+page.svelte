@@ -25,7 +25,8 @@
 	let theme = '';
 	let timer: NodeJS.Timer | undefined;
 
-	const jamThemeUrl = 'todo';
+	const jamThemeUrl =
+		'https://script.google.com/macros/s/AKfycbyH4yzbZFCPt1dbRLmTJhkHrNkR_du0RATmN_Zar5sN-T652rGAfbHavgtIfyZcW43C/exec';
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
@@ -54,7 +55,8 @@
 		value <= 0 && aggregate <= 0 ? '' : `${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
 
 	const setUpTheme = async () => {
-		theme = (await fetch(jamThemeUrl).then((result) => result.text())).trim();
+		const resp = await fetch(jamThemeUrl);
+		theme = await resp.text();
 		if (theme) {
 			clearInterval(timer);
 			timer = undefined;
@@ -64,7 +66,7 @@
 	};
 	const setUpCountdown = () => {
 		const millisecondsLeft = getTargetTimestamp() - Date.now();
-		if (millisecondsLeft < 1000) {
+		if (startTimestamp - Date.now() < 1000) {
 			setUpTheme();
 			return;
 		}
@@ -107,18 +109,38 @@
 >
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			This is gonna be a jam and we jammin, this time the jam is jammmmm jam we jam ok the jam orrr
-			jam. <a class="link" href="/jam/jan-2023">Previous jam</a>.
+			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you'll have one week to create custom
+			content for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
+				>Outer Wilds</a
+			>, following a theme that will be revealed once the jam starts.
+		</p>
+		<p>
+			Different from the <a href="/jam/jan-2023" class="link">last Jam</a> there will be no
+			restrictions this time. Read the
+			<a class="link" href="https://owml.outerwildsmods.com/">OWML</a>
+			docs to learn how to create your mod. Alternatively, if you are not a programmer, you can use
+			<a class="link" href="https://outerwildsmods.com/mods/newhorizons">New Horizons</a> to create a
+			content mod for the jam. You could even do both! It’s up to you.
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		{#if isAfterStartDate()}
+		{#if isAfterStartDate() || theme}
 			<p class="text-xl">
-				The themes are <strong>CLOCKWORK</strong> and <strong>LAYERS</strong>
+				The theme is <strong>{theme === '' ? 'Loading...' : theme}</strong>
 			</p>
 		{:else}
-			<p>The theme will be revealed in <strong>{countdownText}</strong></p>
+			<p>
+				The theme will be revealed in <strong>{countdownText}</strong>. There will only be one
+				theme.
+			</p>
 		{/if}
+		<p>
+			You decide how to interpret the theme. Make sure you read the <a class="link" href="#rules"
+				>rules</a
+			>
+			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
+			entry does not implement the theme your entry cannot be considered for judging.
+		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
@@ -126,21 +148,66 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
-		{#if isAfterStartDate()}
+		{#if isAfterStartDate() || theme}
 			<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
 		{/if}
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			<span>🥇First place: <strong>$100</strong></span>
-			<span>🥈Second place: <strong>$75</strong></span>
-			<span>🥉Third place: <strong>$50</strong></span>
+			<span>🥈Second place: <strong>$66</strong></span>
+			<span>🥉Third place: <strong>$34</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
 		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
+	</PageSection>
+	<PageSection title="Rules" id="rules" isNarrow>
+		<p>
+			🛤️ Your mod can only have utility mods as dependencies. For example - New Horizons, Slate’s
+			Shipyard, VanillaFix, etc.
+		</p>
+		<p>
+			⏱️ There must be at least one release uploaded to GitHub within the jam deadline. You can make
+			as many releases as you want, but releases made outside the deadline won&#39;t be considered.
+			Do not to overwrite releases, as this will change the upload date of that release.
+		</p>
+		<p>
+			🙋 You can only contribute to one submission. You can&#39;t submit multiple mods, or submit
+			one mod solo and one in a team, or participate in multiple teams.
+		</p>
+		<p>👮 All submissions must follow the Mobius Digital Fan Content Policy .</p>
+		<p>
+			🛠️ You can use any assets you have a license to use. Besides using assets already available in
+			the game, you&#39;re allowed to use assets you find (models, textures, sounds, etc), but you
+			must be careful to understand and follow their licenses, just like you would in any open
+			source project. And of course, these assets must also follow the digital content policy
+			mentioned above.
+		</p>
+	</PageSection>
+	<PageSection title="Judging Criteria" id="judging-criteria" isNarrow>
+		<p>
+			After the jam deadline has ended, we will play each submission and review them based on the
+			following criteria:
+		</p>
+		<p>💭 How well does it follow the theme?</p>
+		<p>
+			💅 How polished is it? We will value quality over quantity. One highly polished feature is
+			better than 20 unrelated mechanics, and one highly polished planet is better than 20 empty
+			planets.
+		</p>
+		<p>
+			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
+			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
+			the submissions, they&#39;re not strict rules or values to be fed into a formula.
+		</p>
+		<p>
+			These guidelines can change depending on how the jam is going. We might also take a shot at
+			community voting, if there are enough submissions to justify it and we can set up a good
+			system for it.
+		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
 		<p class="bg-darker p-2 rounded">
@@ -153,14 +220,27 @@
 				href="https://owml.outerwildsmods.com/tutorials/getting_started.html"
 			>
 				Read the OWML docs to learn how to make your mod
-			</a>.
+			</a>. If you are using New Horizons,
+			<a class="link" href="https://nh.outerwildsmods.com/tutorials/getting_started.html"
+				>read the New Horizon docs to learn how to make your addon</a
+			>.
 		</p>
 		<h3>Upload a release within the deadline</h3>
-		<img alt="" src="/images/jam-deadline.webp" />
+		<img
+			alt="A GitHub release asset must be uploaded before the deadline"
+			src="/images/jam-deadline.webp"
+		/>
 		<p>
-			You must upload a release of your addon within the jam deadline. It's OK if you submit the mod
+			You must upload a release of your mod within the jam deadline. It's OK if you submit the mod
 			to the database after the deadline is over, as long as a valid release was uploaded within the
 			deadline.
+		</p>
+		<p>
+			If you're using the template package the getting started guide has, you can create releases
+			easily by following <a
+				href="https://owml.outerwildsmods.com/guides/publishing.html"
+				class="link">the publishing your mod section of the docs</a
+			>.
 		</p>
 		<p>
 			⚠️ <u>Be careful not to overwrite releases</u>, as this would change the upload date. Always
@@ -172,10 +252,14 @@
 			submission.
 		</p>
 		<h3>Use the <code>jam</code> tag when submitting to the mod database</h3>
-		<img alt="" src="/images/jam-tag.webp" width={400} />
+		<img
+			alt="The mod must have the jam tag along with any other relevant tags when submitted to the database"
+			src="/images/jam-tag.webp"
+			width={400}
+		/>
 		<p>
-			When you submit your addon to the database, you will need to include the <code>jam</code> tag,
-			together with any other tags that make sense for your addon.
+			When you submit your mod to the database, you will need to include the <code>jam</code> tag, together
+			with any other tags that make sense for your mod.
 		</p>
 	</PageSection>
 	<PageSection title="Teams" id="teams" isNarrow>
@@ -197,8 +281,8 @@
 		<p>
 			Join our Discord server if you have more questions, or just wanna discuss anything related to
 			the jam, modding, etc. We have a <code>#jam-chat</code> channel specifically for this. Also
-			make sure to go to the <code>#get-roles</code> channel and get the Jam role, so you can be notified
-			of jam updates.
+			make sure to go to <code>Channels & Roles</code> at the top of the server and get the Jam role,
+			so you can be notified of jam updates.
 		</p>
 		<DiscordLink />
 	</PageSection>
