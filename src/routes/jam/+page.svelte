@@ -111,7 +111,7 @@
 
 <PageContainer
 	title="Outer Wilds Mod Jam"
-	description="Create an mod for Outer Wilds and win cash prizes!"
+	description="Create a mod for Outer Wilds and win cash prizes!"
 	imageUrl="{websiteUrl}/images/outer-wilds.webp"
 	imageWidth={665}
 	imageHeight={416}
