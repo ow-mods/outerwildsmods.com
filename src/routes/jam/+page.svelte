@@ -227,7 +227,7 @@
 		<p>
 			To participate, you will need to submit a mod to the Outer Wilds mod database. <a
 				class="link"
-				href="https://owml.outerwildsmods.com/tutorials/getting_started.html"
+				href="https://owml.outerwildsmods.com/guides/getting_started.html"
 			>
 				Read the OWML docs to learn how to make your mod
 			</a>. If you are using New Horizons,
