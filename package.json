@@ -7,6 +7,7 @@
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-static": "^2.0.1",
 		"@sveltejs/kit": "^1.11.0",
+		"@types/gtag.js": "^0.0.12",
 		"@types/lodash-es": "^4.17.6",
 		"@types/sharp": "^0.31.1",
 		"@typescript-eslint/eslint-plugin": "^5.54.1",
@@ -28,8 +29,7 @@
 		"tailwindcss": "^3.2.7",
 		"tslib": "^2.5.0",
 		"typescript": "^4.9.5",
-		"vite": "^4.1.4",
-		"@types/gtag.js": "^0.0.12"
+		"vite": "^4.1.4"
 	},
 	"scripts": {
 		"dev": "vite dev --host",
@@ -40,5 +40,8 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"post:build": "node post-build.mjs"
+	},
+	"dependencies": {
+		"svelte-i18n": "^3.6.0"
 	}
 }

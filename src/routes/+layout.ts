@@ -3,6 +3,8 @@ import { getModTags } from '$lib/helpers/get-mod-tags';
 import { error } from '@sveltejs/kit';
 import type { ModsRequestItem } from './api/mods.json/+server';
 
+import '../i18n'; // localization
+
 export const load: LayoutLoad = async ({ fetch }) => {
 	const modsResult = await fetch('/api/mods.json');
 

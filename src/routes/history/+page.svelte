@@ -2,6 +2,7 @@
 	import { getModDatabase, type Mod } from '$lib/helpers/api/get-mod-database';
 	import { sortBy } from 'lodash-es';
 	import { onMount } from 'svelte';
+	import { _ } from 'svelte-i18n';
 
 	type Event = {
 		date: Date;
@@ -11,121 +12,129 @@
 	const events: Event[] = [
 		{
 			date: new Date(0),
-			title: 'The Big Bang',
+			title: $_('history.timeline.bigbang'),
 		},
 		{
 			date: new Date('2011/6/15'),
-			title: 'Spaceworthy',
+			title: $_('history.timeline.spaceworthy'),
 		},
 		{
 			date: new Date('2012/12/10'),
-			title: 'Outer Wilds Alpha',
+			title: $_('history.timeline.alpha'),
 		},
 		{
 			date: new Date('2019/05/28'),
-			title: 'Outer Wilds released',
+			title: $_('history.timeline.release'),
 		},
 		{
 			date: new Date('2019/06/08'),
-			title: 'TAImatem joins',
+			title: $_('history.timeline.taimatem'),
 		},
 		{
 			date: new Date('2019/12/08'),
-			title: 'Alek joins',
+			title: $_('history.timeline.alek'),
 		},
 		{
 			date: new Date('2019/12/18'),
-			title: 'First OWML release',
+			title: $_('history.timeline.owml'),
 		},
 		{
 			date: new Date('2019/12/28'),
-			title: '_nebula joins',
+			title: $_('history.timeline._nebula'),
 		},
 		{
 			date: new Date('2020/01/03'),
-			title: 'Nexus Mods page created',
+			title: $_('history.timeline.nexusmods'),
 		},
 		{
 			date: new Date('2020/01/04'),
-			title: 'Raicuparta joins',
+			title: $_('history.timeline.raicuparta'),
 		},
 		{
 			date: new Date('2020/01/06'),
-			title: 'First NomaiVR release',
+			title: $_('history.timeline.nomaivr'),
 		},
 		{
 			date: new Date('2020/02/01'),
-			title: 'Logan emails',
+			title: $_('history.timeline.logan-email'),
 		},
 		{
 			date: new Date('2020/03/01'),
-			title: 'First QSB release',
+			title: $_('history.timeline.qsb'),
 		},
 		{
 			date: new Date('2020/03/15'),
-			title: 'Modders join OWML team',
+			title: $_('history.timeline.modders-join'),
 		},
 		{
 			date: new Date('2020/04/10'),
-			title: 'Marshmallow',
+			title: $_('history.timeline.marshmallow'),
 		},
 		{
 			date: new Date('2020/04/20'),
-			title: 'Mod manager',
+			title: $_('history.timeline.modmanager'),
 		},
 		{
 			date: new Date('2020/05/15'),
-			title: 'Mod database',
+			title: $_('history.timeline.moddatabase'),
 		},
 		{
 			date: new Date('2020/06/15'),
-			title: 'Mods website',
+			title: $_('history.timeline.modswebsite'),
 		},
 		{
 			date: new Date('2020/08/15'),
-			title: 'Alpha modding',
+			title: $_('history.timeline.alpha-modding'),
 		},
 		{
 			date: new Date('2021/04/15'),
-			title: 'DLC leak',
+			title: $_('history.timeline.eotw-leak'),
 		},
 		{
 			date: new Date('2021/06/15'),
-			title: 'DLC announced',
+			title: $_('history.timeline.eotw-announce'),
 		},
 		{
 			date: new Date('2021/08/15'),
-			title: 'JohnCorby',
+			title: $_('history.timeline.johncorby'),
 		},
 		{
 			date: new Date('2021/09/5'),
-			title: 'Logan joins Discord',
+			title: $_('history.timeline.logan-discord'),
 		},
 		{
 			date: new Date('2021/09/25'),
-			title: 'DLC releases',
+			title: $_('history.timeline.eotw-release'),
 		},
 		{
 			date: new Date('2021/11/15'),
-			title: 'Xen',
+			title: $_('history.timeline.xen'),
 		},
 		{
 			date: new Date('2021/12/15'),
-			title: 'New Horizons',
+			title: $_('history.timeline.newhorizons'),
 		},
 		{
 			date: new Date('2022/01/15'),
-			title: 'Modding Discord server',
+			title: $_('history.timeline.discord'),
 		},
 		{
 			date: new Date(),
-			title: 'Present',
+			title: $_('history.timeline.present'),
 		},
 		{
 			date: new Date(Math.pow(2, 31) * 1000),
-			title: 'Heat death of the Universe',
+			title: $_('history.timeline.universe-death'),
 		},
 	];
+
+	// EcmaScript doesn't have a way to get the month name in the current language, hence this madness.
+	const getLocatedMonth = (date: Date) => {
+		const engMonth = date.toLocaleString('default', { month: 'long' });
+
+		return $_('months.' + engMonth.toLowerCase());
+		// this is better than a switch case, right?
+	};
 
 	const firstEvent = events[0];
 	const lastEvent = events[events.length - 1];
@@ -267,11 +276,15 @@
 
 <div style="--transition-time: {transitionTimeMs}ms;">
 	<div class="flex gap-2 mb-20 fixed flex-col z-30">
-		<button on:click={selectPreviousEvent} class="link button bg-darker">Previous</button>
-		<button on:click={selectNextEvent} class="link button bg-darker">Next</button>
-		<span>Transitions: {transitionTimeMs}ms</span>
+		<button on:click={selectPreviousEvent} class="link button bg-darker"
+			>{$_('history.timeline.controls.previous')}</button
+		>
+		<button on:click={selectNextEvent} class="link button bg-darker"
+			>{$_('history.timeline.controls.next')}</button
+		>
+		<span>{$_('history.timeline.controls.transitions-time')}{transitionTimeMs}ms</span>
 		<input type="range" min={100} max={3000} bind:value={transitionTimeMs} />
-		<span>Scale: {scale}</span>
+		<span>{$_('history.timeline.controls.scale')}{scale}</span>
 		<input
 			type="range"
 			min={0.1}
@@ -280,9 +293,9 @@
 			step={0.05}
 			on:change={() => scrollTo(selectedEventImmediate)}
 		/>
-		<span>Selected: {selectedEvent}</span>
-		<span>Revealed: {revealedEvent}</span>
-		<span>Mods: {mods.length}</span>
+		<span>{$_('history.timeline.controls.selected-count')}{selectedEvent}</span>
+		<span>{$_('history.timeline.controls.revealed-count')}{revealedEvent}</span>
+		<span>{$_('history.timeline.controls.mods-count')}{mods.length}</span>
 	</div>
 	<div bind:this={scrollWrapper} class="overflow-auto relative wrapper">
 		<div
@@ -318,7 +331,8 @@
 					>
 						<div class="relative h-full">
 							<span class="sticky top-1/2 m-4 inline-block font-semibold h-0 leading-0">
-								{month.toLocaleString('default', { month: 'long' })}
+								{getLocatedMonth(month)}
+								<!-- See the function at the top of the script -->
 							</span>
 						</div>
 					</div>

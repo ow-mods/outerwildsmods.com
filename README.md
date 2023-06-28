@@ -21,6 +21,14 @@ If you notice the website is down, please notify the admins in the [Outer Wilds 
 - Run `pnpm run dev`;
 - Server will run in localhost.
 
+## Localization
+
+When writing locales (in the `locales` folder), use `{...}` to interpolate variables. For example, `You have {n} apples` will be translated to `Você tem {n} maçãs` in Portuguese, and `Tu as {n} .pommes` in French.
+
+`text.1`, `text.2` represent parts of the text that are cut by elements on the page. You don't need to add spaces to the beginning/end of those. See the english file for examples.
+
+See [the svelte-i18n docs](https://github.com/kaisermann/svelte-i18n/blob/main/docs/Formatting.md) for more info.
+
 ## Testing changes
 
 Before deploying changes live, it's a good idea to test them on the [staging website](https://github.com/ow-mods/staging.outerwildsmods.com). Just push to the master branch of the staging repo and changes will be deployed to [staging.outerwildsmods.com](https://staging.outerwildsmods.com). These two repos aren't kept automatically in sync, so one thing you can do is develop on a new branch in the `outerwildsmods.com` repo, and then use this command to force-push the changes to the staging repo:

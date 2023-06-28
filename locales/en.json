@@ -1,0 +1,283 @@
+{
+  "404": {
+    "title": "Not Found - Outer Wilds Mods",
+    "description": "Something went wrong on the Outer Wilds Mods website"
+  },
+  "general": {
+    "websitename": "Outer Wilds Mods",
+    "outerwilds": "Outer Wilds",
+    "modmanager": "Mod Manager",
+    "newhorizons": "New Horizons",
+    "newhorizons-docs": "New Horizons Docs",
+    "newhorizons-template": "New Horizons Addon Template",
+    "steam": "Steam",
+    "epicgames": "Epic"
+  },
+  "main": {
+    "header": {
+      "title": "Outer Wilds Mods - Download and Install Mods for Outer Wilds",
+      "description": "Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
+    },
+    "body": {
+      "hero": {
+        "1": "are unofficial modifications for",
+        "2": ", which add new features, improvements, extra content, and more. Use the",
+        "3": "to easily download and install these mods. There are currently a total of {modList.length} mods, addons, and utilities."
+      },
+      "mods": {
+        "title": "Some of our mods",
+        "cols": {
+          "hot": "Hot Mods",
+          "new": "New Mods",
+          "update": "Recetly Updated"
+        }
+      },
+      "support": {
+        "title": "Support and modding talk",
+        "description": "Join our Discord server if you need support, wanna learn about making mods, or just to chat with this wonderful modding community:"
+      },
+      "become": {
+        "title": "Become a modder",
+        "description": "If you want to make your own mods, the OWML documentation has most of the info you need to get started. The easiest way to start is by cloning the mod template project and following the instructions there. Also, that Discord server linked above is full of people who will help you.",
+        "links": {
+          "owml": "Read the OWML docs to learn how to make mods",
+          "template": "Outer Wilds mod template"
+        }
+      },
+      "newhorizons": {
+        "title": "Create custom content with New Horizons",
+        "description": {
+          "1": "With",
+          "2": ", you can create new planets and edit existing ones. Create new stories with character dialogue, translatable text, ship log entries, etc. You can make custom content without any coding knowledge, but you can also add your own code to further improve your creations."
+        },
+        "links": {
+          "docs": "Read the New Horizons docs"
+        }
+      },
+      "outerwilds": {
+        "title-questionmark": "?",
+        "description": "Outer Wilds is a neat game. Check it out and buy it or whatever.",
+        "links": {
+          "website": "Official website"
+        }
+      }
+    }
+  },
+  "error": {
+    "title": "Error - Outer Wilds Mods",
+    "description": "Something went wrong on the Outer Wilds Mods website"
+  },
+  "history": {
+    "timeline": {
+      "bigbang": "The Big Bang",
+      "spaceworthy": "Spaceworthy",
+      "alpha": "Outer Wilds Alpha",
+      "release": "Outer Wilds released",
+      "taimatem": "TAImatem joins",
+      "alek": "Alek joins",
+      "owml": "First OWML release",
+      "_nebula": "_nebula joins",
+      "nexusmods": "Nexus Mods page created",
+      "raicuparta": "Raicuparta joins",
+      "nomaivr": "First NomaiVR release",
+      "logan-email": "Logan emails",
+      "qsb": "First QSB release",
+      "modders-join": "Modders join OWML team",
+      "marshmallow": "Marshmallow",
+      "modmanager": "Mod manager",
+      "moddatabase": "Mod database",
+      "modswebsite": "Mods website",
+      "alpha-modding": "Alpha modding",
+      "eotw-leak": "DLC leak",
+      "eotw-announce": "DLC announced",
+      "johncorby": "JohnCorby",
+      "logan-discord": "Logan joins Discord",
+      "eotw-release": "DLC releases",
+      "xen": "Xen",
+      "newhorizons": "New Horizons",
+      "discord": "Modding Discord server",
+      "present": "Present",
+      "universe-death": "Heat death of the Universe",
+      "controls": {
+        "previous": "Previous",
+        "next": "Next",
+        "transitions-time": "Transitions: ",
+        "scale": "Scale: ",
+        "selected-count": "Selected: ",
+        "revealed-count": "Revealed: ",
+        "mods-count": "Mods: "
+      }
+    }
+  },
+  "months": {
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "jam": {
+    "common": {
+      "results": "Results",
+      "podium": {
+        "first": "🥇 First place",
+        "second": "🥈 Second place",
+        "third": "🥉 Third place",
+        "withcolumn": {
+          "first": "🥇 First place:",
+          "second": "🥈 Second place:",
+          "third": "🥉 Third place:"
+        }
+      },
+      "start-finish": {
+        "start": "🟢 Jam start:",
+        "end": "🔴 Jam end:"
+      },
+      "time-zone": "Time zone:",
+      "credits": "Credits",
+      "submissions": "Submissions",
+      "original-jam": "The following sections contain all the information originally included in this jam page, while the jam was still running."
+    },
+    "janv2023": {
+      "title": "Outer Wilds New Horizons Jam",
+      "title-short": "New Horizons Jam",
+      "description": "Create an addon for New Horizons and win cash prizes!",
+      "intro": {
+        "1": "The jam is over!",
+        "2": "After playing through them all, the judges voted on the submissions, and in the end some of the results were tied. We decided to make a last minute change. Instead of offering three different prizes for first, second, and third places, we increased the prize pool and are instead having four winners: two submissions in first place, and two in second!"
+      },
+      "prizes": {
+        "first": "($100 to each team)",
+        "second": "($75 to each team)"
+      }
+    },
+    "newhorizons-jam": {
+      "intro": {
+        "1": "Welcome to the",
+        "2": "! In this jam, you'll have one week to create custom content for",
+        "3": ", following a theme that will be revealed once the jam starts.",
+        "4": "To add custom content to Outer Wilds, you will use",
+        "5": "You can decide what kind of content you wanna create. You can stick to the original Outer Wilds solar system and just modify some existing planets, or add a few new ones. Or maybe you'll create a completely new system with new planets. Or you can go even further by using custom models, textures, sounds, dialogue, etc. Or anything in between! The",
+        "6": "explain what's possible to create using this mod.",
+        "7": "No programming knowledge is required!",
+        "title": "New Horizons Jam"
+      },
+      "theme": {
+        "1": "The themes are",
+        "2": "and",
+        "3": "You decide how to interpret the themes. You can chose to follow one of the themes, or both. You won't be penalized for only following one theme. Make sure you read the",
+        "4": "rules",
+        "5": "and the",
+        "6": "judging criteria",
+        "title": "Theme",
+        "themes": {
+          "1": "CLOCKWORK",
+          "2": "LAYERS"
+        }
+      },
+      "prizes": {
+        "1": "Amounts in USD. All winners will also get a special role on",
+        "2": "our Discord server",
+        "3": ". There will also be some extra Steam keys for winners or other participants, still to be decided.",
+        "4": "Note: cash prizes will be given via PayPal only. No other methods will be supported.",
+        "prizes": {
+          "first": "$100",
+          "second": "$75",
+          "third": "$50"
+        },
+        "title": "Prizes"
+      },
+      "rules": {
+        "1": "Submissions must be an open source addon for",
+        "2": ".",
+        "3": "No custom code",
+        "4": ". Submissions must use the basic New Horizons config dll. That means you're limited to using the New Horizons JSON configs, XML text assets, and asset bundles created in Unity, which can include custom textures, models, sounds, etc. Basically everything New Horizons supports, except custom code.",
+        "5": "No extra dependencies",
+        "6": ". The mod you submit must only have one dependency: New Horizons. It can not depend on any other mods.",
+        "7": "There must be at least one release uploaded to GitHub within the jam deadline.",
+        "8": "You can make as many releases as you want, but releases made outside the deadline won't be considered.",
+        "9": "Do not to overwrite releases, as this will change the upload date of that release.",
+        "10": "You can only contribute to one submission.",
+        "11": "You can't submit multiple mods, or submit one mod solo and one in a team, or participate in multiple teams.",
+        "12": "All submissions must follow the",
+        "13": "Mobius Digital Fan Content Policy",
+        "14": ".",
+        "15": "You can use any assets you have a license to use.",
+        "16": "Besides using assets already available in the game, you're allowed to use assets you find (models, textures, sounds, etc), but you must be careful to understand and follow their licenses, just like you would in any open source project. And of course, these assets must also follow the digital content policy mentioned above.",
+        "title": "Rules"
+      },
+      "criteria": {
+        "1": "After the jam deadline has ended, we will play each submission and review them based on the following criteria:",
+        "2": "How well does it follow the themes?",
+        "3": "There are two themes. You can chose to follow one of the themes, or both. You won't be penalized for only following one theme. A submission that only follows one theme really well can be as good as a submission that follows both themes kinda well.",
+        "4": "How polished is it?",
+        "5": "We will value quality over quantity. One highly polished planet is better than 20 empty planets.",
+        "6": "How well does it leverage New Horizons?",
+        "7": "The point of the jam is to take NH to its limits, so we will prefer submissions that take full advantage of what NH has to offer and use it in creative ways. But again, quality over quantity: it's better to use a few features really well, than trying to cramp all the features in there with no need for them.",
+        "8": "How well are the assets used?",
+        "9": "Whether you add your own custom assets (models, textures, sounds, etc), or reuse the ones included in the game, they should fit the world they are used in. We'll take into account the overall quality of the visuals/audio and how it all fits together. So a highly detailed custom model with high resolution textures doesn't really mean anything if everything around it doesn't follow the same standards.",
+        "10": "Overall opinion.",
+        "11": "The judges are (allegedly) people, so the review process will be mostly driven by personal opinion. The judging criteria are guidelines we'll use while reviewing the submissions, they're not strict rules or values to be fed into a formula.",
+        "12": "These guidelines can change depending on how the jam is going. We might also take a shot at community voting, if there are enough submissions to justify it and we can set up a good system for it.",
+        "title": "Judging Criteria"
+      },
+      "participate": {
+        "1": "TL;DR",
+        "2": ": Upload a New Horizons addon with",
+        "3": "no custom code",
+        "4": "during the jam period, and give it the",
+        "5": "jam",
+        "6": "tag when submitting to the mod database.",
+        "7": "To participate, you will need to submit a New Horizons addon to the Outer Wilds mod database.",
+        "8": "Read the New Horizon docs to learn how to make your addon.",
+        "9": "Your addon can not use custom code",
+        "10": "That means the only dll file in your mod should be the",
+        "11": "file that's included in the",
+        "12": "New Horizons Addon Template",
+        "13": ". You can, however, use",
+        "14": "asset bundles",
+        "15": "to add custom content to your addon (models, textures, sounds, etc).",
+        "16": "Use these tools to create your content",
+        "17": "The",
+        "18": "explain in detail how to edit the required JSON files with editors like Visual Studio Code. But you can also use the",
+        "19": "New Horizons Config Editor App",
+        "20": ", which gives you a more friendly interface for creating, editing, and managing all of the addon files.",
+        "21": "Upload a release within the deadline",
+        "22": "If you're using the",
+        "23": "to create your addon (which you should), it will automatically create new addon releases when you bump the version in your",
+        "24": "file, as described in the",
+        "25": "You must upload a release of your addon within the jam deadline. It's OK if you submit the mod to the database after the deadline is over, as long as a valid release was uploaded within the deadline.",
+        "26": "Be careful not to overwrite releases",
+        "27": ", as this would change the upload date. Always upload new releases separately. If you're using the New Horizons template and letting it take care of creating releases for you, then you shouldn't need to worry about this.",
+        "28": "If you upload new releases to your jam mod after the deadline has passed, those releases will be ignored. The most recent release that was uploaded within the deadline will be your submission.",
+        "29": "Use the",
+        "30": "tag when submitting to the mod database",
+        "31": "When you submit your addon to the database, you will need to include the",
+        "32": "tag, together with any other tags that make sense for your addon. Every New Horizons addon typically also has the",
+        "33": "tag, since they add custom content to the game.",
+        "title": "How to participate"
+      },
+      "teams": {
+        "1": "You are allowed to form teams as you wish. But we'd prefer for teams to be on the smaller size (2-3 people), because otherwise we might not have enough submissions to make the jam interesting.",
+        "2": "Prize rewards will be split equally among all team members, no exceptions. That means you will get half the prize if you're on a two person team.",
+        "3": "If you're looking for a team,",
+        "4": "join our Discord",
+        "5": "and ask around there.",
+        "title": "Teams"
+      },
+      "talk": {
+        "1": "Join our Discord server if you have more questions, or just wanna discuss anything related to the jam, modding, etc. We have a",
+        "2": "channel specifically for this. Also make sure to go to the",
+        "3": "channel and get the Jam role, so you can be notified of jam updates.",
+        "title": "Talk to us"
+      }
+    }
+  }
+}
