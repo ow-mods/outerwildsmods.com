@@ -6,8 +6,8 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
 
-	let startTimestamp = 1688166000000;
-	const endTimestamp = 1689375600000;
+	let startTimestamp = 1688227200000;
+	const endTimestamp = 1689436800000;
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
