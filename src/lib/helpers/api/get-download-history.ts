@@ -66,11 +66,8 @@ export const getModDownloadHistory = async (modUniqueName: string) => {
 					(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
 				)?.Updates
 		)
-	).filter(filterHistoryPoint).sort((a, b) => {
-		if (a.UnixTimestamp == b.UnixTimestamp) return 0;
-		if (a.UnixTimestamp > b.UnixTimestamp) return -1;
-		else return 1;
-	});
+	).filter(filterHistoryPoint)
+		.sort((a, b) => b.UnixTimestamp - a.UnixTimestamp);
 };
 
 const filterHistoryPoint = (
