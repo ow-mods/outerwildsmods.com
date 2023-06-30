@@ -118,7 +118,7 @@
 >
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you'll have one week to create custom
+			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you'll have two weeks to create custom
 			content for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
 				>Outer Wilds</a
 			>, following a theme that will be revealed once the jam starts.
