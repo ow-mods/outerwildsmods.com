@@ -12,21 +12,6 @@ const lowerCaseKeys = <TValue>(record: Record<string, TValue>) => {
 	return newRecord;
 };
 
-// Some repos changed names, and the downloads history json uses the repos for IDs.
-// This information should be moved to the mod database, but I'm just hard-coding it for now (or forever).
-const previousRepoNames: Record<string, string[]> = lowerCaseKeys({
-	'https://github.com/raicuparta/nomai-vr': ['https://github.com/Raicuparta/NomaiVR'],
-	'https://github.com/misternebula/quantum-space-buddies': [
-		'https://github.com/Raicuparta/quantum-space-buddies',
-	],
-	'https://github.com/Outer-Wilds-New-Horizons/new-horizons': [
-		'https://github.com/xen-42/outer-wilds-new-horizons',
-	],
-	'https://github.com/Outer-Wilds-New-Horizons/nh-examples': [
-		'https://github.com/xen-42/ow-new-horizons-examples',
-	],
-});
-
 export type DownloadHistory = {
 	Repo: string;
 	Updates: HistoryPoint[];
@@ -59,7 +44,10 @@ const getDownloadHistory = async () => {
 export const getModDownloadHistory = async (modUniqueName: string) => {
 	const modDatabase = await await getModDatabase();
 	const mods = [...modDatabase.releases, ...modDatabase.alphaReleases];
-	const repoUrl = mods.find((mod) => mod.uniqueName === modUniqueName)?.repo.toLocaleLowerCase();
+	const mod = mods.find((mod) => mod.uniqueName === modUniqueName)
+	const repoUrl = mod?.repo.toLocaleLowerCase();
+	// Some repos changed names, and the downloads history json uses the repos for IDs.
+	const repoUrlVariations = mod?.repoVariations || [];
 
 	if (!repoUrl) {
 		throw new Error(`Could not find repoUrl for mod ${modUniqueName}`);
@@ -72,7 +60,7 @@ export const getModDownloadHistory = async (modUniqueName: string) => {
 	}
 
 	return flatten(
-		getRepoVariations(repoUrl).map(
+		([repoUrl, ...repoUrlVariations]).map(
 			(repo) =>
 				downloadHistory.find(
 					(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
