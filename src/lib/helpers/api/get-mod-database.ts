@@ -39,6 +39,7 @@ export type Mod = {
 		main?: string;
 		openGraph?: string;
 	};
+	repoVariations?: string[];
 };
 
 export interface ModWithImage extends Mod {
