@@ -7,7 +7,7 @@
 	import { page } from '$app/stores';
 
 	let startTimestamp = 1688227200000;
-	const endTimestamp = 1689436800000;
+	const endTimestamp = 1689523200000;
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
@@ -18,10 +18,10 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = '';
+	//let theme = '';
 	let timer: NodeJS.Timer | undefined;
 
-	const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
+	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {
@@ -59,7 +59,7 @@
 	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
 		value <= 0 && aggregate <= 0 ? '' : `${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
 
-	const setUpTheme = async () => {
+	/*const setUpTheme = async () => {
 		const url = new URL(jamThemeUrl);
 		url.search = $page.url.search;
 		const resp = await fetch(url);
@@ -70,14 +70,14 @@
 		} else {
 			theme = '...';
 		}
-	};
+	};*/
 
 	const setUpCountdown = () => {
 		const millisecondsLeft = getTargetTimestamp() - Date.now();
-		if (startTimestamp - Date.now() < 1000) {
+		/*if (startTimestamp - Date.now() < 1000) {
 			setUpTheme();
 			return;
-		}
+		}*/
 		secondsLeft = Math.floor(millisecondsLeft / 1000);
 		minutesLeft = Math.floor(secondsLeft / 60);
 		hoursLeft = Math.floor(minutesLeft / 60);
@@ -118,10 +118,10 @@
 >
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you'll have two weeks to create custom
+			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you have two weeks to create custom
 			content for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
 				>Outer Wilds</a
-			>, following a theme that will be revealed once the jam starts.
+			>, following the themes given below.
 		</p>
 		<img src="/images/outer-wilds.webp" alt="Outer Wilds Mod Jam" />
 		<p>
@@ -134,22 +134,15 @@
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		{#if isAfterStartDate() || theme}
-			<p class="text-xl">
-				The theme is <strong>{theme || 'Loading...'}</strong>
-			</p>
-		{:else}
-			<p>
-				The theme will be revealed in <strong>{countdownText}</strong>. There will only be one
-				theme.
-			</p>
-		{/if}
+		<p class="text-xl">
+			The themes are <strong>Bigger on the Inside</strong> and
+			<strong>Hidden in Plain Sight</strong>
+		</p>
 		<p>
-			You decide how to interpret the theme. Make sure you read the <a class="link" href="#rules"
-				>rules</a
-			>
+			You decide how to interpret the themes. You can follow either one of them, or both! Make sure
+			you read the <a class="link" href="#rules">rules</a>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
-			entry does not implement the theme your entry cannot be considered for judging.
+			entry does not implement a theme your entry cannot be considered for judging.
 		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
@@ -158,9 +151,7 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
-		{#if isAfterStartDate() || theme}
-			<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
-		{/if}
+		<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
@@ -202,7 +193,7 @@
 			After the jam deadline has ended, we will play each submission and review them based on the
 			following criteria:
 		</p>
-		<p>💭 How well does it follow the theme?</p>
+		<p>💭 How well does it follow the theme(s)?</p>
 		<p>
 			💅 How polished is it? We will value quality over quantity. One highly polished feature is
 			better than 20 unrelated mechanics, and one highly polished planet is better than 20 empty
