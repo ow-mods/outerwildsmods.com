@@ -118,10 +118,10 @@
 >
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you'll have two weeks to create custom
+			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you have two weeks to create custom
 			content for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
 				>Outer Wilds</a
-			>, following themes that will be revealed once the jam starts.
+			>, following the themes given below.
 		</p>
 		<img src="/images/outer-wilds.webp" alt="Outer Wilds Mod Jam" />
 		<p>
@@ -134,19 +134,13 @@
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
-		{#if isAfterStartDate()/* || theme*/}
-			<p class="text-xl">
-				The themes are <strong>Bigger on the Inside</strong> and <strong>Hidden in Plain Sight</strong>
-			</p>
-		{:else}
-			<p>
-				The themes will be revealed in <strong>{countdownText}</strong>.
-			</p>
-		{/if}
+		<p class="text-xl">
+			The themes are <strong>Bigger on the Inside</strong> and
+			<strong>Hidden in Plain Sight</strong>
+		</p>
 		<p>
-			You decide how to interpret the themes. You can follow either one of them, or both! Make sure you read the <a class="link" href="#rules"
-				>rules</a
-			>
+			You decide how to interpret the themes. You can follow either one of them, or both! Make sure
+			you read the <a class="link" href="#rules">rules</a>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
 			entry does not implement a theme your entry cannot be considered for judging.
 		</p>
@@ -157,9 +151,7 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
-		{#if isAfterStartDate()/* || theme*/}
-			<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
-		{/if}
+		<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
