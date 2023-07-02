@@ -28,7 +28,7 @@ function escapeXml(unsafe: string) {
 	});
 }
 
-function separateToWeek(date: Date){
+function mergeDateInWeek(date: Date){
   const dayToSplit: number = 3;
   var amountToAdd : number = dayToSplit - date.getDay();
   if(date.getDay() > dayToSplit){
@@ -43,7 +43,7 @@ function splitModsByReleaseDate(mods: Mod[]) {
 	const mapOfMods: Map<string,Mod[]> = new Map();
   mods.forEach((mod: Mod) => { 
     const releaseDate: Date = new Date(mod.firstReleaseDate);
-    const key: string = separateToWeek(releaseDate).toDateString();
+    const key: string = mergeDateInWeek(releaseDate).toDateString();
     if(!mapOfMods.has(key)){
   	  mapOfMods.set(key, []);
     }  
@@ -55,19 +55,17 @@ function splitModsByReleaseDate(mods: Mod[]) {
 }
 
 function renderModRelease(mod: Mod){
-  return `<li>
+    return `<li>
       	<a href="${mod.repo}">${escapeXml(mod.name)}</a> by ${escapeXml(mod.author)} (${escapeXml(new Date(mod.firstReleaseDate).toDateString())}) &#10145; ${escapeXml(mod.description)}
-        ${
-					mod.thumbnail.main
-						? `<br></br>
-           <img src="${escapeXml(`${thumbnailUrlBase}/${mod.thumbnail.main}`)}">`
-						: ''
-				}</li>`;
+        ${mod.thumbnail.main
+            ? `<br></br>
+            <img src="${escapeXml(`${thumbnailUrlBase}/${mod.thumbnail.main}`)}">`
+            : ''
+        }</li>`;
 }
 
 function weeklyModsRelease(mods: Mod[]) {
-
-	const releaseWeek: Date = separateToWeek(new Date(mods[0].firstReleaseDate));
+	const releaseWeek: Date = mergeDateInWeek(new Date(mods[0].firstReleaseDate));
   const date: string = releaseWeek.toDateString();
   const splitDate: string[] = date.split(' '); 
   const weekDay: string = splitDate[0];
@@ -96,7 +94,6 @@ function weeklyModsRelease(mods: Mod[]) {
       .map(renderModRelease).join('')
       }
       </ul>
-
       ]]>
       </description>
     </item>
