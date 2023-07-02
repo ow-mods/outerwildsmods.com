@@ -18,10 +18,13 @@
         devShell =
           pkgs.mkShell {
             buildInputs =
-              [
-                pkgs.nodejs
-                pkgs.nodePackages.pnpm
-              ];
+            [
+              pkgs.nodejs
+              pkgs.nodePackages.pnpm
+            ];
+            shellHook = ''
+              pnpm run dev
+            '';
           };
     });
 }
