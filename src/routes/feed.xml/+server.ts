@@ -56,7 +56,7 @@ function splitModsByReleaseDate(mods: Mod[]) {
 
 function renderModRelease(mod: Mod){
     return `<li>
-      	<a href="${mod.repo}">${escapeXml(mod.name)}</a> by ${escapeXml(mod.author)} (${escapeXml(new Date(mod.firstReleaseDate).toDateString())}) &#10145; ${escapeXml(mod.description)}
+      	<a href="${mod.repo}">${escapeXml(mod.name)}</a> by ${escapeXml(mod.authorDisplay ?? mod.author)} (${escapeXml(new Date(mod.firstReleaseDate).toDateString())}) &#10145; ${escapeXml(mod.description)}
         ${mod.thumbnail.main
             ? `<br></br>
             <img src="${escapeXml(`${thumbnailUrlBase}/${mod.thumbnail.main}`)}">`
