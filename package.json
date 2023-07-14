@@ -41,5 +41,10 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"post:build": "node post-build.mjs"
-	}
+	},
+	"engines": {
+		"node": ">=18",
+		"pnpm": ">=8"
+	},
+	"packageManager": "pnpm@8.6.5"
 }
