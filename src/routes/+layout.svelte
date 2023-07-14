@@ -18,23 +18,6 @@
 			goto(url.href);
 		}
 	});
-
-	let showLoading = false;
-	let timeout: NodeJS.Timeout | undefined;
-
-	navigating.subscribe((navigation) => {
-		if (!navigation) {
-			showLoading = false;
-			clearTimeout(timeout);
-			timeout = undefined;
-			return;
-		}
-		if (!showLoading && navigation) {
-			timeout = setTimeout(() => {
-				showLoading = true;
-			}, 180);
-		}
-	});
 </script>
 
 <Header />
@@ -43,8 +26,8 @@
 		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
 
 	<span
-		class:opacity-20={showLoading}
-		class:pointer-events-none={showLoading}
+		class:opacity-20={$navigating}
+		class:pointer-events-none={$navigating}
 		class="transition-opacity"
 	>
 		{#key $page.url.pathname}
