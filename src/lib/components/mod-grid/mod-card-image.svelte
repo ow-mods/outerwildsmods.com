@@ -15,7 +15,7 @@
 	}
 </script>
 
-<div class="relative bg-black">
+<div class="relative bg-black aspect-thumbnail">
 	{#if !imageSrc}
 		<div
 			class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-lg xs:text-2xl py-3 text-center z-10 overflow-hidden"
@@ -25,7 +25,7 @@
 		</div>
 	{/if}
 	<img
-		class="object-contain w-full h-auto"
+		class="object-contain w-full h-full"
 		alt={mod.name}
 		src={imageSrc || '/images/placeholder.webp'}
 		loading={imageSrc && lazy ? 'lazy' : 'eager'}
