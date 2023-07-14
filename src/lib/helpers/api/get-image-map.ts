@@ -1,6 +1,6 @@
 import { getImageInfo } from './get-image-info';
 import { getAllMarkdownImages } from './get-markdown-images';
-import type { ModFromDatabase } from './get-mod-database';
+import type { Mod } from './get-mod-list';
 
 export type ImageInfo = {
 	width?: number;
@@ -10,7 +10,7 @@ export type ImageInfo = {
 
 export type ImageMap = Record<string, ImageInfo | null>;
 
-export const getImageMap = async (mod: ModFromDatabase, readme: string): Promise<ImageMap> => {
+export const getImageMap = async (mod: Mod, readme: string): Promise<ImageMap> => {
 	const imageMap: ImageMap = {};
 
 	const imageUrls = getAllMarkdownImages(readme);

@@ -2,13 +2,13 @@ import sharp from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import type { ImageInfo } from './get-image-map';
-import type { ModFromDatabase } from './get-mod-database';
 import { getRawContentUrl } from '../get-raw-content-url';
+import type { Mod } from './get-mod-list';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
 export const getImageInfo = async (
-	mod: ModFromDatabase,
+	mod: Mod,
 	imageUrl: string,
 	index: number
 ): Promise<ImageInfo | null> => {
