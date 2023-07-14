@@ -1,4 +1,4 @@
-import type { Mod } from './api/get-mod-database';
+import type { ModFromDatabase } from './api/get-mod-database';
 
-export const getRawContentUrl = (mod: Mod) =>
+export const getRawContentUrl = (mod: ModFromDatabase) =>
 	mod.readme ? mod.readme.downloadUrl.replace(/\/(?!.*\/).+/, '') : null;

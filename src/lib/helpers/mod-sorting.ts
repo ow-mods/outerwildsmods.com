@@ -1,4 +1,4 @@
-import type { Mod } from './api/get-mod-database';
+import type { ModFromDatabase } from './api/get-mod-database';
 import { recentViewsDayCount } from './constants';
 
 export const sortOrderParamName = 'sortOrder' as const;
@@ -6,37 +6,39 @@ export const sortOrderParamName = 'sortOrder' as const;
 export const sortOrders = {
 	hot: {
 		title: 'Hot',
-		compareFunction: (modA: Mod, modB: Mod) => {
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) => {
 			return modB.installCount - modA.installCount;
 		},
 	},
 	mostDownloaded: {
 		title: 'Most downloaded',
-		compareFunction: (modA: Mod, modB: Mod) => modB.downloadCount - modA.downloadCount,
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) =>
+			modB.downloadCount - modA.downloadCount,
 	},
 	leastDownloaded: {
 		title: 'Least downloaded',
-		compareFunction: (modA: Mod, modB: Mod) => modA.downloadCount - modB.downloadCount,
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) =>
+			modA.downloadCount - modB.downloadCount,
 	},
 	mostViewsXDays: {
 		title: `Recent views (${recentViewsDayCount} days)`,
-		compareFunction: (modA: Mod, modB: Mod) => {
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) => {
 			return modB.viewCount - modA.viewCount;
 		},
 	},
 	newest: {
 		title: 'Newest',
-		compareFunction: (modA: Mod, modB: Mod) =>
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) =>
 			new Date(modB.firstReleaseDate).valueOf() - new Date(modA.firstReleaseDate).valueOf(),
 	},
 	oldest: {
 		title: 'Oldest',
-		compareFunction: (modA: Mod, modB: Mod) =>
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) =>
 			new Date(modA.firstReleaseDate).valueOf() - new Date(modB.firstReleaseDate).valueOf(),
 	},
 	updated: {
 		title: 'New updates',
-		compareFunction: (modA: Mod, modB: Mod) =>
+		compareFunction: (modA: ModFromDatabase, modB: ModFromDatabase) =>
 			new Date(modB.latestReleaseDate).valueOf() - new Date(modA.latestReleaseDate).valueOf(),
 	},
 } as const;
@@ -48,10 +50,10 @@ export const isSortOrderId = (key: string): key is SortOrderId => {
 };
 
 export const sortModList = (
-	modList: Mod[],
+	modList: ModFromDatabase[],
 	sortOrder: SortOrderId,
 	count = 0,
-	excludeMods: Mod[] = []
+	excludeMods: ModFromDatabase[] = []
 ) => {
 	const sortedList = modList
 		.sort(sortOrders[sortOrder].compareFunction)

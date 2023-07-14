@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { stringToNumber } from '$lib/helpers/string-to-number';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
 	import TagToggle from '../tag-toggle.svelte';
 

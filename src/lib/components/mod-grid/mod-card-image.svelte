@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import TagToggle from '../tag-toggle.svelte';
 
-	export let mod: ModsRequestItem;
+	export let mod: Mod;
 	export let lazy = false;
 	export let hover = false;
 	export let showDetails = false;

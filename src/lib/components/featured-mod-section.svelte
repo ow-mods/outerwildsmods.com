@@ -1,10 +1,10 @@
 <script lang="ts">
 	import LinkButton from '$lib/components/button/link-button.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
 	import { type SortOrderId, sortOrderParamName } from '$lib/helpers/mod-sorting';
 	import ModCard from './mod-grid/mod-card.svelte';
 
-	export let mods: ModsRequestItem[];
+	export let mods: ModFromDatabase[];
 	export let sortOrder: SortOrderId;
 	export let title: string;
 

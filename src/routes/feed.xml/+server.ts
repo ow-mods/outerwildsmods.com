@@ -1,4 +1,4 @@
-import { getModDatabase, type Mod } from '$lib/helpers/api/get-mod-database';
+import { getModDatabase, type ModFromDatabase } from '$lib/helpers/api/get-mod-database';
 import { thumbnailUrlBase, websiteUrl } from '$lib/helpers/constants';
 import { sortOrders } from '$lib/helpers/mod-sorting';
 
@@ -28,50 +28,55 @@ function escapeXml(unsafe: string) {
 	});
 }
 
-function mergeDateInWeek(date: Date){
-  const dayToSplit: number = 3;
-  var amountToAdd : number = dayToSplit - date.getDay();
-  if(date.getDay() > dayToSplit){
-    amountToAdd += 7;
-  }
-  const newDate: Date = date;
-  newDate.setDate(newDate.getDate() + amountToAdd);
-  return newDate;
+function mergeDateInWeek(date: Date) {
+	const dayToSplit: number = 3;
+	var amountToAdd: number = dayToSplit - date.getDay();
+	if (date.getDay() > dayToSplit) {
+		amountToAdd += 7;
+	}
+	const newDate: Date = date;
+	newDate.setDate(newDate.getDate() + amountToAdd);
+	return newDate;
 }
 
-function splitModsByReleaseDate(mods: Mod[]) {
-	const mapOfMods: Map<string,Mod[]> = new Map();
-  mods.forEach((mod: Mod) => { 
-    const releaseDate: Date = new Date(mod.firstReleaseDate);
-    const key: string = mergeDateInWeek(releaseDate).toDateString();
-    if(!mapOfMods.has(key)){
-  	  mapOfMods.set(key, []);
-    }  
-    mapOfMods.get(key).push(mod);
-    return mapOfMods;
-  });
-  //console.log(mapOfMods);
-  return [... mapOfMods.values()];
+function splitModsByReleaseDate(mods: ModFromDatabase[]) {
+	const mapOfMods: Map<string, ModFromDatabase[]> = new Map();
+	mods.forEach((mod: ModFromDatabase) => {
+		const releaseDate: Date = new Date(mod.firstReleaseDate);
+		const key: string = mergeDateInWeek(releaseDate).toDateString();
+		if (!mapOfMods.has(key)) {
+			mapOfMods.set(key, []);
+		}
+		mapOfMods.get(key).push(mod);
+		return mapOfMods;
+	});
+	//console.log(mapOfMods);
+	return [...mapOfMods.values()];
 }
 
-function renderModRelease(mod: Mod){
-    return `<li>
-      	<a href="${mod.repo}">${escapeXml(mod.name)}</a> by ${escapeXml(mod.authorDisplay ?? mod.author)} (${escapeXml(new Date(mod.firstReleaseDate).toDateString())}) &#10145; ${escapeXml(mod.description)}
-        ${mod.thumbnail.main
-            ? `<br></br>
+function renderModRelease(mod: ModFromDatabase) {
+	return `<li>
+      	<a href="${mod.repo}">${escapeXml(mod.name)}</a> by ${escapeXml(
+		mod.authorDisplay ?? mod.author
+	)} (${escapeXml(new Date(mod.firstReleaseDate).toDateString())}) &#10145; ${escapeXml(
+		mod.description
+	)}
+        ${
+					mod.thumbnail.main
+						? `<br></br>
             <img src="${escapeXml(`${thumbnailUrlBase}/${mod.thumbnail.main}`)}">`
-            : ''
-        }</li>`;
+						: ''
+				}</li>`;
 }
 
-function weeklyModsRelease(mods: Mod[]) {
+function weeklyModsRelease(mods: ModFromDatabase[]) {
 	const releaseWeek: Date = mergeDateInWeek(new Date(mods[0].firstReleaseDate));
-  const date: string = releaseWeek.toDateString();
-  const splitDate: string[] = date.split(' '); 
-  const weekDay: string = splitDate[0];
-  const month: string = splitDate[1];
-  const day: string = splitDate[2];
-  const year: string = splitDate[3];
+	const date: string = releaseWeek.toDateString();
+	const splitDate: string[] = date.split(' ');
+	const weekDay: string = splitDate[0];
+	const month: string = splitDate[1];
+	const day: string = splitDate[2];
+	const year: string = splitDate[3];
 	return `
     <item>
       <title>Week of ${escapeXml(month)} ${escapeXml(day)} ${escapeXml(year)}</title>
@@ -83,16 +88,16 @@ function weeklyModsRelease(mods: Mod[]) {
       <h>Mod Releases</h>
       <ul>
       ${mods
-      .filter((mod)=>!mod.tags.includes('library'))
-      .map(renderModRelease).join('')
-      }
+				.filter((mod) => !mod.tags.includes('library'))
+				.map(renderModRelease)
+				.join('')}
       </ul>
       <h>Library Releases</h>
       <ul>
       ${mods
-      .filter((mod)=>mod.tags.includes('library'))
-      .map(renderModRelease).join('')
-      }
+				.filter((mod) => mod.tags.includes('library'))
+				.map(renderModRelease)
+				.join('')}
       </ul>
       ]]>
       </description>
@@ -100,7 +105,7 @@ function weeklyModsRelease(mods: Mod[]) {
   `;
 }
 
-const xml = (mods: Mod[]) => `<?xml version="1.0" encoding="utf-8"?>
+const xml = (mods: ModFromDatabase[]) => `<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
    <title>Outer Wilds Mods Weekly</title>
@@ -109,9 +114,9 @@ const xml = (mods: Mod[]) => `<?xml version="1.0" encoding="utf-8"?>
    <atom:link href="${escapeXml(websiteUrl)}/feed.xml"
      rel="self" type="application/rss+xml" />
   <image>${escapeXml(websiteUrl)}/images/icon-large.png</image>
-${splitModsByReleaseDate(mods).
-	map((splitMods: Mod[]) =>
-	weeklyModsRelease(splitMods)).join('')}
+${splitModsByReleaseDate(mods)
+	.map((splitMods: ModFromDatabase[]) => weeklyModsRelease(splitMods))
+	.join('')}
 </channel>
 </rss>
 `;

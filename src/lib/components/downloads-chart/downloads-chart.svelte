@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
 	import ChartLine from './chart-line.svelte';
 	import ChartTooltip from './chart-tooltip.svelte';
 	import {
@@ -11,11 +10,12 @@
 		type HistoryPoint,
 	} from '../../helpers/api/history-points';
 	import type { FocusEventHandler, MouseEventHandler } from 'svelte/elements';
+	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
-	export let mod: ModsRequestItem;
-	export let compareWithMod: ModsRequestItem | null;
+	export let mod: ModFromDatabase;
+	export let compareWithMod: ModFromDatabase | null;
 
 	const chartSize = {
 		y: 100,

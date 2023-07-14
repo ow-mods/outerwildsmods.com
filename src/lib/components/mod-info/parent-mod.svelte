@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 

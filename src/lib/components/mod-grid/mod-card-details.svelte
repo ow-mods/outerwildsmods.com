@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
 
-	export let mod: Pick<ModsRequestItem, 'name'>;
+	export let mod: Pick<ModFromDatabase, 'name'>;
 </script>
 
 <div class="p-3">

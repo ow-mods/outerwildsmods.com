@@ -14,6 +14,9 @@ const config = {
 		paths: {
 			relative: false,
 		},
+		alias: {
+			$routes: 'src/routes',
+		},
 	},
 };
 
