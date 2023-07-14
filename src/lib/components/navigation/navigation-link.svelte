@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 
 	export let href: string;
 	export let exact = false;
 	export let label = '';
 	let isActive = false;
 	$: {
-		const pathName: string = $page.url.pathname;
+		const url = $navigating?.to?.url ?? $page.url;
+		const pathName: string = url.pathname;
 		isActive = exact ? pathName === href : pathName.startsWith(href);
 	}
 </script>

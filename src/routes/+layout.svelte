@@ -41,14 +41,11 @@
 <main class="bg-background overflow-hidden highlight" data-sveltekit-preload-data="hover">
 	<!-- Using the pathname as a key forces components to remount on navigating.
 		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
-	{#if showLoading}
-		<PageContainer title="Loading..." description="">
-			<p class="text-center animate-spin">Loading...</p>
-		</PageContainer>
-	{:else}
+
+	<span class:opacity-20={showLoading} class:pointer-events-none={showLoading}>
 		{#key $page.url.pathname}
 			<slot />
 		{/key}
-	{/if}
+	</span>
 </main>
 <Footer />
