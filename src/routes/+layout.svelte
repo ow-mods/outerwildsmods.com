@@ -42,7 +42,11 @@
 	<!-- Using the pathname as a key forces components to remount on navigating.
 		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
 
-	<span class:opacity-20={showLoading} class:pointer-events-none={showLoading}>
+	<span
+		class:opacity-20={showLoading}
+		class:pointer-events-none={showLoading}
+		class="transition-opacity"
+	>
 		{#key $page.url.pathname}
 			<slot />
 		{/key}
