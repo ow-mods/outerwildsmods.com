@@ -5,6 +5,7 @@
 	import { websiteUrl } from '$lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 
 	let startTimestamp = 1688227200000;
 	const endTimestamp = 1689523200000;
@@ -123,7 +124,13 @@
 				>Outer Wilds</a
 			>, following the themes given below.
 		</p>
-		<img src="/images/outer-wilds.webp" alt="Outer Wilds Mod Jam" />
+		<PageSectionImage
+			imageUrl="/images/outer-wilds.webp"
+			title="Outer Wilds Mod Jam"
+			width={679}
+			height={388}
+		/>
+		<!-- <img src="/images/outer-wilds.webp" alt="Outer Wilds Mod Jam" /> -->
 		<p>
 			Different from the <a href="/jam/jan-2023" class="link">last Jam</a> there will be no
 			restrictions this time. Read the

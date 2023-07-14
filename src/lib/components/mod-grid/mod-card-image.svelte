@@ -25,7 +25,7 @@
 		</div>
 	{/if}
 	<img
-		class="object-contain w-full h-full aspect-thumbnail"
+		class="object-contain w-full h-auto"
 		alt={mod.name}
 		src={imageSrc || '/images/placeholder.webp'}
 		loading={imageSrc && lazy ? 'lazy' : 'eager'}

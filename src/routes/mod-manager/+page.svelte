@@ -21,7 +21,12 @@
 >
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
-			<PageSectionImage imageUrl="/images/mod-manager.webp" title="Outer Wilds Mod Manager" />
+			<PageSectionImage
+				imageUrl="/images/mod-manager.webp"
+				title="Outer Wilds Mod Manager"
+				width={761}
+				height={356}
+			/>
 		</div>
 		<div class="my-4">
 			<CtaButton href={installerDownloadUrl} rel="noopener noreferrer">
