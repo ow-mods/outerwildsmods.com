@@ -1,7 +1,7 @@
 import { error, type RequestHandler } from '@sveltejs/kit';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
 import { getImageMap } from '$lib/helpers/api/get-image-map';
-import type { ModsRequestItem } from '../mods.json/+server';
+import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 type Params = {
 	modUniqueName: string;
@@ -10,7 +10,7 @@ type Params = {
 export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	const { modUniqueName } = params;
 
-	const modList = (await (await fetch('/api/mods.json')).json()) as ModsRequestItem[];
+	const modList = (await (await fetch('/api/mods.json')).json()) as Mod[];
 
 	const mod = modList.find(({ uniqueName }) => uniqueName === modUniqueName);
 

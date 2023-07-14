@@ -16,9 +16,9 @@
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
-	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let mods: ModFromDatabase[] = [];
+	export let mods: Mod[] = [];
 	export let tagList: string[] = [];
 	export let defaultSortOrder: SortOrderId = 'hot';
 	export let tagBlockList: string[] = [];
@@ -27,7 +27,7 @@
 
 	let selectedSortOrderId: SortOrderId = defaultSortOrder;
 	let filter = '';
-	let filteredMods: ModFromDatabase[] = mods;
+	let filteredMods: Mod[] = mods;
 	let tagStates: TagStates = {};
 	let selectedTagCount = 0;
 	let showDetails = false;
@@ -35,7 +35,7 @@
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
 	$: {
-		const filterMod = (mod: ModFromDatabase) => {
+		const filterMod = (mod: Mod) => {
 			const isModTagSelected =
 				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 

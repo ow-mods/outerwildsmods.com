@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let mod: Pick<ModFromDatabase, 'name'>;
+	export let mod: Pick<Mod, 'name'>;
 </script>
 
 <div class="p-3">

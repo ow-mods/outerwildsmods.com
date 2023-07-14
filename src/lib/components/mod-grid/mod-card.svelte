@@ -3,7 +3,7 @@
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
 
-	export let mod: ModsRequestItem;
+	export let mod: Mod;
 	export let lazy = false;
 	export let hideDescription = false;
 	export let showDetails = false;

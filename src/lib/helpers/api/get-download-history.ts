@@ -1,16 +1,7 @@
 import { flatten } from 'lodash-es';
-import { getModDatabase } from './get-mod-database';
 import type { HistoryPoint } from './history-points';
-
-const lowerCaseKeys = <TValue>(record: Record<string, TValue>) => {
-	const newRecord: Record<string, TValue> = {};
-
-	for (const [key, value] of Object.entries(record)) {
-		newRecord[key.toLocaleLowerCase()] = value;
-	}
-
-	return newRecord;
-};
+import { getModList } from './get-mod-list';
+import { downloadHistoryUrl } from '../constants';
 
 export type DownloadHistory = {
 	Repo: string;
@@ -23,9 +14,7 @@ const getDownloadHistory = async () => {
 	try {
 		if (downloadHistoryCache) return downloadHistoryCache;
 
-		const result = await fetch(
-			'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json'
-		);
+		const result = await fetch(downloadHistoryUrl);
 
 		if (!result.ok) {
 			throw new Error(`Response not OK: ${result.status}`);
@@ -42,9 +31,8 @@ const getDownloadHistory = async () => {
 };
 
 export const getModDownloadHistory = async (modUniqueName: string) => {
-	const modDatabase = await await getModDatabase();
-	const mods = [...modDatabase.releases, ...modDatabase.alphaReleases];
-	const mod = mods.find((mod) => mod.uniqueName === modUniqueName)
+	const mods = await getModList();
+	const mod = mods.find((mod) => mod.uniqueName === modUniqueName);
 	const repoUrl = mod?.repo.toLocaleLowerCase();
 	// Some repos changed names, and the downloads history json uses the repos for IDs.
 	const repoUrlVariations = mod?.repoVariations || [];
@@ -60,13 +48,14 @@ export const getModDownloadHistory = async (modUniqueName: string) => {
 	}
 
 	return flatten(
-		([repoUrl, ...repoUrlVariations]).map(
+		[repoUrl, ...repoUrlVariations].map(
 			(repo) =>
 				downloadHistory.find(
 					(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
 				)?.Updates
 		)
-	).filter(filterHistoryPoint)
+	)
+		.filter(filterHistoryPoint)
 		.sort((a, b) => b.UnixTimestamp - a.UnixTimestamp);
 };
 

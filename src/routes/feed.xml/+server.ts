@@ -1,10 +1,10 @@
-import { getModDatabase, type ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+import { getModList, type Mod } from '$lib/helpers/api/get-mod-list';
 import { thumbnailUrlBase, websiteUrl } from '$lib/helpers/constants';
 import { sortOrders } from '$lib/helpers/mod-sorting';
 
 export const GET = async () => {
-	const database = await getModDatabase();
-	const mods = database.releases.sort(sortOrders.newest.compareFunction);
+	const modList = await getModList();
+	const mods = modList.sort(sortOrders.newest.compareFunction);
 
 	return new Response(xml(mods));
 };
@@ -29,8 +29,8 @@ function escapeXml(unsafe: string) {
 }
 
 function mergeDateInWeek(date: Date) {
-	const dayToSplit: number = 3;
-	var amountToAdd: number = dayToSplit - date.getDay();
+	const dayToSplit = 3;
+	let amountToAdd: number = dayToSplit - date.getDay();
 	if (date.getDay() > dayToSplit) {
 		amountToAdd += 7;
 	}
@@ -39,22 +39,22 @@ function mergeDateInWeek(date: Date) {
 	return newDate;
 }
 
-function splitModsByReleaseDate(mods: ModFromDatabase[]) {
-	const mapOfMods: Map<string, ModFromDatabase[]> = new Map();
-	mods.forEach((mod: ModFromDatabase) => {
+function splitModsByReleaseDate(mods: Mod[]) {
+	const mapOfMods: Record<string, Mod[]> = {};
+	mods.forEach((mod: Mod) => {
 		const releaseDate: Date = new Date(mod.firstReleaseDate);
 		const key: string = mergeDateInWeek(releaseDate).toDateString();
-		if (!mapOfMods.has(key)) {
-			mapOfMods.set(key, []);
+		if (!mapOfMods[key]) {
+			mapOfMods[key] = [];
 		}
-		mapOfMods.get(key).push(mod);
+		mapOfMods[key].push(mod);
 		return mapOfMods;
 	});
 	//console.log(mapOfMods);
-	return [...mapOfMods.values()];
+	return [...Object.values(mapOfMods)];
 }
 
-function renderModRelease(mod: ModFromDatabase) {
+function renderModRelease(mod: Mod) {
 	return `<li>
       	<a href="${mod.repo}">${escapeXml(mod.name)}</a> by ${escapeXml(
 		mod.authorDisplay ?? mod.author
@@ -69,7 +69,7 @@ function renderModRelease(mod: ModFromDatabase) {
 				}</li>`;
 }
 
-function weeklyModsRelease(mods: ModFromDatabase[]) {
+function weeklyModsRelease(mods: Mod[]) {
 	const releaseWeek: Date = mergeDateInWeek(new Date(mods[0].firstReleaseDate));
 	const date: string = releaseWeek.toDateString();
 	const splitDate: string[] = date.split(' ');
@@ -105,7 +105,7 @@ function weeklyModsRelease(mods: ModFromDatabase[]) {
   `;
 }
 
-const xml = (mods: ModFromDatabase[]) => `<?xml version="1.0" encoding="utf-8"?>
+const xml = (mods: Mod[]) => `<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
    <title>Outer Wilds Mods Weekly</title>
@@ -115,7 +115,7 @@ const xml = (mods: ModFromDatabase[]) => `<?xml version="1.0" encoding="utf-8"?>
      rel="self" type="application/rss+xml" />
   <image>${escapeXml(websiteUrl)}/images/icon-large.png</image>
 ${splitModsByReleaseDate(mods)
-	.map((splitMods: ModFromDatabase[]) => weeklyModsRelease(splitMods))
+	.map((splitMods: Mod[]) => weeklyModsRelease(splitMods))
 	.join('')}
 </channel>
 </rss>

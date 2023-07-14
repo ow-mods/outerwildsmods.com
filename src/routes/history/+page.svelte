@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getModDatabase, type ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+	import { getModList, type Mod } from '$lib/helpers/api/get-mod-list';
 	import { sortBy } from 'lodash-es';
 	import { onMount } from 'svelte';
 
@@ -247,14 +247,14 @@
 		requestAnimationFrame(scroll);
 	};
 
-	let mods: ModFromDatabase[] = [];
+	let mods: Mod[] = [];
 	let scrollWrapper: HTMLDivElement | undefined;
 	let lineElement: HTMLDivElement | undefined;
 	const timelineElements: HTMLDivElement[] = [];
 
 	$: (async () => {
 		if (mods.length > 0) return;
-		mods = sortBy((await getModDatabase()).releases, 'firstReleaseDate');
+		mods = sortBy(await getModList(), 'firstReleaseDate');
 	})();
 
 	$: {

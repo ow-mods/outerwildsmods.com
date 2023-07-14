@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import ModGrid from './mod-grid/mod-grid.svelte';
 
-	export let mod: ModFromDatabase;
-	export let modList: ModFromDatabase[];
+	export let mod: Mod;
+	export let modList: Mod[];
 	export let tagList: string[] = [];
 	let addons = modList.filter((otherMod) => otherMod.parent === mod?.uniqueName);
 </script>

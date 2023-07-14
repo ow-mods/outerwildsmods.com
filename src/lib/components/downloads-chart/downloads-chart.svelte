@@ -10,12 +10,12 @@
 		type HistoryPoint,
 	} from '../../helpers/api/history-points';
 	import type { FocusEventHandler, MouseEventHandler } from 'svelte/elements';
-	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let historyPoints: HistoryPoint[] = [];
 	export let comparePoints: HistoryPoint[] = [];
-	export let mod: ModFromDatabase;
-	export let compareWithMod: ModFromDatabase | null;
+	export let mod: Mod;
+	export let compareWithMod: Mod | null;
 
 	const chartSize = {
 		y: 100,

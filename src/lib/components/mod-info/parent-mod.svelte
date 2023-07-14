@@ -4,9 +4,9 @@
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	export let parentUniqueName: string | undefined;
-	export let modList: ModsRequestItem[];
+	export let modList: Mod[];
 
-	let parentMod: ModsRequestItem | undefined;
+	let parentMod: Mod | undefined;
 
 	$: {
 		parentMod = modList.find((otherMod) => otherMod.uniqueName === parentUniqueName);

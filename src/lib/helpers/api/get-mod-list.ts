@@ -15,7 +15,7 @@ let cachedModList: Mod[] | undefined;
 
 export const getModList = async () => {
 	if (cachedModList && cachedModList.length > 0) {
-		return new Response(JSON.stringify(cachedModList));
+		return cachedModList;
 	}
 
 	const modDatabase = await getModDatabase();
@@ -27,26 +27,28 @@ export const getModList = async () => {
 	const allReleases = [...modDatabase.releases, ...modDatabase.alphaReleases];
 
 	const modsResult = await Promise.allSettled<Mod>(
-		allReleases.map(async (mod) => {
-			const rawContentUrl = getRawContentUrl(mod);
+		allReleases.map(async (modFromDatabase) => {
+			const rawContentUrl = getRawContentUrl(modFromDatabase);
 			let imageUrl: string | null = null;
 			let openGraphImageUrl: string | null = null;
 
-			imageUrl = mod.thumbnail.main ? `${thumbnailUrlBase}/${mod.thumbnail.main}` : null;
-			openGraphImageUrl = mod.thumbnail.openGraph
-				? `${thumbnailUrlBase}/${mod.thumbnail.openGraph}`
+			imageUrl = modFromDatabase.thumbnail.main
+				? `${thumbnailUrlBase}/${modFromDatabase.thumbnail.main}`
+				: null;
+			openGraphImageUrl = modFromDatabase.thumbnail.openGraph
+				? `${thumbnailUrlBase}/${modFromDatabase.thumbnail.openGraph}`
 				: imageUrl;
 
-			const response: Mod = {
-				...mod,
+			const mod: Mod = {
+				...modFromDatabase,
 				imageUrl,
 				openGraphImageUrl,
-				formattedDownloadCount: formatNumber(mod.downloadCount),
+				formattedDownloadCount: formatNumber(modFromDatabase.downloadCount),
 				rawContentUrl,
-				tags: mod.tags.length > 0 ? mod.tags : ['untagged'],
+				tags: modFromDatabase.tags.length > 0 ? modFromDatabase.tags : ['untagged'],
 			};
 
-			return response;
+			return mod;
 		})
 	);
 

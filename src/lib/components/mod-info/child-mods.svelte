@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import LinkButton from '../button/link-button.svelte';
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
@@ -7,8 +7,8 @@
 
 	const maxChildModCount = 5;
 
-	export let mod: ModFromDatabase;
-	export let modList: ModsRequestItem[];
+	export let mod: Mod;
+	export let modList: Mod[];
 
 	let childMods = modList
 		.filter((otherMod) => otherMod.parent === mod.uniqueName)
