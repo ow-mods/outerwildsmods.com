@@ -2,7 +2,7 @@
 	import DiscordLink from '$lib/components/discord-link.svelte';
 	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import { jamTimestampThreshold, websiteUrl } from '$lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
@@ -117,8 +117,8 @@
 	const jamMods = modList.filter(
 		(mod) =>
 			mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp
+			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
+			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
 	);
 </script>
 

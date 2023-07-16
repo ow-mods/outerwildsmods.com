@@ -3,7 +3,7 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import { jamTimestampThreshold, websiteUrl } from '$lib/helpers/constants';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import JamCredits from '../jam-credits.svelte';
@@ -14,9 +14,6 @@
 
 	const startTimestamp = 1673715600000;
 	const endTimestamp = 1674493200000;
-	// One submission had to be reuploaded due to a broken first release,
-	// so we add this threshold to include that mod.
-	const jamEndThreshold = 3600000;
 	let startDateText = '';
 	let endDateText = '';
 	let timeZoneText = '';
@@ -45,7 +42,8 @@
 
 	const jamMods = modList.filter(
 		(mod) =>
-			mod.tags.includes('jam') && Date.parse(mod.firstReleaseDate) <= endTimestamp + jamEndThreshold
+			mod.tags.includes('jam') &&
+			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold
 	);
 	const firstPlaceMods = jamMods.filter((mod) =>
 		['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
