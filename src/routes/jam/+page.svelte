@@ -173,7 +173,6 @@
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
 		</div>
-		<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
