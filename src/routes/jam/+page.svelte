@@ -5,7 +5,12 @@
 	import { websiteUrl } from '$lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import type { PageData } from './$types';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
+	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
+
+	export let data: PageData;
+	const { modList } = data;
 
 	let startTimestamp = 1688227200000;
 	const endTimestamp = 1689523200000;
@@ -108,6 +113,13 @@
 	});
 
 	setUpTimeValues();
+
+	const jamMods = modList.filter(
+		(mod) =>
+			mod.tags.includes('jam') &&
+			Date.parse(mod.firstReleaseDate) <= endTimestamp &&
+			Date.parse(mod.firstReleaseDate) >= startTimestamp
+	);
 </script>
 
 <PageContainer
@@ -139,6 +151,9 @@
 			<a class="link" href="https://outerwildsmods.com/mods/newhorizons">New Horizons</a> to create a
 			content mod for the jam. You could even do both! It’s up to you.
 		</p>
+	</PageSection>
+	<PageSection title="Submissions" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		<p class="text-xl">

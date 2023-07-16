@@ -40,7 +40,9 @@
 
 	setUpTimeValues();
 
-	const jamMods = modList.filter((mod) => mod.tags.includes('jam'));
+	const jamMods = modList.filter(
+		(mod) => mod.tags.includes('jam') && Date.parse(mod.firstReleaseDate) <= endTimestamp
+	);
 	const firstPlaceMods = jamMods.filter((mod) =>
 		['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
 	);
