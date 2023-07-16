@@ -13,7 +13,7 @@
 	const { modList } = data;
 
 	let startTimestamp = 1688227200000;
-	const endTimestamp = 1689523200000;
+	const endTimestamp = 1689526800000;
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
