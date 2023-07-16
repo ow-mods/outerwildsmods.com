@@ -14,6 +14,9 @@
 
 	const startTimestamp = 1673715600000;
 	const endTimestamp = 1674493200000;
+	// One submission had to be reuploaded due to a broken first release,
+	// so we add this threshold to include that mod.
+	const jamEndThreshold = 3600000;
 	let startDateText = '';
 	let endDateText = '';
 	let timeZoneText = '';
@@ -41,7 +44,8 @@
 	setUpTimeValues();
 
 	const jamMods = modList.filter(
-		(mod) => mod.tags.includes('jam') && Date.parse(mod.firstReleaseDate) <= endTimestamp
+		(mod) =>
+			mod.tags.includes('jam') && Date.parse(mod.firstReleaseDate) <= endTimestamp + jamEndThreshold
 	);
 	const firstPlaceMods = jamMods.filter((mod) =>
 		['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
