@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-database';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import LinkButton from '../button/link-button.svelte';
 	import ModCard from '../mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
 	const maxChildModCount = 5;
 
 	export let mod: Mod;
-	export let modList: ModsRequestItem[];
+	export let modList: Mod[];
 
 	let childMods = modList
 		.filter((otherMod) => otherMod.parent === mod.uniqueName)

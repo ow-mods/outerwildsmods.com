@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import { getDateText, type HistoryPoint } from '$lib/helpers/api/history-points';
 
 	const tooltipOffset = {
@@ -7,8 +7,8 @@
 		y: 30,
 	} as const;
 
-	export let mod: ModsRequestItem;
-	export let compareWithMod: ModsRequestItem | null;
+	export let mod: Mod;
+	export let compareWithMod: Mod | null;
 	export let mousePosition = {
 		x: 0,
 		y: 0,

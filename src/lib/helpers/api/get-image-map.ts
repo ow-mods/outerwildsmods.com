@@ -1,6 +1,6 @@
 import { getImageInfo } from './get-image-info';
 import { getAllMarkdownImages } from './get-markdown-images';
-import type { Mod } from './get-mod-database';
+import type { Mod } from './get-mod-list';
 
 export type ImageInfo = {
 	width?: number;

@@ -1,6 +1,6 @@
-import type { Mod } from './get-mod-database';
+import type { ModFromDatabase } from './get-mod-database';
 
-export const getModReadme = async (mod: Mod): Promise<string | null> => {
+export const getModReadme = async (mod: ModFromDatabase): Promise<string | null> => {
 	if (!mod.readme) return null;
 
 	const response = await fetch(mod.readme.downloadUrl);

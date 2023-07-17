@@ -6,12 +6,12 @@
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
-	import type { ModsRequestItem } from '../../../api/mods.json/+server';
+	import type { Mod } from '../../../api/mods.json/+server';
 
 	export let data: PageData;
 	const { modDownloadHistory, mod, modList } = data;
 
-	let compareWithMod: ModsRequestItem | null = null;
+	let compareWithMod: Mod | null = null;
 	let compareWithHistory: HistoryPoint[] = [];
 
 	$: (async () => {

@@ -1,6 +1,6 @@
 import { modDatabaseUrl } from '../constants';
 
-export type Mod = {
+export type ModFromDatabase = {
 	name: string;
 	uniqueName: string;
 	author: string;
@@ -10,15 +10,26 @@ export type Mod = {
 	downloadUrl: string;
 	downloadCount: number;
 	installCount: number;
+	weeklyViewCount: number;
+	weeklyInstallCount: number;
 	viewCount: number;
 	latestReleaseDate: string;
 	firstReleaseDate: string;
+	repoUpdatedAt: string;
+	databaseEntryUpdatedAt: string;
+	latestReleaseDescription?: string;
+	latestPrereleaseDescription?: string;
 	required?: boolean;
 	utility?: boolean;
 	parent?: string;
 	readme?: {
 		htmlUrl: string;
 		downloadUrl: string;
+	};
+	prerelease?: {
+		version: string;
+		downloadUrl: string;
+		date: string;
 	};
 	alpha?: boolean;
 	authorDisplay?: string;
@@ -28,9 +39,10 @@ export type Mod = {
 		main?: string;
 		openGraph?: string;
 	};
+	repoVariations?: string[];
 };
 
-export interface ModWithImage extends Mod {
+export interface ModWithImage extends ModFromDatabase {
 	imageUrl: string | null;
 }
 
@@ -44,11 +56,11 @@ export type ModManager = {
 
 export type ModDatabase = {
 	modManager: ModManager;
-	releases: Mod[];
-	alphaReleases: Mod[];
+	releases: ModFromDatabase[];
+	alphaReleases: ModFromDatabase[];
 };
 
-const sortReleases = (releaseA: Mod, releaseB: Mod) => {
+const sortReleases = (releaseA: ModFromDatabase, releaseB: ModFromDatabase) => {
 	return releaseB.downloadCount - releaseA.downloadCount;
 };
 

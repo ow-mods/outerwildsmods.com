@@ -2,8 +2,8 @@ import sharp from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import type { ImageInfo } from './get-image-map';
-import type { Mod } from './get-mod-database';
 import { getRawContentUrl } from '../get-raw-content-url';
+import type { Mod } from './get-mod-list';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 

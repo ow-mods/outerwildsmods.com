@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
 
-	export let mod: ModsRequestItem;
+	export let mod: Mod;
 	export let lazy = false;
 	export let hideDescription = false;
 	export let showDetails = false;

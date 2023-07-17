@@ -1,8 +1,8 @@
 <script lang="ts">
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from '../api/mods.json/+server';
+	import type { Mod } from '../api/mods.json/+server';
 
-	export let mods: ModsRequestItem[];
+	export let mods: Mod[];
 	export let title: string;
 	export let subtitle: string;
 </script>

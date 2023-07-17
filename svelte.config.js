@@ -11,6 +11,12 @@ const config = {
 		prerender: {
 			entries: ['*'],
 		},
+		paths: {
+			relative: false,
+		},
+		alias: {
+			$routes: 'src/routes',
+		},
 	},
 };
 

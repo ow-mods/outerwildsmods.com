@@ -6,7 +6,6 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { ModsRequestItem } from '../../../routes/api/mods.json/+server';
 	import {
 		type SortOrderId,
 		sortModList,
@@ -17,8 +16,9 @@
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let mods: ModsRequestItem[] = [];
+	export let mods: Mod[] = [];
 	export let tagList: string[] = [];
 	export let defaultSortOrder: SortOrderId = 'hot';
 	export let tagBlockList: string[] = [];
@@ -27,7 +27,7 @@
 
 	let selectedSortOrderId: SortOrderId = defaultSortOrder;
 	let filter = '';
-	let filteredMods: ModsRequestItem[] = mods;
+	let filteredMods: Mod[] = mods;
 	let tagStates: TagStates = {};
 	let selectedTagCount = 0;
 	let showDetails = false;
@@ -35,7 +35,7 @@
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
 	$: {
-		const filterMod = (mod: ModsRequestItem) => {
+		const filterMod = (mod: Mod) => {
 			const isModTagSelected =
 				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
 

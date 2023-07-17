@@ -24,7 +24,12 @@
 >
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
-			<PageSectionImage imageUrl="/images/mod-manager.webp" title="Outer Wilds Mod Manager" />
+			<PageSectionImage
+				imageUrl="/images/mod-manager.webp"
+				title="Outer Wilds Mod Manager"
+				width={761}
+				height={356}
+			/>
 		</div>
 		<div class="my-4">
 			<CtaButton href={data.installerDownloadUrl} isExternal>
@@ -119,6 +124,16 @@
 			You can uninstall the Mod Manager by searching for "Add or remove programs" in the start menu
 			(or in the control panel), and then finding Outer Wilds Mod Manager in the list.
 		</p>
+		<p class="mt-4">To revert the game to its original state, verify the game files integrity:</p>
+		<ul>
+			<li>
+				<b>Steam</b>: Library &gt; Right-click Outer Wilds &gt; Properties &gt; Local Files &gt;
+				Verify integrity of game files.
+			</li>
+			<li>
+				<b>Epic</b>: Library &gt; Click three dots under Outer Wilds &gt; Verify.
+			</li>
+		</ul>
 	</PageSection>
 	<PageSection title="I Hate GUIs!" id="cli" isNarrow>
 		<p>That's not very nice, but a CLI version of the manager is available.</p>

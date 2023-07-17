@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { stringToNumber } from '$lib/helpers/string-to-number';
-	import type { ModsRequestItem } from 'src/routes/api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
 
-	export let mod: ModsRequestItem;
+	export let mod: Mod;
 
 	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅'];
 	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥'];
