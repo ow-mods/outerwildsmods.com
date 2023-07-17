@@ -19,8 +19,8 @@
 	title="Outer Wilds Mod Manager - Download Windows/Linux app"
 	description="Download, install, and manage Outer Wilds mods using the Outer Wilds Mod Manager for Windows and Linux."
 	imageUrl="{websiteUrl}/images/mod-manager.webp"
-	imageWidth={777}
-	imageHeight={563}
+	imageWidth={761}
+	imageHeight={356}
 >
 	<PageSection title="Outer Wilds Mod Manager" id="mod-manager" isNarrow>
 		<div>
