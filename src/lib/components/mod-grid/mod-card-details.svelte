@@ -13,7 +13,7 @@
 </script>
 
 <div class="flex flex-1">
-	<div class="p-3 flex-1">
+	<a href={`/mods/${mod.slug}/`} class="p-3 flex-1 w-0">
 		{#if clickedInstall}
 			<div class="text-xs text-light flex flex-col gap-2">
 				<div>Installing {mod.name}...</div>
@@ -30,16 +30,15 @@
 				<slot />
 			</div>
 		{/if}
-	</div>
-	<button
-		disabled={!ready}
+	</a>
+	<a
 		title="Install {mod.name}"
+		href="owmods://install-mod/{mod.uniqueName}"
 		class="p-2 flex items-center text-light hover:text-white hover:bg-dark bg-darker"
-		on:click|preventDefault={() => {
+		on:click={() => {
 			clickedInstall = true;
-			window.location.href = `owmods://install-mod/${mod.uniqueName}`;
 		}}
 	>
 		🠋
-	</button>
+	</a>
 </div>
