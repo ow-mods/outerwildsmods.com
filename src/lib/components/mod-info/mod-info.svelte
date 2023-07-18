@@ -29,9 +29,10 @@
 
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
+	const uniqueNameParts = mod.uniqueName.split('.');
 
-	const selectElementText = (node: Node) => {
-		window.getSelection()?.selectAllChildren(node);
+	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
+		window.getSelection()?.selectAllChildren(currentTarget);
 	};
 </script>
 
@@ -97,15 +98,14 @@
 			</div>
 			<div>
 				<code
-					on:click={(event) => {
-						selectElementText(event.currentTarget);
-					}}
-					on:keypress={(event) => {
-						selectElementText(event.currentTarget);
-					}}
-					class="text-xs text-light opacity-60 bg-darker p-1 rounded leading-none cursor-pointer"
+					on:click={selectElementText}
+					on:keypress={selectElementText}
+					title="Mod unique name"
+					class="text-xs text-light opacity-60 bg-darker p-1 rounded leading-none cursor-pointer break-words block text-center"
 				>
-					{mod.uniqueName}
+					{#each uniqueNameParts as uniqueNamePart, index}
+						<div>{uniqueNamePart}{index < uniqueNameParts.length - 1 ? '.' : ''}</div>
+					{/each}
 				</code>
 			</div>
 		</div>
