@@ -37,47 +37,49 @@
 				Download the Outer Wilds Mod Manager for Windows
 			</CtaButton>
 		</div>
-		<div>
+		<div class="bg-dark rounded">
 			<details>
-				<summary>For Linux</summary>
-				<div class="my-2">
-					<CtaButton href={data.debUrl} isExternal>
-						<DebianIcon />
-						Download .deb package for Debian
-					</CtaButton>
+				<summary class="py-2 px-4 rounded link bg-darker justify-center h-full">For Linux</summary>
+				<div class="p-4 flex flex-col gap-2">
+					<div>
+						<CtaButton href={data.debUrl} isExternal>
+							<DebianIcon />
+							Download .deb package for Debian
+						</CtaButton>
+					</div>
+					<div>
+						<CtaButton href={data.aurUrl} isExternal>
+							<ArchIcon />
+							AUR Package for Arch Linux
+						</CtaButton>
+					</div>
+					<div>
+						<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" isExternal>
+							<FlatpakIcon />
+							Flatpak for Linux (Steam Deck)
+						</CtaButton>
+					</div>
+					<div>
+						<CtaButton href="https://github.com/loco-choco/ow-mod-man-flake" isExternal>
+							<NixIcon />
+							NixOS Package
+						</CtaButton>
+					</div>
+					<div>
+						<CtaButton href={data.appImageUrl} isExternal>
+							<AppImageIcon />
+							Download AppImage For Linux
+						</CtaButton>
+					</div>
+					<span>
+						Note: Linux installs require that <a
+							href="https://www.mono-project.com/"
+							class="link"
+							target="_blank"
+							rel="noopener noreferrer">Mono 6.12.0</a
+						> is installed and available on the PATH
+					</span>
 				</div>
-				<div class="my-2">
-					<CtaButton href={data.aurUrl} isExternal>
-						<ArchIcon />
-						AUR Package for Arch Linux
-					</CtaButton>
-				</div>
-				<div class="my-2">
-					<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" isExternal>
-						<FlatpakIcon />
-						Flatpak for Linux (Steam Deck)
-					</CtaButton>
-				</div>
-				<div class="my-2">
-					<CtaButton href="https://github.com/loco-choco/ow-mod-man-flake" isExternal>
-						<NixIcon />
-						NixOS Package
-					</CtaButton>
-				</div>
-				<div class="my-2">
-					<CtaButton href={data.appImageUrl} isExternal>
-						<AppImageIcon />
-						Download AppImage For Linux
-					</CtaButton>
-				</div>
-				<p class="mt-1">
-					* Linux installs require that <a
-						href="https://www.mono-project.com/"
-						class="link"
-						target="_blank"
-						rel="noopener noreferrer">Mono 6.12.0</a
-					> is installed and available on the PATH
-				</p>
 			</details>
 		</div>
 		<p class="mt-4">For all your modding needs! With access to features such as:</p>
