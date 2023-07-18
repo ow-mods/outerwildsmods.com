@@ -85,9 +85,10 @@
 			<li>Downloading mods;</li>
 			<li>Updating mods;</li>
 			<li>Enabling / disabling mods;</li>
-			<li>Looking at all the great mods you have in several different themes;</li>
+			<li>Looking at all the great mods you have;</li>
 			<li>Installing mods straight from the website;</li>
 			<li>Installing mods from URLs and ZIP files;</li>
+			<li>Importing and Exporting your list of enabled mods for easy sharing / setup;</li>
 			<li>Running the game with mods enabled;</li>
 			<li>
 				Patching the game to run modded on Linux through <a
@@ -108,10 +109,10 @@
 			<li>Download the Outer Wilds Mod Manager installer;</li>
 			<li>Run the downloaded .msi (you might need to ignore some Chrome / Windows warnings);</li>
 			<li>Shortcuts are added to desktop and start menu, use them to run the manager;</li>
-			<li>Run the manager</li>
+			<li>Run the manager;</li>
 			<li>Install OWML;</li>
 			<li>Head to the "Get Mods" tab to install any mods you want;</li>
-			<li>Press the top center play button to launch the game;</li>
+			<li>Press the top right play button to launch the game;</li>
 			<li>You won't believe what happens next.</li>
 		</ul>
 	</PageSection>
