@@ -17,6 +17,7 @@
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import CheckboxInput from '../checkbox-input.svelte';
 
 	export let mods: Mod[] = [];
 	export let tagList: string[] = [];
@@ -157,14 +158,7 @@
 			{/if}
 		</div>
 		<div>
-			<label class="input px-2 cursor-pointer flex flex-row items-center gap-1">
-				<input
-					type="checkbox"
-					class="accent-accent bg-accent text-white"
-					bind:checked={showDetails}
-				/>
-				Show details
-			</label>
+			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
 		</div>
 		<div>
 			{filteredMods.length} results

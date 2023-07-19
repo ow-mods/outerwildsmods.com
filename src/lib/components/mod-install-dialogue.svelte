@@ -4,17 +4,19 @@
 	import LinkButton from './button/link-button.svelte';
 	import { managerInstallProtocol } from '$lib/helpers/constants';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import CheckboxInput from './checkbox-input.svelte';
 
 	export let modList: Mod[];
 
 	let modBeingInstalled: Mod | undefined = undefined;
+	let dontShowAgain = false;
 
 	const closeDialogue = () => {
 		modBeingInstalled = undefined;
 	};
 
 	const onAnyClick = async (event: MouseEvent) => {
-		if (!(event?.target instanceof HTMLAnchorElement)) return;
+		if (dontShowAgain || !(event?.target instanceof HTMLAnchorElement)) return;
 
 		if (event.target.href.startsWith(managerInstallProtocol)) {
 			const modUniqueName = event.target.href.replace(`${managerInstallProtocol}/`, '');
@@ -46,6 +48,11 @@
 			<div>
 				If nothing happens, <a class="link" href="/mod-manager">download the Manager</a> and open it
 				at least once, then try again.
+			</div>
+			<div class="w-fit">
+				<CheckboxInput bind:checked={dontShowAgain}></CheckboxInput>
+					Don't show again during this session
+				</CheckboxInput>
 			</div>
 			<div>
 				<LinkButton on:click={closeDialogue}>Fine</LinkButton>

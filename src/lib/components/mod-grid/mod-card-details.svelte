@@ -6,6 +6,7 @@
 	export let mod: Mod;
 
 	let ready = false;
+	let clickedInstall = false;
 
 	onMount(() => {
 		ready = true;
@@ -24,7 +25,12 @@
 	<a
 		title="Install {mod.name}"
 		href="{managerInstallProtocol}/{mod.uniqueName}"
-		class="p-2 flex items-center text-light hover:text-white hover:bg-dark bg-darker"
+		class="p-2 flex items-center hover:text-white hover:bg-dark bg-darker"
+		class:text-light={!clickedInstall}
+		class:text-accent={clickedInstall}
+		on:click={() => {
+			clickedInstall = true;
+		}}
 	>
 		🠋
 	</a>
