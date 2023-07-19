@@ -50,7 +50,7 @@
 				at least once, then try again.
 			</div>
 			<div class="w-fit">
-				<CheckboxInput bind:checked={dontShowAgain}></CheckboxInput>
+				<CheckboxInput bind:checked={dontShowAgain}>
 					Don't show again during this session
 				</CheckboxInput>
 			</div>
