@@ -2,6 +2,7 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
+	import { managerInstallProtocol } from '$lib/helpers/constants';
 
 	export let mod: Mod;
 
@@ -11,7 +12,6 @@
 	const moreIcons = ['👨‍👨‍👦‍👦'];
 
 	let iconList = singleIcons;
-	let clickedInstall = false;
 
 	if (mod.authorDisplay) {
 		const authorCount = mod.authorDisplay.split(/&| and |,/).length;
@@ -57,23 +57,7 @@
 					</div>
 				</CtaButton>
 			{:else}
-				<CtaButton
-					href="owmods://install-mod/{mod.uniqueName}"
-					on:click={() => {
-						clickedInstall = true;
-					}}
-				>
-					Install Mod
-				</CtaButton>
-			{/if}
-			{#if clickedInstall}
-				<div class="text-xs bg-background rounded p-2 flex flex-col gap-2">
-					<div>Installing...</div>
-					<div>
-						If nothing happens, <a class="link" href="/mod-manager">download the Manager</a> and open
-						it at least once, then try again.
-					</div>
-				</div>
+				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}">Install Mod</CtaButton>
 			{/if}
 		</div>
 		<div class="text-sm flex flex-col gap-2">
