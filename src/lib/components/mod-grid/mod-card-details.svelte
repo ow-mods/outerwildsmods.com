@@ -25,9 +25,8 @@
 	<a
 		title="Install {mod.name}"
 		href="{managerInstallProtocol}/{mod.uniqueName}"
-		class="p-2 flex items-center hover:text-white hover:bg-dark bg-darker"
-		class:text-light={!clickedInstall}
-		class:text-accent={clickedInstall}
+		class="link p-2 flex items-center bg-darker"
+		class:text-light={clickedInstall}
 		on:click={() => {
 			clickedInstall = true;
 		}}
