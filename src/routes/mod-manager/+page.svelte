@@ -72,7 +72,7 @@
 						</CtaButton>
 					</div>
 					<span>
-						Note: Linux installs require that <a
+						Note: Linux installs that aren't done through Flatpak or the AUR require that <a
 							href="https://www.mono-project.com/"
 							class="link"
 							target="_blank"
