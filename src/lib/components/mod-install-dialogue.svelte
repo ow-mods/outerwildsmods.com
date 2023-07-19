@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import {} from 'svelte/store';
 	import LinkButton from './button/link-button.svelte';
 	import { managerInstallProtocol } from '$lib/helpers/constants';
@@ -29,8 +30,20 @@
 		}
 	};
 
+	const onAnyKeyUp = (event: KeyboardEvent) => {
+		if (event.key !== 'Escape') return;
+		closeDialogue();
+	};
+
 	onMount(() => {
 		window.addEventListener('click', onAnyClick);
+		window.addEventListener('keyup', onAnyKeyUp);
+	});
+
+	onDestroy(() => {
+		if (!browser) return;
+		window.removeEventListener('click', onAnyClick);
+		window.removeEventListener('keyup', onAnyKeyUp);
 	});
 </script>
 
