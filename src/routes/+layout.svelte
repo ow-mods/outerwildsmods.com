@@ -10,7 +10,7 @@
 	import { goto } from '$app/navigation';
 	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 	import PageContainer from '$lib/components/page-container.svelte';
-	import ModInstallDialogue from '$lib/components/mod-install-dialogue.svelte';
+	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
 	import type { PageData } from './$types';
 
 	onMount(() => {
@@ -24,7 +24,7 @@
 	export let data: PageData;
 </script>
 
-<ModInstallDialogue modList={data.modList} />
+<ModInstallDialog modList={data.modList} />
 <Header />
 <main class="bg-background overflow-hidden highlight" data-sveltekit-preload-data="hover">
 	<!-- Using the pathname as a key forces components to remount on navigating.
