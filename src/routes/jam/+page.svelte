@@ -200,7 +200,7 @@
 			🙋 You can only contribute to one submission. You can&#39;t submit multiple mods, or submit
 			one mod solo and one in a team, or participate in multiple teams.
 		</p>
-		<p>👮 All submissions must follow the Mobius Digital Fan Content Policy .</p>
+		<p>👮 All submissions must follow the <a class="link" href="https://www.mobiusdigitalgames.com/fan-content-policy.html">Mobius Digital Fan Content Policy</a>.</p>
 		<p>
 			🛠️ You can use any assets you have a license to use. Besides using assets already available in
 			the game, you&#39;re allowed to use assets you find (models, textures, sounds, etc), but you
