@@ -2,6 +2,7 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import { managerInstallProtocol } from '$lib/helpers/constants';
 	import { onMount } from 'svelte';
+	import DownloadIcon from '../icons/download-icon.svelte';
 
 	export let mod: Mod;
 
@@ -22,15 +23,17 @@
 			<slot />
 		</div>
 	</a>
-	<a
-		title="Install {mod.name}"
-		href="{managerInstallProtocol}/{mod.uniqueName}"
-		class="link p-2 flex items-center bg-darker"
-		class:text-light={clickedInstall}
-		on:click={() => {
-			clickedInstall = true;
-		}}
-	>
-		🠋
-	</a>
+	{#if !mod.alpha}
+		<a
+			title="Install {mod.name}"
+			href="{managerInstallProtocol}/{mod.uniqueName}"
+			class="link p-2 flex items-center bg-darker fill-accent"
+			class:fill-light={clickedInstall}
+			on:click={() => {
+				clickedInstall = true;
+			}}
+		>
+			<DownloadIcon />
+		</a>
+	{/if}
 </div>
