@@ -12,8 +12,7 @@
 	let touch = false;
 </script>
 
-<a
-	href={`/mods/${mod.slug}/`}
+<div
 	on:pointerenter={() => (pointer = true)}
 	on:pointerleave={() => (pointer = false)}
 	on:touchstart={() => (touch = true)}
@@ -24,4 +23,4 @@
 	<ModCardDetails {mod}>
 		{hideDescription ? '' : mod.description}
 	</ModCardDetails>
-</a>
+</div>

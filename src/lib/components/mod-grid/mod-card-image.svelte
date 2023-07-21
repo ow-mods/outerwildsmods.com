@@ -15,7 +15,7 @@
 	}
 </script>
 
-<div class="relative bg-black aspect-thumbnail">
+<a href={`/mods/${mod.slug}/`} class="relative bg-black aspect-thumbnail">
 	{#if !imageSrc}
 		<div
 			class="absolute flex justify-center items-center h-full w-full opacity-20 text-white text-lg xs:text-2xl py-3 text-center z-10 overflow-hidden"
@@ -46,4 +46,4 @@
 			{/each}
 		</div>
 	{/if}
-</div>
+</a>

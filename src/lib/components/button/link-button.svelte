@@ -3,9 +3,12 @@
 	export let rel: string | undefined = undefined;
 	export let isExternal = false;
 	export let isSmall = false;
+
+	const element = href ? 'a' : 'button';
 </script>
 
-<a
+<svelte:element
+	this={element}
 	class="button link hover:bg-background bg-dark justify-center h-full"
 	class:py-1={isSmall}
 	class:text-sm={isSmall}
@@ -15,4 +18,4 @@
 	on:click
 >
 	<slot />
-</a>
+</svelte:element>
