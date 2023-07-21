@@ -12,6 +12,7 @@
 	const moreIcons = ['👨‍👨‍👦‍👦'];
 
 	let iconList = singleIcons;
+	let clickedInstall = false;
 
 	if (mod.authorDisplay) {
 		const authorCount = mod.authorDisplay.split(/&| and |,/).length;
