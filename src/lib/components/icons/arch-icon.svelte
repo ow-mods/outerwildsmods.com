@@ -1,4 +1,4 @@
-<svg class="fill-white mr-2" width="25" height="22" version="1.0">
+<svg viewBox="2 0 23 22" version="1.0">
 	<g id="layer1" transform="translate(-309.51781,-275.60123)">
 		<g id="g2424" transform="matrix(1.3473684,0,0,1.3473684,-632.88236,-513.34366)">
 			<g id="g2210" transform="matrix(0.125,0,0,0.125,615.71887,519.21715)">

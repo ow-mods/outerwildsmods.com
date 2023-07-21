@@ -1,4 +1,4 @@
-<svg style="margin-right: 6px;" id="svg8" version="1.1" viewBox="0 0 22 22" height="22" width="22">
+<svg id="svg8" version="1.1" viewBox="0 0 22 22">
 	<g id="layer1" transform="translate(-1,-0.22425058)">
 		<g
 			id="g738"

@@ -32,8 +32,7 @@
 			/>
 		</div>
 		<div class="my-4">
-			<CtaButton href={data.installerDownloadUrl} isExternal>
-				<WindowsIcon />
+			<CtaButton href={data.installerDownloadUrl} isExternal icon={WindowsIcon}>
 				Download the Outer Wilds Mod Manager for Windows
 			</CtaButton>
 		</div>
@@ -42,32 +41,35 @@
 				<summary class="py-2 px-4 rounded link bg-darker justify-center h-full">For Linux</summary>
 				<div class="p-4 flex flex-col gap-2">
 					<div>
-						<CtaButton href={data.debUrl} isExternal>
-							<DebianIcon />
+						<CtaButton href={data.debUrl} isExternal icon={DebianIcon}>
 							Download .deb package for Debian
 						</CtaButton>
 					</div>
 					<div>
-						<CtaButton href={data.aurUrl} isExternal>
-							<ArchIcon />
+						<CtaButton href={data.aurUrl} isExternal icon={ArchIcon}>
 							AUR Package for Arch Linux
 						</CtaButton>
 					</div>
 					<div>
-						<CtaButton href="https://flathub.org/apps/com.outerwildsmods.owmods_gui" isExternal>
-							<FlatpakIcon />
+						<CtaButton
+							href="https://flathub.org/apps/com.outerwildsmods.owmods_gui"
+							isExternal
+							icon={FlatpakIcon}
+						>
 							Flatpak for Linux (Steam Deck)
 						</CtaButton>
 					</div>
 					<div>
-						<CtaButton href="https://github.com/loco-choco/ow-mod-man-flake" isExternal>
-							<NixIcon />
+						<CtaButton
+							href="https://github.com/loco-choco/ow-mod-man-flake"
+							isExternal
+							icon={NixIcon}
+						>
 							NixOS Package
 						</CtaButton>
 					</div>
 					<div>
-						<CtaButton href={data.appImageUrl} isExternal>
-							<AppImageIcon />
+						<CtaButton href={data.appImageUrl} isExternal icon={AppImageIcon}>
 							Download AppImage For Linux
 						</CtaButton>
 					</div>

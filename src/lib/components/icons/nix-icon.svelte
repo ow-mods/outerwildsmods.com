@@ -1,11 +1,4 @@
-<svg
-	class="fill-white mr-2"
-	width="22"
-	height="22"
-	viewBox="0 0 20.624999 20.625002"
-	id="svg2"
-	version="1.1"
->
+<svg viewBox="0 0 20.624999 20.625002" id="svg2" version="1.1">
 	<g
 		id="layer3"
 		style="display:inline;opacity:1"

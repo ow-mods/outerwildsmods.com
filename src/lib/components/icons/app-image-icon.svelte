@@ -1,10 +1,4 @@
-<svg
-	class="fill-white mr-2"
-	xmlns="http://www.w3.org/2000/svg"
-	height="22"
-	fill="currentColor"
-	viewBox="0 0 16 16"
->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
 	<path
 		d="M5.5 9.438V8.5h1v.938a1 1 0 0 0 .03.243l.4 1.598-.93.62-.93-.62.4-1.598a1 1 0 0 0 .03-.243z"
 	/>

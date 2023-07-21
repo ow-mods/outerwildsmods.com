@@ -1,4 +1,4 @@
-<svg class="fill-white mr-2" viewBox="0 0 88 88" height="22">
+<svg viewBox="0 0 88 88">
 	<g id="Layer_1">
 		<g>
 			<path

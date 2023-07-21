@@ -59,11 +59,8 @@
 					</div>
 				</CtaButton>
 			{:else}
-				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}">
-					<div class="flex gap-2">
-						<DownloadIcon />
-						Install Mod
-					</div>
+				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}" icon={DownloadIcon}>
+					<div class="flex gap-2">Install Mod</div>
 				</CtaButton>
 			{/if}
 		</div>
