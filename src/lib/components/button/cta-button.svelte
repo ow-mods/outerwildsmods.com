@@ -15,7 +15,7 @@
 	on:click
 >
 	{#if icon}
-		<div class="bg-black bg-opacity-20 p-3 flex justify-center items-center w-12 h-12">
+		<div class="bg-black bg-opacity-20 p-3 flex justify-center items-center w-12 min-h-12">
 			<svelte:component this={icon} />
 		</div>
 	{/if}
