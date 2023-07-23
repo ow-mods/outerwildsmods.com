@@ -153,6 +153,14 @@
 		</p>
 	</PageSection>
 	<PageSection title="Legacy Manager" id="legacy-manager" isNarrow>
+		<div>
+			<PageSectionImage
+				imageUrl="/images/mod-manager-legacy.webp"
+				title="Legacy Outer Wilds Mod Manager"
+				width={761}
+				height={604}
+			/>
+		</div>
 		<p>
 			The legacy Outer Wilds Mod Manager is <a
 				href="https://github.com/ow-mods/ow-mod-manager/releases/latest/download/OuterWildsModManager-Installer.exe"
