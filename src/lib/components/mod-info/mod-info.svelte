@@ -32,9 +32,6 @@
 	const modIcon = iconList[iconIndex];
 	const uniqueNameParts = mod.uniqueName.split('.');
 
-	// Stub to get dynamic routes to render
-	fetch(`/api/${mod.uniqueName}/badge.json`);
-
 	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
 		window.getSelection()?.selectAllChildren(currentTarget);
 	};
@@ -84,10 +81,13 @@
 					🗃️ Download zip ({mod.version})
 				</a>
 			</div>
-			<div>
-				<pre>[![Install Badge](#TODO)](owmods://install-mod/{mod.uniqueName})</pre>
-				<a class="link" href="/api/{mod.uniqueName}/badge.json">Raw Install Badge</a>
-			</div>
+			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
+			{#if !mod.alpha}
+				<div>
+					<pre>[![Install Badge](#TODO)](owmods://install-mod/{mod.uniqueName})</pre>
+					<a class="link" href="/api/{mod.uniqueName}/badge.json">Raw Install Badge</a>
+				</div>
+			{/if}
 			<div>
 				<code
 					on:click={selectElementText}
