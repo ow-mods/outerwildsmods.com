@@ -27,13 +27,13 @@
 <ModInstallDialog modList={data.modList} />
 <Header />
 <main class="bg-background overflow-hidden highlight" data-sveltekit-preload-data="hover">
-	<!-- Using the pathname as a key forces components to remount on navigating.
-		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
 	<span
 		class:opacity-20={$navigating}
 		class:pointer-events-none={$navigating}
 		class="transition-opacity"
 	>
+		<!-- Using the pathname as a key forces components to remount on navigating.
+		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
 		{#key $page.url.pathname}
 			<slot />
 		{/key}
