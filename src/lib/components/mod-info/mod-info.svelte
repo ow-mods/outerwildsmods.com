@@ -32,6 +32,9 @@
 	const modIcon = iconList[iconIndex];
 	const uniqueNameParts = mod.uniqueName.split('.');
 
+	// Stub to get dynamic routes to render
+	fetch(`/api/${mod.uniqueName}/badge.json`);
+
 	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
 		window.getSelection()?.selectAllChildren(currentTarget);
 	};
@@ -82,7 +85,8 @@
 				</a>
 			</div>
 			<div>
-				<a class="link" href="/api/{mod.uniqueName}/badge.json"> Get Install Badge </a>
+				<pre>[![Install Badge](#TODO)](owmods://install-mod/{mod.uniqueName})</pre>
+				<a class="link" href="/api/{mod.uniqueName}/badge.json">Raw Install Badge</a>
 			</div>
 			<div>
 				<code
