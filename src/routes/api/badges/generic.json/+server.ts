@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { BASE_BADGE, type ShieldsEndpointBadge } from '../shields';
+import { BASE_BADGE, type ShieldsEndpointBadge } from '../../../../lib/helpers/shields';
 
 export const GET: RequestHandler = async () => {
     const badgeInfo: Partial<ShieldsEndpointBadge> = {

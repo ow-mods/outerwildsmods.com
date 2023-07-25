@@ -1,6 +1,6 @@
 import { error, type RequestHandler } from '@sveltejs/kit';
 import type { Mod } from '$lib/helpers/api/get-mod-list';
-import { BASE_BADGE, type ShieldsEndpointBadge } from '../../badges/shields';
+import { BASE_BADGE, type ShieldsEndpointBadge } from '../../../../lib/helpers/shields';
 
 type Params = {
     modUniqueName: string;
