@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
         throw error(404, `Could not find mod ${params.mod}.`);
     }
 
-    // Unused fetch to get the badge endpoint to prerender because sveltekit can't comprehend basic SSG :)
+    // Intentionally unused.
     await fetch(`/api/badges/${mod.uniqueName}.json`);
 
     const result = await fetch(`/api/${mod.uniqueName}.json`);
