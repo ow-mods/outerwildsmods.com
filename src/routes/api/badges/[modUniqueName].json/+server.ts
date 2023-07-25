@@ -1,4 +1,4 @@
-import { error, type RequestHandler } from '@sveltejs/kit';
+import { error, json, type RequestHandler } from '@sveltejs/kit';
 import type { Mod } from '$lib/helpers/api/get-mod-list';
 import { BASE_BADGE, type ShieldsEndpointBadge } from '$lib/helpers/api/shields';
 
@@ -23,7 +23,5 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
         message: `${mod.installCount}`,
     };
 
-    return new Response(
-        JSON.stringify(badgeInfo)
-    );
+    return json(badgeInfo);
 };

@@ -1,4 +1,4 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 import { BASE_BADGE, type ShieldsEndpointBadge } from '$lib/helpers/api/shields';
 
 export const GET: RequestHandler = async () => {
@@ -8,7 +8,5 @@ export const GET: RequestHandler = async () => {
         message: `Mod Manager`,
     };
 
-    return new Response(
-        JSON.stringify(badgeInfo)
-    );
+    return json(badgeInfo);
 };
