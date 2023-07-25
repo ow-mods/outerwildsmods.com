@@ -1,5 +1,5 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
-import type { Mod } from '$lib/helpers/api/get-mod-list';
+import { getModList, type Mod } from '$lib/helpers/api/get-mod-list';
 import { BASE_BADGE, type ShieldsEndpointBadge } from '$lib/helpers/api/shields';
 
 type Params = {
@@ -7,7 +7,7 @@ type Params = {
 };
 
 export async function entries() {
-	const modList = (await (await fetch('/api/mods.json')).json()) as Mod[];
+	const modList = await getModList();
 
 	return modList.map(({ uniqueName }) => ({ modUniqueName: uniqueName }));
 }
