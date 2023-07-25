@@ -7,13 +7,13 @@ settings:
 devDependencies:
   '@sveltejs/adapter-auto':
     specifier: ^2.0.0
-    version: 2.0.0(@sveltejs/kit@1.22.3)
+    version: 2.0.0(@sveltejs/kit@1.16.0)
   '@sveltejs/adapter-static':
-    specifier: ^2.0.2
-    version: 2.0.2(@sveltejs/kit@1.22.3)
+    specifier: ^2.0.1
+    version: 2.0.1(@sveltejs/kit@1.16.0)
   '@sveltejs/kit':
-    specifier: ^1.22.3
-    version: 1.22.3(svelte@3.56.0)(vite@4.1.4)
+    specifier: ^1.16.0
+    version: 1.16.0(svelte@3.56.0)(vite@4.1.4)
   '@types/commonmark':
     specifier: ^0.27.6
     version: 0.27.6
@@ -389,44 +389,45 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
-  /@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.22.3):
+  /@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.16.0):
     resolution: {integrity: sha512-b+gkHFZgD771kgV3aO4avHFd7y1zhmMYy9i6xOK7m/rwmwaRO8gnF5zBc0Rgca80B2PMU1bKNxyBTHA14OzUAQ==}
     peerDependencies:
       '@sveltejs/kit': ^1.0.0
     dependencies:
-      '@sveltejs/kit': 1.22.3(svelte@3.56.0)(vite@4.1.4)
+      '@sveltejs/kit': 1.16.0(svelte@3.56.0)(vite@4.1.4)
       import-meta-resolve: 2.2.2
     dev: true
 
-  /@sveltejs/adapter-static@2.0.2(@sveltejs/kit@1.22.3):
-    resolution: {integrity: sha512-9wYtf6s6ew7DHUHMrt55YpD1FgV7oWql2IGsW5BXquLxqcY9vjrqCFo0TzzDpo+ZPZkW/v77k0eOP6tsAb8HmQ==}
+  /@sveltejs/adapter-static@2.0.1(@sveltejs/kit@1.16.0):
+    resolution: {integrity: sha512-o5/q3YwD/ErxYCFlK1v3ydvldyNKk1lh3oeyxn4mhz+Pkbx/uuxhzmbOpytTlp5aVqNHDVsb04xadUzOFCDDzw==}
     peerDependencies:
       '@sveltejs/kit': ^1.5.0
     dependencies:
-      '@sveltejs/kit': 1.22.3(svelte@3.56.0)(vite@4.1.4)
+      '@sveltejs/kit': 1.16.0(svelte@3.56.0)(vite@4.1.4)
     dev: true
 
-  /@sveltejs/kit@1.22.3(svelte@3.56.0)(vite@4.1.4):
-    resolution: {integrity: sha512-IpHD5wvuoOIHYaHQUBJ1zERD2Iz+fB/rBXhXjl8InKw6X4VKE9BSus+ttHhE7Ke+Ie9ecfilzX8BnWE3FeQyng==}
+  /@sveltejs/kit@1.16.0(svelte@3.56.0)(vite@4.1.4):
+    resolution: {integrity: sha512-uCCZuI5MVSAviQFYsts5VHSmvBUp2u/CPeWfwAYxbWZoPg8lsM24JGjLhCh0peQwQjIDXXVDVQI0jdvSGs91Lg==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
     peerDependencies:
-      svelte: ^3.54.0 || ^4.0.0-next.0
+      svelte: ^3.54.0
       vite: ^4.0.0
     dependencies:
       '@sveltejs/vite-plugin-svelte': 2.4.3(svelte@3.56.0)(vite@4.1.4)
       '@types/cookie': 0.5.1
       cookie: 0.5.0
-      devalue: 4.3.2
+      devalue: 4.3.0
       esm-env: 1.0.0
       kleur: 4.1.5
-      magic-string: 0.30.1
+      magic-string: 0.30.0
       mime: 3.0.0
       sade: 1.8.1
       set-cookie-parser: 2.6.0
       sirv: 2.0.2
       svelte: 3.56.0
+      tiny-glob: 0.2.9
       undici: 5.22.1
       vite: 4.1.4
     transitivePeerDependencies:
@@ -967,8 +968,8 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /devalue@4.3.2:
-    resolution: {integrity: sha512-KqFl6pOgOW+Y6wJgu80rHpo2/3H07vr8ntR9rkkFIRETewbf5GaYYcakYfiKz89K+sLsuPkQIZaXDMjUObZwWg==}
+  /devalue@4.3.0:
+    resolution: {integrity: sha512-n94yQo4LI3w7erwf84mhRUkUJfhLoCZiLyoOZ/QFsDbcWNZePrLwbQpvZBUG2TNxwV3VjCKPxkiiQA6pe3TrTA==}
     dev: true
 
   /didyoumean@1.2.2:
@@ -1325,6 +1326,10 @@ packages:
       type-fest: 0.20.2
     dev: true
 
+  /globalyzer@0.1.0:
+    resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
+    dev: true
+
   /globby@11.1.0:
     resolution: {integrity: sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==}
     engines: {node: '>=10'}
@@ -1346,6 +1351,10 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
+    dev: true
+
+  /globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
 
   /graceful-fs@4.2.10:
@@ -1517,6 +1526,13 @@ packages:
 
   /magic-string@0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /magic-string@0.30.0:
+    resolution: {integrity: sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14
@@ -2271,6 +2287,13 @@ packages:
 
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
+    dev: true
+
+  /tiny-glob@0.2.9:
+    resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
+    dependencies:
+      globalyzer: 0.1.0
+      globrex: 0.1.2
     dev: true
 
   /to-regex-range@5.0.1:
