@@ -6,6 +6,8 @@ type Params = {
 	modUniqueName: string;
 };
 
+export const prerender = true;
+
 export async function entries() {
 	const modList = await getModList();
 
