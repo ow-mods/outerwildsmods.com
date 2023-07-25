@@ -13,7 +13,6 @@
 	const moreIcons = ['👨‍👨‍👦‍👦'];
 
 	let iconList = singleIcons;
-	let clickedInstall = false;
 
 	if (mod.authorDisplay) {
 		const authorCount = mod.authorDisplay.split(/&| and |,/).length;
@@ -59,9 +58,7 @@
 					</div>
 				</CtaButton>
 			{:else}
-				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}" icon={DownloadIcon}>
-					<div class="flex gap-2">Install Mod</div>
-				</CtaButton>
+				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}">Install Mod</CtaButton>
 			{/if}
 		</div>
 		<div class="text-sm flex flex-col gap-2">

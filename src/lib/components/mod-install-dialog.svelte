@@ -17,6 +17,7 @@
 	};
 
 	const onAnyClick = async (event: MouseEvent) => {
+		console.log(event);
 		if (dontShowAgain || !(event?.target instanceof HTMLAnchorElement)) return;
 
 		if (event.target.href.startsWith(managerInstallProtocol)) {
