@@ -12,7 +12,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
     }
 
     // Unused fetch to get the badge endpoint to prerender because sveltekit can't comprehend basic SSG :)
-    await fetch(`/api/${mod.uniqueName}/badge.json`);
+    await fetch(`/api/badges/${mod.uniqueName}.json`);
 
     const result = await fetch(`/api/${mod.uniqueName}.json`);
 
