@@ -12,7 +12,7 @@ devDependencies:
     specifier: ^2.0.1
     version: 2.0.1(@sveltejs/kit@1.22.3)
   '@sveltejs/kit':
-    specifier: ^1.22.3
+    specifier: ^1.16.0
     version: 1.22.3(svelte@3.56.0)(vite@4.1.4)
   '@types/commonmark':
     specifier: ^0.27.6
@@ -421,7 +421,7 @@ packages:
       devalue: 4.3.2
       esm-env: 1.0.0
       kleur: 4.1.5
-      magic-string: 0.30.0
+      magic-string: 0.30.1
       mime: 3.0.0
       sade: 1.8.1
       set-cookie-parser: 2.6.0
@@ -1517,13 +1517,6 @@ packages:
 
   /magic-string@0.27.0:
     resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.4.14
-    dev: true
-
-  /magic-string@0.30.0:
-    resolution: {integrity: sha512-LA+31JYDJLs82r2ScLrlz1GjSgu66ZV518eyWT+S8VhyQn/JL0u9MeBOvQMGYiPk1DBiSN9DDMOcXvigJZaViQ==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14
