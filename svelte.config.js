@@ -9,7 +9,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		prerender: {
-			entries: ['*'],
+			entries: ['*', '/api/*/badge.json'],
 		},
 		paths: {
 			relative: false,
