@@ -4,26 +4,29 @@ import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ fetch, params, parent }) => {
-	const mods = (await parent()).modList;
-	const mod = getModBySlug(mods, params.mod);
+    const mods = (await parent()).modList;
+    const mod = getModBySlug(mods, params.mod);
 
-	if (!mod) {
-		throw error(404, `Could not find mod ${params.mod}.`);
-	}
+    if (!mod) {
+        throw error(404, `Could not find mod ${params.mod}.`);
+    }
 
-	const result = await fetch(`/api/${mod.uniqueName}.json`);
+    // Unused fetch to get the badge endpoint to prerender because sveltekit can't comprehend basic SSG :)
+    await fetch(`/api/mods/${mod.uniqueName}/badge.json`);
 
-	if (!result.ok) {
-		throw error(result.status, `Could not load mod. ${await result.text()}`);
-	}
+    const result = await fetch(`/api/${mod.uniqueName}.json`);
 
-	const json = await result.json();
-	const readme: string = json.readme;
-	const imageMap: ImageMap = json.imageMap;
+    if (!result.ok) {
+        throw error(result.status, `Could not load mod. ${await result.text()}`);
+    }
 
-	return {
-		mod,
-		readme,
-		imageMap,
-	};
+    const json = await result.json();
+    const readme: string = json.readme;
+    const imageMap: ImageMap = json.imageMap;
+
+    return {
+        mod,
+        readme,
+        imageMap,
+    };
 };
