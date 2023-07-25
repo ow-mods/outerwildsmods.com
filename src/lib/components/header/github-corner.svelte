@@ -3,7 +3,7 @@
 	export let tooltip: string;
 </script>
 
-<a class="absolute top-0 right-0 link fill-accent" {href} target="_blank" rel="noopener noreferrer">
+<a class="absolute top-0 right-0 link fill-accent z-20" {href} target="_blank" rel="noopener noreferrer">
 	<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 250 250">
 		<title>{tooltip}</title>
 		<mask id="mask-{href}">
