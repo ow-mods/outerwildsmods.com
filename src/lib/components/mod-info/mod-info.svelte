@@ -85,7 +85,7 @@
 			{#if !mod.alpha}
 				<div>
 					<pre>[![Install Badge](#TODO)](owmods://install-mod/{mod.uniqueName})</pre>
-					<a class="link" href="/api/badges/{mod.uniqueName}.json">Raw Install Badge</a>
+					<a class="link" href="/api/{mod.uniqueName}/badge.json">Raw Install Badge</a>
 				</div>
 			{/if}
 			<div>
