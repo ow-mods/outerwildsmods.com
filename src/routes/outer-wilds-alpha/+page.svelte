@@ -45,8 +45,8 @@
 	</PageSection>
 	<PageSection title="Mods for Outer Wilds Alpha" id="mods">
 		<p>
-			The <a class="link" href="/mod-manager">Mod Manager</a> also supports the Alpha version of Outer
-			Wilds. To install mods with it, go to the manager settings and change the "Game version to use"
+			The <a class="link" href="/mod-manager#legacy-manager">Legacy Mod Manager</a> also supports the Alpha version of Outer
+			Wilds. To install mods with it, go to the legacy manager settings and change the "Game version to use"
 			setting.
 		</p>
 		<ModGrid {mods} {tagList} />
