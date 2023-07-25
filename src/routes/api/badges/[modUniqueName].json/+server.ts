@@ -6,6 +6,12 @@ type Params = {
 	modUniqueName: string;
 };
 
+export async function entries() {
+	const modList = (await (await fetch('/api/mods.json')).json()) as Mod[];
+
+	return modList.map(({ uniqueName }) => ({ modUniqueName: uniqueName }));
+}
+
 export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	const { modUniqueName } = params;
 
