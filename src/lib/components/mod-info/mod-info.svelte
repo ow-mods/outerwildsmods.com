@@ -82,6 +82,9 @@
 				</a>
 			</div>
 			<div>
+				<a class="link" href={`/api/${mod.uniqueName}/badge.json`}> Get Install Badge </a>
+			</div>
+			<div>
 				<code
 					on:click={selectElementText}
 					on:keypress={selectElementText}
