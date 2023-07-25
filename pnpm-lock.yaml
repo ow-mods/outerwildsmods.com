@@ -63,7 +63,7 @@ devDependencies:
     specifier: ^2.9.0
     version: 2.9.0(prettier@2.8.4)(svelte@3.56.0)
   sharp:
-    specifier: ^0.31.3
+    specifier: 0.31.3
     version: 0.31.3
   svelte:
     specifier: ^3.56.0
