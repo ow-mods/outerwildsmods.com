@@ -8,6 +8,8 @@
 	import type { PageData } from './$types';
 	import DiscordLink from '$lib/components/discord-link.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
+	import BigLink from '$lib/components/big-link.svelte';
+	import GithubIcon from '$lib/components/icons/github-icon.svelte';
 
 	const modsPerCategory = 3;
 
@@ -107,6 +109,16 @@
 			/>
 		</PageSection>
 	{/if}
+	<PageSection
+		title="Source Code"
+		id="source-code"
+		description="The infrastructure that supports the Outer Wilds modding ecosystem is made of multiple open-source projects (including this website), all hosted under the Outer Wilds Mods GitHub organization."
+		isNarrow
+	>
+		<BigLink icon={GithubIcon} href="https://github.com/ow-mods">
+			Outer Wilds Mods GitHub Organization
+		</BigLink>
+	</PageSection>
 	<PageSection
 		title="Outer Wilds?"
 		id="outer-wilds"

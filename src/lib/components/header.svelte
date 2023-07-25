@@ -1,8 +1,7 @@
 <script lang="ts">
-	import GithubCorner from '$lib/components/header/github-corner.svelte';
 	import Navigation from '$lib/components/navigation/navigation.svelte';
 	import { onMount } from 'svelte';
-	import NavigationLink from '../navigation/navigation-link.svelte';
+	import NavigationLink from './navigation/navigation-link.svelte';
 
 	const fallbackImage = '/images/header/video-placeholder.webp';
 
@@ -17,7 +16,6 @@
 </script>
 
 <header class="text-center overflow-hidden bg-black">
-	<GithubCorner href="https://github.com/ow-mods" tooltip="Outer Wilds Mods ecosystem on GitHub" />
 	<div class="gradient">
 		<div class="max-w-screen-md m-auto relative background">
 			<div class="p-4 text-4xl m-0">
