@@ -34,7 +34,7 @@
 		class="bg-black bg-opacity-50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center"
 	>
 		<div
-			class="m-4 p-4 rounded bg-background flex flex-col gap-4 transition-transform will-change-transform max-w-md max-h-full overflow-auto"
+			class="m-4 p-4 rounded bg-background flex flex-col gap-4 transition-transform will-change-transform max-w-lg max-h-full overflow-auto"
 			on:click|stopPropagation
 			on:keydown|stopPropagation
 			use:focusElement
