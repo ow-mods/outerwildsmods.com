@@ -3,7 +3,6 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
 	import { managerInstallProtocol } from '$lib/helpers/constants';
-	import DownloadIcon from '../icons/download-icon.svelte';
 
 	export let mod: Mod;
 
