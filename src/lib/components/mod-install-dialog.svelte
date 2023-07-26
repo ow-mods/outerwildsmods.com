@@ -6,6 +6,7 @@
 	import { managerInstallProtocol } from '$lib/helpers/constants';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CheckboxInput from './checkbox-input.svelte';
+	import { focusElement } from '$lib/helpers/focus-element';
 
 	export let modList: Mod[];
 
@@ -44,11 +45,6 @@
 		window.removeEventListener('click', onAnyClick);
 		window.removeEventListener('keyup', onAnyKeyUp);
 	});
-
-	const focus = (input: HTMLDivElement) => {
-		console.log('focus now');
-		input.focus();
-	};
 </script>
 
 {#if modBeingInstalled}
@@ -61,7 +57,7 @@
 			class="m-4 p-4 rounded bg-background flex flex-col gap-4 transition-transform will-change-transform"
 			on:click|stopPropagation
 			on:keydown|stopPropagation
-			use:focus
+			use:focusElement
 			aria-modal
 			tabindex="-1"
 		>

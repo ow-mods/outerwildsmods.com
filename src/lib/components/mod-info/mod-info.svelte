@@ -2,8 +2,11 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
-	import { managerInstallProtocol } from '$lib/helpers/constants';
-	import DownloadIcon from '../icons/download-icon.svelte';
+	import { managerInstallProtocol, websiteUrl } from '$lib/helpers/constants';
+	import LinkButton from '../button/link-button.svelte';
+	import { focusElement } from '$lib/helpers/focus-element';
+	import PageSection from '../page-section/page-section.svelte';
+	import CodeSnippet from '../code-snippet.svelte';
 
 	export let mod: Mod;
 
@@ -30,12 +33,64 @@
 
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
-	const uniqueNameParts = mod.uniqueName.split('.');
 
-	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
-		window.getSelection()?.selectAllChildren(currentTarget);
+	const badgeJsonUrl = `${websiteUrl}/api/${mod.uniqueName}/badge.json`;
+	const badgeImageUrl = `https://img.shields.io/endpoint?url=${encodeURIComponent(badgeJsonUrl)}`;
+	const badgeMarkdown = `[![Install ${mod.uniqueName}](${badgeImageUrl})](${websiteUrl}/mods/${mod.slug}/)`;
+
+	let isMoreInfoOpen = true;
+	const closeDialog = () => {
+		isMoreInfoOpen = false;
+	};
+	const openDialog = () => {
+		isMoreInfoOpen = true;
 	};
 </script>
+
+{#if isMoreInfoOpen}
+	<div
+		on:click={closeDialog}
+		on:keydown={closeDialog}
+		class="bg-black bg-opacity-50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center"
+	>
+		<div
+			class="m-4 p-4 rounded bg-background flex flex-col gap-4 transition-transform will-change-transform max-w-md max-h-full overflow-auto"
+			on:click|stopPropagation
+			on:keydown|stopPropagation
+			use:focusElement
+			aria-modal
+			tabindex="-1"
+		>
+			<div>
+				<h3 class="m-0">Mod Unique Name</h3>
+				<p>This is the name that uniquely identifies this mod.</p>
+				<CodeSnippet>
+					{mod.uniqueName}
+				</CodeSnippet>
+			</div>
+			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
+			{#if !mod.alpha}
+				<div>
+					<h3 class="m-0">Mod Badge</h3>
+					<p>
+						You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
+						from this website. This is what it looks like:
+					</p>
+					<img alt="Badge for {mod.name}" src={badgeImageUrl} />
+					<p>JSON url</p>
+					<CodeSnippet>
+						{badgeJsonUrl}
+					</CodeSnippet>
+					<p>Markdown</p>
+					<CodeSnippet>
+						{badgeMarkdown}
+					</CodeSnippet>
+				</div>
+			{/if}
+			<LinkButton on:click={closeDialog}>OK</LinkButton>
+		</div>
+	</div>
+{/if}
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
 	<div class="flex flex-col gap-4">
@@ -81,18 +136,7 @@
 					🗃️ Download zip ({mod.version})
 				</a>
 			</div>
-			<div>
-				<code
-					on:click={selectElementText}
-					on:keypress={selectElementText}
-					title="Mod unique name"
-					class="text-xs text-light opacity-60 bg-darker p-1 rounded leading-none cursor-pointer break-words block text-center"
-				>
-					{#each uniqueNameParts as uniqueNamePart, index}
-						<div>{uniqueNamePart}{index < uniqueNameParts.length - 1 ? '.' : ''}</div>
-					{/each}
-				</code>
-			</div>
 		</div>
+		<button class="link text-sm" on:click={openDialog} on:keydown={openDialog}>More Info...</button>
 	</div>
 </div>
