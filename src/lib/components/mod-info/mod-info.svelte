@@ -2,7 +2,7 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
-	import { managerInstallProtocol } from '$lib/helpers/constants';
+	import { managerInstallProtocol, websiteUrl } from '$lib/helpers/constants';
 	import DownloadIcon from '../icons/download-icon.svelte';
 
 	export let mod: Mod;
@@ -31,6 +31,11 @@
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
 	const uniqueNameParts = mod.uniqueName.split('.');
+
+	const modBadgeUrl = `https://img.shields.io/endpoint?url=${encodeURI(
+		`${websiteUrl}/api/${mod.uniqueName}/badge.json`
+	)}`;
+	const modBadgeMarkdown = `[![Install ${mod.uniqueName}](${modBadgeUrl})](owmods://install-mod/${mod.uniqueName})`;
 
 	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
 		window.getSelection()?.selectAllChildren(currentTarget);
@@ -84,7 +89,12 @@
 			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
 			{#if !mod.alpha}
 				<div>
-					<pre>[![Install Badge](#TODO)](owmods://install-mod/{mod.uniqueName})</pre>
+					<button
+						on:click={() => {
+							navigator.clipboard.writeText(modBadgeMarkdown);
+						}}
+						class="button">Copy Install Badge (Markdown)</button
+					>
 					<a class="link" href="/api/{mod.uniqueName}/badge.json">Raw Install Badge</a>
 				</div>
 			{/if}
