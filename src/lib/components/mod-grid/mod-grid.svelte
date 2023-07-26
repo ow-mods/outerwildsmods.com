@@ -90,13 +90,20 @@
 		}
 	};
 
+	const cleanUpText = (text: string) =>
+		text
+			.toLowerCase()
+			.replace(' ', '')
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '');
+
 	const anyIncludes = (term: string, list: (string | undefined)[]) => {
 		if (!term) return true;
 
 		for (const listItem of list) {
 			if (!listItem) continue;
 
-			if (listItem.toLocaleLowerCase().includes(term.toLocaleLowerCase())) return true;
+			if (cleanUpText(listItem).includes(cleanUpText(term))) return true;
 		}
 		return false;
 	};
