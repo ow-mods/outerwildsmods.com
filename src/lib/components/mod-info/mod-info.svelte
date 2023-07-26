@@ -116,7 +116,8 @@
 				<div class="flex flex-col gap-4">
 					<span>
 						You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
-						from this website. This is what it looks like:
+						from this website. You can customize the look of the badge using query parameters, as
+						explained in the <a href="https://shields.io/badges" class="link">Shields.io docs</a>.
 					</span>
 					<img alt="Badge for {mod.name}" src={badgeImageUrl} />
 					<CodeSnippet title="Markdown">
