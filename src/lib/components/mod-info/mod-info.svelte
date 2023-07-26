@@ -5,7 +5,6 @@
 	import { managerInstallProtocol, websiteUrl } from '$lib/helpers/constants';
 	import LinkButton from '../button/link-button.svelte';
 	import { focusElement } from '$lib/helpers/focus-element';
-	import PageSection from '../page-section/page-section.svelte';
 	import CodeSnippet from '../code-snippet.svelte';
 
 	export let mod: Mod;
@@ -34,9 +33,11 @@
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
 
+	const modUrl = `${websiteUrl}/mods/${mod.slug}/`;
 	const badgeJsonUrl = `${websiteUrl}/api/${mod.uniqueName}/badge.json`;
 	const badgeImageUrl = `https://img.shields.io/endpoint?url=${encodeURIComponent(badgeJsonUrl)}`;
-	const badgeMarkdown = `[![Install ${mod.uniqueName}](${badgeImageUrl})](${websiteUrl}/mods/${mod.slug}/)`;
+	const badgeMarkdown = `[![Install ${mod.name}](${badgeImageUrl})](${modUrl})`;
+	const badgeHtml = `<a href="${modUrl}"><img alt="Install ${mod.name}" src="${badgeImageUrl}" /></a>`;
 
 	let isMoreInfoOpen = true;
 	const closeDialog = () => {
@@ -61,31 +62,31 @@
 			aria-modal
 			tabindex="-1"
 		>
-			<div>
-				<h3 class="m-0">Mod Unique Name</h3>
-				<p>This is the name that uniquely identifies this mod.</p>
-				<CodeSnippet>
-					{mod.uniqueName}
-				</CodeSnippet>
-			</div>
+			<h3 class="m-0">Mod Unique Name</h3>
+			<span>This is the name that uniquely identifies this mod.</span>
+			<CodeSnippet>
+				{mod.uniqueName}
+			</CodeSnippet>
 			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
 			{#if !mod.alpha}
-				<div>
-					<h3 class="m-0">Mod Badge</h3>
-					<p>
-						You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
-						from this website. This is what it looks like:
-					</p>
-					<img alt="Badge for {mod.name}" src={badgeImageUrl} />
-					<p>JSON url</p>
-					<CodeSnippet>
-						{badgeJsonUrl}
-					</CodeSnippet>
-					<p>Markdown</p>
-					<CodeSnippet>
-						{badgeMarkdown}
-					</CodeSnippet>
-				</div>
+				<h3 class="m-0">Mod Badge</h3>
+				<span>
+					You can use Shields.io to display a badge for this mod using a JSON endpoint we serve from
+					this website. This is what it looks like:
+				</span>
+				<img alt="Badge for {mod.name}" src={badgeImageUrl} />
+				<CodeSnippet title="Markdown">
+					{badgeMarkdown}
+				</CodeSnippet>
+				<CodeSnippet title="HTML">
+					{badgeHtml}
+				</CodeSnippet>
+				<CodeSnippet title="Image url">
+					{badgeImageUrl}
+				</CodeSnippet>
+				<CodeSnippet title="JSON url">
+					{badgeJsonUrl}
+				</CodeSnippet>
 			{/if}
 			<LinkButton on:click={closeDialog}>OK</LinkButton>
 		</div>
