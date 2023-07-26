@@ -2,12 +2,10 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
-	import { managerInstallProtocol, websiteUrl } from '$lib/helpers/constants';
-	import LinkButton from '../button/link-button.svelte';
-	import { focusElement } from '$lib/helpers/focus-element';
+	import { managerInstallProtocol, owmlUniqueName, websiteUrl } from '$lib/helpers/constants';
 	import CodeSnippet from '../code-snippet.svelte';
 	import PopupDialog from '../popup-dialog.svelte';
-
+	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 	export let mod: Mod;
 
 	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅'];
@@ -49,43 +47,6 @@
 	};
 </script>
 
-{#if isMoreInfoOpen}
-	<PopupDialog isOpen={isMoreInfoOpen} onClose={closeDialog}>
-		<div>
-			<h3 class="m-0">Mod Unique Name</h3>
-			<span>This is the name that uniquely identifies this mod.</span>
-			<CodeSnippet>
-				{mod.uniqueName}
-			</CodeSnippet>
-		</div>
-		<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
-		{#if !mod.alpha}
-			<div>
-				<h3 class="m-0">Mod Badge</h3>
-				<div class="flex flex-col gap-4">
-					<span>
-						You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
-						from this website. This is what it looks like:
-					</span>
-					<img alt="Badge for {mod.name}" src={badgeImageUrl} />
-					<CodeSnippet title="Markdown">
-						{badgeMarkdown}
-					</CodeSnippet>
-					<CodeSnippet title="HTML">
-						{badgeHtml}
-					</CodeSnippet>
-					<CodeSnippet title="Image url">
-						{badgeImageUrl}
-					</CodeSnippet>
-					<CodeSnippet title="JSON url">
-						{badgeJsonUrl}
-					</CodeSnippet>
-				</div>
-			</div>
-		{/if}
-	</PopupDialog>
-{/if}
-
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
 	<div class="flex flex-col gap-4">
 		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
@@ -99,15 +60,12 @@
 		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
 			<!-- The new manager doesn't support Alpha mods yet, so we point to the old manager. -->
-			{#if mod.alpha}
-				<CtaButton href="/mod-manager#legacy-manager">
-					<div>
-						<div>Install mod using</div>
-						<div>Mod Manager</div>
-					</div>
-				</CtaButton>
-			{:else}
+			{#if canInstallViaProtocol(mod)}
 				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}">Install Mod</CtaButton>
+			{:else if mod.uniqueName === owmlUniqueName}
+				<CtaButton href="/mod-manager">Get the Outer Wilds Mod Manager</CtaButton>
+			{:else}
+				<CtaButton href="/mod-manager#legacy-manager">Install with Legacy Mod Manager</CtaButton>
 			{/if}
 		</div>
 		<div class="text-sm flex flex-col gap-2">
@@ -134,3 +92,39 @@
 		<button class="link text-sm" on:click={openDialog} on:keydown={openDialog}>More Info...</button>
 	</div>
 </div>
+
+{#if isMoreInfoOpen}
+	<PopupDialog isOpen={isMoreInfoOpen} onClose={closeDialog}>
+		<div>
+			<h3 class="m-0">Mod Unique Name</h3>
+			<span>This is the name that uniquely identifies this mod.</span>
+			<CodeSnippet>
+				{mod.uniqueName}
+			</CodeSnippet>
+		</div>
+		{#if canInstallViaProtocol(mod)}
+			<div>
+				<h3 class="m-0">Mod Badge</h3>
+				<div class="flex flex-col gap-4">
+					<span>
+						You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
+						from this website. This is what it looks like:
+					</span>
+					<img alt="Badge for {mod.name}" src={badgeImageUrl} />
+					<CodeSnippet title="Markdown">
+						{badgeMarkdown}
+					</CodeSnippet>
+					<CodeSnippet title="HTML">
+						{badgeHtml}
+					</CodeSnippet>
+					<CodeSnippet title="Image url">
+						{badgeImageUrl}
+					</CodeSnippet>
+					<CodeSnippet title="JSON url">
+						{badgeJsonUrl}
+					</CodeSnippet>
+				</div>
+			</div>
+		{/if}
+	</PopupDialog>
+{/if}

@@ -18,3 +18,4 @@ export const linkedFromNotificationParamName = 'linked-from-notification';
 export const downloadHistoryUrl =
 	'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json';
 export const managerInstallProtocol = 'owmods://install-mod';
+export const owmlUniqueName = 'Alek.OWML';

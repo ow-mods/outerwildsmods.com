@@ -3,6 +3,7 @@
 	import { managerInstallProtocol } from '$lib/helpers/constants';
 	import { onMount } from 'svelte';
 	import DownloadIcon from '../icons/download-icon.svelte';
+	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 
 	export let mod: Mod;
 
@@ -23,7 +24,7 @@
 			<slot />
 		</div>
 	</a>
-	{#if !mod.alpha}
+	{#if canInstallViaProtocol(mod)}
 		<a
 			title="Install {mod.name}"
 			href="{managerInstallProtocol}/{mod.uniqueName}"

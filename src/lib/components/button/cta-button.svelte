@@ -8,7 +8,7 @@
 </script>
 
 <a
-	class="rounded flex gap-4 bg-cta fill-white text-white bg-opacity-80 hover:bg-opacity-100 text-lg font-normal justify-center items-center p-2"
+	class="rounded flex gap-4 bg-cta fill-white text-white bg-opacity-80 hover:bg-opacity-100 text-lg font-normal justify-center items-center text-center p-2"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
