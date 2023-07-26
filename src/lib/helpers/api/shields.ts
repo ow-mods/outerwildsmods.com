@@ -4,7 +4,6 @@ export const INSTALL_SVG =
 export const BASE_BADGE: Partial<ShieldsEndpointBadge> = {
 	logoSvg: INSTALL_SVG,
 	color: 'orange',
-	logoColor: 'white',
 	style: 'for-the-badge',
 	cacheSeconds: 3600,
 };
@@ -16,7 +15,6 @@ export type ShieldsEndpointBadge = {
 	color: string;
 	namedLogo?: string;
 	logoSvg?: string;
-	logoColor?: string;
 	style?: string;
 	cacheSeconds?: number;
 	link?: string;
