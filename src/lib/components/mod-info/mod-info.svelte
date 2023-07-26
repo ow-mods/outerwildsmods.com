@@ -62,31 +62,37 @@
 			aria-modal
 			tabindex="-1"
 		>
-			<h3 class="m-0">Mod Unique Name</h3>
-			<span>This is the name that uniquely identifies this mod.</span>
-			<CodeSnippet>
-				{mod.uniqueName}
-			</CodeSnippet>
+			<div>
+				<h3 class="m-0">Mod Unique Name</h3>
+				<span>This is the name that uniquely identifies this mod.</span>
+				<CodeSnippet>
+					{mod.uniqueName}
+				</CodeSnippet>
+			</div>
 			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
 			{#if !mod.alpha}
-				<h3 class="m-0">Mod Badge</h3>
-				<span>
-					You can use Shields.io to display a badge for this mod using a JSON endpoint we serve from
-					this website. This is what it looks like:
-				</span>
-				<img alt="Badge for {mod.name}" src={badgeImageUrl} />
-				<CodeSnippet title="Markdown">
-					{badgeMarkdown}
-				</CodeSnippet>
-				<CodeSnippet title="HTML">
-					{badgeHtml}
-				</CodeSnippet>
-				<CodeSnippet title="Image url">
-					{badgeImageUrl}
-				</CodeSnippet>
-				<CodeSnippet title="JSON url">
-					{badgeJsonUrl}
-				</CodeSnippet>
+				<div>
+					<h3 class="m-0">Mod Badge</h3>
+					<div class="flex flex-col gap-4">
+						<span>
+							You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
+							from this website. This is what it looks like:
+						</span>
+						<img alt="Badge for {mod.name}" src={badgeImageUrl} />
+						<CodeSnippet title="Markdown">
+							{badgeMarkdown}
+						</CodeSnippet>
+						<CodeSnippet title="HTML">
+							{badgeHtml}
+						</CodeSnippet>
+						<CodeSnippet title="Image url">
+							{badgeImageUrl}
+						</CodeSnippet>
+						<CodeSnippet title="JSON url">
+							{badgeJsonUrl}
+						</CodeSnippet>
+					</div>
+				</div>
 			{/if}
 			<LinkButton on:click={closeDialog}>OK</LinkButton>
 		</div>
