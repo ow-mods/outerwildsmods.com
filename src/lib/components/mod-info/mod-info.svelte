@@ -6,6 +6,7 @@
 	import LinkButton from '../button/link-button.svelte';
 	import { focusElement } from '$lib/helpers/focus-element';
 	import CodeSnippet from '../code-snippet.svelte';
+	import PopupDialog from '../popup-dialog.svelte';
 
 	export let mod: Mod;
 
@@ -39,7 +40,7 @@
 	const badgeMarkdown = `[![Install ${mod.name}](${badgeImageUrl})](${modUrl})`;
 	const badgeHtml = `<a href="${modUrl}"><img alt="Install ${mod.name}" src="${badgeImageUrl}" /></a>`;
 
-	let isMoreInfoOpen = true;
+	let isMoreInfoOpen = false;
 	const closeDialog = () => {
 		isMoreInfoOpen = false;
 	};
@@ -49,54 +50,40 @@
 </script>
 
 {#if isMoreInfoOpen}
-	<div
-		on:click={closeDialog}
-		on:keydown={closeDialog}
-		class="bg-black bg-opacity-50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center"
-	>
-		<div
-			class="m-4 p-4 rounded bg-background flex flex-col gap-4 transition-transform will-change-transform max-w-md max-h-full overflow-auto"
-			on:click|stopPropagation
-			on:keydown|stopPropagation
-			use:focusElement
-			aria-modal
-			tabindex="-1"
-		>
-			<div>
-				<h3 class="m-0">Mod Unique Name</h3>
-				<span>This is the name that uniquely identifies this mod.</span>
-				<CodeSnippet>
-					{mod.uniqueName}
-				</CodeSnippet>
-			</div>
-			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
-			{#if !mod.alpha}
-				<div>
-					<h3 class="m-0">Mod Badge</h3>
-					<div class="flex flex-col gap-4">
-						<span>
-							You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
-							from this website. This is what it looks like:
-						</span>
-						<img alt="Badge for {mod.name}" src={badgeImageUrl} />
-						<CodeSnippet title="Markdown">
-							{badgeMarkdown}
-						</CodeSnippet>
-						<CodeSnippet title="HTML">
-							{badgeHtml}
-						</CodeSnippet>
-						<CodeSnippet title="Image url">
-							{badgeImageUrl}
-						</CodeSnippet>
-						<CodeSnippet title="JSON url">
-							{badgeJsonUrl}
-						</CodeSnippet>
-					</div>
-				</div>
-			{/if}
-			<LinkButton on:click={closeDialog}>OK</LinkButton>
+	<PopupDialog isOpen={isMoreInfoOpen} onClose={closeDialog}>
+		<div>
+			<h3 class="m-0">Mod Unique Name</h3>
+			<span>This is the name that uniquely identifies this mod.</span>
+			<CodeSnippet>
+				{mod.uniqueName}
+			</CodeSnippet>
 		</div>
-	</div>
+		<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
+		{#if !mod.alpha}
+			<div>
+				<h3 class="m-0">Mod Badge</h3>
+				<div class="flex flex-col gap-4">
+					<span>
+						You can use Shields.io to display a badge for this mod using a JSON endpoint we serve
+						from this website. This is what it looks like:
+					</span>
+					<img alt="Badge for {mod.name}" src={badgeImageUrl} />
+					<CodeSnippet title="Markdown">
+						{badgeMarkdown}
+					</CodeSnippet>
+					<CodeSnippet title="HTML">
+						{badgeHtml}
+					</CodeSnippet>
+					<CodeSnippet title="Image url">
+						{badgeImageUrl}
+					</CodeSnippet>
+					<CodeSnippet title="JSON url">
+						{badgeJsonUrl}
+					</CodeSnippet>
+				</div>
+			</div>
+		{/if}
+	</PopupDialog>
 {/if}
 
 <div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">

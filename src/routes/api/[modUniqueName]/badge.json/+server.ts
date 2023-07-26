@@ -28,7 +28,7 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	const badgeInfo: Partial<ShieldsEndpointBadge> = {
 		...BASE_BADGE,
 		label: `Install ${mod.name} With Mod Manager`,
-		message: `${mod.installCount}`,
+		message: `${mod.installCount} installs/month`,
 	};
 
 	return json(badgeInfo);
