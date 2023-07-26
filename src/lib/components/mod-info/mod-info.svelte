@@ -33,10 +33,10 @@
 	const modIcon = iconList[iconIndex];
 	const uniqueNameParts = mod.uniqueName.split('.');
 
-	const modBadgeUrl = `https://img.shields.io/endpoint?url=${encodeURI(
+	const modBadgeUrl = `https://img.shields.io/endpoint?url=${encodeURIComponent(
 		`${websiteUrl}/api/${mod.uniqueName}/badge.json`
 	)}`;
-	const modBadgeMarkdown = `[![Install ${mod.uniqueName}](${modBadgeUrl})](owmods://install-mod/${mod.uniqueName})`;
+	const modBadgeMarkdown = `[![Install ${mod.uniqueName}](${modBadgeUrl})](${websiteUrl}/mods/${mod.slug}/)`;
 
 	const copyBadgeMarkdown = () => {
 		navigator.clipboard.writeText(modBadgeMarkdown);
