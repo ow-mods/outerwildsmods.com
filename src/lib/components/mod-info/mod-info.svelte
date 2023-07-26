@@ -2,10 +2,13 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
+	import DownloadIcon from '../icons/download-icon.svelte';
 	import { managerInstallProtocol, owmlUniqueName, websiteUrl } from '$lib/helpers/constants';
 	import CodeSnippet from '../code-snippet.svelte';
 	import PopupDialog from '../popup-dialog.svelte';
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
+	import { modBeingInstalled } from '../mod-install-store';
+
 	export let mod: Mod;
 
 	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅'];
@@ -59,9 +62,14 @@
 		</div>
 		<p class="m-0 break-words text-sm">{mod.description}</p>
 		<div class="flex flex-col gap-4">
-			<!-- The new manager doesn't support Alpha mods yet, so we point to the old manager. -->
 			{#if canInstallViaProtocol(mod)}
-				<CtaButton href="{managerInstallProtocol}/{mod.uniqueName}">Install Mod</CtaButton>
+				<CtaButton
+					icon={DownloadIcon}
+					href="{managerInstallProtocol}/{mod.uniqueName}"
+					on:click={() => modBeingInstalled.set(mod)}
+				>
+					Install Mod
+				</CtaButton>
 			{:else if mod.uniqueName === owmlUniqueName}
 				<CtaButton href="/mod-manager">Get the Outer Wilds Mod Manager</CtaButton>
 			{:else}

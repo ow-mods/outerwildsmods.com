@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import DownloadIcon from '../icons/download-icon.svelte';
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
+	import { modBeingInstalled } from '../mod-install-store';
 
 	export let mod: Mod;
 
@@ -31,12 +32,11 @@
 			class="link p-1 flex items-center bg-darker fill-accent w-9 justify-center"
 			class:fill-light={clickedInstall}
 			on:click={() => {
+				modBeingInstalled.set(mod);
 				clickedInstall = true;
 			}}
 		>
-			&darr;
-			<!-- SVG messing things up, disabling for now -->
-			<!-- <DownloadIcon /> -->
+			<DownloadIcon />
 		</a>
 	{/if}
 </div>

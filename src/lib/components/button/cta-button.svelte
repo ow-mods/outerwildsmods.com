@@ -8,16 +8,18 @@
 </script>
 
 <a
-	class="rounded flex gap-4 bg-cta fill-white text-white bg-opacity-80 hover:bg-opacity-100 text-lg font-normal justify-center items-center text-center p-2"
+	class="rounded flex bg-cta fill-white text-white bg-opacity-80 hover:bg-opacity-100"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
 	on:click
 >
 	{#if icon}
-		<div class="flex justify-center items-center w-8 min-h-8">
+		<div class="bg-black bg-opacity-20 p-3 flex justify-center items-center w-12 min-h-12">
 			<svelte:component this={icon} />
 		</div>
 	{/if}
-	<slot />
+	<div class="flex-1 text-lg font-normal flex justify-center items-center p-2">
+		<slot />
+	</div>
 </a>
