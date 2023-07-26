@@ -2,9 +2,7 @@
 	import { stringToNumber } from '$lib/helpers/string-to-number';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
-	import { managerInstallProtocol, websiteUrl } from '$lib/helpers/constants';
-	import DownloadIcon from '../icons/download-icon.svelte';
-	import LinkButton from '../button/link-button.svelte';
+	import { managerInstallProtocol } from '$lib/helpers/constants';
 
 	export let mod: Mod;
 
@@ -32,15 +30,6 @@
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
 	const uniqueNameParts = mod.uniqueName.split('.');
-
-	const modBadgeUrl = `https://img.shields.io/endpoint?url=${encodeURIComponent(
-		`${websiteUrl}/api/${mod.uniqueName}/badge.json`
-	)}`;
-	const modBadgeMarkdown = `[![Install ${mod.uniqueName}](${modBadgeUrl})](${websiteUrl}/mods/${mod.slug}/)`;
-
-	const copyBadgeMarkdown = () => {
-		navigator.clipboard.writeText(modBadgeMarkdown);
-	};
 
 	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
 		window.getSelection()?.selectAllChildren(currentTarget);
@@ -103,18 +92,6 @@
 					{/each}
 				</code>
 			</div>
-			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
-			{#if !mod.alpha}
-				<div>
-					<p class="m-0 break-words text-sm">Mod Install Badge (Click to copy)</p>
-					<code
-						class="text-xs text-light opacity-60 bg-darker p-1 pb-3 rounded cursor-pointer whitespace-nowrap overflow-scroll block text-center"
-						title="Mod install badge"
-						on:click={copyBadgeMarkdown}
-						on:keypress={copyBadgeMarkdown}>{modBadgeMarkdown}</code
-					>
-				</div>
-			{/if}
 		</div>
 	</div>
 </div>
