@@ -8,6 +8,8 @@
 	export let isOpen = false;
 	export let onClose: () => void;
 
+	const okWords = ['Fine', 'OK', 'Alright', 'Got it'];
+
 	const onAnyKeyUp = (event: KeyboardEvent) => {
 		if (event.key !== 'Escape') return;
 		onClose();
@@ -42,7 +44,9 @@
 			tabindex="-1"
 		>
 			<slot />
-			<LinkButton on:click={onClose}>Fine</LinkButton>
+			<LinkButton on:click={onClose}>
+				{okWords[Math.floor(Math.random() * okWords.length)]}
+			</LinkButton>
 		</div>
 	</div>
 {/if}
