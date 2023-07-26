@@ -1,6 +1,6 @@
 import { getModDownloadHistory } from '$lib/helpers/api/get-download-history';
 import type { HistoryPoint } from '$lib/helpers/api/history-points';
-import type { RequestHandler } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 import { chunk } from 'lodash-es';
 
 type Params = {
@@ -23,7 +23,7 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 
 		if (!firstResult) {
 			console.warn(`Could not find first history point for ${modUniqueName}`);
-			return new Response(JSON.stringify([]));
+			return json([]);
 		}
 
 		const cleanedUpResults = downloadHistory.filter(({ UnixTimestamp }) => {
@@ -80,9 +80,9 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 			return historyPoint;
 		});
 
-		return new Response(JSON.stringify(cleanedUpDownloadHistory));
+		return json(cleanedUpDownloadHistory);
 	} catch (error) {
 		console.error(`Failed to get download history for ${modUniqueName}. ${error}`);
-		return new Response(JSON.stringify([]));
+		return json([]);
 	}
 };
