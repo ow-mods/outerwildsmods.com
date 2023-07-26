@@ -4,6 +4,7 @@
 	import CtaButton from '../button/cta-button.svelte';
 	import { managerInstallProtocol, websiteUrl } from '$lib/helpers/constants';
 	import DownloadIcon from '../icons/download-icon.svelte';
+	import LinkButton from '../button/link-button.svelte';
 
 	export let mod: Mod;
 
@@ -36,6 +37,10 @@
 		`${websiteUrl}/api/${mod.uniqueName}/badge.json`
 	)}`;
 	const modBadgeMarkdown = `[![Install ${mod.uniqueName}](${modBadgeUrl})](owmods://install-mod/${mod.uniqueName})`;
+
+	const copyBadgeMarkdown = () => {
+		navigator.clipboard.writeText(modBadgeMarkdown);
+	};
 
 	const selectElementText = ({ currentTarget }: { currentTarget: HTMLElement }) => {
 		window.getSelection()?.selectAllChildren(currentTarget);
@@ -86,18 +91,6 @@
 					🗃️ Download zip ({mod.version})
 				</a>
 			</div>
-			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
-			{#if !mod.alpha}
-				<div>
-					<button
-						on:click={() => {
-							navigator.clipboard.writeText(modBadgeMarkdown);
-						}}
-						class="button">Copy Install Badge (Markdown)</button
-					>
-					<a class="link" href="/api/{mod.uniqueName}/badge.json">Raw Install Badge</a>
-				</div>
-			{/if}
 			<div>
 				<code
 					on:click={selectElementText}
@@ -110,6 +103,18 @@
 					{/each}
 				</code>
 			</div>
+			<!-- New manager doesn't support alpha so don't give the option for a badge since it won't work -->
+			{#if !mod.alpha}
+				<div>
+					<p class="m-0 break-words text-sm">Mod Install Badge (Click to copy)</p>
+					<code
+						class="text-xs text-light opacity-60 bg-darker p-1 pb-3 rounded cursor-pointer whitespace-nowrap overflow-scroll block text-center"
+						title="Mod install badge"
+						on:click={copyBadgeMarkdown}
+						on:keypress={copyBadgeMarkdown}>{modBadgeMarkdown}</code
+					>
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>
