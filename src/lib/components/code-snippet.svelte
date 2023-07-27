@@ -13,7 +13,7 @@
 		<span class="text-xs opacity-50">(click text to copy)</span>
 	</div>
 	<code
-		class="text-xs text-light opacity-60 bg-darker p-1 rounded leading-none cursor-pointer break-words block"
+		class="text-xs text-light opacity-60 bg-darker p-1 rounded leading-none cursor-pointer break-words block whitespace-pre-wrap"
 		title="Mod install badge"
 		on:click={copyElementText}
 		on:keypress={copyElementText}
