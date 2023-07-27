@@ -29,7 +29,7 @@
 		<a
 			title="Install {mod.name}"
 			href="{managerInstallProtocol}/{mod.uniqueName}"
-			class="link p-1 flex items-center bg-darker fill-accent w-9 justify-center"
+			class="link p-1 flex items-center bg-darker fill-accent w-7 justify-center"
 			class:fill-light={clickedInstall}
 			on:click={() => {
 				modBeingInstalled.set(mod);
