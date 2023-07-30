@@ -93,7 +93,7 @@
 	const cleanUpText = (text: string) =>
 		text
 			.toLowerCase()
-			.replace(' ', '')
+			.replace(/\s/g, '')
 			.normalize('NFD')
 			.replace(/[\u0300-\u036f]/g, '');
 
