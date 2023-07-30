@@ -13,11 +13,11 @@
 		isSortOrderId,
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
-	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CheckboxInput from '../checkbox-input.svelte';
+	import { getAuthors } from '$lib/helpers/api/get-authors';
 
 	export let mods: Mod[] = [];
 	export let tagList: string[] = [];
@@ -32,6 +32,7 @@
 	let tagStates: TagStates = {};
 	let selectedTagCount = 0;
 	let showDetails = false;
+	let authorFilter = '';
 
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
@@ -48,6 +49,7 @@
 				containsAllowedTag &&
 				!containsBlockedTag &&
 				isModTagSelected &&
+				anyIncludes(authorFilter, [mod.author, mod.authorDisplay]) &&
 				anyIncludes(filter, [
 					mod.author,
 					mod.description,
@@ -103,6 +105,11 @@
 		for (const listItem of list) {
 			if (!listItem) continue;
 
+			if (term.startsWith('members') && listItem.endsWith('server')) {
+				console.log(`#1 waa ${cleanUpText(listItem)} `);
+				console.log(`#2 ${cleanUpText(term)} `);
+			}
+
 			if (cleanUpText(listItem).includes(cleanUpText(term))) return true;
 		}
 		return false;
@@ -129,6 +136,8 @@
 	const onClearTags = () => {
 		tagStates = {};
 	};
+
+	const authors = getAuthors(mods);
 </script>
 
 {#if allowFiltering}
@@ -163,6 +172,16 @@
 					❌
 				</button>
 			{/if}
+		</div>
+		<div>
+			<select class="input" bind:value={authorFilter}>
+				<option hidden value={authorFilter}>
+					Author: {authorFilter || 'All'}
+				</option>
+				{#each authors as author}
+					<option>{author}</option>
+				{/each}
+			</select>
 		</div>
 		<div>
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>

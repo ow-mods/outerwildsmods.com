@@ -6,7 +6,7 @@
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
-	import type { Mod } from '../../../api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
 	const { modDownloadHistory, mod, modList } = data;
@@ -16,12 +16,12 @@
 
 	$: (async () => {
 		if (compareWithMod) {
-			const modDownloadhistoryResponse = await fetch(
+			const modDownloadHistoryResponse = await fetch(
 				`/api/${compareWithMod.uniqueName}/downloads.json`
 			);
 
-			if (modDownloadhistoryResponse.ok) {
-				compareWithHistory = await modDownloadhistoryResponse.json();
+			if (modDownloadHistoryResponse.ok) {
+				compareWithHistory = await modDownloadHistoryResponse.json();
 			}
 		} else {
 			compareWithHistory = [];
