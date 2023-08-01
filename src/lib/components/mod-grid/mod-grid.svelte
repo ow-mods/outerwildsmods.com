@@ -94,8 +94,8 @@
 		text
 			.toLowerCase()
 			.replace(/\s/g, '')
-			.normalize('NFD')
-			.replace(/[\u0300-\u036f]/g, '');
+			.normalize('NFD') // Decompose combined graphemes (è => e +  ̀)
+			.replace(/[\u0300-\u036f]/g, ''); // Remove the diacritic part (è => e)
 
 	const anyIncludes = (term: string, list: (string | undefined)[]) => {
 		if (!term) return true;
