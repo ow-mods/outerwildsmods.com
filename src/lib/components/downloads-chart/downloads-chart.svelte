@@ -47,14 +47,14 @@
 			historyPoints,
 			hoveredTimestamp,
 			widthMultiplier,
-			chartSize.x / 100
+			chartSize.x / 10
 		);
 
 		hoveredPointCompare = getClosestPoint(
 			comparePoints,
 			hoveredTimestamp,
 			widthMultiplier,
-			chartSize.x / 100
+			chartSize.x / 10
 		);
 	};
 
