@@ -94,32 +94,40 @@
 			title: 'DLC leaked',
 		},
 		{
+			date: new Date('2021/06/04'),
+			title: 'MegaPiggy joins',
+		},
+		{
 			date: new Date('2021/07/29'),
 			title: 'DLC announced',
 		},
 		{
-			date: new Date('2021/08/15'),
-			title: 'JohnCorby',
+			date: new Date('2021/08/1'),
+			title: 'JohnCorby joins',
 		},
 		{
-			date: new Date('2021/09/5'),
-			title: 'Logan joins Discord',
+			date: new Date('2021/09/26'),
+			title: 'Logan popups up on the Discord',
 		},
 		{
-			date: new Date('2021/09/25'),
+			date: new Date('2021/09/28'),
 			title: 'DLC releases',
 		},
 		{
-			date: new Date('2021/11/15'),
-			title: 'Xen',
+			date: new Date('2021/11/16'),
+			title: 'Xen joins',
 		},
 		{
-			date: new Date('2021/12/15'),
-			title: 'New Horizons',
+			date: new Date('2021/12/19'),
+			title: 'First New Horizons release',
 		},
 		{
-			date: new Date('2022/01/15'),
-			title: 'Modding Discord server',
+			date: new Date('2022/01/02'),
+			title: 'Idiot (bwc9876) joins',
+		},
+		{
+			date: new Date('2022/01/10'),
+			title: 'Migration to separate Modding Discord server',
 		},
 		{
 			date: new Date(),
