@@ -386,7 +386,7 @@
 		max-height: calc(100vh - 184px);
 	}
 	.slow-transition {
-		transition-property: opacity;
+		transition-property: transform opacity;
 		transition-duration: var(--transition-time);
 		transition-timing-function: ease-in-out;
 	}
