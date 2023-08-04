@@ -66,31 +66,35 @@
 			title: 'Modders join OWML team',
 		},
 		{
-			date: new Date('2020/04/10'),
-			title: 'Marshmallow',
+			date: new Date('2020/04/12'),
+			title: 'First Marshmallow release',
 		},
 		{
-			date: new Date('2020/04/20'),
-			title: 'Mod manager',
+			date: new Date('2020/04/14'),
+			title: 'First Mod Manager release',
 		},
 		{
-			date: new Date('2020/05/15'),
-			title: 'Mod database',
+			date: new Date('2020/04/22'),
+			title: 'Locochoco joins',
 		},
 		{
-			date: new Date('2020/06/15'),
-			title: 'Mods website',
+			date: new Date('2020/05/08'),
+			title: 'Mod database created',
 		},
 		{
-			date: new Date('2020/08/15'),
-			title: 'Alpha modding',
+			date: new Date('2020/06/29'),
+			title: 'Mods website created',
 		},
 		{
-			date: new Date('2021/04/15'),
-			title: 'DLC leak',
+			date: new Date('2020/07/28'),
+			title: 'Loco starts modding the Alpha',
 		},
 		{
-			date: new Date('2021/06/15'),
+			date: new Date('2021/04/28'),
+			title: 'DLC leaked',
+		},
+		{
+			date: new Date('2021/07/29'),
 			title: 'DLC announced',
 		},
 		{
