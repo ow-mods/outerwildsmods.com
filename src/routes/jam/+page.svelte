@@ -128,6 +128,7 @@
 
 	const organizers = {
 		xen: 'xen-42',
+		Idiot: 'Bwc9876',
 		_nebula: 'misternebula',
 		JohnCorby: 'JohnCorby',
 		Raicuparta: 'Raicuparta',
@@ -146,7 +147,7 @@
 		Idiot: 'Bwc9876',
 		xen: 'xen-42',
 		Book: 'Nageld',
-		Hawkbar: 'Hawkbar',
+		Hawkbar: 'Hawkbat',
 	};
 </script>
 
