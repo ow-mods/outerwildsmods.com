@@ -51,6 +51,33 @@
 	const secondPlaceMods = jamMods.filter((mod) =>
 		['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
 	);
+
+	const organizers = {
+		xen: 'xen-42',
+		Idiot: 'Bwc9876',
+		_nebula: 'misternebula',
+		JohnCorby: 'JohnCorby',
+		Raicuparta: 'Raicuparta',
+	};
+
+	const judges = {
+		Bird: 'CrypticBird',
+		Book: 'Nageld',
+		Bunnie: 'BUNN1E5',
+		MegaPiggy: 'MegaPiggy',
+		Vesper: 'Vesper-Works',
+		_nebula: 'misternebula',
+		JohnCorby: 'JohnCorby',
+		xen: 'xen-42',
+	};
+
+	const donators = {
+		_nebula: 'misternebula',
+		Raicuparta: 'Raicuparta',
+		xen: 'xen-42',
+		Book: 'Nageld',
+		Pixie: 'https://www.reddit.com/user/littlemetalpixie',
+	};
 </script>
 
 <PageContainer
@@ -73,7 +100,7 @@
 		<JamWinnerBlock title="🥈 Second place" subtitle="($75 to each team)" mods={secondPlaceMods} />
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
-		<JamCredits />
+		<JamCredits organizers={organizers} judges={judges} donators={donators} />
 	</PageSection>
 	<PageSection title="Submissions" id="submissions">
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
