@@ -1,32 +1,9 @@
 <script lang="ts">
 	import JamCreditColumn from './jam-credit-column.svelte';
 
-	const organizers = {
-		xen: 'xen-42',
-		Idiot: 'Bwc9876',
-		_nebula: 'misternebula',
-		JohnCorby: 'JohnCorby',
-		Raicuparta: 'Raicuparta',
-	};
-
-	const judges = {
-		Bird: 'CrypticBird',
-		Book: 'Nageld',
-		Bunnie: 'BUNN1E5',
-		MegaPiggy: 'MegaPiggy',
-		Vesper: 'Vesper-Works',
-		_nebula: 'misternebula',
-		JohnCorby: 'JohnCorby',
-		xen: 'xen-42',
-	};
-
-	const donators = {
-		_nebula: 'misternebula',
-		Raicuparta: 'Raicuparta',
-		xen: 'xen-42',
-		Book: 'Nageld',
-		Pixie: 'https://www.reddit.com/user/littlemetalpixie',
-	};
+	export let organizers: Record<string, string>;
+	export let judges: Record<string, string>;
+	export let donators: Record<string, string>;
 </script>
 
 <div class="flex flex-col justify-evenly items-center md:flex-row md:items-start gap-8">

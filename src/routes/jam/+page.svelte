@@ -8,6 +8,8 @@
 	import type { PageData } from './$types';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
+	import JamCredits from './jam-credits.svelte';
+	import JamWinnerBlock from './jam-winner-block.svelte';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -120,6 +122,32 @@
 			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
 	);
+	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor');
+	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'CantAffordaName.TesseractsSecret');
+	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'coderCleric.Mindscapes');
+
+	const organizers = {
+		xen: 'xen-42',
+		_nebula: 'misternebula',
+		JohnCorby: 'JohnCorby',
+		Raicuparta: 'Raicuparta',
+	};
+
+	const judges = {
+		Book: 'Nageld',
+		MegaPiggy: 'MegaPiggy',
+		Idiot: 'Bwc9876',
+		_nebula: 'misternebula',
+		xen: 'xen-42',
+	};
+
+	const donators = {
+		_nebula: 'misternebula',
+		Idiot: 'Bwc9876',
+		xen: 'xen-42',
+		Book: 'Nageld',
+		Hawkbar: 'Hawkbar',
+	};
 </script>
 
 <PageContainer
@@ -130,6 +158,26 @@
 	imageHeight={416}
 >
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
+		<p>
+			<strong>The jam is over!</strong> The judges played through your submissions, discussed them, and voted on them.
+		</p>
+	</PageSection>
+	<PageSection title="Results" id="results" isNarrow>
+		<JamWinnerBlock title="🥇 First place" subtitle="($100 to the team)" mods={[firstPlaceMod]} />
+		<JamWinnerBlock title="🥈 Second place" subtitle="($66 to the team)" mods={[secondPlaceMod]} />
+		<JamWinnerBlock title="🥉 Third place" subtitle="($34 to the team)" mods={[thirdPlaceMod]} />
+	</PageSection>
+	<PageSection title="Credits" id="credits" isNarrow>
+		<JamCredits organizers={organizers} judges={judges} donators={donators} />
+	</PageSection>
+	<PageSection title="Submissions" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
+	</PageSection>
+	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
+		<p>
+			The following sections contain all the information originally included in this jam page, while
+			the jam was still running.
+		</p>
 		<p>
 			Welcome to the 2nd Outer Wilds Mod Jam! In this jam, you have two weeks to create custom
 			content for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
@@ -151,9 +199,6 @@
 			<a class="link" href="https://outerwildsmods.com/mods/newhorizons">New Horizons</a> to create a
 			content mod for the jam. You could even do both! It’s up to you.
 		</p>
-	</PageSection>
-	<PageSection title="Submissions" id="submissions">
-		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		<p class="text-xl">
@@ -188,17 +233,19 @@
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
-			🛤️ Your mod can only have utility mods as dependencies. For example - New Horizons, Slate’s
+			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - New Horizons, Slate’s
 			Shipyard, VanillaFix, etc.
 		</p>
 		<p>
-			⏱️ There must be at least one release uploaded to GitHub within the jam deadline. You can make
-			as many releases as you want, but releases made outside the deadline won&#39;t be considered.
-			Do not to overwrite releases, as this will change the upload date of that release.
+			⏱️ <strong>
+				There must be at least one release uploaded to GitHub within the jam deadline.
+			</strong>
+			You can make as many releases as you want, but releases made outside the deadline won't be considered.
+			<u>Do not to overwrite releases, as this will change the upload date of that release.</u>
 		</p>
 		<p>
-			🙋 You can only contribute to one submission. You can&#39;t submit multiple mods, or submit
-			one mod solo and one in a team, or participate in multiple teams.
+			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
+			or submit one mod solo and one in a team, or participate in multiple teams.
 		</p>
 		<p>
 			👮 All submissions must follow the <a
@@ -208,11 +255,10 @@
 			>.
 		</p>
 		<p>
-			🛠️ You can use any assets you have a license to use. Besides using assets already available in
-			the game, you&#39;re allowed to use assets you find (models, textures, sounds, etc), but you
-			must be careful to understand and follow their licenses, just like you would in any open
-			source project. And of course, these assets must also follow the digital content policy
-			mentioned above.
+			🛠️ <strong>You can use any assets you have a license to use.</strong> Besides using assets already
+			available in the game, you're allowed to use assets you find (models, textures, sounds, etc), but
+			you must be careful to understand and follow their licenses, just like you would in any open source
+			project. And of course, these assets must also follow the digital content policy mentioned above.
 		</p>
 	</PageSection>
 	<PageSection title="Judging Criteria" id="judging-criteria" isNarrow>

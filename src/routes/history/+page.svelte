@@ -94,7 +94,7 @@
 			title: 'DLC leaked',
 		},
 		{
-			date: new Date('2021/06/04'),
+			date: new Date('2021/06/03'),
 			title: 'MegaPiggy joins',
 		},
 		{
@@ -128,6 +128,22 @@
 		{
 			date: new Date('2022/01/10'),
 			title: 'Migration to separate Modding Discord server',
+		},
+		{
+			date: new Date('2023/01/14'),
+			title: 'First Mod Jam Begins',
+		},
+		{
+			date: new Date('2023/01/23'),
+			title: 'First Mod Jam Ends',
+		},
+		{
+			date: new Date('2023/07/01'),
+			title: 'Second Mod Jam Begins',
+		},
+		{
+			date: new Date('2023/07/16'),
+			title: 'Second Mod Jam Ends',
 		},
 		{
 			date: new Date(),
