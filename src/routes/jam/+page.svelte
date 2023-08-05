@@ -161,6 +161,8 @@
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
 		<p>
 			<strong>The jam is over!</strong> The judges played through your submissions, discussed them, and voted on them.
+			This concludes the second Outer Wilds Mod Jam! If you'd like to view the first Outer Wilds Mod Jam page and view the results of that jam, 
+			<a href="/jam/jan-2023" class="link">click here</a>.
 		</p>
 	</PageSection>
 	<PageSection title="Results" id="results" isNarrow>
