@@ -8,11 +8,5 @@
 </script>
 
 <div class="flex-1">
-	<img
-		{height}
-		{width}
-		class="w-full rounded border border-dark h-auto"
-		src={imageUrl}
-		alt={title}
-	/>
+	<img {height} {width} class="rounded border border-dark h-auto" src={imageUrl} alt={title} />
 </div>
