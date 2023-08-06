@@ -8,14 +8,14 @@
 
 	const jams = [
 		{
-			title: 'Outer Wilds Mod Jam',
-			date: 'January 2023',
-			path: 'jul-2023',
-		},
-		{
 			title: 'New Horizons Jam',
 			date: 'July 2023',
 			path: 'jan-2023',
+		},
+		{
+			title: 'Outer Wilds Mod Jam',
+			date: 'January 2023',
+			path: 'jul-2023',
 		},
 	];
 </script>
