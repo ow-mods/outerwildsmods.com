@@ -37,7 +37,7 @@
 				<NavigationLink href="/" exact>Home</NavigationLink>
 				<NavigationLink href="/mod-manager">Manager</NavigationLink>
 				<NavigationLink href="/mods">Mods</NavigationLink>
-				<NavigationLink href="/jam">Jam</NavigationLink>
+				<NavigationLink href="/jam">Jams</NavigationLink>
 				<NavigationLink href="/outer-wilds-alpha">Alpha</NavigationLink>
 			</Navigation>
 		</div>
