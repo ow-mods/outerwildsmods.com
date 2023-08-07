@@ -8,6 +8,7 @@
 	import type { PageData } from './$types';
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -96,14 +97,26 @@
 		</p>
 	</PageSection>
 	<PageSection title="Results" id="results" isNarrow>
-		<JamWinnerBlock title="🥇 First place" subtitle="($100 to each team)" mods={firstPlaceMods} />
-		<JamWinnerBlock title="🥈 Second place" subtitle="($75 to each team)" mods={secondPlaceMods} />
+		<JamWinnerBlock title="🥇 First place" subtitle="($100 to each team)">
+			<div class="grid grid-cols-2 gap-2">
+				{#each firstPlaceMods as mod}
+					<ModCard {mod} />
+				{/each}
+			</div>
+		</JamWinnerBlock>
+		<JamWinnerBlock title="🥈 Second place" subtitle="($75 to each team)">
+			<div class="grid grid-cols-2 gap-2">
+				{#each secondPlaceMods as mod}
+					<ModCard {mod} />
+				{/each}
+			</div>
+		</JamWinnerBlock>
+	</PageSection>
+	<PageSection title="All Submissions" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
-		<JamCredits organizers={organizers} judges={judges} donators={donators} />
-	</PageSection>
-	<PageSection title="Submissions" id="submissions">
-		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
+		<JamCredits {organizers} {judges} {donators} />
 	</PageSection>
 	<PageSection title="Original Jam Page" id="nh-jam-original" isNarrow>
 		<p>

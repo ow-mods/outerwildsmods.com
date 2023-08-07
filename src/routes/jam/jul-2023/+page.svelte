@@ -10,6 +10,7 @@
 	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
+	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -162,22 +163,35 @@
 >
 	<PageSection title="Outer Wilds Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			<strong>The jam is over!</strong> The judges played through your submissions, discussed them,
-			and voted on them. This concludes the second Outer Wilds Mod Jam! If you'd like to view the
-			first Outer Wilds Mod Jam page and view the results of that jam,
-			<a href="/jam/jan-2023" class="link">click here</a>.
+			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
+			voted on them. This concludes the second Outer Wilds Mod Jam!
 		</p>
 	</PageSection>
-	<PageSection title="Results" id="results" isNarrow>
-		<JamWinnerBlock title="🥇 First place" subtitle="($100 to the team)" mods={[firstPlaceMod]} />
-		<JamWinnerBlock title="🥈 Second place" subtitle="($66 to the team)" mods={[secondPlaceMod]} />
-		<JamWinnerBlock title="🥉 Third place" subtitle="($34 to the team)" mods={[thirdPlaceMod]} />
+	<PageSection title="Results" id="results">
+		<div class="flex gap-2 flex-col md:flex-row">
+			{#if firstPlaceMod}
+				<JamWinnerBlock title="🥇 First place" subtitle="($100 to the team)">
+					<ModCard mod={firstPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
+			{#if secondPlaceMod}
+				<JamWinnerBlock title="🥈 Second place" subtitle="($66 to the team)">
+					<ModCard mod={secondPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
+			{#if thirdPlaceMod}
+				<JamWinnerBlock title="🥉 Third place" subtitle="($34 to the team)">
+					<ModCard mod={thirdPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
+			<div />
+		</div>
+	</PageSection>
+	<PageSection title="All Submissions" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
 		<JamCredits {organizers} {judges} {donators} />
-	</PageSection>
-	<PageSection title="Submissions" id="submissions">
-		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
 		<p>

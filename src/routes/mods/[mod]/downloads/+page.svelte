@@ -6,7 +6,7 @@
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
-	import type { Mod } from '../../../api/mods.json/+server';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
 	const { modDownloadHistory, mod, modList } = data;
