@@ -134,7 +134,7 @@
 			title: 'First Mod Jam Begins',
 		},
 		{
-			date: new Date('2023/01/23'),
+			date: new Date('2023/01/24'),
 			title: 'First Mod Jam Ends',
 		},
 		{
@@ -142,7 +142,7 @@
 			title: 'Second Mod Jam Begins',
 		},
 		{
-			date: new Date('2023/07/16'),
+			date: new Date('2023/07/17'),
 			title: 'Second Mod Jam Ends',
 		},
 		{
