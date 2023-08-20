@@ -41,6 +41,11 @@
 				<summary class="py-2 px-4 rounded link bg-darker justify-center h-full">For Linux</summary>
 				<div class="p-4 flex flex-col gap-2">
 					<div>
+						<CtaButton href="appstream:com.outerwildsmods.owmods_gui">
+							AppStream Link (Flatpak) (Use this on Steam Deck)
+						</CtaButton>
+					</div>
+					<div>
 						<CtaButton href={data.debUrl} isExternal icon={DebianIcon}>
 							Download .deb package for Debian
 						</CtaButton>
@@ -56,7 +61,7 @@
 							isExternal
 							icon={FlatpakIcon}
 						>
-							Flatpak for Linux (Steam Deck)
+							Flatpak for Linux
 						</CtaButton>
 					</div>
 					<div>
