@@ -181,10 +181,20 @@
 	</PageSection>
 	<PageSection title="More information" id="more-info" isNarrow>
 		<p>
-			For more information, check the{' '}
-			<a class="link" target="_blank" rel="noopener noreferrer" href={`${data.repoUrl}#readme`}>
-				readme on GitHub
-			</a>
+			If you need help, you can check <a
+				class="link"
+				href={`${data.repoUrl}/blob/main/owmods_gui/HELP.md`}
+				target="_blank"
+				rel="noopener">the FAQ file in the manager repo</a
+			>. Or you can come ask on
+			<a class="link" target="_blank" rel="noopener" href="https://discord.gg/9vE5aHxcF9"
+				>The Outer Wilds Modding Discord Server</a
+			>.
+		</p>
+		<p>
+			You can also check out the <a href={`${data.repoUrl}`} class="link"
+				>Mod Manager GitHub repository</a
+			>.
 		</p>
 	</PageSection>
 </PageContainer>
