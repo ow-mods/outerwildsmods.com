@@ -33,6 +33,6 @@
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
-		<Comments id="mod:{mod.uniqueName}" />
+		<Comments id="mod: {mod.uniqueName}" />
 	</PageContainer>
 {/if}

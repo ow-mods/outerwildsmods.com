@@ -15,5 +15,5 @@
 	<ErrorMessage />
 	<code class="whitespace-pre-wrap break-words">{$page.status}: {$page.error?.message}</code>
 
-	<Comments id="error-page" />
+	<Comments id="page: Error" />
 </PageContainer>

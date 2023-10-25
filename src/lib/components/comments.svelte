@@ -15,7 +15,7 @@
 			data-category="Comments"
 			data-category-id="DIC_kwDOGfoiNc4CabnK"
 			data-mapping="specific"
-			data-term="Comments: {id}"
+			data-term={id}
 			data-theme="dark"
 			data-strict="1"
 			data-reactions-enabled="0"
