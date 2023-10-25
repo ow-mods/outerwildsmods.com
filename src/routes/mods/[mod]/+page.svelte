@@ -7,7 +7,6 @@
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
-	import '../../../styles/giscus.css';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 
 	export let data: PageData;
