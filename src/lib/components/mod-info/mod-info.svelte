@@ -66,29 +66,19 @@
 			{/if}
 		</div>
 		<div class="text-sm flex flex-col gap-2">
-			<div>
-				<a class="link" href="https://github.com/{mod.author}">
-					{modIcon}
-					{mod.authorDisplay ?? mod.author}
-				</a>
-			</div>
-			<div>
-				<a class="link" href={mod.repo}>📄 Source Code</a>
-			</div>
-			<div>
-				<a class="link" href="/mods/{mod.slug}/downloads/">
-					📈 {mod.formattedDownloadCount} downloads
-				</a>
-			</div>
-			<div>
-				<a class="link" href={mod.downloadUrl}>
-					🗃️ Download zip ({mod.version})
-				</a>
-			</div>
+			<a class="link" href="https://github.com/{mod.author}">
+				{modIcon}
+				{mod.authorDisplay ?? mod.author}
+			</a>
+			<a class="link" href={mod.repo}>📄 Source Code</a>
+			<a class="link" href="/mods/{mod.slug}/downloads/">
+				📈 {mod.formattedDownloadCount} downloads
+			</a>
+			<a class="link" href={mod.downloadUrl}>
+				🗃️ Download zip ({mod.version})
+			</a>
 			<ModDetails {mod} />
-			<div>
-				<a class="link" href="#{commentsSectionId}"> 💬 Comments </a>
-			</div>
+			<a class="link" href="#{commentsSectionId}"> 💬 Comments </a>
 		</div>
 	</div>
 </div>
