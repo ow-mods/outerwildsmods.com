@@ -6,8 +6,8 @@
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
-	import { browser } from '$app/environment';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
+	import Comments from '$lib/components/comments.svelte';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
@@ -33,30 +33,6 @@
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
-		<PageSection title="Comments" id="mod-comments">
-			{#if browser}
-				<script
-					src="https://giscus.app/client.js"
-					data-repo="ow-mods/outerwildsmods.com"
-					data-repo-id="R_kgDOGfoiNQ"
-					data-category="Comments"
-					data-category-id="DIC_kwDOGfoiNc4CabnK"
-					data-mapping="specific"
-					data-term="Comments: {mod.uniqueName}"
-					data-theme="dark"
-					data-strict="1"
-					data-reactions-enabled="0"
-					data-emit-metadata="0"
-					data-input-position="top"
-					data-lang="en"
-					data-loading="lazy"
-					crossorigin="anonymous"
-					async
-				>
-				</script>
-			{:else}
-				<p>Javascript is required for this thing to work.</p>
-			{/if}
-		</PageSection>
+		<Comments id="mod:{mod.uniqueName}" />
 	</PageContainer>
 {/if}

@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import Comments from '$lib/components/comments.svelte';
 	import { page } from '$app/stores';
 </script>
 
@@ -13,4 +14,6 @@
 >
 	<ErrorMessage />
 	<code class="whitespace-pre-wrap break-words">{$page.status}: {$page.error?.message}</code>
+
+	<Comments id="error-page" />
 </PageContainer>
