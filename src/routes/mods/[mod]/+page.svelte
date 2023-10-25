@@ -31,5 +31,20 @@
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
+		<script
+			src="https://giscus.app/client.js"
+			data-repo={mod.repo.replace('https://github.com/', '')}
+			data-category="outerwildsmods.com"
+			data-mapping="specific"
+			data-term="Comments"
+			data-strict="1"
+			data-reactions-enabled="1"
+			data-emit-metadata="0"
+			data-input-position="top"
+			data-lang="en"
+			data-loading="lazy"
+			crossorigin="anonymous"
+			async
+		></script>
 	</PageContainer>
 {/if}
