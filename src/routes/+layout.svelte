@@ -9,9 +9,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
-	import PageContainer from '$lib/components/page-container.svelte';
 	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
-	import type { PageData } from './$types';
 
 	onMount(() => {
 		if ($page.status == 200 && $page.url.searchParams.has(linkedFromNotificationParamName)) {
@@ -20,11 +18,9 @@
 			goto(url.href);
 		}
 	});
-
-	export let data: PageData;
 </script>
 
-<ModInstallDialog modList={data.modList} />
+<ModInstallDialog />
 <Header />
 <main class="bg-background overflow-hidden highlight" data-sveltekit-preload-data="hover">
 	<span

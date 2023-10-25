@@ -39,7 +39,7 @@
 </svelte:head>
 
 <PageContainer
-	title="Outer Wilds Mods - Download and Install Mods for Outer Wilds"
+	title="Outer Wilds Mods"
 	description="Find all the tools needed to mod Outer Wilds. Download and install mods with the Outer Wilds Mod Manager."
 	imageUrl="{websiteUrl}/images/opengraph.webp"
 	imageWidth={1200}

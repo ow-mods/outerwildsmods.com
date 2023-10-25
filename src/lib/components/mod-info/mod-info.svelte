@@ -3,7 +3,12 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
 	import DownloadIcon from '../icons/download-icon.svelte';
-	import { managerInstallProtocol, owmlUniqueName, websiteUrl } from '$lib/helpers/constants';
+	import {
+		commentsSectionId,
+		managerInstallProtocol,
+		owmlUniqueName,
+		websiteUrl,
+	} from '$lib/helpers/constants';
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 	import { modBeingInstalled } from '../mod-install-store';
 	import ModMoreInfo from './mod-more-info.svelte';
@@ -80,6 +85,9 @@
 				<a class="link" href={mod.downloadUrl}>
 					🗃️ Download zip ({mod.version})
 				</a>
+			</div>
+			<div>
+				<a class="link" href="#{commentsSectionId}"> 💬 Comments </a>
 			</div>
 		</div>
 		<ModMoreInfo {mod} />

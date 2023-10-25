@@ -19,3 +19,4 @@ export const downloadHistoryUrl =
 	'https://raw.githubusercontent.com/misternebula/OWModDBDownloadCountExtractor/main/download-history.json';
 export const managerInstallProtocol = 'owmods://install-mod';
 export const owmlUniqueName = 'Alek.OWML';
+export const commentsSectionId = 'page-comments';
