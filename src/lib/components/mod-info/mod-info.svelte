@@ -7,11 +7,10 @@
 		commentsSectionId,
 		managerInstallProtocol,
 		owmlUniqueName,
-		websiteUrl,
 	} from '$lib/helpers/constants';
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 	import { modBeingInstalled } from '../mod-install-store';
-	import ModMoreInfo from './mod-more-info.svelte';
+	import ModDetails from './mod-details.svelte';
 
 	export let mod: Mod;
 
@@ -86,10 +85,10 @@
 					🗃️ Download zip ({mod.version})
 				</a>
 			</div>
+			<ModDetails {mod} />
 			<div>
 				<a class="link" href="#{commentsSectionId}"> 💬 Comments </a>
 			</div>
 		</div>
-		<ModMoreInfo {mod} />
 	</div>
 </div>

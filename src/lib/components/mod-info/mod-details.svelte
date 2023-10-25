@@ -22,7 +22,9 @@
 	};
 </script>
 
-<button class="link text-sm" on:click={openDialog} on:keydown={openDialog}>More Info...</button>
+<div>
+	<button class="link text-sm" on:click={openDialog} on:keydown={openDialog}> ℹ️ Details </button>
+</div>
 
 {#if isMoreInfoOpen}
 	<PopupDialog isOpen={isMoreInfoOpen} onClose={closeDialog}>
