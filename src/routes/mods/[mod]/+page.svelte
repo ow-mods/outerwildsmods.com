@@ -16,7 +16,7 @@
 {#if mod}
 	<PageContainer
 		title={mod.name}
-		description={mod.description}
+		description="{mod.description} (by @{mod.author})"
 		imageUrl={mod.openGraphImageUrl ?? mod.imageUrl}
 		imageWidth={listedImageSize.width}
 		imageHeight={listedImageSize.height}
