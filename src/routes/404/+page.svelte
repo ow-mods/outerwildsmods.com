@@ -9,5 +9,5 @@
 	description="Something went wrong on the Outer Wilds Mods website"
 >
 	<ErrorMessage />
-	<Comments id="page: 404" />
+	<Comments id="page: Error" />
 </PageContainer>
