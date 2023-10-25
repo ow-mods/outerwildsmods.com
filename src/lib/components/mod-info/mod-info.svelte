@@ -81,6 +81,9 @@
 					🗃️ Download zip ({mod.version})
 				</a>
 			</div>
+			<div>
+				<a class="link" href="#mod-comments"> 💬 Comments </a>
+			</div>
 		</div>
 		<ModMoreInfo {mod} />
 	</div>

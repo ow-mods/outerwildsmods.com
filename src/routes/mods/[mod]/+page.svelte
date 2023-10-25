@@ -7,6 +7,8 @@
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
 	import { browser } from '$app/environment';
+	import '../../../styles/giscus.css';
+	import PageSection from '$lib/components/page-section/page-section.svelte';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
@@ -33,24 +35,27 @@
 			</div>
 		</div>
 		{#if browser}
-			<script
-				src="https://giscus.app/client.js"
-				data-repo="ow-mods/outerwildsmods.com"
-				data-repo-id="R_kgDOGfoiNQ"
-				data-category="Comments"
-				data-category-id="DIC_kwDOGfoiNc4CabnK"
-				data-mapping="specific"
-				data-term="Comments: {mod.uniqueName}"
-				data-strict="1"
-				data-reactions-enabled="1"
-				data-emit-metadata="0"
-				data-input-position="top"
-				data-lang="en"
-				data-loading="lazy"
-				crossorigin="anonymous"
-				async
-			>
-			</script>
+			<PageSection title="Comments" id="mod-comments">
+				<script
+					src="https://giscus.app/client.js"
+					data-repo="ow-mods/outerwildsmods.com"
+					data-repo-id="R_kgDOGfoiNQ"
+					data-category="Comments"
+					data-category-id="DIC_kwDOGfoiNc4CabnK"
+					data-mapping="specific"
+					data-term="Comments: {mod.uniqueName}"
+					data-theme="dark"
+					data-strict="1"
+					data-reactions-enabled="0"
+					data-emit-metadata="0"
+					data-input-position="top"
+					data-lang="en"
+					data-loading="lazy"
+					crossorigin="anonymous"
+					async
+				>
+				</script>
+			</PageSection>
 		{/if}
 	</PageContainer>
 {/if}
