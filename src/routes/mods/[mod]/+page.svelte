@@ -33,10 +33,12 @@
 		</div>
 		<script
 			src="https://giscus.app/client.js"
-			data-repo={mod.repo.replace('https://github.com/', '')}
-			data-category="outerwildsmods.com"
+			data-repo="ow-mods/outerwildsmods.com"
+			data-repo-id="R_kgDOGfoiNQ"
+			data-category="Comments"
+			data-category-id="DIC_kwDOGfoiNc4CabnK"
 			data-mapping="specific"
-			data-term="Comments"
+			data-term="Comments: {mod.uniqueName}"
 			data-strict="1"
 			data-reactions-enabled="1"
 			data-emit-metadata="0"
@@ -45,6 +47,7 @@
 			data-loading="lazy"
 			crossorigin="anonymous"
 			async
-		></script>
+		>
+		</script>
 	</PageContainer>
 {/if}
