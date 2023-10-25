@@ -6,6 +6,7 @@
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
+	import { browser } from '$app/environment';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
@@ -31,23 +32,25 @@
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
-		<script
-			src="https://giscus.app/client.js"
-			data-repo="ow-mods/outerwildsmods.com"
-			data-repo-id="R_kgDOGfoiNQ"
-			data-category="Comments"
-			data-category-id="DIC_kwDOGfoiNc4CabnK"
-			data-mapping="specific"
-			data-term="Comments: {mod.uniqueName}"
-			data-strict="1"
-			data-reactions-enabled="1"
-			data-emit-metadata="0"
-			data-input-position="top"
-			data-lang="en"
-			data-loading="lazy"
-			crossorigin="anonymous"
-			async
-		>
-		</script>
+		{#if browser}
+			<script
+				src="https://giscus.app/client.js"
+				data-repo="ow-mods/outerwildsmods.com"
+				data-repo-id="R_kgDOGfoiNQ"
+				data-category="Comments"
+				data-category-id="DIC_kwDOGfoiNc4CabnK"
+				data-mapping="specific"
+				data-term="Comments: {mod.uniqueName}"
+				data-strict="1"
+				data-reactions-enabled="1"
+				data-emit-metadata="0"
+				data-input-position="top"
+				data-lang="en"
+				data-loading="lazy"
+				crossorigin="anonymous"
+				async
+			>
+			</script>
+		{/if}
 	</PageContainer>
 {/if}
