@@ -67,9 +67,9 @@
 		</div>
 		<div class="text-sm flex flex-col gap-2">
 			<div>
-				<a class="link break-words flex gap-1 items-center" href="https://github.com/{mod.author}">
-					<span class="text-xl -mx-1">{modIcon}</span>
-					<span>{mod.authorDisplay ?? mod.author}</span>
+				<a class="link" href="https://github.com/{mod.author}">
+					{modIcon}
+					{mod.authorDisplay ?? mod.author}
 				</a>
 			</div>
 			<div>
