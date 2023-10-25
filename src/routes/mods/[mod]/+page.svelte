@@ -33,8 +33,8 @@
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
 		</div>
-		{#if browser}
-			<PageSection title="Comments" id="mod-comments">
+		<PageSection title="Comments" id="mod-comments">
+			{#if browser}
 				<script
 					src="https://giscus.app/client.js"
 					data-repo="ow-mods/outerwildsmods.com"
@@ -54,7 +54,9 @@
 					async
 				>
 				</script>
-			</PageSection>
-		{/if}
+			{:else}
+				<p>Javascript is required for this thing to work.</p>
+			{/if}
+		</PageSection>
 	</PageContainer>
 {/if}
