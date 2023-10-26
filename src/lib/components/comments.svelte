@@ -5,7 +5,6 @@
 	import PageSection from './page-section/page-section.svelte';
 
 	export let id: string;
-	console.log($page.url);
 </script>
 
 <PageSection title="Comments" id={commentsSectionId}>
