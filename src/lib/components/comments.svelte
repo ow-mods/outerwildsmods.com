@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import { commentsSectionId } from '$lib/helpers/constants';
 	import PageSection from './page-section/page-section.svelte';
 
 	export let id: string;
+	console.log($page.url);
 </script>
 
 <PageSection title="Comments" id={commentsSectionId}>
@@ -16,7 +18,7 @@
 			data-category-id="DIC_kwDOGfoiNc4CabnK"
 			data-mapping="specific"
 			data-term={id}
-			data-theme="dark"
+			data-theme="{$page.url.origin}/styles/giscus.css"
 			data-strict="1"
 			data-reactions-enabled="0"
 			data-emit-metadata="0"

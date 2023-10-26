@@ -1,0 +1,110 @@
+main {
+	/* Colors copied from tailwind.config.cjs */
+	--color-accent: #ff9c86;
+	--color-cta: #35823f;
+	--color-background: #161a20;
+	--color-light: rgba(255, 255, 255, 0.65);
+	--color-dark: #12151a;
+	--color-darker: #0b0d10;
+	--color-error: #f04747;
+
+	--color-prettylights-syntax-comment: #8b949e;
+	--color-prettylights-syntax-constant: #79c0ff;
+	--color-prettylights-syntax-entity: #d2a8ff;
+	--color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+	--color-prettylights-syntax-entity-tag: #7ee787;
+	--color-prettylights-syntax-keyword: #ff7b72;
+	--color-prettylights-syntax-string: #a5d6ff;
+	--color-prettylights-syntax-variable: #ffa657;
+	--color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+	--color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+	--color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+	--color-prettylights-syntax-carriage-return-text: #f0f6fc;
+	--color-prettylights-syntax-carriage-return-bg: #b62324;
+	--color-prettylights-syntax-string-regexp: #7ee787;
+	--color-prettylights-syntax-markup-list: #f2cc60;
+	--color-prettylights-syntax-markup-heading: #1f6feb;
+	--color-prettylights-syntax-markup-italic: #c9d1d9;
+	--color-prettylights-syntax-markup-bold: #c9d1d9;
+	--color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+	--color-prettylights-syntax-markup-deleted-bg: #67060c;
+	--color-prettylights-syntax-markup-inserted-text: #aff5b4;
+	--color-prettylights-syntax-markup-inserted-bg: #033a16;
+	--color-prettylights-syntax-markup-changed-text: #ffdfb6;
+	--color-prettylights-syntax-markup-changed-bg: #5a1e02;
+	--color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+	--color-prettylights-syntax-markup-ignored-bg: #1158c7;
+	--color-prettylights-syntax-meta-diff-range: #d2a8ff;
+	--color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+	--color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+	--color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+
+	--color-btn-text: #c9d1d9;
+	--color-btn-bg: var(--color-darker);
+	--color-btn-hover-bg: #171a22;
+	--color-btn-active-bg: #050608;
+	--color-btn-selected-bg: #050608;
+
+	--color-btn-primary-text: #fff;
+	--color-btn-primary-bg: var(--color-cta);
+	--color-btn-primary-hover-bg: #3b8e46;
+	--color-btn-primary-selected-bg: rgb(44, 110, 53);
+	--color-btn-primary-disabled-text: rgb(255 255 255 / 50%);
+	--color-btn-primary-disabled-bg: #35823f64;
+
+	--color-segmented-control-bg: var(--color-dark);
+	--color-segmented-control-button-bg: var(--color-darker);
+	--color-action-list-item-default-hover-bg: var(--color-background);
+
+	--color-fg-default: var(--light);
+	--color-fg-muted: #7d8590;
+	--color-fg-subtle: #6e7681;
+
+	--color-canvas-default: var(--color-dark);
+	--color-canvas-overlay: var(--color-dark);
+	--color-canvas-inset: var(--color-darker);
+	--color-canvas-subtle: var(--color-darker);
+
+	--color-border-default: var(--color-dark);
+	--color-border-muted: var(--color-dark);
+
+	--color-neutral-muted: rgb(110 118 129 / 40%);
+
+	--color-accent-fg: var(--color-accent);
+	--color-accent-emphasis: var(--color-accent);
+	--color-accent-muted: #9e7267;
+	--color-accent-subtle: rgb(56 139 253 / 10%);
+
+	--color-success-fg: var(--color-cta);
+	--color-attention-fg: var(--color-accent);
+	--color-attention-muted: rgb(187 128 9 / 40%);
+	--color-attention-subtle: rgb(187 128 9 / 15%);
+	--color-danger-fg: var(--color-error);
+	--color-danger-muted: rgb(248 81 73 / 40%);
+	--color-danger-subtle: rgb(248 81 73 / 10%);
+	--color-scale-gray-7: #21262d;
+	--color-scale-blue-8: #0c2d6b;
+
+	/*! Extensions from @primer/css/alerts/flash.scss */
+	--color-social-reaction-bg-hover: var(--color-scale-gray-7);
+	--color-social-reaction-bg-reacted-hover: var(--color-scale-blue-8);
+}
+
+main .pagination-loader-container {
+	background-image: url('https://github.com/images/modules/pulls/progressive-disclosure-line-dark.svg');
+}
+
+main .gsc-loading-image {
+	background-image: url('https://github.githubassets.com/images/mona-loading-dark.gif');
+}
+
+button,
+.BtnGroup,
+.BtnGroup-item,
+.BtnGroup-item-selected {
+	border: 0;
+}
+
+.gsc-upvote-button {
+	display: none;
+}
