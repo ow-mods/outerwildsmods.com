@@ -81,7 +81,6 @@
 		<div class="relative flex-1">
 			<ChartTooltip {compareWithMod} {mod} {hoveredPoint} {hoveredPointCompare} {mousePosition} />
 			<svg
-				role="tooltip"
 				viewBox="0 0 {chartSize.x} {chartSize.y}"
 				class="block overflow-visible"
 				on:mousemove={handleMouseMove}
@@ -89,7 +88,7 @@
 				on:mouseout={resetPointer}
 				on:blur={resetPointer}
 			>
-				<g class="pointer-events-none">
+				<g class="pointer-events-none ">
 					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
 					<line
 						class="stroke-light opacity-80"

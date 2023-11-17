@@ -101,8 +101,7 @@ main .gsc-loading-image {
 button,
 .BtnGroup,
 .BtnGroup-item,
-.BtnGroup-item-selected,
-.btn-primary.border {
+.BtnGroup-item-selected {
 	border: 0;
 }
 
