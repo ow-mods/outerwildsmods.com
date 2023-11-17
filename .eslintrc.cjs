@@ -1,8 +1,13 @@
 module.exports = {
 	root: true,
 	parser: '@typescript-eslint/parser',
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
-	plugins: ['svelte', '@typescript-eslint'],
+	extends: [
+		'eslint:recommended',
+		'plugin:@typescript-eslint/recommended',
+		'prettier',
+		'plugin:svelte/recommended',
+	],
+	plugins: ['@typescript-eslint'],
 	ignorePatterns: ['*.cjs'],
 	overrides: [{ files: ['*.svelte'], processor: 'svelte/svelte' }],
 	settings: {
@@ -16,5 +21,8 @@ module.exports = {
 		browser: true,
 		es2017: true,
 		node: true,
+	},
+	rules: {
+		'no-constant-binary-expression': 2,
 	},
 };

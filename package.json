@@ -10,6 +10,7 @@
 		"@types/commonmark": "^0.27.9",
 		"@types/gtag.js": "^0.0.18",
 		"@types/lodash-es": "^4.17.11",
+		"@types/node": "^20.9.1",
 		"@typescript-eslint/eslint-plugin": "^6.11.0",
 		"@typescript-eslint/parser": "^6.11.0",
 		"autoprefixer": "^10.4.16",
@@ -19,7 +20,6 @@
 		"globby": "^14.0.0",
 		"lodash-es": "^4.17.21",
 		"postcss": "^8.4.31",
-		"prettier": "^3.1.0",
 		"prettier-plugin-svelte": "^3.1.0",
 		"sharp": "^0.32.6",
 		"svelte": "^4.2.4",
@@ -36,7 +36,7 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --check . && eslint .",
+		"lint": "prettier --write . && eslint .",
 		"format": "prettier --write .",
 		"post:build": "node post-build.mjs"
 	},
@@ -46,6 +46,7 @@
 	},
 	"packageManager": "pnpm@8.6.5",
 	"dependencies": {
-		"eslint-plugin-svelte": "^2.35.0"
+		"eslint-plugin-svelte": "^2.35.0",
+		"prettier": "^3.1.0"
 	}
 }
