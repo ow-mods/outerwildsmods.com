@@ -31,19 +31,16 @@
 
 {#if isOpen}
 	<div
-		role="button"
-		tabindex="-1"
 		on:click={onClose}
 		on:keydown={onClose}
 		class="bg-black bg-opacity-50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center p-4"
 	>
-		<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 		<div
-			role="dialog"
 			class="rounded bg-background p-4 flex flex-col gap-4 transition-transform will-change-transform max-w-xl max-h-full overflow-auto"
 			on:click|stopPropagation
 			on:keydown|stopPropagation
 			use:focusElement
+			aria-modal
 			tabindex="-1"
 		>
 			<div class="flex flex-col gap-4 flex-1 overflow-auto">
