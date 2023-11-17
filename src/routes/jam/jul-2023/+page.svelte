@@ -28,7 +28,7 @@
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 	//let theme = '';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 

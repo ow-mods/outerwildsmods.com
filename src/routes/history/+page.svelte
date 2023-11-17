@@ -355,6 +355,8 @@
 			<div class="relative w-96 flex justify-center">
 				{#each events as event, index}
 					<div
+						role="button"
+						tabindex="0"
 						bind:this={timelineElements[index]}
 						class="slow-transition absolute z-20 flex items-center h-0 cursor-pointer"
 						class:opacity-0={index > revealedEvent}

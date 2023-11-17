@@ -9,6 +9,8 @@
 
 <svelte:element
 	this={element}
+	role="button"
+	tabindex="0"
 	class="button link hover:bg-background bg-dark justify-center h-full"
 	class:py-1={isSmall}
 	class:text-sm={isSmall}

@@ -179,6 +179,7 @@ Remove the inheritance of text transform in Edge and Firefox.
 	button,
 	select {
 		text-transform: none;
+		text-align: left;
 	}
 
 	/*
@@ -293,24 +294,6 @@ Prevent resizing textareas horizontally by default.
 	input::placeholder,
 	textarea::placeholder {
 		opacity: 0.8;
-	}
-
-	/*
-Set the default cursor for buttons.
-*/
-
-	button,
-	[role='button'] {
-		cursor: pointer;
-	}
-
-	/*
-Make sure disabled buttons don't get the pointer cursor.
-*/
-	:disabled {
-		cursor: default;
-		opacity: 0.5;
-		pointer-events: none;
 	}
 
 	/*
