@@ -46,7 +46,7 @@
 		<div class:invisible={isVisible} class="text-sm">(Javascript needs to be enabled for this)</div>
 	</div>
 	<div bind:this={container}>
-		<div class:hidden={!isLoaded}>
+		<div class:invisible={!isLoaded} class:absolute={!isLoaded}>
 			{#if isVisible}
 				<script
 					src="https://giscus.app/client.js"
