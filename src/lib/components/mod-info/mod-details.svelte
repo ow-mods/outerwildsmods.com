@@ -23,7 +23,7 @@
 </script>
 
 <button class="link text-sm text-left" on:click={openDialog} on:keydown={openDialog}>
-	ℹ️ Details
+	📋 Details
 </button>
 
 {#if isMoreInfoOpen}

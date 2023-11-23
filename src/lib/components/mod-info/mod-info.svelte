@@ -70,7 +70,7 @@
 				{modIcon}
 				{mod.authorDisplay ?? mod.author}
 			</a>
-			<a class="link" href={mod.repo}>📄 Source Code</a>
+			<a class="link" href={mod.repo}>📝 Source Code</a>
 			<a class="link" href="/mods/{mod.slug}/downloads/">
 				📈 {mod.formattedDownloadCount} downloads
 			</a>
