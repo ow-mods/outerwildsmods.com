@@ -62,7 +62,6 @@
 					data-emit-metadata="0"
 					data-input-position="top"
 					data-lang="en"
-					data-loading="lazy"
 					crossorigin="anonymous"
 					async
 				>
