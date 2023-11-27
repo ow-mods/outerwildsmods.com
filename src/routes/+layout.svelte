@@ -10,6 +10,7 @@
 	import { goto } from '$app/navigation';
 	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
+	import Analytics from '$lib/components/analytics.svelte';
 
 	onMount(() => {
 		if ($page.status == 200 && $page.url.searchParams.has(linkedFromNotificationParamName)) {
@@ -20,6 +21,7 @@
 	});
 </script>
 
+<Analytics />
 <ModInstallDialog />
 <Header />
 <main class="bg-background overflow-hidden highlight" data-sveltekit-preload-data="hover">
