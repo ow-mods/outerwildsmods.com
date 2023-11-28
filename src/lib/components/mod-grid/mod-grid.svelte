@@ -134,7 +134,7 @@
 {#if allowFiltering}
 	<div class="flex gap-2 mb-2 items-center flex-wrap text-sm">
 		<select
-			id="haha"
+			aria-label="Sort by"
 			class="input w-60"
 			value={selectedSortOrderId}
 			on:change={(event) => {
