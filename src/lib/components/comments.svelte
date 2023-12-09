@@ -67,11 +67,10 @@
 					data-theme="{$page.url.origin}/styles/giscus.css"
 					data-strict="1"
 					data-reactions-enabled="0"
-					data-emit-metadata="0"
+					data-emit-metadata="1"
 					data-input-position="top"
 					data-lang="en"
 					crossorigin="anonymous"
-					async
 				>
 				</script>
 			{/if}
