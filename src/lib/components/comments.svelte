@@ -11,11 +11,18 @@
 	let isLoaded = false;
 	let container: HTMLDivElement;
 
+	function scrollToCommentsIfNeeded() {
+		if ($page.url.searchParams.has('giscus')) {
+			isVisible = true;
+			container.scrollIntoView();
+		}
+	}
+
 	function handleGiscusEvent(event: MessageEvent<any>) {
 		if (event.origin !== 'https://giscus.app' || event.data.giscus.resizeHeight === 0) return;
 
-		console.log(event.data);
 		isLoaded = true;
+		scrollToCommentsIfNeeded();
 	}
 
 	onMount(() => {
@@ -27,6 +34,7 @@
 
 		observer.observe(container);
 		window.addEventListener('message', handleGiscusEvent);
+		scrollToCommentsIfNeeded();
 	});
 
 	onDestroy(() => {
@@ -39,7 +47,7 @@
 <PageSection title="Comments" id={commentsSectionId}>
 	<div
 		class:hidden={isLoaded}
-		class="bg-dark p-4 rounded h-64 text-cente flex flex-col items-center justify-center"
+		class="bg-dark p-4 rounded h-64 flex flex-col items-center justify-center"
 	>
 		<div class="animate-pulse text-4xl">🔥</div>
 		<div>Loading comments...</div>
