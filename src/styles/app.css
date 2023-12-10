@@ -14,3 +14,7 @@ body {
 iframe {
 	outline: none !important;
 }
+
+svg {
+	height: 100%;
+}
