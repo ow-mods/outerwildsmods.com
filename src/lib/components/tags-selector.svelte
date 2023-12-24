@@ -16,7 +16,7 @@
 	{/each}
 
 	{#if Object.keys(tagStates).length > 0}
-		<TagToggle title="Clear" on:click={onClear} selected>
+		<TagToggle title="Clear" on:click={onClear}>
 			<div class="text-xs grayscale">❌</div>
 		</TagToggle>
 	{/if}
