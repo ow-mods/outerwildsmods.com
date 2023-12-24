@@ -1,5 +1,7 @@
 <script context="module" lang="ts">
-	export type TagStates = Record<string, boolean>;
+	export type TagStates = Record<string, string>;
+	export const tagIncluded = 'included'
+	export const tagExcluded = 'excluded'
 </script>
 
 <script lang="ts">
@@ -16,6 +18,7 @@
 	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
+	import { modExcludeTagParamName } from '$lib/helpers/get-mod-tags';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CheckboxInput from '../checkbox-input.svelte';
 
@@ -37,17 +40,14 @@
 
 	$: {
 		const filterMod = (mod: Mod) => {
-			const isModTagSelected =
-				selectedTagCount == 0 || mod.tags.findIndex((tag) => tagStates[tag]) != -1;
-
-			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
+			const containsBlockedTag = 
+											mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
 			const containsAllowedTag =
 				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
 
 			return (
 				containsAllowedTag &&
 				!containsBlockedTag &&
-				isModTagSelected &&
 				anyIncludes(filter, [
 					mod.author,
 					mod.description,
@@ -76,7 +76,11 @@
 		tagStates = {};
 		const tagParams = $page.url.searchParams.getAll(modTagParamName);
 		for (const tagParam of tagParams) {
-			tagStates[tagParam] = true;
+			tagStates[tagParam] = tagIncluded;
+		}
+		const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
+		for (const tagParam of excludedTagParams) {
+			tagStates[tagParam] = tagExcluded;
 		}
 	}
 
@@ -111,17 +115,32 @@
 	const onToggleTag = (tag: string) => {
 		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
 
-		if (!toggledTag) {
-			currentTagStates[tag] = true;
+		if (toggledTag == undefined) {
+			currentTagStates[tag] = tagIncluded;
+		}
+		else if (toggledTag == tagIncluded) {
+			currentTagStates[tag] = tagExcluded;
+		}
+		else {
+			currentTagStates[tag] = ""
 		}
 
 		tagStates = currentTagStates;
+		tagAllowList = []
+		tagBlockList = []
 
 		const url = new URL($page.url);
 		url.searchParams.delete(modTagParamName);
+		url.searchParams.delete(modExcludeTagParamName);
 		for (const [tagName, tagValue] of Object.entries(tagStates)) {
-			if (!tagValue) continue;
-			url.searchParams.append(modTagParamName, tagName);
+			if (tagValue == tagIncluded) {
+				url.searchParams.append(modTagParamName, tagName);
+				tagAllowList.push(tagName);
+			}
+			else if (tagValue == tagExcluded) {
+				url.searchParams.append(modExcludeTagParamName, tagName)
+				tagBlockList.push(tagName);
+			}
 		}
 		goto(url.href);
 	};
