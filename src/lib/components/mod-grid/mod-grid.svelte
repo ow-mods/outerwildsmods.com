@@ -147,6 +147,8 @@
 
 	const onClearTags = () => {
 		tagStates = {};
+		tagAllowList = []
+		tagBlockList = []
 	};
 </script>
 
