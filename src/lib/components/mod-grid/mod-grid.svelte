@@ -2,6 +2,7 @@
 	export type TagStates = Record<string, string>;
 	export const tagIncluded = 'included'
 	export const tagExcluded = 'excluded'
+	export const dlcTag = 'requires-dlc'
 </script>
 
 <script lang="ts">
@@ -35,6 +36,7 @@
 	let tagStates: TagStates = {};
 	let selectedTagCount = 0;
 	let showDetails = false;
+	let hideDLC = false;
 
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
@@ -113,16 +115,26 @@
 	};
 
 	const onToggleTag = (tag: string) => {
-		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
+		let toggledTag = tagStates[tag];
 
 		if (toggledTag == undefined) {
-			currentTagStates[tag] = tagIncluded;
+			setTagState(tag, tagIncluded);
 		}
 		else if (toggledTag == tagIncluded) {
-			currentTagStates[tag] = tagExcluded;
+			setTagState(tag, tagExcluded);
 		}
 		else {
-			currentTagStates[tag] = ""
+			setTagState(tag, "");
+		}
+	}
+
+	const setTagState = (tag : string, state : string) => {
+		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
+
+		currentTagStates[tag] = state;
+
+		if (tag == dlcTag) {
+			hideDLC = state == tagExcluded;
 		}
 
 		tagStates = currentTagStates;
@@ -149,7 +161,12 @@
 		tagStates = {};
 		tagAllowList = []
 		tagBlockList = []
+		hideDLC = false
 	};
+
+	const handleHideDLC = () => {
+		setTagState(dlcTag, hideDLC ? tagExcluded : "");
+	}
 </script>
 
 {#if allowFiltering}
@@ -187,6 +204,12 @@
 		</div>
 		<div>
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
+		</div>
+		<div>
+			<CheckboxInput bind:checked={hideDLC} onChange={(event) => {
+				if (!event || !event.currentTarget) return;
+				handleHideDLC();
+			}}>Hide DLC mods</CheckboxInput>
 		</div>
 		<div>
 			{filteredMods.length} results
