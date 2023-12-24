@@ -69,6 +69,10 @@
 		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
 	}
 
+	$: {
+		hideDLC = tagBlockList.includes(dlcTag);
+	}
+
 	$: if (!import.meta.env.SSR) {
 		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
 		if (isSortOrderId(sortOrderParam)) {
@@ -76,13 +80,17 @@
 		}
 
 		tagStates = {};
+		tagAllowList = []
+		tagBlockList = []
 		const tagParams = $page.url.searchParams.getAll(modTagParamName);
 		for (const tagParam of tagParams) {
 			tagStates[tagParam] = tagIncluded;
+			tagAllowList.push(tagParam);
 		}
 		const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
 		for (const tagParam of excludedTagParams) {
 			tagStates[tagParam] = tagExcluded;
+			tagBlockList.push(tagParam);
 		}
 	}
 
