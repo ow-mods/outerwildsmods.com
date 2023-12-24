@@ -141,10 +141,6 @@
 
 		currentTagStates[tag] = state;
 
-		if (tag == dlcTag) {
-			hideDLC = state == tagExcluded;
-		}
-
 		tagStates = currentTagStates;
 		tagAllowList = []
 		tagBlockList = []
@@ -169,11 +165,10 @@
 		tagStates = {};
 		tagAllowList = []
 		tagBlockList = []
-		hideDLC = false
 	};
 
 	const handleHideDLC = () => {
-		setTagState(dlcTag, hideDLC ? tagExcluded : "");
+		setTagState(dlcTag, !hideDLC ? tagExcluded : "");
 	}
 </script>
 
