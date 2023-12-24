@@ -162,9 +162,10 @@
 	};
 
 	const onClearTags = () => {
-		tagStates = {};
-		tagAllowList = []
-		tagBlockList = []
+		const url = new URL($page.url);
+		url.searchParams.delete(modTagParamName);
+		url.searchParams.delete(modExcludeTagParamName);
+		goto(url.href);
 	};
 
 	const handleHideDLC = () => {
