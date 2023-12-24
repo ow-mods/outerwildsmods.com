@@ -10,6 +10,7 @@
 	class:text-accent={selected == tagIncluded}
 	class:text-error={selected == tagExcluded}
 	class:opacity-75={!selected}
+	class:line-through={selected == tagExcluded}
 	{title}
 	on:click
 	data-nosnippet
