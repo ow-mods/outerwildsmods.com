@@ -208,9 +208,12 @@
 		<div>
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
 		</div>
+		<!-- Relevant for mod addon pages and alpha mods list, only show the checkbox if there are actually mods displayed that require the DLC -->
+		{#if mods.some(x => x.tags.includes(dlcTag))}
 		<div>
 			<CheckboxInput bind:checked={hideDLC} on:change={handleHideDLC}>Hide DLC mods</CheckboxInput>
 		</div>
+		{/if}
 		<div>
 			{filteredMods.length} results
 		</div>
