@@ -1,7 +1,6 @@
 <script context="module" lang="ts">
-	export type TagStates = Record<string, string>;
-	export const tagIncluded = 'included'
-	export const tagExcluded = 'excluded'
+	export type TagStates = Record<string, TagState>;
+	export type TagState = 'included' | 'excluded' | undefined;
 	export const dlcTag = 'requires-dlc'
 </script>
 
@@ -84,12 +83,12 @@
 		tagBlockList = []
 		const tagParams = $page.url.searchParams.getAll(modTagParamName);
 		for (const tagParam of tagParams) {
-			tagStates[tagParam] = tagIncluded;
+			tagStates[tagParam] = 'included';
 			tagAllowList.push(tagParam);
 		}
 		const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
 		for (const tagParam of excludedTagParams) {
-			tagStates[tagParam] = tagExcluded;
+			tagStates[tagParam] = 'excluded';
 			tagBlockList.push(tagParam);
 		}
 	}
@@ -125,18 +124,18 @@
 	const onToggleTag = (tag: string) => {
 		let toggledTag = tagStates[tag];
 
-		if (toggledTag == undefined) {
-			setTagState(tag, tagIncluded);
+		if (toggledTag === undefined) {
+			setTagState(tag, 'included');
 		}
-		else if (toggledTag == tagIncluded) {
-			setTagState(tag, tagExcluded);
+		else if (toggledTag === 'included') {
+			setTagState(tag, 'excluded');
 		}
 		else {
-			setTagState(tag, "");
+			setTagState(tag, undefined);
 		}
 	}
 
-	const setTagState = (tag : string, state : string) => {
+	const setTagState = (tag : string, state : TagState) => {
 		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
 
 		currentTagStates[tag] = state;
@@ -149,11 +148,11 @@
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
 		for (const [tagName, tagValue] of Object.entries(tagStates)) {
-			if (tagValue == tagIncluded) {
+			if (tagValue === 'included') {
 				url.searchParams.append(modTagParamName, tagName);
 				tagAllowList.push(tagName);
 			}
-			else if (tagValue == tagExcluded) {
+			else if (tagValue === 'excluded') {
 				url.searchParams.append(modExcludeTagParamName, tagName)
 				tagBlockList.push(tagName);
 			}
@@ -169,7 +168,7 @@
 	};
 
 	const handleHideDLC = () => {
-		setTagState(dlcTag, !hideDLC ? tagExcluded : "");
+		setTagState(dlcTag, !hideDLC ? 'excluded' : undefined);
 	}
 </script>
 
@@ -210,10 +209,7 @@
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
 		</div>
 		<div>
-			<CheckboxInput bind:checked={hideDLC} onChange={(event) => {
-				if (!event || !event.currentTarget) return;
-				handleHideDLC();
-			}}>Hide DLC mods</CheckboxInput>
+			<CheckboxInput bind:checked={hideDLC} on:change={handleHideDLC}>Hide DLC mods</CheckboxInput>
 		</div>
 		<div>
 			{filteredMods.length} results
