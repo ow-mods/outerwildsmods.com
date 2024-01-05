@@ -56,7 +56,7 @@ main {
 	--color-segmented-control-button-bg: var(--color-darker);
 	--color-action-list-item-default-hover-bg: var(--color-background);
 
-	--color-fg-default: var(--light);
+	--color-fg-default: var(--color-light);
 	--color-fg-muted: #7d8590;
 	--color-fg-subtle: #6e7681;
 
