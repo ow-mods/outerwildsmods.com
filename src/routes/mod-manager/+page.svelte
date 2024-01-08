@@ -66,7 +66,7 @@
 					</div>
 					<div>
 						<CtaButton
-							href="https://github.com/loco-choco/ow-mod-man-flake"
+							href="https://github.com/ow-mods/ow-mod-man/tree/main/nix"
 							isExternal
 							icon={NixIcon}
 						>
