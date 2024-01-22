@@ -4,6 +4,7 @@
 	import ImageRenderer from './image-renderer.svelte';
 	import LinkRenderer from './link-renderer.svelte';
 	import { setMarkdownContext } from './markdown-context';
+	import TextRenderer from './text-renderer.svelte';
 
 	export let readme: string;
 	export let imageMap: ImageMap;
@@ -17,6 +18,7 @@
 	<SvelteMarkdown
 		source={readme}
 		renderers={{
+			html: TextRenderer,
 			image: ImageRenderer,
 			link: LinkRenderer,
 		}}
