@@ -22,6 +22,8 @@
 		x: 500,
 	} as const;
 
+	const numberFormatter = new Intl.NumberFormat();
+
 	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
 	$: lastPoint = getLastPoint(historyPoints, comparePoints);
 	$: minDownloads = 0;
@@ -74,7 +76,12 @@
 <div class="bg-dark p-4 rounded text-sm flex flex-col gap-2">
 	<div class="flex gap-4">
 		<div class="flex flex-col justify-between text-right" style="line-height: 0">
-			<span>{maxDownloads}</span><span>{minDownloads}</span>
+			<span>
+				{numberFormatter.format(maxDownloads)}
+			</span>
+			<span>
+				{numberFormatter.format(minDownloads)}
+			</span>
 		</div>
 		<div class="relative flex-1">
 			<svg

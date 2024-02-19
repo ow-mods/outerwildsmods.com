@@ -15,6 +15,7 @@
 	};
 	export let hoveredPoint: HistoryPoint | null = null;
 	export let hoveredPointCompare: HistoryPoint | null = null;
+	const numberFormatter = new Intl.NumberFormat();
 </script>
 
 <div
@@ -24,12 +25,12 @@
 	<div class="justify-center">
 		{#if hoveredPoint}
 			<div class="text-accent">
-				{mod.name}: {hoveredPoint?.DownloadCount}
+				{mod.name}: {numberFormatter.format(hoveredPoint.DownloadCount)}
 			</div>
 		{/if}
 		{#if hoveredPointCompare && compareWithMod}
 			<div class="text-cta">
-				{compareWithMod.name}: {hoveredPointCompare.DownloadCount}
+				{compareWithMod.name}: {numberFormatter.format(hoveredPointCompare.DownloadCount)}
 			</div>
 		{/if}
 	</div>
