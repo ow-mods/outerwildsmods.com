@@ -3,7 +3,7 @@
 	import { getDateText, type HistoryPoint } from '$lib/helpers/api/history-points';
 
 	const tooltipOffset = {
-		x: -40,
+		x: -200,
 		y: 30,
 	} as const;
 
