@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { map, max } from 'lodash-es';
 	import ChartLine from './chart-line.svelte';
-	import ChartTooltip from './chart-tooltip.svelte';
+	import ChartTooltip from './chart-point-info.svelte';
 	import {
 		getClosestPoint,
 		getDateText,
