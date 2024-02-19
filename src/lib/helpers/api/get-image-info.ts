@@ -40,9 +40,19 @@ export const getImageInfo = async (
 		};
 	}
 
+	const isShieldsIo = new URL(fullImageUrl).host == 'img.shields.io';
+
 	return {
 		url: fullImageUrl,
-		width,
+		// Special case for shields.io.
+		// We skip the width since that can easily change whenever shields throws some error,
+		// which would then cause the image to render incorrectly.
+		// So for shields.io images we provide only the height, since that part doesn't change.
+		// This means we have a small SEO penalty, since there will be some layout shifts if the images wrap.
+		// Note that this problem isn't specific to shields.io, just more common with it.
+		// This whole process of reading image dimensions fails if the image for this URL changes after
+		// the website is built.
+		width: isShieldsIo ? undefined : width,
 		height,
 	};
 };
