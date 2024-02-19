@@ -67,9 +67,7 @@
 	};
 
 	$: {
-		if (!hoveredPointCompare) {
-			hoveredPointCompare = comparePoints[0];
-		}
+		hoveredPointCompare = comparePoints[0];
 	}
 </script>
 
