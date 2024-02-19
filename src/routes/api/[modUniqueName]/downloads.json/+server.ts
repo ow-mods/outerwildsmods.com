@@ -1,7 +1,6 @@
 import { getModDownloadHistory } from '$lib/helpers/api/get-download-history';
 import type { HistoryPoint } from '$lib/helpers/api/history-points';
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { chunk } from 'lodash-es';
 
 type Params = {
 	modUniqueName: string;
@@ -20,6 +19,10 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 		const downloadHistory = await getModDownloadHistory(modUniqueName);
 
 		const firstResult = downloadHistory[downloadHistory.length - 1];
+		const lastResult = downloadHistory[0];
+
+		const timeSpan = lastResult.UnixTimestamp - firstResult.UnixTimestamp;
+		const timeBetweenPoints = timeSpan / maxHistoryPointCount;
 
 		if (!firstResult) {
 			console.warn(`Could not find first history point for ${modUniqueName}`);
@@ -46,10 +49,23 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 			  })
 			: cleanedUpResults;
 
-		const pointCount = fixedResults.length;
+		const pointChunks: HistoryPoint[][] = [];
 
-		const chunkSize = Math.max(1, Math.floor(pointCount / maxHistoryPointCount));
-		const pointChunks = chunk(fixedResults, chunkSize);
+		let chunkIndex = 0;
+		let nextChunkTime = fixedResults[0].UnixTimestamp;
+		for (const historyPoint of fixedResults) {
+			if (historyPoint.UnixTimestamp < nextChunkTime) {
+				nextChunkTime = historyPoint.UnixTimestamp - timeBetweenPoints;
+				chunkIndex++;
+			}
+
+			if (!pointChunks[chunkIndex]) {
+				pointChunks[chunkIndex] = [];
+			}
+
+			pointChunks[chunkIndex].push(historyPoint);
+		}
+
 		const aggregatedPoints = pointChunks.map((pointChunk) => {
 			const historyPoint: HistoryPoint = {
 				DownloadCount: 0,
