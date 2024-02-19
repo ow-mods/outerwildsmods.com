@@ -33,8 +33,8 @@
 		x: 0,
 		y: 0,
 	};
-	let hoveredPoint: HistoryPoint | null = null;
-	let hoveredPointCompare: HistoryPoint | null = null;
+	let hoveredPoint: HistoryPoint = historyPoints[0];
+	let hoveredPointCompare: HistoryPoint | null = comparePoints[0];
 
 	const updatePointer = (x: number, y: number, width: number) => {
 		const hoveredXRatio = x / width;
@@ -43,24 +43,18 @@
 			firstPoint.UnixTimestamp +
 			hoveredXRatio * (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
 
-		hoveredPoint = getClosestPoint(
-			historyPoints,
-			hoveredTimestamp,
-			widthMultiplier,
-			chartSize.x / 10
-		);
+		hoveredPoint =
+			getClosestPoint(historyPoints, hoveredTimestamp, widthMultiplier, chartSize.x / 10) ??
+			historyPoints[0];
 
-		hoveredPointCompare = getClosestPoint(
-			comparePoints,
-			hoveredTimestamp,
-			widthMultiplier,
-			chartSize.x / 10
-		);
+		hoveredPointCompare =
+			getClosestPoint(comparePoints, hoveredTimestamp, widthMultiplier, chartSize.x / 10) ??
+			comparePoints[0];
 	};
 
 	const resetPointer = () => {
-		hoveredPoint = null;
-		hoveredPointCompare = null;
+		hoveredPoint = historyPoints[0];
+		hoveredPointCompare = comparePoints[0];
 	};
 
 	const handleMouseMove: MouseEventHandler<SVGSVGElement> = (event) => {
@@ -71,15 +65,20 @@
 		const rect = event.currentTarget.getBoundingClientRect();
 		updatePointer(rect.width / 2, rect.height / 2, rect.width);
 	};
+
+	$: {
+		if (!hoveredPointCompare) {
+			hoveredPointCompare = comparePoints[0];
+		}
+	}
 </script>
 
-<div class="bg-dark p-4 rounded text-sm">
+<div class="bg-dark p-4 rounded text-sm flex flex-col gap-2">
 	<div class="flex gap-4">
 		<div class="flex flex-col justify-between text-right" style="line-height: 0">
 			<span>{maxDownloads}</span><span>{minDownloads}</span>
 		</div>
 		<div class="relative flex-1">
-			<ChartTooltip {compareWithMod} {mod} {hoveredPoint} {hoveredPointCompare} {mousePosition} />
 			<svg
 				viewBox="0 0 {chartSize.x} {chartSize.y}"
 				class="block overflow-visible"
@@ -124,7 +123,7 @@
 			</svg>
 		</div>
 	</div>
-	<div class="mt-2">
+	<div>
 		<span>
 			{getDateText(firstPoint)}
 		</span>
@@ -132,4 +131,5 @@
 			{getDateText(lastPoint)}
 		</span>
 	</div>
+	<ChartTooltip {compareWithMod} {mod} {hoveredPoint} {hoveredPointCompare} {mousePosition} />
 </div>
