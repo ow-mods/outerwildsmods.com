@@ -157,7 +157,7 @@
 			height={388}
 		/>
 		<p>
-			Welcome to the 3nd Outer Wilds Mod Jam! In this jam, you have 10 days to create a story mod 
+			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 10 days to create a story mod 
 			for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
 				>Outer Wilds</a
 			>, following the theme given below.
