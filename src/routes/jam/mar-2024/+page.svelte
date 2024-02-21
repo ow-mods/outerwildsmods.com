@@ -257,7 +257,7 @@
 			After the jam deadline has ended, we will play each submission and review them based on the
 			following criteria:
 		</p>
-		<p>💭 How well does it follow the theme(s)?</p>
+		<p>💭 How well does it follow the theme?</p>
 		<p>
 			💅 How polished is it? We will value quality over quantity. One highly polished feature is
 			better than 20 unrelated mechanics, and one highly polished location is better than 20 empty
