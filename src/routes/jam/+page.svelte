@@ -5,22 +5,26 @@
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
+	import { action_destroyer } from 'svelte/internal';
 
 	const jams = [
 		{
 			title: 'Single Planet Mod Jam',
 			date: 'March 2024',
-			path: 'mar-2024'
+			path: 'mar-2024',
+			active: true
 		},
 		{
 			title: 'Outer Wilds Mod Jam',
 			date: 'July 2023',
 			path: 'jul-2023',
+			active: false
 		},
 		{
 			title: 'New Horizons Jam',
 			date: 'January 2023',
 			path: 'jan-2023',
+			active: false
 		},
 	];
 </script>
@@ -50,8 +54,13 @@
 				</div>
 			</PageSectionColumns>
 			{#each jams as jam}
-				<LinkButton href="/jam/{jam.path}">
-					{jam.date}: {jam.title}
+				<LinkButton href="/jam/{jam.path}" classOverride={jam.active ? "border-primary border-2 border-solid" : undefined}>
+					{#if jam.active}
+					🎉 NOW: {jam.title} 🎉
+					{:else}
+						{jam.date}: {jam.title}
+					{/if}
+
 				</LinkButton>
 			{/each}
 		</div>
