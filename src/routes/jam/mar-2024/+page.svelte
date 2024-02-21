@@ -157,7 +157,7 @@
 			height={388}
 		/>
 		<p>
-			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 10 days to create a story mod 
+			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 10 days to create a <strong>story mod</strong> 
 			for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
 				>Outer Wilds</a
 			>, following the theme given below.
@@ -169,7 +169,7 @@
 			You are encouraged to use custom code to add new gameplay mechanics to your planet! Read the
 			<a class="link" href="https://owml.outerwildsmods.com/">OWML</a>
 			docs to learn how to create your mod, and read the 
-			<a class="link" href="https://outerwildsmods.com/mods/newhorizons">New Horizons</a> docs to create your planet.
+			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons</a> docs to create your planet.
 		</p>
 		<p>
 			More instructions regarding the restriction will be given when the theme is announced.
