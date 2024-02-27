@@ -202,12 +202,9 @@
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<!--
 			<span>🥇First place: <strong>$100</strong></span>
 			<span>🥈Second place: <strong>$66</strong></span>
 			<span>🥉Third place: <strong>$34</strong></span>
-			-->
-			<span><strong>TO BE ANNOUNCED</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
