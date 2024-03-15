@@ -27,7 +27,7 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = '';
+	let theme = 'community';
 	let timer: NodeJS.Timer | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
@@ -172,7 +172,8 @@
 			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons</a> docs to create your planet.
 		</p>
 		<p>
-			More instructions regarding the restriction will be given when the theme is announced.
+			Lastly, all mods will be set in the <strong>same solar system</strong>. To achieve this, they must all depend on the 
+			<a class="link" href="https://outerwildsmods.com/mods/modjam3/">Jam 3 base mod</a>.
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
@@ -214,7 +215,9 @@
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
-			❔ <strong>An extra rule will be announced alongside the theme!</strong> Check back again then!
+			❔ Your mod must depend on the <a class="link" href="https://outerwildsmods.com/mods/modjam3/">Jam 3 base mod</a> for compatibility. 
+			While this will handle the most obvious issues, 
+			you should keep compatibility in mind when implementing your mods features. For example, you cannot change the length of the time loop.
 		</p>
 		<p>
 			🪐 <strong>Your mod must use New Horizons to create one planet which will be the setting for your mod.</strong> 
@@ -264,6 +267,9 @@
 			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
+		</p>
+		<p>
+			Since all mods will add planets to the same star system, your mod should work with all other entries enabled!
 		</p>
 		<p>
 			These guidelines can change depending on how the jam is going.
