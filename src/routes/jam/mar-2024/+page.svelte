@@ -132,47 +132,45 @@
 		Raicuparta: 'Raicuparta',
 	};
 
-	const judges = {
+	const judges = {};
 
-	};
-
-	const donators = {
-
-	};
+	const donators = {};
 </script>
 
 <PageContainer
 	title="Single Planet Mod Jam 2024"
 	description="Create a single planet story mod for Outer Wilds and win cash prizes!"
-	imageUrl="{websiteUrl}/images/outer-wilds.webp"
-	imageWidth={665}
-	imageHeight={416}
+	imageUrl="{websiteUrl}/images/jam-3.webp"
+	imageWidth={896}
+	imageHeight={560}
 >
-
 	<PageSection title="Single Planet Mod Jam 2024" id="ow-jam-original" isNarrow>
 		<PageSectionImage
-			imageUrl="/images/outer-wilds.webp"
+			imageUrl="/images/jam-3.webp"
 			title="Single Planet Mod Jam"
-			width={679}
-			height={388}
+			width={896}
+			height={560}
 		/>
 		<p>
-			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 10 days to create a <strong>story mod</strong> 
-			for <a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link"
-				>Outer Wilds</a
-			>, following the theme given below.
+			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 10 days to create a <strong
+				>story mod</strong
+			>
+			for
+			<a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link">Outer Wilds</a>,
+			following the theme given below.
 		</p>
 		<p>
-			Unlike previous mod jams, this one will have a very specific restriction: 
-			You must use New Horizons to create <strong>ONE</strong> planet where your story mod will take place. 
-			However this isn’t an NH-only jam; 
-			You are encouraged to use custom code to add new gameplay mechanics to your planet! Read the
+			Unlike previous mod jams, this one will have a very specific restriction: You must use New
+			Horizons to create <strong>ONE</strong> planet where your story mod will take place. However
+			this isn’t an NH-only jam; You are encouraged to use custom code to add new gameplay mechanics
+			to your planet! Read the
 			<a class="link" href="https://owml.outerwildsmods.com/">OWML</a>
-			docs to learn how to create your mod, and read the 
+			docs to learn how to create your mod, and read the
 			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons</a> docs to create your planet.
 		</p>
 		<p>
-			Lastly, all mods will be set in the <strong>same solar system</strong>. To achieve this, they must all depend on the 
+			Lastly, all mods will be set in the <strong>same solar system</strong>. To achieve this, they
+			must all depend on the
 			<a class="link" href="https://outerwildsmods.com/mods/modjam3/">Jam 3 base mod</a>.
 		</p>
 	</PageSection>
@@ -188,8 +186,9 @@
 			</p>
 		{/if}
 		<p>
-			You decide how to interpret the theme. Make sure
-			you read the <a class="link" href="#rules">rules</a>
+			You decide how to interpret the theme. Make sure you read the <a class="link" href="#rules"
+				>rules</a
+			>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
 			entry does not implement the theme your entry cannot be considered for judging.
 		</p>
@@ -215,17 +214,23 @@
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
-			❔ Your mod must depend on the <a class="link" href="https://outerwildsmods.com/mods/modjam3/">Jam 3 base mod</a> for compatibility. 
-			While this will handle the most obvious issues, 
-			you should keep compatibility in mind when implementing your mods features. For example, you cannot change the length of the time loop.
+			❔ Your mod must depend on the <a class="link" href="https://outerwildsmods.com/mods/modjam3/"
+				>Jam 3 base mod</a
+			> for compatibility. While this will handle the most obvious issues, you should keep compatibility
+			in mind when implementing your mods features. For example, you cannot change the length of the
+			time loop.
 		</p>
 		<p>
-			🪐 <strong>Your mod must use New Horizons to create one planet which will be the setting for your mod.</strong> 
-			You can use multiple NH configs to create things like hidden dimensions, man-made satellites in orbit, or quantum states, 
-			so long as the mod is centered around your one planet. <u>If unsure about what counts as another planet, ask a jam organizer!</u>
+			🪐 <strong
+				>Your mod must use New Horizons to create one planet which will be the setting for your mod.</strong
+			>
+			You can use multiple NH configs to create things like hidden dimensions, man-made satellites in
+			orbit, or quantum states, so long as the mod is centered around your one planet.
+			<u>If unsure about what counts as another planet, ask a jam organizer!</u>
 		</p>
 		<p>
-			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - Slate’s Shipyard, VanillaFix, etc.
+			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - Slate’s
+			Shipyard, VanillaFix, etc.
 		</p>
 		<p>
 			⏱️ <strong>
@@ -269,11 +274,10 @@
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
 		</p>
 		<p>
-			Since all mods will add planets to the same star system, your mod should work with all other entries enabled!
+			Since all mods will add planets to the same star system, your mod should work with all other
+			entries enabled!
 		</p>
-		<p>
-			These guidelines can change depending on how the jam is going.
-		</p>
+		<p>These guidelines can change depending on how the jam is going.</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
 		<p class="bg-darker p-2 rounded">
@@ -294,7 +298,7 @@
 		<h3>Upload a release within the deadline</h3>
 		<img
 			alt="A GitHub release asset must be uploaded before the deadline"
-			src="/images/jam-deadline.webp"
+			src="/images/jam-3.webp"
 		/>
 		<p>
 			You must upload a release of your mod within the jam deadline. It's OK if you submit the mod
@@ -328,7 +332,10 @@
 			with any other tags that make sense for your mod.
 		</p>
 		<p>
-			<strong>Another submission requirement will be explained once the theme is announced, check back then!</strong>
+			<strong
+				>Another submission requirement will be explained once the theme is announced, check back
+				then!</strong
+			>
 		</p>
 	</PageSection>
 	<PageSection title="Teams" id="teams" isNarrow>
