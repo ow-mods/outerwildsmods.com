@@ -298,7 +298,7 @@
 		<h3>Upload a release within the deadline</h3>
 		<img
 			alt="A GitHub release asset must be uploaded before the deadline"
-			src="/images/jam-3.webp"
+			src="/images/jam-deadline.webp"
 		/>
 		<p>
 			You must upload a release of your mod within the jam deadline. It's OK if you submit the mod
