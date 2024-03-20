@@ -152,7 +152,7 @@
 			height={560}
 		/>
 		<p>
-			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 10 days to create a <strong
+			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 9 days to create a <strong
 				>story mod</strong
 			>
 			for
