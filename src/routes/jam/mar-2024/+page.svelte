@@ -11,6 +11,7 @@
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -121,8 +122,15 @@
 		(mod) =>
 			mod.tags.includes('jam') &&
 			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
+			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
+			mod.uniqueName !== 'xen.ModJam3'
 	);
+
+	let jamRootMod: Mod | undefined;
+
+	$: {
+		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam3');
+	}
 
 	const organizers = {
 		xen: 'xen-42',
@@ -132,9 +140,24 @@
 		Raicuparta: 'Raicuparta',
 	};
 
-	const judges = {};
+	const judges = {
+		xen: 'xen-42',
+		Idiot: 'Bwc9876',
+		JohnCorby: 'JohnCorby',
+		Book: 'Nageld',
+		_nebula: 'misternebula'
+	};
 
-	const donators = {};
+	const donators = {
+		wyrm: "GameWyrm",
+		Raicuparta: 'Raicuparta',
+		Hawkbar: 'Hawkbar',
+		Book: 'Nageld',
+		xen: 'xen-42',
+		JohnCorby: 'JohnCorby',
+		Locochoco: 'loco-choco',
+		Idiot: 'Bwc9876'
+	};
 </script>
 
 <PageContainer
@@ -144,7 +167,50 @@
 	imageWidth={896}
 	imageHeight={560}
 >
-	<PageSection title="Single Planet Mod Jam 2024" id="ow-jam-original" isNarrow>
+	<PageSection title="Single Planet Jam" id="ow-jam" isNarrow>
+		<p>
+			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system provided by the base <strong>Mod Jam 3</strong> mod!
+		</p>
+		{#if jamRootMod}
+			<ModCard mod={jamRootMod} />
+		{/if}
+		<p>
+
+			<strong>The jam is almost over!</strong> Submissions are still being added to the database. You can see those added so far below.
+		</p>
+	</PageSection>
+	<!--
+	<PageSection title="Results" id="results">
+		<div class="flex gap-2 flex-col md:flex-row">
+			{#if firstPlaceMod}
+				<JamWinnerBlock title="🥇 First place" subtitle="($165 to the team)">
+					<ModCard mod={firstPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
+			{#if secondPlaceMod}
+				<JamWinnerBlock title="🥈 Second place" subtitle="($110 to the team)">
+					<ModCard mod={secondPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
+			{#if thirdPlaceMod}
+				<JamWinnerBlock title="🥉 Third place" subtitle="($55 to the team)">
+					<ModCard mod={thirdPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
+			<div />
+		</div>
+	</PageSection>
+	-->
+	<PageSection title="All Submissions" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
+	</PageSection>
+	<PageSection title="Credits" id="credits" isNarrow>
+		<JamCredits {organizers} {judges} {donators} />
+	</PageSection>
+	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
+		<p>
+			The following sections contain all the information originally included in this jam page, when the jam first started.
+		</p>
 		<PageSectionImage
 			imageUrl="/images/jam-3.webp"
 			title="Single Planet Mod Jam"
@@ -274,7 +340,7 @@
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
 		</p>
 		<p>
-			Since all mods will add planets to the same star system, your mod should work with all other
+			❔ Since all mods will add planets to the same star system, your mod should work with all other
 			entries enabled!
 		</p>
 		<p>These guidelines can change depending on how the jam is going.</p>
