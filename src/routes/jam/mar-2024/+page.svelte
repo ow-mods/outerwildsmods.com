@@ -151,7 +151,7 @@
 	const donators = {
 		wyrm: "GameWyrm",
 		Raicuparta: 'Raicuparta',
-		Hawkbar: 'Hawkbar',
+		Hawkbar: 'Hawkbat',
 		Book: 'Nageld',
 		xen: 'xen-42',
 		JohnCorby: 'JohnCorby',
