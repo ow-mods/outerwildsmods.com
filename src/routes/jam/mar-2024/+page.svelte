@@ -176,7 +176,7 @@
 		{/if}
 		<p>
 
-			<strong>The jam is almost over!</strong> Submissions are still being added to the database. You can see those added so far below.
+			<strong>The jam is over!</strong> The judges are now playing through the submissions. You can play the entries yourself below.
 		</p>
 	</PageSection>
 	<!--
