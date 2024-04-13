@@ -132,6 +132,12 @@
 		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam3');
 	}
 
+	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
+	const secondPlaceMod = jamMods.find(
+		(mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject'
+	);
+	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
+
 	const organizers = {
 		xen: 'xen-42',
 		Idiot: 'Bwc9876',
@@ -175,11 +181,10 @@
 			<ModCard mod={jamRootMod} />
 		{/if}
 		<p>
-
-			<strong>The jam is over!</strong> The judges are now playing through the submissions. You can play the entries yourself below.
+			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
+			voted on them. This concludes the third Outer Wilds Mod Jam!
 		</p>
 	</PageSection>
-	<!--
 	<PageSection title="Results" id="results">
 		<div class="flex gap-2 flex-col md:flex-row">
 			{#if firstPlaceMod}
@@ -200,7 +205,6 @@
 			<div />
 		</div>
 	</PageSection>
-	-->
 	<PageSection title="All Submissions" id="submissions">
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
@@ -218,7 +222,7 @@
 			height={560}
 		/>
 		<p>
-			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 9 days to create a <strong
+			Welcome to the 3rd Outer Wilds Mod Jam! In this jam, you have 11 days to create a <strong
 				>story mod</strong
 			>
 			for
