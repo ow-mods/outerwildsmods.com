@@ -34,7 +34,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev --host",
-		"build": "vite build && pnpm run post:build",
+		"build": "vite build && npm run post:build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -44,7 +44,6 @@
 	},
 	"engines": {
 		"node": ">=20",
-        "npm": ">=10"
-	},
-	"packageManager": "pnpm@8.6.5"
+		"npm": ">=10"
+	}
 }

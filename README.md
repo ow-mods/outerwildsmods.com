@@ -16,9 +16,8 @@ If you notice the website is down, please notify the admins in the [Outer Wilds 
 ## Development setup
 
 - [Install Node](https://nodejs.org/en/download/);
-- [Install pnpm](https://pnpm.io/installation);
-- Run `pnpm install`;
-- Run `pnpm run dev`;
+- Run `npm install`;
+- Run `npm run dev`;
 - Server will run in localhost.
 
 ## Testing changes

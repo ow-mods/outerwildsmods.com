@@ -92,7 +92,7 @@
 				on:mouseout={resetPointer}
 				on:blur={resetPointer}
 			>
-				<g class="pointer-events-none ">
+				<g class="pointer-events-none">
 					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />
 					<line
 						class="stroke-light opacity-80"

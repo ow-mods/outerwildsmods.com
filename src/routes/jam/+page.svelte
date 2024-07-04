@@ -12,19 +12,19 @@
 			title: 'Single Planet Mod Jam',
 			date: 'March 2024',
 			path: 'mar-2024',
-			active: false
+			active: false,
 		},
 		{
 			title: 'Outer Wilds Mod Jam',
 			date: 'July 2023',
 			path: 'jul-2023',
-			active: false
+			active: false,
 		},
 		{
 			title: 'New Horizons Jam',
 			date: 'January 2023',
 			path: 'jan-2023',
-			active: false
+			active: false,
 		},
 	];
 </script>
@@ -54,13 +54,15 @@
 				</div>
 			</PageSectionColumns>
 			{#each jams as jam}
-				<LinkButton href="/jam/{jam.path}" classOverride={jam.active ? "border-primary border-2 border-solid" : undefined}>
+				<LinkButton
+					href="/jam/{jam.path}"
+					classOverride={jam.active ? 'border-primary border-2 border-solid' : undefined}
+				>
 					{#if jam.active}
-					🎉 NOW: {jam.title} 🎉
+						🎉 NOW: {jam.title} 🎉
 					{:else}
 						{jam.date}: {jam.title}
 					{/if}
-
 				</LinkButton>
 			{/each}
 		</div>

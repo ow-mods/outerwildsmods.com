@@ -13,17 +13,14 @@
       in {
         packages.nodejs = pkgs.nodejs;
 
-        packages.default = pkgs.nodePackages.pnpm;
-
         devShell =
           pkgs.mkShell {
             buildInputs =
             [
               pkgs.nodejs
-              pkgs.nodePackages.pnpm
             ];
             shellHook = ''
-              pnpm run dev
+              npm run dev
             '';
           };
     });

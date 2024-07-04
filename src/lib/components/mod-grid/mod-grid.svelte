@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	export type TagStates = Record<string, TagState>;
 	export type TagState = 'included' | 'excluded' | undefined;
-	export const dlcTag = 'requires-dlc'
+	export const dlcTag = 'requires-dlc';
 </script>
 
 <script lang="ts">
@@ -41,8 +41,7 @@
 
 	$: {
 		const filterMod = (mod: Mod) => {
-			const containsBlockedTag = 
-											mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
+			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
 			const containsAllowedTag =
 				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
 
@@ -79,8 +78,8 @@
 		}
 
 		tagStates = {};
-		tagAllowList = []
-		tagBlockList = []
+		tagAllowList = [];
+		tagBlockList = [];
 		const tagParams = $page.url.searchParams.getAll(modTagParamName);
 		for (const tagParam of tagParams) {
 			tagStates[tagParam] = 'included';
@@ -126,23 +125,21 @@
 
 		if (toggledTag === undefined) {
 			setTagState(tag, 'included');
-		}
-		else if (toggledTag === 'included') {
+		} else if (toggledTag === 'included') {
 			setTagState(tag, 'excluded');
-		}
-		else {
+		} else {
 			setTagState(tag, undefined);
 		}
-	}
+	};
 
-	const setTagState = (tag : string, state : TagState) => {
+	const setTagState = (tag: string, state: TagState) => {
 		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
 
 		currentTagStates[tag] = state;
 
 		tagStates = currentTagStates;
-		tagAllowList = []
-		tagBlockList = []
+		tagAllowList = [];
+		tagBlockList = [];
 
 		const url = new URL($page.url);
 		url.searchParams.delete(modTagParamName);
@@ -151,9 +148,8 @@
 			if (tagValue === 'included') {
 				url.searchParams.append(modTagParamName, tagName);
 				tagAllowList.push(tagName);
-			}
-			else if (tagValue === 'excluded') {
-				url.searchParams.append(modExcludeTagParamName, tagName)
+			} else if (tagValue === 'excluded') {
+				url.searchParams.append(modExcludeTagParamName, tagName);
 				tagBlockList.push(tagName);
 			}
 		}
@@ -169,7 +165,7 @@
 
 	const handleHideDLC = () => {
 		setTagState(dlcTag, !hideDLC ? 'excluded' : undefined);
-	}
+	};
 </script>
 
 {#if allowFiltering}
@@ -209,10 +205,11 @@
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
 		</div>
 		<!-- Relevant for mod addon pages and alpha mods list, only show the checkbox if there are actually mods displayed that require the DLC -->
-		{#if mods.some(x => x.tags.includes(dlcTag))}
-		<div>
-			<CheckboxInput bind:checked={hideDLC} on:change={handleHideDLC}>Hide DLC mods</CheckboxInput>
-		</div>
+		{#if mods.some((x) => x.tags.includes(dlcTag))}
+			<div>
+				<CheckboxInput bind:checked={hideDLC} on:change={handleHideDLC}>Hide DLC mods</CheckboxInput
+				>
+			</div>
 		{/if}
 		<div>
 			{filteredMods.length} results

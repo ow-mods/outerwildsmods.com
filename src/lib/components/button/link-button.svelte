@@ -10,7 +10,7 @@
 
 <svelte:element
 	this={element}
-	class={"button link hover:bg-background bg-dark justify-center h-full" + classOverride}
+	class={'button link hover:bg-background bg-dark justify-center h-full' + classOverride}
 	class:py-1={isSmall}
 	class:text-sm={isSmall}
 	{href}

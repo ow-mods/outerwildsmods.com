@@ -133,9 +133,7 @@
 	}
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
-	const secondPlaceMod = jamMods.find(
-		(mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject'
-	);
+	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
 	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
 
 	const organizers = {
@@ -151,18 +149,18 @@
 		Idiot: 'Bwc9876',
 		JohnCorby: 'JohnCorby',
 		Book: 'Nageld',
-		_nebula: 'misternebula'
+		_nebula: 'misternebula',
 	};
 
 	const donators = {
-		wyrm: "GameWyrm",
+		wyrm: 'GameWyrm',
 		Raicuparta: 'Raicuparta',
 		Hawkbar: 'Hawkbat',
 		Book: 'Nageld',
 		xen: 'xen-42',
 		JohnCorby: 'JohnCorby',
 		Locochoco: 'loco-choco',
-		Idiot: 'Bwc9876'
+		Idiot: 'Bwc9876',
 	};
 </script>
 
@@ -175,7 +173,8 @@
 >
 	<PageSection title="Single Planet Jam" id="ow-jam" isNarrow>
 		<p>
-			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system provided by the base <strong>Mod Jam 3</strong> mod!
+			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system
+			provided by the base <strong>Mod Jam 3</strong> mod!
 		</p>
 		{#if jamRootMod}
 			<ModCard mod={jamRootMod} />
@@ -213,7 +212,8 @@
 	</PageSection>
 	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
 		<p>
-			The following sections contain all the information originally included in this jam page, when the jam first started.
+			The following sections contain all the information originally included in this jam page, when
+			the jam first started.
 		</p>
 		<PageSectionImage
 			imageUrl="/images/jam-3.webp"
@@ -344,8 +344,8 @@
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
 		</p>
 		<p>
-			❔ Since all mods will add planets to the same star system, your mod should work with all other
-			entries enabled!
+			❔ Since all mods will add planets to the same star system, your mod should work with all
+			other entries enabled!
 		</p>
 		<p>These guidelines can change depending on how the jam is going.</p>
 	</PageSection>

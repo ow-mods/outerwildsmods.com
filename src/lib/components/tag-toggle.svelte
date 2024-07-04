@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { TagState } from './mod-grid/mod-grid.svelte';
-	export let selected : TagState = undefined;
+	export let selected: TagState = undefined;
 	export let title = '';
 </script>
 

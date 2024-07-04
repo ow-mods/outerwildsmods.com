@@ -8,4 +8,4 @@ nix develop ./nix
 
 if you are on the root folder of the repository.
 
-This flake will create a shell with all the needed tools to run the website, and will automatically run `pnpm run dev` on start.
+This flake will create a shell with all the needed tools to run the website, and will automatically run `npm run dev` on start.
