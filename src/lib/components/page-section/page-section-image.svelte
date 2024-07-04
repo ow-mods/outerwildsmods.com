@@ -5,8 +5,11 @@
 	export let title: string | undefined;
 	export let height: number | undefined = undefined;
 	export let width: number | undefined = undefined;
+	export let noBorder: boolean = false;
+
+	const borderClass = noBorder ? '' : 'border border-dark ';
 </script>
 
 <div class="flex-1">
-	<img {height} {width} class="rounded border border-dark h-auto" src={imageUrl} alt={title} />
+	<img {height} {width} class={`${borderClass}rounded h-auto`} src={imageUrl} alt={title} />
 </div>
