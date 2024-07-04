@@ -27,6 +27,7 @@
 			<PageSectionImage
 				imageUrl="/images/mod-manager.webp"
 				title="Outer Wilds Mod Manager"
+				noBorder
 				width={940}
 				height={760}
 			/>
