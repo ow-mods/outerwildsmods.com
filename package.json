@@ -43,8 +43,8 @@
 		"post:build": "node post-build.mjs"
 	},
 	"engines": {
-		"node": ">=18",
-		"pnpm": ">=8"
+		"node": ">=20",
+        "npm": ">=10"
 	},
 	"packageManager": "pnpm@8.6.5"
 }

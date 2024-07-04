@@ -16,22 +16,18 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: '${{ secrets.GH_TOKEN }}'
 
-      - uses: pnpm/action-setup@v2
-
-      - uses: actions/setup-node@v3
-        with:
-          cache: pnpm
+      - uses: actions/setup-node@v4
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Build
-        run: pnpm run build
+        run: npm run build
 
       - name: Upload Artifact
         if: success() && github.ref == 'refs/heads/master'
