@@ -12,6 +12,7 @@ export async function load() {
 	const installerDownloadUrl = `${downloadUrl}/Outer.Wilds.Mod.Manager_${managerVersion}_x64_en-US.msi`;
 	const appImageUrl = `${downloadUrl}/outer-wilds-mod-manager_${managerVersion}_amd64.AppImage `;
 	const debUrl = `${downloadUrl}/outer-wilds-mod-manager_${managerVersion}_amd64.deb`;
+	const rpmUrl = `${downloadUrl}/outer-wilds-mod-manager-${managerVersion}-1.x86_64.rpm `;
 
 	return {
 		repoUrl,
@@ -21,5 +22,6 @@ export async function load() {
 		installerDownloadUrl,
 		appImageUrl,
 		debUrl,
+		rpmUrl,
 	};
 }

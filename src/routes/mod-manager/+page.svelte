@@ -75,6 +75,11 @@
 						</CtaButton>
 					</div>
 					<div>
+						<CtaButton href={data.rpmUrl} isExternal icon={AppImageIcon}>
+							Download RPM Package for CentOS / Fedora
+						</CtaButton>
+					</div>
+					<div>
 						<CtaButton href={data.appImageUrl} isExternal icon={AppImageIcon}>
 							Download AppImage For Linux
 						</CtaButton>
