@@ -9,6 +9,12 @@
 
 	const jams = [
 		{
+			title: 'October 2024 Mod Jam',
+			date: 'October 2024',
+			path: 'oct-2024',
+			active: true,
+		},
+		{
 			title: 'Single Planet Mod Jam',
 			date: 'March 2024',
 			path: 'mar-2024',
