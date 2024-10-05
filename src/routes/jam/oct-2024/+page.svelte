@@ -122,45 +122,28 @@
 		(mod) =>
 			mod.tags.includes('jam') &&
 			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
-			mod.uniqueName !== 'xen.ModJam3'
+			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
 	);
-
-	let jamRootMod: Mod | undefined;
-
-	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam3');
-	}
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
 	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
 	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
 
 	const organizers = {
-		xen: 'xen-42',
-		Idiot: 'Bwc9876',
-		_nebula: 'misternebula',
-		JohnCorby: 'JohnCorby',
-		Raicuparta: 'Raicuparta',
+		xen: 'xen-42'
 	};
 
 	const judges = {
 		xen: 'xen-42',
-		Idiot: 'Bwc9876',
-		JohnCorby: 'JohnCorby',
-		Book: 'Nageld',
-		_nebula: 'misternebula',
+		wyrm: 'GameWyrm'
 	};
 
 	const donators = {
-		wyrm: 'GameWyrm',
-		Raicuparta: 'Raicuparta',
+		paulschellin: '',
+		Onyx: '',
 		Hawkbar: 'Hawkbat',
 		Book: 'Nageld',
-		xen: 'xen-42',
-		JohnCorby: 'JohnCorby',
-		Locochoco: 'loco-choco',
-		Idiot: 'Bwc9876',
+		xen: 'xen-42'
 	};
 </script>
 
@@ -207,9 +190,6 @@
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
-	</PageSection>
-	<PageSection title="Credits" id="credits" isNarrow>
-		<JamCredits {organizers} {judges} {donators} />
 	</PageSection>
 	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
 
@@ -272,15 +252,18 @@
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
 			let us know on our <a class="link" href="#talk">Discord</a>.</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>TBA</strong></span>
-			<span>🥈Second place: <strong>TBA</strong></span>
-			<span>🥉Third place: <strong>TBA</strong></span>
+			<span>🥇First place: <strong>$200</strong></span>
+			<span>🥈Second place: <strong>$134</strong></span>
+			<span>🥉Third place: <strong>$66</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
 		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
+	</PageSection>
+	<PageSection title="Credits" id="credits" isNarrow>
+		<JamCredits {organizers} {judges} {donators} />
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>

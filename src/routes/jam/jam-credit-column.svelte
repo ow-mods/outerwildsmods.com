@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
-	<h3 class="mt-0 mb-2">{title}</h3>
+	<h3 class="mt-0 mb-2 text-center">{title}</h3>
 	{#each peopleList as [displayName, id]}
 		<a
 			class="link flex gap-2 items-center"
