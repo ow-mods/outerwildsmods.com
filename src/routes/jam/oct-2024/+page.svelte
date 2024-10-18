@@ -29,6 +29,7 @@
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 	let theme = null;
+	let restriction = null;
 	let timer: NodeJS.Timer | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
@@ -130,12 +131,15 @@
 	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
 
 	const organizers = {
-		xen: 'xen-42'
+		xen: 'xen-42',
+		wyrm: 'GameWyrm'
 	};
 
 	const judges = {
 		xen: 'xen-42',
-		wyrm: 'GameWyrm'
+		wyrm: 'GameWyrm',
+		Book: 'Nageld',
+		MegaPiggy: 'MegaPiggy'
 	};
 
 	const donators = {
@@ -144,16 +148,17 @@
 		Hawkbar: 'Hawkbat',
 		Book: 'Nageld',
 		xen: 'xen-42',
-		'Andy Noseké': ''
+		'Andy Noseké': '',
+		'Luci': ''
 	};
 </script>
 
 <PageContainer
 	title="October 2024 Mod Jam"
 	description="Create a story mod for Outer Wilds and win cash prizes!"
-	imageUrl="{websiteUrl}/images/outer-wilds.webp"
-	imageWidth={665}
-	imageHeight={416}
+	imageUrl="/images/jam-4.webp"
+	imageWidth={896}
+	imageHeight={560}
 >
 <!--
 	<PageSection title="October 2024 Planet Jam" id="ow-jam" isNarrow>
@@ -202,9 +207,9 @@
 	<PageSection title="October 2024 Mod Jam" id="ow-jam-original" isNarrow>
 		<PageSectionImage
 			title="October 2024 Mod Jam"
-			imageUrl="{websiteUrl}/images/outer-wilds.webp"
-			width={665}
-			height={416}
+			imageUrl="/images/jam-4.webp"
+			width={896}
+			height={560}
 		/>
 		<p>
 			Welcome to the 4th Outer Wilds Mod Jam! In this jam, you have 16 days to create a <strong
@@ -212,7 +217,7 @@
 			>
 			for
 			<a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link">Outer Wilds</a>,
-			following the theme given below.
+			following the themes and restriction given below.
 		</p>
 		<p>
 			You are encouraged to use <a class="link" href="/mods/newhorizons">New Horizons</a> to create your mod! However
@@ -226,20 +231,21 @@
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
 			<p class="text-xl">
-				The theme is <strong>{theme || 'Loading...'}</strong>
+				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is <strong>{restriction || 'Loading...'}</strong>
 			</p>
 		{:else}
 			<p>
-				The theme will be revealed in <strong>{countdownText}</strong>. There will only be one
-				theme.
+				The theme will be revealed in <strong>{countdownText}</strong>. There will be <b>two
+				themes</b>, and <b>one restriction</b>.
 			</p>
 		{/if}
 		<p>
-			You decide how to interpret the theme. Make sure you read the <a class="link" href="#rules"
+			You decide how to interpret the themes, and must . 
+			Make sure you read the <a class="link" href="#rules"
 				>rules</a
 			>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
-			entry does not implement the theme your entry cannot be considered for judging.
+			entry does not implement at least one of the themes your entry cannot be considered for judging.
 		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
@@ -253,9 +259,9 @@
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
 			let us know on our <a class="link" href="#talk">Discord</a>.</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>$210</strong></span>
-			<span>🥈Second place: <strong>$140</strong></span>
-			<span>🥉Third place: <strong>$70</strong></span>
+			<span>🥇First place: <strong>$225</strong></span>
+			<span>🥈Second place: <strong>$150</strong></span>
+			<span>🥉Third place: <strong>$75</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
@@ -295,6 +301,11 @@
 			you must be careful to understand and follow their licenses, just like you would in any open source
 			project. And of course, these assets must also follow the digital content policy mentioned above.
 		</p>
+		<p>
+			🪐 <strong>You are strongly encouraged to use New Horizons to make your mod.</strong> NH will simplify
+			actions like creating ship logs, planets, and base-game props. It will also help prevent incompatibilities between
+			mods.
+		</p>
 	</PageSection>
 	<PageSection title="Judging Criteria" id="judging-criteria" isNarrow>
 		<p>
@@ -313,9 +324,29 @@
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
 		</p>
 		<p>
-			These guidelines can change depending on how the jam is going. We might also take a shot at
-			community voting, if there are enough submissions to justify it and we can set up a good
-			system for it.
+			These guidelines can change depending on how the jam is going.
+		</p>
+	</PageSection>
+	<PageSection title="Advice" id="advice" isNarrow>
+		<p>
+			Here is some advice on how to make a successful jam entry!
+		</p>
+		<p>
+			<b>Do not overscope!</b> You might feel like you have all the time in the world to make your entry,
+			but remember that a smaller, polished entry is better than a huge, completely broken entry! As a rule
+			of thumb, remember the "Rule of 3". Three tasks to complete a specific objective is usually a good
+			balance of variety and scope. On a macro level, you could three small mysteries required to solve your main mystery.
+		</p>
+		<p>
+			<b>Remember your ship logs!</b> They are <i>incredibly</i> important, even if you feel your mod is simple enough to not need them.
+			You never know what the player will think is important or will forget. You don't want a judge getting completely
+			lost on where to go in your mod if you want to leave a good impression! Note that ship logs should be one of the last things you do.
+		</p>
+		<p>
+			<b>Remember base game mechanics!</b> If you are putting the player in an area without easy access
+			to the ship, don't forget to give them sources of fuel and oxygen. If you have a timed event happening in your mod,
+			be sure the player has access to a campfire so they can speed up time while waiting for it. These things are super easy
+			to add to your mod, and very noticeable when they aren't there!
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
@@ -378,7 +409,7 @@
 			interesting.
 		</p>
 		<p>
-			Prize rewards will be split equally among all team members, no exceptions. That means you will
+			Prize rewards will be split equally among all team members. That means you will
 			get half the prize if you're on a two person team.
 		</p>
 		<p>
