@@ -28,8 +28,9 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = null;
-	let restriction = null;
+	let theme = "Escape/Isolation";
+	let restriction = "Minimal Text";
+	let restrictionDesc = "To follow the restriction you must use alternatives to regular dialogue and translatable text such as: <u><strong>environmental story telling, slide reels, vision torches, language barriers, and alien symbols</strong></u>. Ship logs are unrestricted. Using a piece or two of dialogue or text to start/end the mod is fine."
 	let timer: NodeJS.Timer | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
@@ -231,7 +232,10 @@
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
 			<p class="text-xl">
-				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is <strong>{restriction || 'Loading...'}</strong>
+				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is <strong>{restriction || 'Loading...'}!
+			</p>
+			<p class="bg-darker p-2 rounded pl-4 pr-4">
+				> {@html restrictionDesc || '...'}
 			</p>
 		{:else}
 			<p>
@@ -240,7 +244,7 @@
 			</p>
 		{/if}
 		<p>
-			You decide how to interpret the themes, and must . 
+			You decide how to interpret the themes, and <u>must</u> follow the restriction. 
 			Make sure you read the <a class="link" href="#rules"
 				>rules</a
 			>
