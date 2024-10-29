@@ -17,7 +17,7 @@
 	const { modList } = data;
 
 	let startTimestamp = 1729357200000;
-	const endTimestamp = 1730653200000;
+	const endTimestamp = 1730664000000;
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
@@ -213,7 +213,7 @@
 			height={560}
 		/>
 		<p>
-			Welcome to the 4th Outer Wilds Mod Jam! In this jam, you have 16 days to create a <strong
+			Welcome to the 4th Outer Wilds Mod Jam! In this jam, you have 16 days (inclusive) to create a <strong
 				>story mod</strong
 			>
 			for
