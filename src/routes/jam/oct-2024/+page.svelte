@@ -46,6 +46,7 @@
 	};
 
 	const isAfterStartDate = () => Date.now() > startTimestamp;
+	const isAfterEndDate = () => Date.now() > endTimestamp;
 
 	const getTargetTimestamp = () =>
 		(targetTimestamp = isAfterStartDate() ? endTimestamp : startTimestamp);
@@ -231,6 +232,11 @@
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
+			{#if isAfterEndDate()}
+				<p>The jam has ended!</p>
+			{:else}
+				<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
+			{/if}
 			<p class="text-xl">
 				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is <strong>{restriction || 'Loading...'}!
 			</p>
