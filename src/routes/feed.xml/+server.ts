@@ -29,7 +29,7 @@ function escapeXml(unsafe: string) {
 }
 
 function mergeDateInWeek(date: Date) {
-	const dayToSplit = 3;
+	const dayToSplit = 0; //This is the weekday where we start to count the week, in this case, sunday
 	let amountToAdd: number = dayToSplit - date.getDay();
 	if (date.getDay() > dayToSplit) {
 		amountToAdd += 7;
