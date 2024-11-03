@@ -17,7 +17,7 @@
 	const { modList } = data;
 
 	let startTimestamp = 1729357200000;
-	const endTimestamp = 1730664000000;
+	const endTimestamp = 1730768400000;
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
@@ -266,12 +266,13 @@
 		</div>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 		<br/>
-			<small>In the event of a discrepency with any other post, <strong>the time listed above is the definitive end to the jam!</strong></small>
+			<small>In the event of a discrepency with any other post, <strong>the time listed above is the definitive end to the jam!</strong>
+			An extension was announced on November 2nd on our Discord server</small>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
-			let us know on our <a class="link" href="#talk">Discord</a>.</p>
+			<a class="link" href="#talk">please let us know</a>!</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			<span>🥇First place: <strong>$225</strong></span>
 			<span>🥈Second place: <strong>$150</strong></span>
