@@ -262,7 +262,11 @@
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			<span>🟢 Jam start: <strong>{startDateText}</strong></span>
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
-			<small>(Time zone: {timeZoneText})</small>
+			<small>(Time zone: {timeZoneText} • 24 hour time)</small>
+		</div>
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+		<br/>
+			<small>In the event of a discrepency with any other post, <strong>the time listed above is the definitive end to the jam!</strong></small>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
