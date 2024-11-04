@@ -230,6 +230,9 @@
 			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons docs</a> to create your planets, settings, dialogue, etc.
 		</p>
 	</PageSection>
+	<PageSection title="Submissions so far" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
+	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
 			{#if isAfterEndDate()}
