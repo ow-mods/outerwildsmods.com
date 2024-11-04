@@ -158,7 +158,7 @@
 <PageContainer
 	title="October 2024 Mod Jam"
 	description="Create a story mod for Outer Wilds and win cash prizes!"
-	imageUrl="/images/jam-4.webp"
+	imageUrl="{websiteUrl}/images/jam-4.webp"
 	imageWidth={896}
 	imageHeight={560}
 >
