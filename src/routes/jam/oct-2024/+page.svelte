@@ -128,9 +128,9 @@
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
 	);
 
-	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
-	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
-	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
+	//const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
+	//const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
+	//const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
 
 	const organizers = {
 		xen: 'xen-42',
@@ -162,22 +162,22 @@
 	imageWidth={896}
 	imageHeight={560}
 >
-<!--
-	<PageSection title="October 2024 Planet Jam" id="ow-jam" isNarrow>
+	<PageSection title="October 2024 Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system
-			provided by the base <strong>Mod Jam 3</strong> mod!
-		</p>
-		{#if jamRootMod}
-			<ModCard mod={jamRootMod} />
-		{/if}
-		<p>
+			<!--
 			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
 			voted on them. This concludes the third Outer Wilds Mod Jam!
+		-->
+			<strong>The jam is over!</strong> The judges will now play through the submissions! Thank you to
+			everyone who participated!
 		</p>
 	</PageSection>
 	<PageSection title="Results" id="results">
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+			<span><strong>TO BE ANNOUNCED</strong></span>
+		</div>
 		<div class="flex gap-2 flex-col md:flex-row">
+			<!--
 			{#if firstPlaceMod}
 				<JamWinnerBlock title="🥇 First place" subtitle="($165 to the team)">
 					<ModCard mod={firstPlaceMod} />
@@ -194,6 +194,7 @@
 				</JamWinnerBlock>
 			{/if}
 			<div />
+			-->
 		</div>
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">
@@ -205,8 +206,6 @@
 			The following sections contain all the information originally included in this jam page, when
 			the jam first started.
 		</p>
-		-->
-	<PageSection title="October 2024 Mod Jam" id="ow-jam-original" isNarrow>
 		<PageSectionImage
 			title="October 2024 Mod Jam"
 			imageUrl="/images/jam-4.webp"
@@ -229,9 +228,6 @@
 			 to learn how to create your mod, and read the
 			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons docs</a> to create your planets, settings, dialogue, etc.
 		</p>
-	</PageSection>
-	<PageSection title="Submissions so far" id="submissions">
-		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
@@ -365,6 +361,10 @@
 			to the ship, don't forget to give them sources of fuel and oxygen. If you have a timed event happening in your mod,
 			be sure the player has access to a campfire so they can speed up time while waiting for it. These things are super easy
 			to add to your mod, and very noticeable when they aren't there!
+		</p>
+		<p>
+			<b>Get Git set up at the beginning of the jam, not the end.</b> You need to learn how to upload to Git, since this is required
+			for you to enter. Not only that, but you should be using Git the entire time - Always back up your work!
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>

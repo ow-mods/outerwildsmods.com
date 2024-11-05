@@ -12,7 +12,7 @@
 			title: 'October 2024 Mod Jam',
 			date: 'October 2024',
 			path: 'oct-2024',
-			active: true,
+			active: false,
 		},
 		{
 			title: 'Single Planet Mod Jam',
