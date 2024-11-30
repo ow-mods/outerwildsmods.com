@@ -128,9 +128,11 @@
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
 	);
 
-	//const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
-	//const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
-	//const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
+	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.GreenFlameBlade');
+	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Etherpod.LuminaTerra');
+	const thirdPlaceMods = jamMods.filter((mod) =>
+		['2walker2.OWJam4ModProject', 'Echatsum.MisfiredJump'].includes(mod.uniqueName)
+	);
 
 	const organizers = {
 		xen: 'xen-42',
@@ -141,7 +143,8 @@
 		xen: 'xen-42',
 		wyrm: 'GameWyrm',
 		Book: 'Nageld',
-		MegaPiggy: 'MegaPiggy'
+		MegaPiggy: 'MegaPiggy',
+		Trifid: 'TerrificTrifid'
 	};
 
 	const donators = {
@@ -164,37 +167,41 @@
 >
 	<PageSection title="October 2024 Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			<!--
 			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
-			voted on them. This concludes the third Outer Wilds Mod Jam!
-		-->
+			voted on them. This concludes the fourth Outer Wilds Mod Jam!
+			<!--
 			<strong>The jam is over!</strong> The judges will now play through the submissions! Thank you to
 			everyone who participated!
+		-->
 		</p>
 	</PageSection>
-	<PageSection title="Results" id="results">
+	<PageSection title="Results" id="results" isNarrow>
+		<!--
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			<span><strong>TO BE ANNOUNCED</strong></span>
 		</div>
-		<div class="flex gap-2 flex-col md:flex-row">
-			<!--
+	-->
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			{#if firstPlaceMod}
-				<JamWinnerBlock title="🥇 First place" subtitle="($165 to the team)">
+				<JamWinnerBlock title="🥇 First place" subtitle="($225 to the team)">
 					<ModCard mod={firstPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if secondPlaceMod}
-				<JamWinnerBlock title="🥈 Second place" subtitle="($110 to the team)">
-					<ModCard mod={secondPlaceMod} />
-				</JamWinnerBlock>
+			<JamWinnerBlock title="🥈 Second place" subtitle="($150 to the team)">
+				<ModCard mod={secondPlaceMod} />
+			</JamWinnerBlock>
 			{/if}
-			{#if thirdPlaceMod}
-				<JamWinnerBlock title="🥉 Third place" subtitle="($55 to the team)">
-					<ModCard mod={thirdPlaceMod} />
-				</JamWinnerBlock>
-			{/if}
-			<div />
-			-->
+		</div>
+
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+			<JamWinnerBlock title="🥉 Third place" subtitle="($75 to each team)">
+				<div class="grid grid-cols-2 gap-2">
+					{#each thirdPlaceMods as mod}
+						<ModCard {mod} />
+					{/each}
+				</div>
+			</JamWinnerBlock>
 		</div>
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">
