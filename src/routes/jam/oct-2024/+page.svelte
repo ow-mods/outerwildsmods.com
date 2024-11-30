@@ -194,7 +194,7 @@
 			{/if}
 		</div>
 
-		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+		<div class="text-xl flex flex-col m-auto w-fit gap-4 mt-4">
 			<JamWinnerBlock title="🥉 Third place" subtitle="($75 to each team)">
 				<div class="grid grid-cols-2 gap-2">
 					{#each thirdPlaceMods as mod}
