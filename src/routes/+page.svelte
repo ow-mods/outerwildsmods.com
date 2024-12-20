@@ -87,10 +87,6 @@
 					text: 'Outer Wilds mod template',
 					href: 'https://github.com/ow-mods/ow-mod-template',
 				},
-				{
-					text: 'Outer Wilds Unity Wiki',
-					href: 'https://github.com/ow-mods/outer-wilds-unity-wiki/wiki',
-				},
 			]}
 		/>
 	</PageSection>
@@ -108,6 +104,10 @@
 					{
 						text: 'Read the New Horizons docs',
 						href: 'https://nh.outerwildsmods.com/',
+					},
+					{
+						text: 'Read the Outer Wilds Unity Wiki',
+						href: 'https://github.com/ow-mods/outer-wilds-unity-wiki/wiki',
 					},
 				]}
 			/>
