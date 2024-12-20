@@ -105,6 +105,10 @@
 						text: 'Read the New Horizons docs',
 						href: 'https://nh.outerwildsmods.com/',
 					},
+					{
+						text: 'Read the Outer Wilds Unity Wiki',
+						href: 'https://github.com/ow-mods/outer-wilds-unity-wiki/wiki',
+					},
 				]}
 			/>
 		</PageSection>
