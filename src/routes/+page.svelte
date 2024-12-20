@@ -87,6 +87,10 @@
 					text: 'Outer Wilds mod template',
 					href: 'https://github.com/ow-mods/ow-mod-template',
 				},
+				{
+					text: 'Outer Wilds Unity Wiki',
+					href: 'https://github.com/ow-mods/outer-wilds-unity-wiki/wiki',
+				},
 			]}
 		/>
 	</PageSection>
