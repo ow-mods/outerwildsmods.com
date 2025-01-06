@@ -28,9 +28,10 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = "Escape/Isolation";
-	let restriction = "Minimal Text";
-	let restrictionDesc = "To follow the restriction you must use alternatives to regular dialogue and translatable text such as: <u><strong>environmental story telling, slide reels, vision torches, language barriers, and alien symbols</strong></u>. Ship logs are unrestricted. Using a piece or two of dialogue or text to start/end the mod is fine."
+	let theme = 'Escape/Isolation';
+	let restriction = 'Minimal Text';
+	let restrictionDesc =
+		'To follow the restriction you must use alternatives to regular dialogue and translatable text such as: <u><strong>environmental story telling, slide reels, vision torches, language barriers, and alien symbols</strong></u>. Ship logs are unrestricted. Using a piece or two of dialogue or text to start/end the mod is fine.';
 	let timer: NodeJS.Timer | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
@@ -136,7 +137,7 @@
 
 	const organizers = {
 		xen: 'xen-42',
-		wyrm: 'GameWyrm'
+		wyrm: 'GameWyrm',
 	};
 
 	const judges = {
@@ -144,7 +145,7 @@
 		wyrm: 'GameWyrm',
 		Book: 'Nageld',
 		MegaPiggy: 'MegaPiggy',
-		Trifid: 'TerrificTrifid'
+		Trifid: 'TerrificTrifid',
 	};
 
 	const donators = {
@@ -154,7 +155,7 @@
 		Book: 'Nageld',
 		xen: 'xen-42',
 		'Andy Noseké': '',
-		'Luci': ''
+		Luci: '',
 	};
 </script>
 
@@ -167,8 +168,8 @@
 >
 	<PageSection title="October 2024 Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
-			voted on them. This concludes the fourth Outer Wilds Mod Jam!
+			<strong>The jam is over!</strong> The judges played through the submissions, discussed them,
+			and voted on them. This concludes the fourth Outer Wilds Mod Jam!
 			<!--
 			<strong>The jam is over!</strong> The judges will now play through the submissions! Thank you to
 			everyone who participated!
@@ -188,9 +189,9 @@
 				</JamWinnerBlock>
 			{/if}
 			{#if secondPlaceMod}
-			<JamWinnerBlock title="🥈 Second place" subtitle="($150 to the team)">
-				<ModCard mod={secondPlaceMod} />
-			</JamWinnerBlock>
+				<JamWinnerBlock title="🥈 Second place" subtitle="($150 to the team)">
+					<ModCard mod={secondPlaceMod} />
+				</JamWinnerBlock>
 			{/if}
 		</div>
 
@@ -208,7 +209,6 @@
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
-
 		<p>
 			The following sections contain all the information originally included in this jam page, when
 			the jam first started.
@@ -228,12 +228,13 @@
 			following the themes and restriction given below.
 		</p>
 		<p>
-			You are encouraged to use <a class="link" href="/mods/newhorizons">New Horizons</a> to create your mod! However
-			this isn’t an NH-only jam; You are encouraged to use custom code to add new gameplay mechanics
-			to your planet! Read the
+			You are encouraged to use <a class="link" href="/mods/newhorizons">New Horizons</a> to create
+			your mod! However this isn’t an NH-only jam; You are encouraged to use custom code to add new
+			gameplay mechanics to your planet! Read the
 			<a class="link" href="https://owml.outerwildsmods.com/">OWML docs</a>
-			 to learn how to create your mod, and read the
-			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons docs</a> to create your planets, settings, dialogue, etc.
+			to learn how to create your mod, and read the
+			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons docs</a> to create your planets,
+			settings, dialogue, etc.
 		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
@@ -244,24 +245,24 @@
 				<p>The jam has started! It ends in <strong>{countdownText}</strong></p>
 			{/if}
 			<p class="text-xl">
-				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is <strong>{restriction || 'Loading...'}!
+				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is
+				<strong>{restriction || 'Loading...'}! </strong>
 			</p>
 			<p class="bg-darker p-2 rounded pl-4 pr-4">
 				> {@html restrictionDesc || '...'}
 			</p>
 		{:else}
 			<p>
-				The theme will be revealed in <strong>{countdownText}</strong>. There will be <b>two
-				themes</b>, and <b>one restriction</b>.
+				The theme will be revealed in <strong>{countdownText}</strong>. There will be
+				<b>two themes</b>, and <b>one restriction</b>.
 			</p>
 		{/if}
 		<p>
-			You decide how to interpret the themes, and <u>must</u> follow the restriction. 
-			Make sure you read the <a class="link" href="#rules"
-				>rules</a
-			>
+			You decide how to interpret the themes, and <u>must</u> follow the restriction. Make sure you
+			read the <a class="link" href="#rules">rules</a>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
-			entry does not implement at least one of the themes your entry cannot be considered for judging.
+			entry does not implement at least one of the themes your entry cannot be considered for
+			judging.
 		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
@@ -271,14 +272,21 @@
 			<small>(Time zone: {timeZoneText} • 24 hour time)</small>
 		</div>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-		<br/>
-			<small>In the event of a discrepency with any other post, <strong>the time listed above is the definitive end to the jam!</strong>
-			An extension was announced on November 2nd on our Discord server</small>
+			<br />
+			<small
+				>In the event of a discrepency with any other post, <strong
+					>the time listed above is the definitive end to the jam!</strong
+				>
+				An extension was announced on November 2nd on our Discord server</small
+			>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
-		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
-			<a class="link" href="#talk">please let us know</a>!</p>
+		<p>
+			The prize pool for each jam is made up of contributions from our community! If you'd like to
+			contribute to a jam,
+			<a class="link" href="#talk">please let us know</a>!
+		</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
 			<span>🥇First place: <strong>$225</strong></span>
 			<span>🥈Second place: <strong>$150</strong></span>
@@ -295,8 +303,8 @@
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
-			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - New Horizons, Slate’s
-			Shipyard, VanillaFix, etc.
+			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - New Horizons,
+			Slate’s Shipyard, VanillaFix, etc.
 		</p>
 		<p>
 			⏱️ <strong>
@@ -324,8 +332,8 @@
 		</p>
 		<p>
 			🪐 <strong>You are strongly encouraged to use New Horizons to make your mod.</strong> NH will simplify
-			actions like creating ship logs, planets, and base-game props. It will also help prevent incompatibilities between
-			mods.
+			actions like creating ship logs, planets, and base-game props. It will also help prevent incompatibilities
+			between mods.
 		</p>
 	</PageSection>
 	<PageSection title="Judging Criteria" id="judging-criteria" isNarrow>
@@ -344,34 +352,33 @@
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
 		</p>
-		<p>
-			These guidelines can change depending on how the jam is going.
-		</p>
+		<p>These guidelines can change depending on how the jam is going.</p>
 	</PageSection>
 	<PageSection title="Advice" id="advice" isNarrow>
-		<p>
-			Here is some advice on how to make a successful jam entry!
-		</p>
+		<p>Here is some advice on how to make a successful jam entry!</p>
 		<p>
 			<b>Do not overscope!</b> You might feel like you have all the time in the world to make your entry,
-			but remember that a smaller, polished entry is better than a huge, completely broken entry! As a rule
-			of thumb, remember the "Rule of 3". Three tasks to complete a specific objective is usually a good
-			balance of variety and scope. On a macro level, you could three small mysteries required to solve your main mystery.
+			but remember that a smaller, polished entry is better than a huge, completely broken entry! As
+			a rule of thumb, remember the "Rule of 3". Three tasks to complete a specific objective is usually
+			a good balance of variety and scope. On a macro level, you could three small mysteries required
+			to solve your main mystery.
 		</p>
 		<p>
-			<b>Remember your ship logs!</b> They are <i>incredibly</i> important, even if you feel your mod is simple enough to not need them.
-			You never know what the player will think is important or will forget. You don't want a judge getting completely
-			lost on where to go in your mod if you want to leave a good impression! Note that ship logs should be one of the last things you do.
+			<b>Remember your ship logs!</b> They are <i>incredibly</i> important, even if you feel your mod
+			is simple enough to not need them. You never know what the player will think is important or will
+			forget. You don't want a judge getting completely lost on where to go in your mod if you want to
+			leave a good impression! Note that ship logs should be one of the last things you do.
 		</p>
 		<p>
 			<b>Remember base game mechanics!</b> If you are putting the player in an area without easy access
-			to the ship, don't forget to give them sources of fuel and oxygen. If you have a timed event happening in your mod,
-			be sure the player has access to a campfire so they can speed up time while waiting for it. These things are super easy
-			to add to your mod, and very noticeable when they aren't there!
+			to the ship, don't forget to give them sources of fuel and oxygen. If you have a timed event happening
+			in your mod, be sure the player has access to a campfire so they can speed up time while waiting
+			for it. These things are super easy to add to your mod, and very noticeable when they aren't there!
 		</p>
 		<p>
-			<b>Get Git set up at the beginning of the jam, not the end.</b> You need to learn how to upload to Git, since this is required
-			for you to enter. Not only that, but you should be using Git the entire time - Always back up your work!
+			<b>Get Git set up at the beginning of the jam, not the end.</b> You need to learn how to upload
+			to Git, since this is required for you to enter. Not only that, but you should be using Git the
+			entire time - Always back up your work!
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
@@ -434,8 +441,8 @@
 			interesting.
 		</p>
 		<p>
-			Prize rewards will be split equally among all team members. That means you will
-			get half the prize if you're on a two person team.
+			Prize rewards will be split equally among all team members. That means you will get half the
+			prize if you're on a two person team.
 		</p>
 		<p>
 			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around
