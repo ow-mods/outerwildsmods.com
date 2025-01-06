@@ -39,7 +39,7 @@
 	const modIcon = iconList[iconIndex];
 </script>
 
-<div class="bg-dark rounded p-4 mb-4 relative overflow-hidden">
+<div class="bg-dark md:rounded p-4 mb-4 relative overflow-hidden -mx-4 md:mx-0">
 	<div class="flex flex-col gap-4">
 		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
 		<div class="flex flex-wrap gap-1 text-sm">
@@ -65,7 +65,7 @@
 				<CtaButton href="/mod-manager#legacy-manager">Install with Legacy Mod Manager</CtaButton>
 			{/if}
 		</div>
-		<div class="text-sm flex flex-col gap-2">
+		<div class="text-sm flex flex-wrap gap-x-4 gap-y-2">
 			<a class="link" href="https://github.com/{mod.author}">
 				{modIcon}
 				{mod.authorDisplay ?? mod.author}

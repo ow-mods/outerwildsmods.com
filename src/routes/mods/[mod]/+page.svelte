@@ -6,7 +6,6 @@
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import Comments from '$lib/components/comments.svelte';
 
 	export let data: PageData;
@@ -22,13 +21,18 @@
 		imageHeight={listedImageSize.height}
 	>
 		<div class="flex flex-col md:flex-row gap-4">
+			<div class="md:hidden">
+				<ModInfo {mod} />
+			</div>
 			{#if readme && mod.rawContentUrl}
 				{#key mod.uniqueName}
 					<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
 				{/key}
 			{/if}
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
-				<ModInfo {mod} />
+				<div class="hidden md:block">
+					<ModInfo {mod} />
+				</div>
 				<ChildMods {mod} {modList} />
 				<ParentMod parentUniqueName={mod.parent} {modList} />
 			</div>
