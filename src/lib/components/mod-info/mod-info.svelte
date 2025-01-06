@@ -40,7 +40,7 @@
 </script>
 
 <div
-	class="md:bg-dark md:rounded pb-4 md:p-4 relative overflow-hidden md:border-none border-b-2 border-b-darker"
+	class="md:bg-dark md:rounded pb-4 md:p-4 md:mb-4 relative overflow-hidden md:border-none border-b-2 border-b-darker"
 >
 	<div class="flex flex-col gap-4">
 		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
