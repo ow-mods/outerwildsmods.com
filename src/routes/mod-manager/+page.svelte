@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import CtaButton from '$lib/components/button/cta-button.svelte';
 	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
@@ -15,6 +16,12 @@
 	export let data: PageData;
 
 	const summaryClass = 'py-2 px-4 rounded link bg-darker justify-center h-full';
+
+	let isLinux = false;
+
+	onMount(() => {
+		isLinux = navigator.userAgent.includes('Linux');
+	});
 </script>
 
 <PageContainer
@@ -35,15 +42,7 @@
 			/>
 		</div>
 		<div class="flex flex-col gap-4 my-4 rounded">
-			<script defer>
-				document.onload = () => {
-					const isLinux = navigator.userAgent.includes('Linux');
-					if (isLinux) {
-						document.getElementById('platform-select-linux').setAttribute('open', true);
-					}
-				};
-			</script>
-			<details name="platform" id="platform-select-windows" open>
+			<details open={!isLinux}>
 				<summary class={summaryClass}>For Windows</summary>
 				<div class="p-4 flex flex-col gap-4 bg-dark">
 					<CtaButton href={data.installerDownloadUrl} isExternal icon={WindowsIcon}>
@@ -56,7 +55,7 @@
 					</span>
 				</div>
 			</details>
-			<details name="platform" id="platform-select-linux">
+			<details open={isLinux}>
 				<summary class={summaryClass}>For Linux</summary>
 				<div class="p-4 flex flex-col gap-2 bg-dark">
 					<div>
