@@ -42,7 +42,7 @@
 			/>
 		</div>
 		<div class="flex flex-col gap-4 my-4 rounded">
-			<details open={!isLinux}>
+			<details name="platform" open={!isLinux}>
 				<summary class={summaryClass}>For Windows</summary>
 				<div class="p-4 flex flex-col gap-4 bg-dark">
 					<CtaButton href={data.installerDownloadUrl} isExternal icon={WindowsIcon}>
@@ -55,7 +55,7 @@
 					</span>
 				</div>
 			</details>
-			<details open={isLinux}>
+			<details name="platform" open={isLinux}>
 				<summary class={summaryClass}>For Linux</summary>
 				<div class="p-4 flex flex-col gap-2 bg-dark">
 					<div>
