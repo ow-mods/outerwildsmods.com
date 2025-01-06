@@ -39,12 +39,18 @@
 	const modIcon = iconList[iconIndex];
 </script>
 
-<div class="bg-dark md:rounded p-4 mb-4 relative overflow-hidden -mx-4 md:mx-0">
+<div
+	class="md:bg-dark md:rounded pb-4 md:p-4 relative overflow-hidden md:border-none border-b-2 border-b-darker"
+>
 	<div class="flex flex-col gap-4">
 		<h1 class="m-0 leading-none text-2xl break-words">{mod.name}</h1>
 		<div class="flex flex-wrap gap-1 text-sm">
 			{#each mod.tags as tag}
-				<a href="/mods?tag={tag}" class="link px-1 rounded bg-background font-xs" data-nosnippet>
+				<a
+					href="/mods?tag={tag}"
+					class="link px-1 rounded md:bg-background bg-dark font-xs"
+					data-nosnippet
+				>
 					{tag}
 				</a>
 			{/each}
