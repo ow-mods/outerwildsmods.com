@@ -13,6 +13,8 @@
 	import FlatpakIcon from '$lib/components/icons/flatpak-icon.svelte';
 
 	export let data: PageData;
+
+	const summaryClass = 'py-2 px-4 rounded link bg-darker justify-center h-full';
 </script>
 
 <PageContainer
@@ -32,20 +34,31 @@
 				height={760}
 			/>
 		</div>
-		<div class="my-4">
-			<CtaButton href={data.installerDownloadUrl} isExternal icon={WindowsIcon}>
-				Download the Outer Wilds Mod Manager for Windows
-			</CtaButton>
-		</div>
-		<div class="bg-dark rounded">
-			<details>
-				<summary class="py-2 px-4 rounded link bg-darker justify-center h-full">For Linux</summary>
-				<div class="p-4 flex flex-col gap-2">
-					<div>
-						<CtaButton href="appstream:com.outerwildsmods.owmods_gui">
-							AppStream Link (Flatpak) (Use this on Steam Deck)
-						</CtaButton>
-					</div>
+		<div class="flex flex-col gap-4 my-4 rounded">
+			<script defer>
+				document.onload = () => {
+					const isLinux = navigator.userAgent.includes('Linux');
+					if (isLinux) {
+						document.getElementById('platform-select-linux').setAttribute('open', true);
+					}
+				};
+			</script>
+			<details name="platform" id="platform-select-windows" open>
+				<summary class={summaryClass}>For Windows</summary>
+				<div class="p-4 flex flex-col gap-4 bg-dark">
+					<CtaButton href={data.installerDownloadUrl} isExternal icon={WindowsIcon}>
+						Download the Outer Wilds Mod Manager for Windows
+					</CtaButton>
+					<span>
+						Not Working? Try the <a class="link" href={data.nsisInstallerDownloadUrl}
+							>NSIS Installer for Windows</a
+						>.
+					</span>
+				</div>
+			</details>
+			<details name="platform" id="platform-select-linux">
+				<summary class={summaryClass}>For Linux</summary>
+				<div class="p-4 flex flex-col gap-2 bg-dark">
 					<div>
 						<CtaButton href={data.debUrl} isExternal icon={DebianIcon}>
 							Download .deb package for Debian
@@ -62,7 +75,7 @@
 							isExternal
 							icon={FlatpakIcon}
 						>
-							Flatpak for Linux
+							Flatpak package for Linux
 						</CtaButton>
 					</div>
 					<div>
@@ -71,12 +84,12 @@
 							isExternal
 							icon={NixIcon}
 						>
-							NixOS Package
+							Nix Flake
 						</CtaButton>
 					</div>
 					<div>
 						<CtaButton href={data.rpmUrl} isExternal icon={AppImageIcon}>
-							Download RPM Package for CentOS / Fedora
+							Download RPM Package for RHEL Distros
 						</CtaButton>
 					</div>
 					<div>
@@ -85,12 +98,17 @@
 						</CtaButton>
 					</div>
 					<span>
-						Note: Linux installs that aren't done through Flatpak or the AUR require that <a
+						On Steam Deck: Install the manager by going into Desktop Mode and searching "Outer
+						Wilds" in the Discover app.</span
+					>
+
+					<span>
+						Warning: Linux installs require that <a
 							href="https://www.mono-project.com/"
 							class="link"
 							target="_blank"
 							rel="noopener noreferrer">Mono 6.12.0</a
-						> is installed and available on the PATH
+						> is installed and available on the PATH (excluding AUR, FlatPak, Nix).
 					</span>
 				</div>
 			</details>
@@ -117,6 +135,19 @@
 			It also lets you install / update the{' '}
 			<a class="link" href="/mods/owml">Outer Wilds Mod Loader</a> from within the app, so you don't
 			need to deal with that yourself.
+		</p>
+	</PageSection>
+	<PageSection title="Troubleshooting" id="troubleshooting" isNarrow>
+		<p>
+			If you need help, you can check <a
+				class="link"
+				href={`${data.repoUrl}/blob/main/owmods_gui/HELP.md`}
+				target="_blank"
+				rel="noopener">the FAQ file in the manager repo</a
+			>. Or you can come ask on
+			<a class="link" target="_blank" rel="noopener" href="https://discord.gg/9vE5aHxcF9"
+				>The Outer Wilds Modding Discord Server</a
+			>.
 		</p>
 	</PageSection>
 	<PageSection title="How do I use this?" id="how-to-use" isNarrow>
@@ -183,24 +214,6 @@
 				href="https://github.com/ow-mods/ow-mod-manager/releases/latest/download/OuterWildsModManager-Portable.zip"
 				class="link">has a portable version</a
 			>
-		</p>
-	</PageSection>
-	<PageSection title="More information" id="more-info" isNarrow>
-		<p>
-			If you need help, you can check <a
-				class="link"
-				href={`${data.repoUrl}/blob/main/owmods_gui/HELP.md`}
-				target="_blank"
-				rel="noopener">the FAQ file in the manager repo</a
-			>. Or you can come ask on
-			<a class="link" target="_blank" rel="noopener" href="https://discord.gg/9vE5aHxcF9"
-				>The Outer Wilds Modding Discord Server</a
-			>.
-		</p>
-		<p>
-			You can also check out the <a href={`${data.repoUrl}`} class="link"
-				>Mod Manager GitHub repository</a
-			>.
 		</p>
 	</PageSection>
 </PageContainer>
