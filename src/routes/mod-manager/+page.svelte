@@ -79,11 +79,11 @@
 					</div>
 					<div>
 						<CtaButton
-							href="https://github.com/ow-mods/ow-mod-man/tree/main/nix"
+							href="https://search.nixos.org/packages?channel=unstable&size=500&query=owmods"
 							isExternal
 							icon={NixIcon}
 						>
-							Nix Flake
+							Nix Package
 						</CtaButton>
 					</div>
 					<div>
