@@ -7,9 +7,20 @@
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
 	import Comments from '$lib/components/comments.svelte';
+	import { sortModList } from '$lib/helpers/mod-sorting';
+	import NavigationMod from '$lib/components/navigation-mod.svelte';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
+
+	const otherMods = sortModList(
+		modList.filter((otherMod) => !otherMod.alpha),
+		'hot',
+		0
+	);
+	const currentModIndex = otherMods.findIndex((otherMod) => otherMod.uniqueName === mod.uniqueName);
+	const nextMod = otherMods[currentModIndex + 1] ?? otherMods[0];
+	const previousMod = otherMods[currentModIndex - 1] ?? otherMods[otherMods.length - 1];
 </script>
 
 {#if mod}
@@ -24,11 +35,17 @@
 			<div class="md:hidden">
 				<ModInfo {mod} />
 			</div>
-			{#if readme && mod.rawContentUrl}
-				{#key mod.uniqueName}
-					<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
-				{/key}
-			{/if}
+			<div class="flex-1">
+				<div class="flex gap-2 mb-4 justify-between bg-dark rounded p-2">
+					<NavigationMod mod={previousMod} isLeft={true} />
+					<NavigationMod mod={nextMod} isLeft={false} />
+				</div>
+				{#if readme && mod.rawContentUrl}
+					{#key mod.uniqueName}
+						<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
+					{/key}
+				{/if}
+			</div>
 			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
 				<div class="hidden md:block">
 					<ModInfo {mod} />

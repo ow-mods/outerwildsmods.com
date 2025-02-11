@@ -19,8 +19,8 @@
 	on:touchend={() => (touch = false)}
 	class="group link mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background flex flex-col justify-start max-w-sm"
 >
-	<ModCardImage {mod} {lazy} hover={pointer || touch} {showDetails} />
-	<ModCardDetails {mod}>
+	<ModCardImage {mod} {lazy} hover={!hideDescription && (pointer || touch || showDetails)} />
+	<ModCardDetails {mod} showInstallButton={!hideDescription}>
 		{hideDescription ? '' : mod.description}
 	</ModCardDetails>
 </div>

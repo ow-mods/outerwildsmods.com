@@ -14,7 +14,7 @@
 	setMarkdownContext('imageMap', imageMap);
 </script>
 
-<div class="flex-1 markdown">
+<div class="markdown">
 	<SvelteMarkdown
 		source={readme}
 		renderers={{
