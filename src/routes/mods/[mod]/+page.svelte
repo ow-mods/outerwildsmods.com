@@ -35,8 +35,8 @@
 			<div class="md:hidden">
 				<ModInfo {mod} />
 			</div>
-			<div class="flex-1">
-				<div class="hidden md:flex gap-2 mb-4 justify-between items-center">
+			<div class="flex-1 min-w-0">
+				<div class="hidden md:flex gap-2 mb-4 justify-between items-center min-w-0">
 					<NavigationMod mod={previousMod} isLeft={true} />
 					<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
 						<hr class="border-dashed border-white border-2 flex-1" />

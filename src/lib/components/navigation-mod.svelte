@@ -8,7 +8,7 @@
 
 <a
 	href={`/mods/${mod.slug}/`}
-	class="flex flex-auto bg-dark rounded relative link gap-1 overflow-hidden max-w-fit p-1"
+	class="flex shrink bg-dark rounded relative link gap-1 max-w-fit p-1 overflow-hidden"
 	class:flex-row-reverse={!isLeft}
 >
 	<div class="flex items-center font-mono text-xs">
@@ -19,7 +19,7 @@
 		{/if}
 	</div>
 	<div
-		class="flex items-center text-[0.6rem] flex-1 whitespace-nowrap"
+		class="flex items-center text-[0.6rem] whitespace-nowrap"
 		class:text-left={!isLeft}
 		class:text-right={isLeft}
 		class:justify-start={!isLeft}
