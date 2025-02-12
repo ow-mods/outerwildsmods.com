@@ -36,8 +36,13 @@
 				<ModInfo {mod} />
 			</div>
 			<div class="flex-1">
-				<div class="hidden md:flex gap-2 mb-4 justify-between bg-dark rounded p-2">
+				<div class="hidden md:flex gap-2 mb-4 justify-between items-center bg-dark rounded p-2">
 					<NavigationMod mod={previousMod} isLeft={true} />
+					<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
+						<hr class="border-dashed border-white border-2 flex-1" />
+						<span class="bg-white rounded-full w-2 h-2" />
+						<hr class="border-dashed border-white border-2 flex-1" />
+					</div>
 					<NavigationMod mod={nextMod} isLeft={false} />
 				</div>
 				{#if readme && mod.rawContentUrl}
