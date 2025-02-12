@@ -44,9 +44,16 @@
 					{#key mod.uniqueName}
 						<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
 					{/key}
+				{:else}
+					<p>
+						<strong>{mod.name}</strong> doesn't have a readme. Try
+						<a class="link" href={mod.repo} target="_blank" rel="noopener noreferrer"
+							>checking the source code</a
+						> to learn more about the mod.
+					</p>
 				{/if}
 			</div>
-			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
+			<div class="flex-0 md:w-52 mx-auto">
 				<div class="hidden md:block">
 					<ModInfo {mod} />
 				</div>
