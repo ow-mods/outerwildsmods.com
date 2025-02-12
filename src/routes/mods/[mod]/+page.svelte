@@ -36,7 +36,7 @@
 				<ModInfo {mod} />
 			</div>
 			<div class="flex-1">
-				<div class="flex gap-2 mb-4 justify-between bg-dark rounded p-2">
+				<div class="hidden md:flex gap-2 mb-4 justify-between bg-dark rounded p-2">
 					<NavigationMod mod={previousMod} isLeft={true} />
 					<NavigationMod mod={nextMod} isLeft={false} />
 				</div>
