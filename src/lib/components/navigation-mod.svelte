@@ -8,10 +8,10 @@
 
 <a
 	href={`/mods/${mod.slug}/`}
-	class="flex flex-auto bg-darker rounded relative link gap-1 h-10 overflow-hidden max-w-64"
+	class="flex flex-auto bg-dark rounded relative link gap-1 overflow-hidden max-w-fit p-1"
 	class:flex-row-reverse={!isLeft}
 >
-	<div class="flex items-center font-mono text-xl" class:pl-2={isLeft} class:pr-2={!isLeft}>
+	<div class="flex items-center font-mono text-xs">
 		{#if isLeft}
 			◀
 		{:else}
@@ -19,7 +19,7 @@
 		{/if}
 	</div>
 	<div
-		class="flex items-center text-[0.6rem] flex-1 p-1"
+		class="flex items-center text-[0.6rem] flex-1 whitespace-nowrap"
 		class:text-left={!isLeft}
 		class:text-right={isLeft}
 		class:justify-start={!isLeft}
@@ -27,5 +27,4 @@
 	>
 		{mod.name}
 	</div>
-	<ModImage {mod} smallText />
 </a>
