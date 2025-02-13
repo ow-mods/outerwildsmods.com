@@ -3,10 +3,11 @@
 
 	export let mod: Mod | undefined;
 	export let isLeft: boolean;
+	export let alpha: boolean | undefined;
 </script>
 
 <a
-	href={mod ? `/mods/${mod.slug}/` : '/mods/'}
+	href={mod ? `/mods/${mod.slug}/` : alpha ? '/outer-wilds-alpha/' : '/mods/'}
 	class="flex shrink bg-dark rounded relative link gap-1 p-1 overflow-hidden items-center text-xs"
 	class:flex-row-reverse={!isLeft}
 >
