@@ -39,8 +39,20 @@
 				href="https://web.archive.org/web/20150815180605/http://outerwilds.com:80/downloads/"
 				isExternal
 			>
-				Download the Outer Wilds Alpha via Wayback Machine
+				Download the Outer Wilds Alpha 1.2 via Wayback Machine
 			</LinkButton>
+			<div class="text-center m-4">
+				or
+			</div>
+			<LinkButton
+				href="https://web.archive.org/web/20151013013752/http://www.mobiusdigitalgames.com/downloads.html"
+				isExternal
+			>
+				Download the Outer Wilds Alpha Demo via Wayback Machine
+			</LinkButton>
+			<div class="text-center m-4">
+				(Tech Demo requires <a class="link" href="/mods/spoilerquarantinerelease">Spoiler Quarantine Release</a>)
+			</div>
 		</div>
 	</PageSection>
 	<PageSection title="Mods for Outer Wilds Alpha" id="mods">
