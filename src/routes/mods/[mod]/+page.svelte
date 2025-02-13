@@ -9,6 +9,7 @@
 	import Comments from '$lib/components/comments.svelte';
 	import { sortModList } from '$lib/helpers/mod-sorting';
 	import NavigationMod from '$lib/components/navigation-mod.svelte';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
@@ -18,9 +19,12 @@
 		'hot',
 		0
 	);
+
 	const currentModIndex = otherMods.findIndex((otherMod) => otherMod.uniqueName === mod.uniqueName);
-	const nextMod = otherMods[currentModIndex + 1] ?? otherMods[0];
-	const previousMod = otherMods[currentModIndex - 1] ?? otherMods[otherMods.length - 1];
+	const nextMod: Mod | undefined =
+		currentModIndex === -1 ? undefined : otherMods[currentModIndex + 1];
+	const previousMod: Mod | undefined =
+		currentModIndex === -1 ? undefined : otherMods[currentModIndex - 1];
 </script>
 
 {#if mod}
@@ -31,20 +35,20 @@
 		imageWidth={listedImageSize.width}
 		imageHeight={listedImageSize.height}
 	>
+		<div class="hidden md:flex gap-2 mb-4 justify-between items-center min-w-0">
+			<NavigationMod mod={previousMod} isLeft={true} />
+			<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
+				<hr class="border-dashed border-white border-2 flex-1" />
+				<span class="bg-white rounded-full w-2 h-2" />
+				<hr class="border-dashed border-white border-2 flex-1" />
+			</div>
+			<NavigationMod mod={nextMod} isLeft={false} />
+		</div>
 		<div class="flex flex-col md:flex-row gap-4">
 			<div class="md:hidden">
 				<ModInfo {mod} />
 			</div>
 			<div class="flex-1 min-w-0">
-				<div class="hidden md:flex gap-2 mb-4 justify-between items-center min-w-0">
-					<NavigationMod mod={previousMod} isLeft={true} />
-					<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
-						<hr class="border-dashed border-white border-2 flex-1" />
-						<span class="bg-white rounded-full w-2 h-2" />
-						<hr class="border-dashed border-white border-2 flex-1" />
-					</div>
-					<NavigationMod mod={nextMod} isLeft={false} />
-				</div>
 				{#if readme && mod.rawContentUrl}
 					{#key mod.uniqueName}
 						<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />

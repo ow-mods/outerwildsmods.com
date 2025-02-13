@@ -1,30 +1,29 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import ModImage from './mod-grid/mod-image.svelte';
 
-	export let mod: Mod;
+	export let mod: Mod | undefined;
 	export let isLeft: boolean;
 </script>
 
 <a
-	href={`/mods/${mod.slug}/`}
-	class="flex shrink bg-dark rounded relative link gap-1 max-w-fit p-1 overflow-hidden"
+	href={mod ? `/mods/${mod.slug}/` : '/mods/'}
+	class="flex shrink bg-dark rounded relative link gap-1 p-1 overflow-hidden items-center text-xs"
 	class:flex-row-reverse={!isLeft}
 >
-	<div class="flex items-center font-mono text-xs">
+	<span class="font-mono leading-none opacity-75 middle">
 		{#if isLeft}
 			◀
 		{:else}
 			▶
 		{/if}
-	</div>
-	<div
-		class="flex items-center text-[0.6rem] whitespace-nowrap"
+	</span>
+	<span
+		class="whitespace-nowrap overflow-hidden overflow-ellipsis"
 		class:text-left={!isLeft}
 		class:text-right={isLeft}
 		class:justify-start={!isLeft}
 		class:justify-end={isLeft}
 	>
-		{mod.name}
-	</div>
+		{mod ? mod.name : 'All mods'}
+	</span>
 </a>
