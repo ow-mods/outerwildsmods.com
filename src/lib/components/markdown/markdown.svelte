@@ -14,7 +14,7 @@
 	setMarkdownContext('imageMap', imageMap);
 </script>
 
-<div class="flex-1 markdown">
+<div class="markdown">
 	<SvelteMarkdown
 		source={readme}
 		renderers={{
@@ -27,6 +27,11 @@
 
 <style>
 	.markdown :global(h1) {
+		margin: 0;
+	}
+
+	/* If the first thing in the markdown is a p, we don't want the margin since ugly */
+	.markdown > :global(p:first-child) {
 		margin: 0;
 	}
 

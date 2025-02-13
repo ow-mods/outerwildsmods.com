@@ -7,6 +7,7 @@
 	import { modBeingInstalled } from '../mod-install-store';
 
 	export let mod: Mod;
+	export let showInstallButton: boolean;
 
 	let ready = false;
 	let clickedInstall = false;
@@ -25,7 +26,7 @@
 			<slot />
 		</div>
 	</a>
-	{#if canInstallViaProtocol(mod)}
+	{#if showInstallButton && canInstallViaProtocol(mod)}
 		<a
 			title="Install {mod.name}"
 			href="{managerInstallProtocol}/{mod.uniqueName}"

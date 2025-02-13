@@ -7,9 +7,24 @@
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { PageData } from './$types';
 	import Comments from '$lib/components/comments.svelte';
+	import { sortModList } from '$lib/helpers/mod-sorting';
+	import NavigationMod from '$lib/components/navigation-mod.svelte';
+	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
 	const { modList, mod, readme, imageMap } = data;
+
+	const otherMods = sortModList(
+		modList.filter((otherMod) => !otherMod.alpha),
+		'hot',
+		0
+	);
+
+	const currentModIndex = otherMods.findIndex((otherMod) => otherMod.uniqueName === mod.uniqueName);
+	const nextMod: Mod | undefined =
+		currentModIndex === -1 ? undefined : otherMods[currentModIndex + 1];
+	const previousMod: Mod | undefined =
+		currentModIndex === -1 ? undefined : otherMods[currentModIndex - 1];
 </script>
 
 {#if mod}
@@ -20,16 +35,34 @@
 		imageWidth={listedImageSize.width}
 		imageHeight={listedImageSize.height}
 	>
+		<div class="hidden md:flex gap-2 mb-4 justify-between items-center min-w-0">
+			<NavigationMod mod={previousMod} isLeft={true} />
+			<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
+				<hr class="border-dashed border-white border-2 flex-1" />
+				<span class="bg-white rounded-full w-2 h-2" />
+				<hr class="border-dashed border-white border-2 flex-1" />
+			</div>
+			<NavigationMod mod={nextMod} isLeft={false} />
+		</div>
 		<div class="flex flex-col md:flex-row gap-4">
 			<div class="md:hidden">
 				<ModInfo {mod} />
 			</div>
-			{#if readme && mod.rawContentUrl}
-				{#key mod.uniqueName}
-					<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
-				{/key}
-			{/if}
-			<div class:wrapper={readme} class:flex-1={!readme} class="flex-0 md:w-52 mx-auto">
+			<div class="flex-1 min-w-0">
+				{#if readme && mod.rawContentUrl}
+					{#key mod.uniqueName}
+						<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
+					{/key}
+				{:else}
+					<p>
+						<strong>{mod.name}</strong> doesn't have a readme. Try
+						<a class="link" href={mod.repo} target="_blank" rel="noopener noreferrer"
+							>checking the source code</a
+						> to learn more about the mod.
+					</p>
+				{/if}
+			</div>
+			<div class="flex-0 md:w-52 mx-auto">
 				<div class="hidden md:block">
 					<ModInfo {mod} />
 				</div>
