@@ -36,7 +36,7 @@
 		</PageSectionColumns>
 		<div class="mt-4">
 			<LinkButton
-				href="https://web.archive.org/web/20150815180605/http://outerwilds.com:80/downloads/"
+				href="https://archive.org/details/outer-wilds-alpha-1-2"
 				isExternal
 			>
 				Download the Outer Wilds Alpha 1.2 via Wayback Machine
@@ -45,7 +45,7 @@
 				or
 			</div>
 			<LinkButton
-				href="https://web.archive.org/web/20151013013752/http://www.mobiusdigitalgames.com/downloads.html"
+				href="https://archive.org/details/outer-wilds-alpha-demo-pc"
 				isExternal
 			>
 				Download the Outer Wilds Alpha Demo via Wayback Machine
