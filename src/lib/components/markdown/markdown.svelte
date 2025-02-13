@@ -30,6 +30,11 @@
 		margin: 0;
 	}
 
+	/* If the first thing in the markdown is a p, we don't want the margin since ugly */
+	.markdown > :global(p:first-child) {
+		margin: 0;
+	}
+
 	.markdown :global(pre) {
 		padding: theme('spacing.4');
 		overflow: auto;
