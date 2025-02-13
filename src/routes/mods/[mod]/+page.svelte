@@ -15,7 +15,7 @@
 	const { modList, mod, readme, imageMap } = data;
 
 	const otherMods = sortModList(
-		modList.filter((otherMod) => !otherMod.alpha),
+		modList.filter((otherMod) => otherMod.alpha == mod.alpha),
 		'hot',
 		0
 	);
@@ -36,13 +36,13 @@
 		imageHeight={listedImageSize.height}
 	>
 		<div class="hidden md:flex gap-2 mb-4 justify-between items-center min-w-0">
-			<NavigationMod mod={previousMod} isLeft={true} />
+			<NavigationMod mod={previousMod} alpha={mod.alpha} isLeft={true} />
 			<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
 				<hr class="border-dashed border-white border-2 flex-1" />
 				<span class="bg-white rounded-full w-2 h-2" />
 				<hr class="border-dashed border-white border-2 flex-1" />
 			</div>
-			<NavigationMod mod={nextMod} isLeft={false} />
+			<NavigationMod mod={nextMod} alpha={mod.alpha} isLeft={false} />
 		</div>
 		<div class="flex flex-col md:flex-row gap-4">
 			<div class="md:hidden">
