@@ -11,12 +11,13 @@ export async function load() {
 
 	// Don't always get latest as it could change and we'd grab the wrong assets
 	const downloadUrl = `${repoUrl}/releases/download/gui_v${managerVersion}`;
+	const productName = "Outer.Wilds.Mod.Manager";
 
-	const installerDownloadUrl = `${downloadUrl}/Outer.Wilds.Mod.Manager_${managerVersion}_x64_en-US.msi`;
-	const nsisInstallerDownloadUrl = `${downloadUrl}/Outer.Wilds.Mod.Manager_${managerVersion}_x64-setup.exe`;
-	const appImageUrl = `${downloadUrl}/outer-wilds-mod-manager_${managerVersion}_amd64.AppImage `;
-	const debUrl = `${downloadUrl}/outer-wilds-mod-manager_${managerVersion}_amd64.deb`;
-	const rpmUrl = `${downloadUrl}/outer-wilds-mod-manager-${managerVersion}-1.x86_64.rpm `;
+	const installerDownloadUrl = `${downloadUrl}/${productName}_${managerVersion}_x64_en-US.msi`;
+	const nsisInstallerDownloadUrl = `${downloadUrl}/${productName}_${managerVersion}_x64-setup.exe`;
+	const appImageUrl = `${downloadUrl}/${productName}_${managerVersion}_amd64.AppImage `;
+	const debUrl = `${downloadUrl}/${productName}_${managerVersion}_amd64.deb`;
+	const rpmUrl = `${downloadUrl}/${productName}-${managerVersion}-1.x86_64.rpm `;
 
 	return {
 		repoUrl,
