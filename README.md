@@ -25,7 +25,7 @@ If you notice the website is down, please notify the admins in the [Outer Wilds 
 Before deploying changes live, it's a good idea to test them on the [staging website](https://github.com/ow-mods/staging.outerwildsmods.com). Just push to the master branch of the staging repo and changes will be deployed to [staging.outerwildsmods.com](https://staging.outerwildsmods.com). These two repos aren't kept automatically in sync, so one thing you can do is develop on a new branch in the `outerwildsmods.com` repo, and then use this command to force-push the changes to the staging repo:
 
 ```
-git push https://github.com/ow-mods/staging.outerwildsmods.com.git master -f
+git push https://github.com/ow-mods/staging.outerwildsmods.com.git HEAD:master -f
 ```
 
 ## Deploying to production
