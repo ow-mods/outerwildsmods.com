@@ -4,6 +4,7 @@ import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import rehypeSlug from 'rehype-slug';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
@@ -47,6 +48,7 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<string | null>
 		.use(rehypeStringify, {
 			allowDangerousHtml: true,
 		})
+		.use(rehypeSlug)
 		.process(markdown);
 	file.toString();
 
