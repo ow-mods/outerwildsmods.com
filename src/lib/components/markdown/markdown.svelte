@@ -1,10 +1,6 @@
 <script lang="ts">
-	import SvelteMarkdown from 'svelte-markdown';
 	import type { ImageMap } from '$lib/helpers/api/get-image-map';
-	import ImageRenderer from './image-renderer.svelte';
-	import LinkRenderer from './link-renderer.svelte';
 	import { setMarkdownContext } from './markdown-context';
-	import TextRenderer from './text-renderer.svelte';
 
 	export let readme: string;
 	export let imageMap: ImageMap;
@@ -14,34 +10,28 @@
 	setMarkdownContext('imageMap', imageMap);
 </script>
 
-<div class="markdown">
-	<SvelteMarkdown
-		source={readme}
-		renderers={{
-			html: TextRenderer,
-			image: ImageRenderer,
-			link: LinkRenderer,
-		}}
-	/>
+<div>
+	<!-- Render readme string as html, the string is already html -->
+	{@html readme}
 </div>
 
 <style>
-	.markdown :global(h1) {
+	:global(h1) {
 		margin: 0;
 	}
 
 	/* If the first thing in the markdown is a p, we don't want the margin since ugly */
-	.markdown > :global(p:first-child) {
+	& > :global(p:first-child) {
 		margin: 0;
 	}
 
-	.markdown :global(pre) {
+	:global(pre) {
 		padding: theme('spacing.4');
 		overflow: auto;
 	}
 
-	.markdown :global(pre),
-	.markdown :global(code) {
+	:global(pre),
+	:global(code) {
 		background: theme('colors.dark');
 		border-radius: theme('borderRadius.DEFAULT');
 		padding: theme('spacing.1');
@@ -49,27 +39,38 @@
 		word-break: break-all;
 	}
 
-	.markdown :global(table) {
+	:global(table) {
 		border-collapse: collapse;
 		width: 100%;
 	}
 
-	.markdown :global(table),
-	.markdown :global(th),
-	.markdown :global(td) {
+	:global(table),
+	:global(th),
+	:global(td) {
 		border: 1px solid theme('colors.light');
 	}
 
-	.markdown :global(td) {
+	:global(td) {
 		padding: theme('spacing.2');
 	}
 
-	.markdown :global(li) {
+	:global(li) {
 		padding: theme('spacing.1') 0;
 	}
 
-	.markdown :global(img) {
+	:global(img) {
 		display: inline-block;
 		height: auto;
+	}
+
+	:global(a),
+	:global(summary) {
+		color: theme('colors.accent');
+
+		&:hover {
+			filter: brightness(1.25);
+		}
+
+		cursor: pointer;
 	}
 </style>
