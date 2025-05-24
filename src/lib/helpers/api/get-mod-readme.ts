@@ -1,6 +1,6 @@
 import { getRawContentUrl } from '../get-raw-content-url';
 import type { ModFromDatabase } from './get-mod-database';
-import { HtmlRenderer, Parser } from 'commonmark';
+import showdown from 'showdown';
 
 export const getModReadme = async (mod: ModFromDatabase): Promise<string | null> => {
 	if (!mod.readme) return null;
@@ -14,26 +14,30 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<string | null>
 	}
 
 	const markdown = await response.text();
-	const reader = new Parser();
-	const writer = new HtmlRenderer();
-	const parsed = reader.parse(markdown);
-
-	// Traverse AST and update link destinations
 	const rawContentUrl = getRawContentUrl(mod);
-	if (rawContentUrl) {
-		const walker = parsed.walker();
-		let event;
-		while ((event = walker.next())) {
-			const node = event.node;
-			if ((node.type === 'link' || node.type === 'image') && node.destination) {
-				const href = node.destination;
-				if (!href.startsWith('http') && !href.startsWith('#')) {
-					node.destination = `${rawContentUrl}/${href}`;
+	const converter = new showdown.Converter({
+		ghCompatibleHeaderId: true,
+		ghMentions: true,
+	});
+	converter.addExtension(
+		{
+			type: 'output',
+			filter: (text: string) => {
+				if (rawContentUrl) {
+					return text.replace(/(href|src)="([^"]+)"/g, (match, attr, val) => {
+						if (!val.startsWith('http') && !val.startsWith('#')) {
+							return `${attr}="${rawContentUrl}/${val}"`;
+						}
+						return match;
+					});
 				}
-			}
-		}
-	}
+				return text;
+			},
+		},
+		'relative-links'
+	);
 
-	const html = writer.render(parsed);
-	return html;
+	converter.setFlavor('github');
+
+	return converter.makeHtml(markdown);
 };
