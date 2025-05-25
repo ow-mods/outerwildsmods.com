@@ -1,6 +1,5 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 import { getModReadme } from '$lib/helpers/api/get-mod-readme';
-import { getImageMap } from '$lib/helpers/api/get-image-map';
 import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 type Params = {
@@ -19,7 +18,7 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	}
 
 	const readme = await getModReadme(mod);
-	const imageMap = readme ? await getImageMap(mod, readme) : {};
+	const imageMap = {};
 
 	return json({
 		...(readme ? { readme } : undefined),

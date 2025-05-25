@@ -3,12 +3,12 @@ import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import type { ImageInfo } from './get-image-map';
 import { getRawContentUrl } from '../get-raw-content-url';
-import type { Mod } from './get-mod-list';
+import { ModFromDatabase } from './get-mod-database';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
 export const getImageInfo = async (
-	mod: Mod,
+	mod: ModFromDatabase,
 	imageUrl: string,
 	index: number
 ): Promise<ImageInfo | null> => {
