@@ -6,8 +6,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype, { defaultHandlers } from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import { unified } from 'unified';
-import { getImageInfo } from './get-image-info';
-import { ImageInfo } from './get-image-map';
+import { getImageInfo, ImageInfo } from './get-image-info';
 import { visit } from 'unist-util-visit';
 
 export const getModReadme = async (mod: ModFromDatabase): Promise<string | null> => {

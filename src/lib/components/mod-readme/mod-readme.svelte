@@ -1,18 +1,10 @@
 <script lang="ts">
-	import type { ImageMap } from '$lib/helpers/api/get-image-map';
-	import { setMarkdownContext } from './markdown-context';
-
-	export let readme: string;
-	export let imageMap: ImageMap;
-	export let rawContentUrl: string;
-
-	setMarkdownContext('rawContentUrl', rawContentUrl);
-	setMarkdownContext('imageMap', imageMap);
+	export let readmeHtml: string;
 </script>
 
 <div>
 	<!-- Render readme string as html, the string is already html -->
-	{@html readme}
+	{@html readmeHtml}
 </div>
 
 <style>
