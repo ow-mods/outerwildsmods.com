@@ -60,6 +60,7 @@
 		color: theme('colors.accent');
 		cursor: pointer;
 		word-break: break-word;
+		font-weight: normal;
 
 		&:hover {
 			filter: brightness(1.25);
