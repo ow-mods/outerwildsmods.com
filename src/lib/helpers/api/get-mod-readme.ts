@@ -1,4 +1,3 @@
-import { getRawContentUrl } from '../get-raw-content-url';
 import type { ModFromDatabase } from './get-mod-database';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
@@ -23,10 +22,6 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<string | null>
 	}
 
 	const markdown = await response.text();
-	const rawContentUrl = getRawContentUrl(mod);
-	if (!rawContentUrl) {
-		return null;
-	}
 
 	const imageSources: string[] = [];
 
@@ -66,10 +61,10 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<string | null>
 						!/^(https?:)?\/\//i.test(element.properties.href) &&
 						!element.properties.href.startsWith('#')
 					) {
-						element.properties.href = `${rawContentUrl.replace(
-							/\/$/,
-							''
-						)}/${element.properties.href.replace(/^\.\//, '')}`;
+						const original = element.properties.href;
+						element.properties.href = `${mod.repo}/blob/HEAD/${original.replace(/^\.\//, '')}`;
+
+						console.log(`replaced link href: ${original} >> ${element.properties.href}`);
 					}
 					return element;
 				},
