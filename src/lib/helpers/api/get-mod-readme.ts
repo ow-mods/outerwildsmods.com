@@ -5,6 +5,8 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype, { defaultHandlers } from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 import { unified } from 'unified';
 import { getImageInfo, ImageInfo } from './get-image-info';
 import { visit } from 'unist-util-visit';
@@ -84,10 +86,10 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<string | null>
 				},
 			},
 		})
-		.use(rehypeStringify, {
-			allowDangerousHtml: true,
-		})
+		.use(rehypeRaw)
+		.use(rehypeSanitize)
 		.use(rehypeSlug)
+		.use(rehypeStringify)
 		.process(markdown);
 	file.toString();
 
