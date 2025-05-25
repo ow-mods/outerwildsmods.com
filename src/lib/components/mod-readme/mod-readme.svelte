@@ -8,7 +8,7 @@
 </div>
 
 <style>
-	:global(h1) {
+	.markdown :global(h1) {
 		margin: 0;
 	}
 
@@ -17,55 +17,56 @@
 		margin: 0;
 	}
 
-	:global(pre) {
+	.markdown :global(pre) {
 		padding: theme('spacing.4');
 		overflow: auto;
 	}
 
-	:global(pre),
-	:global(code) {
+	.markdown :global(pre),
+	.markdown :global(code) {
 		background: theme('colors.dark');
 		border-radius: theme('borderRadius.DEFAULT');
 		padding: theme('spacing.1');
 		white-space: pre-wrap;
-		word-break: break-all;
+		word-break: break-word;
 	}
 
-	:global(table) {
+	.markdown :global(table) {
 		border-collapse: collapse;
 		width: 100%;
 	}
 
-	:global(table),
-	:global(th),
-	:global(td) {
+	.markdown :global(table),
+	.markdown :global(th),
+	.markdown :global(td) {
 		border: 1px solid theme('colors.light');
 	}
 
-	:global(td) {
+	.markdown :global(td) {
 		padding: theme('spacing.2');
 	}
 
-	:global(li) {
+	.markdown :global(li) {
 		padding: theme('spacing.1') 0;
 	}
 
-	:global(img) {
+	.markdown :global(img) {
 		display: inline-block;
 		height: auto;
 	}
 
-	:global(a),
-	:global(summary) {
+	.markdown :global(a),
+	.markdown :global(summary) {
 		color: theme('colors.accent');
+		cursor: pointer;
+		word-break: break-word;
 
 		&:hover {
 			filter: brightness(1.25);
 		}
-
-		cursor: pointer;
 	}
-	:global(details) {
+
+	.markdown :global(details) {
 		background-color: theme('colors.dark');
 		border-radius: theme('borderRadius.DEFAULT');
 		padding: 0 theme('spacing.2');
