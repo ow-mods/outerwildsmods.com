@@ -160,7 +160,6 @@
 
 	const minimumTimestamp = firstEvent.date.valueOf();
 	const maximumTimestamp = lastEvent.date.valueOf();
-	console.log(maximumTimestamp - minimumTimestamp);
 	const PixelsPerMillisecond = 2e-7;
 	const timelineWidth = (maximumTimestamp - minimumTimestamp) * PixelsPerMillisecond;
 	const timelineMargin = 1000;

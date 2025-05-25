@@ -50,7 +50,6 @@ function splitModsByReleaseDate(mods: Mod[]) {
 		mapOfMods[key].push(mod);
 		return mapOfMods;
 	});
-	//console.log(mapOfMods);
 	return [...Object.values(mapOfMods)];
 }
 

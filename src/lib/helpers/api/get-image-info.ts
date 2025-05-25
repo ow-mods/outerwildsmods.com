@@ -75,7 +75,7 @@ export const downloadImage = async (
 		const response = await fetch(imageUrl);
 
 		if (!response.ok) {
-			console.log(`Failed to download image ${imageUrl}: ${response.statusText}`);
+			console.error(`Failed to download image ${imageUrl}: ${response.statusText}`);
 			return null;
 		}
 
