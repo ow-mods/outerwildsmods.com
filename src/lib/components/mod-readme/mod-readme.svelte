@@ -2,7 +2,7 @@
 	export let readmeHtml: string;
 </script>
 
-<div>
+<div class="markdown">
 	<!-- Render readme string as html, the string is already html -->
 	{@html readmeHtml}
 </div>
@@ -13,7 +13,7 @@
 	}
 
 	/* If the first thing in the markdown is a p, we don't want the margin since ugly */
-	& > :global(p:first-child) {
+	.markdown > :global(p:first-child) {
 		margin: 0;
 	}
 
@@ -64,5 +64,10 @@
 		}
 
 		cursor: pointer;
+	}
+	:global(details) {
+		background-color: theme('colors.dark');
+		border-radius: theme('borderRadius.DEFAULT');
+		padding: 0 theme('spacing.2');
 	}
 </style>
