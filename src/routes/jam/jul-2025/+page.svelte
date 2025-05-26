@@ -153,7 +153,7 @@
 <PageContainer
 	title="Summer 2025 Mod Jam"
 	description="Create a story mod for Outer Wilds and win cash prizes!"
-	imageUrl="{websiteUrl}/images/outer-wilds.webp"
+	imageUrl="{websiteUrl}/images/jam-5.webp"
 	imageWidth={665}
 	imageHeight={416}
 >
@@ -207,7 +207,7 @@
 	<PageSection title="Summer 2025 Mod Jam" id="ow-jam-original" isNarrow>
 		<PageSectionImage
 			title="Summer 2025 Mod Jam"
-			imageUrl="{websiteUrl}/images/outer-wilds.webp"
+			imageUrl="/images/jam-5.webp"
 			width={665}
 			height={416}
 		/>
