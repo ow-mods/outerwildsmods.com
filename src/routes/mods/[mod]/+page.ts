@@ -1,4 +1,3 @@
-import type { ImageMap } from '$lib/helpers/api/get-image-map';
 import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
@@ -18,12 +17,10 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 	}
 
 	const json = await result.json();
-	const readme: string = json.readme;
-	const imageMap: ImageMap = json.imageMap;
+	const readmeHtml: string = json.readmeHtml;
 
 	return {
 		mod,
-		readme,
-		imageMap,
+		readmeHtml,
 	};
 };

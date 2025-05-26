@@ -1,14 +1,19 @@
 import sharp from 'sharp';
 import fs, { promises as fsp } from 'fs';
 import path from 'path';
-import type { ImageInfo } from './get-image-map';
 import { getRawContentUrl } from '../get-raw-content-url';
-import type { Mod } from './get-mod-list';
+import { ModFromDatabase } from './get-mod-database';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
+export type ImageInfo = {
+	width?: number;
+	height?: number;
+	url: string;
+};
+
 export const getImageInfo = async (
-	mod: Mod,
+	mod: ModFromDatabase,
 	imageUrl: string,
 	index: number
 ): Promise<ImageInfo | null> => {
@@ -70,7 +75,7 @@ export const downloadImage = async (
 		const response = await fetch(imageUrl);
 
 		if (!response.ok) {
-			console.log(`Failed to download image ${imageUrl}: ${response.statusText}`);
+			console.error(`Failed to download image ${imageUrl}: ${response.statusText}`);
 			return null;
 		}
 

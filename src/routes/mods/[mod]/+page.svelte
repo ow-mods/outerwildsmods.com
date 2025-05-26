@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PageContainer from '$lib/components/page-container.svelte';
 	import ModInfo from '$lib/components/mod-info/mod-info.svelte';
-	import Markdown from '$lib/components/markdown/markdown.svelte';
+	import ModReadme from '$lib/components/mod-readme/mod-readme.svelte';
 	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
 	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
 	import { listedImageSize } from '$lib/helpers/constants';
@@ -12,7 +12,7 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
-	const { modList, mod, readme, imageMap } = data;
+	const { modList, mod, readmeHtml } = data;
 
 	const otherMods = sortModList(
 		modList.filter((otherMod) => otherMod.alpha == mod.alpha),
@@ -49,9 +49,9 @@
 				<ModInfo {mod} />
 			</div>
 			<div class="flex-1 min-w-0">
-				{#if readme && mod.rawContentUrl}
+				{#if readmeHtml && mod.rawContentUrl}
 					{#key mod.uniqueName}
-						<Markdown {readme} {imageMap} rawContentUrl={mod.rawContentUrl} />
+						<ModReadme {readmeHtml} />
 					{/key}
 				{:else}
 					<p>

@@ -27,7 +27,7 @@
 		</div>
 	{/if}
 	<img
-		class="object-contain w-full h-full text-white text-opacity-30"
+		class="block object-contain w-full h-full text-white text-opacity-30"
 		alt={imageSrc ? mod.name : ''}
 		src={imageSrc || '/images/placeholder.webp'}
 		loading={imageSrc && lazy ? 'lazy' : 'eager'}

@@ -1,28 +1,10 @@
 <script lang="ts">
-	import SvelteMarkdown from 'svelte-markdown';
-	import type { ImageMap } from '$lib/helpers/api/get-image-map';
-	import ImageRenderer from './image-renderer.svelte';
-	import LinkRenderer from './link-renderer.svelte';
-	import { setMarkdownContext } from './markdown-context';
-	import TextRenderer from './text-renderer.svelte';
-
-	export let readme: string;
-	export let imageMap: ImageMap;
-	export let rawContentUrl: string;
-
-	setMarkdownContext('rawContentUrl', rawContentUrl);
-	setMarkdownContext('imageMap', imageMap);
+	export let readmeHtml: string;
 </script>
 
 <div class="markdown">
-	<SvelteMarkdown
-		source={readme}
-		renderers={{
-			html: TextRenderer,
-			image: ImageRenderer,
-			link: LinkRenderer,
-		}}
-	/>
+	<!-- Render readme string as html, the string is already html -->
+	{@html readmeHtml}
 </div>
 
 <style>
@@ -46,7 +28,7 @@
 		border-radius: theme('borderRadius.DEFAULT');
 		padding: theme('spacing.1');
 		white-space: pre-wrap;
-		word-break: break-all;
+		word-break: break-word;
 	}
 
 	.markdown :global(table) {
@@ -71,5 +53,23 @@
 	.markdown :global(img) {
 		display: inline-block;
 		height: auto;
+	}
+
+	.markdown :global(a),
+	.markdown :global(summary) {
+		color: theme('colors.accent');
+		cursor: pointer;
+		word-break: break-word;
+		font-weight: normal;
+
+		&:hover {
+			filter: brightness(1.25);
+		}
+	}
+
+	.markdown :global(details) {
+		background-color: theme('colors.dark');
+		border-radius: theme('borderRadius.DEFAULT');
+		padding: 0 theme('spacing.2');
 	}
 </style>
