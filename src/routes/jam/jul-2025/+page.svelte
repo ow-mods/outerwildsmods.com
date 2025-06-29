@@ -147,6 +147,9 @@
 	const donators = {
 		xen: 'xen-42',
 		paulschellin: '',
+		Hawkbar: 'Hawkbat',
+		ditzy: 'dit-zy',
+		book: 'Nageld'
 	};
 </script>
 
@@ -198,7 +201,6 @@
 		<JamCredits {organizers} {judges} {donators} />
 	</PageSection>
 	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
-
 		<p>
 			The following sections contain all the information originally included in this jam page, when
 			the jam first started.
@@ -258,9 +260,9 @@
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
 			let us know on our <a class="link" href="#talk">Discord</a>.</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>TBA</strong></span>
-			<span>🥈Second place: <strong>TBA</strong></span>
-			<span>🥉Third place: <strong>TBA</strong></span>
+			<span>🥇First place: <strong>$180</strong></span>
+			<span>🥈Second place: <strong>$120</strong></span>
+			<span>🥉Third place: <strong>$60</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
