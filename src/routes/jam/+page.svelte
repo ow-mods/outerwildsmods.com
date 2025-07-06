@@ -9,7 +9,7 @@
 
 	const jams = [
 		{
-			title: 'Summer 2025 Mod Jam',
+			title: 'Mini Star System Mod Jam',
 			date: 'July 2025',
 			path: 'jul-2025',
 			active: false,

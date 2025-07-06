@@ -28,7 +28,7 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = null;
+	let theme = "miniature";
 	let timer: NodeJS.Timer | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
@@ -123,13 +123,15 @@
 			mod.tags.includes('jam') &&
 			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
-			mod.uniqueName !== 'xen.ModJam3'
+			mod.uniqueName !== 'xen.ModJam5'
 	);
+
+	let hasEntries = jamMods.length > 0;
 
 	let jamRootMod: Mod | undefined;
 
 	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam3');
+		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam5');
 	}
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
@@ -138,10 +140,12 @@
 
 	const organizers = {
 		xen: 'xen-42',
+		SBtT: 'StreetlightsBehindTheTrees'
 	};
 
 	const judges = {
 		xen: 'xen-42',
+		'To be determined': ''
 	};
 
 	const donators = {
@@ -154,26 +158,32 @@
 </script>
 
 <PageContainer
-	title="Summer 2025 Mod Jam"
+	title="Mini Star System Mod Jam"
 	description="Create a story mod for Outer Wilds and win cash prizes!"
 	imageUrl="{websiteUrl}/images/jam-5.webp"
 	imageWidth={665}
 	imageHeight={416}
 >
-<!--
-	<PageSection title="Summer 2025 Planet Jam" id="ow-jam" isNarrow>
+
+	<PageSection title="Mini Star System Mod Jam" id="ow-jam" isNarrow>
 		<p>
-			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system
-			provided by the base <strong>Mod Jam 3</strong> mod!
+			For the fifth Outer Wilds mod jam, all entries had to take place in a shared solar system
+			provided by the base <strong>Mod Jam 5</strong> mod!
 		</p>
 		{#if jamRootMod}
 			<ModCard mod={jamRootMod} />
 		{/if}
 		<p>
+			<strong>The jam is on!</strong> Scroll down to read the theme and restriction for the jam, and how to enter!
+		</p>
+		<!--
+		<p>
 			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
 			voted on them. This concludes the third Outer Wilds Mod Jam!
 		</p>
+		-->
 	</PageSection>
+	<!--
 	<PageSection title="Results" id="results">
 		<div class="flex gap-2 flex-col md:flex-row">
 			{#if firstPlaceMod}
@@ -194,21 +204,22 @@
 			<div />
 		</div>
 	</PageSection>
+	-->
+	{#if hasEntries}
 	<PageSection title="All Submissions" id="submissions">
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
-	<PageSection title="Credits" id="credits" isNarrow>
-		<JamCredits {organizers} {judges} {donators} />
-	</PageSection>
+	{/if}
+	<!--
 	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
 		<p>
 			The following sections contain all the information originally included in this jam page, when
 			the jam first started.
 		</p>
 		-->
-	<PageSection title="Summer 2025 Mod Jam" id="ow-jam-original" isNarrow>
+	<PageSection title="Announcement Info" id="ow-jam-original" isNarrow>
 		<PageSectionImage
-			title="Summer 2025 Mod Jam"
+			title="Mini Star System Mod Jam"
 			imageUrl="/images/jam-5.webp"
 			width={665}
 			height={416}
@@ -222,8 +233,14 @@
 			following the theme given below.
 		</p>
 		<p>
-			You are encouraged to use <a class="link" href="/mods/newhorizons">New Horizons</a> to create your mod! However
-			this isn’t an NH-only jam; You are encouraged to use custom code to add new gameplay mechanics
+			Like the <a hred="/jam/mar-2024/">third mod jam</a> this mod will have a very specific restriction. You must use
+			<a class="link" href="/mods/newhorizons">New Horizons</a> to create a story <b>restricted to within a 2500m radius sphere</b>. However, there
+			are no limits on how you use this space! Will you make a mini star system, a single massive planet or space station, a cluster of asteroids,
+			or a hidden away dreamworld: you can do anything as long as it fits within this space! Additionally, your mod <b>must start on a platform within
+			the central hub station</b> where the player will spawn in when playing any and all entries.
+		</p>
+		<p>
+			As usual, this isn’t an NH-only jam; You are encouraged to use custom code to add new gameplay mechanics
 			to your planet! Read the
 			<a class="link" href="https://owml.outerwildsmods.com/">OWML docs</a>
 			 to learn how to create your mod, and read the
@@ -245,8 +262,8 @@
 			You decide how to interpret the theme. Make sure you read the <a class="link" href="#rules"
 				>rules</a
 			>
-			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
-			entry does not implement the theme your entry cannot be considered for judging.
+			and the <a class="link" href="#judging-criteria">judging criteria</a>, especially the <strong>restrictions</strong>. Remember that if your
+			entry does not implement the theme and abide by the restrictions your entry cannot be considered for judging.
 		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
@@ -271,6 +288,13 @@
 		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
+		<p>
+			❔ Your mod must depend on the <a class="link" href="https://outerwildsmods.com/mods/modjam5/"
+				>Jam 5 base mod</a
+			> for compatibility. While this will handle the most obvious issues, you should keep compatibility
+			in mind when implementing your mods features. For example, you cannot change the length of the
+			time loop. Your mod must define a central hub platform and a mini star system center to be considered valid.
+		</p>
 		<p>
 			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - New Horizons, Slate’s
 			Shipyard, VanillaFix, etc.
@@ -315,6 +339,15 @@
 			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
+		</p>
+		<p>
+			🚢 Please consider using shiplogs, especially one granted upon finishing the mod! If a judge gets lost 
+			while playing your mod, shiplogs can allow them to easily get back on track without frustration, which can otherwise 
+			negatively affect your score.
+		</p>
+		<p>
+			❔ Since all mods will add planets to the same star system, your mod should work with all
+			other entries enabled!
 		</p>
 		<p>
 			These guidelines can change depending on how the jam is going. We might also take a shot at
@@ -398,5 +431,8 @@
 			so you can be notified of jam updates.
 		</p>
 		<DiscordLink />
+	</PageSection>
+	<PageSection title="Credits" id="credits" isNarrow>
+		<JamCredits {organizers} {judges} {donators} />
 	</PageSection>
 </PageContainer>
