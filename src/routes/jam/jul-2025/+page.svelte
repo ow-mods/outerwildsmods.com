@@ -246,6 +246,10 @@
 			 to learn how to create your mod, and read the
 			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons docs</a> to create your planets, settings, dialogue, etc.
 		</p>
+		<p>
+			Lastly, all mods will be set in the same solar system. To achieve this, they must all depend on the 
+			<a class="link" href="https://outerwildsmods.com/mods/modjam5/">Jam 5 base mod</a>.
+		</p>
 	</PageSection>
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
