@@ -12,10 +12,10 @@
 			title: 'Mini Star System Mod Jam',
 			date: 'July 2025',
 			path: 'jul-2025',
-			active: false,
+			active: true,
 		},
 		{
-			title: 'October 2024 Mod Jam',
+			title: 'Minimal Text Mod Jam',
 			date: 'October 2024',
 			path: 'oct-2024',
 			active: false,

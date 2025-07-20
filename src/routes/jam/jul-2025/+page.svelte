@@ -17,7 +17,7 @@
 	const { modList } = data;
 
 	let startTimestamp = 1751817600000;
-	const endTimestamp = 1753056000000;
+	const endTimestamp = 1753228800000;
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
@@ -275,6 +275,15 @@
 			<span>🟢 Jam start: <strong>{startDateText}</strong></span>
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
+		</div>
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+			<br />
+			<small
+				>In the event of a discrepency with any other post, <strong
+					>the time listed above is the definitive end to the jam!</strong
+				>
+				An extension was announced on July 20th on our Discord server</small
+			>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>

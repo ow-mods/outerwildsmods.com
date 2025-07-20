@@ -160,13 +160,13 @@
 </script>
 
 <PageContainer
-	title="October 2024 Mod Jam"
+	title="Minimal Text Mod Jam"
 	description="Create a story mod for Outer Wilds and win cash prizes!"
 	imageUrl="{websiteUrl}/images/jam-4.webp"
 	imageWidth={896}
 	imageHeight={560}
 >
-	<PageSection title="October 2024 Mod Jam" id="ow-jam" isNarrow>
+	<PageSection title="Minimal Text Mod Jam" id="ow-jam" isNarrow>
 		<p>
 			<strong>The jam is over!</strong> The judges played through the submissions, discussed them,
 			and voted on them. This concludes the fourth Outer Wilds Mod Jam!
