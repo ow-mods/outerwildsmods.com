@@ -145,7 +145,8 @@
 
 	const judges = {
 		xen: 'xen-42',
-		'To be determined': ''
+		book: 'Nageld',
+		Idiot: 'Bwc9876',
 	};
 
 	const donators = {
@@ -173,15 +174,20 @@
 		{#if jamRootMod}
 			<ModCard mod={jamRootMod} />
 		{/if}
-		<p>
-			<strong>The jam is on!</strong> Scroll down to read the theme and restriction for the jam, and how to enter!
-		</p>
 		<!--
-		<p>
-			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
-			voted on them. This concludes the third Outer Wilds Mod Jam!
-		</p>
+			<p>
+				<strong>The jam is on!</strong> Scroll down to read the theme and restriction for the jam, and how to enter!
+			</p>
 		-->
+		<!--
+			<p>
+				<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
+				voted on them. This concludes the fifth Outer Wilds Mod Jam!
+			</p>
+		-->
+			<p>
+				<strong>The jam is over!</strong> The judges are now playing through the submissions! Check in later for the announcement of the winners!
+			</p>
 	</PageSection>
 	<!--
 	<PageSection title="Results" id="results">
@@ -210,14 +216,11 @@
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	{/if}
-	<!--
-	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
+	<PageSection title="Announcement Info" id="ow-jam-original" isNarrow>
 		<p>
 			The following sections contain all the information originally included in this jam page, when
 			the jam first started.
 		</p>
-		-->
-	<PageSection title="Announcement Info" id="ow-jam-original" isNarrow>
 		<PageSectionImage
 			title="Mini Star System Mod Jam"
 			imageUrl="/images/jam-5.webp"
