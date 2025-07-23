@@ -147,6 +147,8 @@
 		xen: 'xen-42',
 		book: 'Nageld',
 		Idiot: 'Bwc9876',
+		loco: 'loco-choco',
+		Samster68: 'Samster68OW'
 	};
 
 	const donators = {
