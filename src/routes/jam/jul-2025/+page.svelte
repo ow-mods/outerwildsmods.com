@@ -121,7 +121,7 @@
 	const jamMods = modList.filter(
 		(mod) =>
 			mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
+			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold * 3 &&
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
 			mod.uniqueName !== 'xen.ModJam5'
 	);
