@@ -148,7 +148,8 @@
 		book: 'Nageld',
 		Idiot: 'Bwc9876',
 		loco: 'loco-choco',
-		Samster68: 'Samster68OW'
+		Samster68: 'Samster68OW',
+		wyrm: 'GameWyrm'
 	};
 
 	const donators = {
