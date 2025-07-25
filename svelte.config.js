@@ -10,6 +10,7 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			entries: ['*'],
+			handleMissingId: 'warn',
 		},
 		paths: {
 			relative: false,
