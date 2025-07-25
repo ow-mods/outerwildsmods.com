@@ -239,7 +239,7 @@
 			following the theme given below.
 		</p>
 		<p>
-			Like the <a href="/jam/mar-2024/">third mod jam</a> this mod will have a very specific
+			Like the <a class="link" href="/jam/mar-2024/">third mod jam</a> this mod will have a very specific
 			restriction. You must use
 			<a class="link" href="/mods/newhorizons">New Horizons</a> to create a story
 			<b>restricted to within a 2500m radius sphere</b>. However, there are no limits on how you use
