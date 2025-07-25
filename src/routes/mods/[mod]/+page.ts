@@ -1,6 +1,7 @@
 import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
+import type { HeadingStructure } from '$lib/helpers/api/get-mod-readme';
 
 export const load: PageLoad = async ({ fetch, params, parent }) => {
 	const mods = (await parent()).modList;
@@ -18,9 +19,11 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 
 	const json = await result.json();
 	const readmeHtml: string = json.readmeHtml;
+	const headingStructure: HeadingStructure[] = json.headingStructure;
 
 	return {
 		mod,
 		readmeHtml,
+		headingStructure,
 	};
 };
