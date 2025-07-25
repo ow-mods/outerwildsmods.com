@@ -17,14 +17,9 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 		throw error(500, `Failed to find mod ${modUniqueName}`);
 	}
 
-	const readmeResult = await getModReadme(mod);
+	const readmeHtml = await getModReadme(mod);
 
 	return json({
-		...(readmeResult
-			? {
-					readmeHtml: readmeResult.html,
-					headingStructure: readmeResult.headings,
-			  }
-			: undefined),
+		...(readmeHtml ? { readmeHtml } : undefined),
 	});
 };

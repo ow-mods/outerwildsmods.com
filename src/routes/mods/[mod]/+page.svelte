@@ -10,10 +10,9 @@
 	import { sortModList } from '$lib/helpers/mod-sorting';
 	import NavigationMod from '$lib/components/navigation-mod.svelte';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import TableOfContents from '$lib/components/table-of-contents.svelte';
 
 	export let data: PageData;
-	const { modList, mod, readmeHtml, headingStructure } = data;
+	const { modList, mod, readmeHtml } = data;
 
 	const otherMods = sortModList(
 		modList.filter((otherMod) => otherMod.alpha == mod.alpha),
@@ -64,11 +63,8 @@
 				{/if}
 			</div>
 			<div class="flex-0 md:w-52 mx-auto">
-				<div class="hidden md:block mb-4">
+				<div class="hidden md:block">
 					<ModInfo {mod} />
-					{#if headingStructure && headingStructure.length > 1}
-						<TableOfContents headings={headingStructure} />
-					{/if}
 				</div>
 				<ChildMods {mod} {modList} />
 				<ParentMod parentUniqueName={mod.parent} {modList} />
