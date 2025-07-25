@@ -131,7 +131,7 @@
 	let jamRootMod: Mod | undefined;
 
 	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam5');
+		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam5');
 	}
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
