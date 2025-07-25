@@ -82,17 +82,6 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 	const markdown = await response.text();
 
 	const markdownAst = unified().use(remarkParse).parse(markdown);
-	const headings: Array<{ text: string; level: number }> = [];
-
-	visit(markdownAst, 'heading', (node) => {
-		const text = toString(node);
-		headings.push({
-			text,
-			level: node.depth,
-		});
-	});
-
-	const headingStructure = buildHeadingStructure(headings);
 
 	const imageSources: string[] = [];
 
@@ -116,6 +105,8 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 		})
 	);
 
+	const headings: Array<{ text: string; level: number }> = [];
+
 	const file = await unified()
 		.use(remarkParse)
 		.use(remarkGfm)
@@ -134,8 +125,6 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 					) {
 						const original = element.properties.href;
 						element.properties.href = `${mod.repo}/blob/HEAD/${original.replace(/^\.\//, '')}`;
-
-						console.log(`replaced link href: ${original} >> ${element.properties.href}`);
 					}
 					return element;
 				},
@@ -150,6 +139,17 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 					element.properties.src = imageInfos[src]?.url;
 					return element;
 				},
+				heading: (state, node) => {
+					if (node.children?.[0]?.type === 'text') {
+						const text = toString(node);
+						headings.push({
+							text,
+							level: node.depth,
+						});
+					}
+
+					return defaultHandlers.heading(state, node);
+				},
 			},
 		})
 		.use(rehypeRaw)
@@ -157,6 +157,8 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 		.use(rehypeSlug)
 		.use(rehypeStringify)
 		.process(markdown);
+
+	const headingStructure = buildHeadingStructure(headings);
 
 	return {
 		html: file.toString(),
