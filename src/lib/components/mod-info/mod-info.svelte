@@ -14,26 +14,40 @@
 
 	export let mod: Mod;
 
-	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅'];
-	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥'];
-	const trioIcons = ['👪', '👨‍👦‍👦'];
-	const moreIcons = ['👨‍👨‍👦‍👦'];
+	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅', '🧍', '🚶', '🚶‍➡️'];
+	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥', '🧑‍🧒', '🤝'];
+	const trioIcons = ['🧑‍🧑‍🧒', '🧑‍🧒‍🧒'];
+	const moreIcons = ['🧑‍🧑‍🧒‍🧒'];
+	const everyoneIcons = ['🌐'];
 
 	let iconList = singleIcons;
 
-	if (mod.authorDisplay) {
-		const authorCount = mod.authorDisplay.split(/&| and |,/).length;
+	const author = mod.authorDisplay?.trim() || mod.author?.trim() || '';
+	const authorLower = author.toLowerCase();
 
-		if (authorCount > 3) {
-			iconList = moreIcons;
-		} else if (authorCount > 2) {
-			iconList = trioIcons;
-		} else if (authorCount > 1) {
-			iconList = duoIcons;
-		}
+	const packAuthor = 'a bunch of people';
+	const moreThanThreeKeywords = ['the', 'team', 'friends', 'others', 'group', 'studio', 'crew', 'squad', 'people'];
+
+	const containsMore = moreThanThreeKeywords.some(k => authorLower.startsWith(k) || authorLower.endsWith(k));
+
+	const authorCount = authorLower
+		.replace(/\s*&\s*/g, ',')    // Replace " & " with comma
+		.replace(/\s+and\s+/gi, ',') // Replace "and" with comma
+		.replace(/\s*,\s*/g, ',')    // normalize spacing around commas
+		.split(',')                  // split the string by commas to separate into individual author names
+		.map(s => s.trim())          // remove extra spaces from each name
+		.filter(Boolean)             // remove empty strings (e.g., from double commas)
+		.length;
+
+	if (authorLower === packAuthor) {
+		iconList = everyoneIcons;
+	} else if (authorCount > 3 || containsMore) {
+		iconList = moreIcons;
+	} else if (authorCount === 3) {
+		iconList = trioIcons;
+	} else if (authorCount === 2) {
+		iconList = duoIcons;
 	}
-
-	const author = mod.authorDisplay ?? mod.author;
 
 	const iconIndex = stringToNumber(author) % iconList.length;
 	const modIcon = iconList[iconIndex];
