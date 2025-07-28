@@ -12,6 +12,7 @@
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import ModCardDetails from '$lib/components/mod-grid/mod-card-details.svelte';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -128,10 +129,12 @@
 
 	let hasEntries = jamMods.length > 0;
 
-	let jamRootMod: Mod | undefined;
+	let jamRootMods: Mod[] = [];
 
 	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam5');
+		jamRootMods = modList.filter((otherMod) =>
+			['xen42.ModJam5Part1', 'xen42.ModJam5Part2'].includes(otherMod.uniqueName)
+		);
 	}
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
@@ -171,11 +174,8 @@
 	<PageSection title="Mini Star System Mod Jam" id="ow-jam" isNarrow>
 		<p>
 			For the fifth Outer Wilds mod jam, all entries had to take place in a shared solar system
-			provided by the base <strong>Mod Jam 5</strong> mod!
+			provided by the base <a class="link" href="/mods/modjam5">Mod Jam 5 mod</a>!
 		</p>
-		{#if jamRootMod}
-			<ModCard mod={jamRootMod} />
-		{/if}
 		<!--
 			<p>
 				<strong>The jam is on!</strong> Scroll down to read the theme and restriction for the jam, and how to enter!
@@ -189,8 +189,15 @@
 		-->
 		<p>
 			<strong>The jam is over!</strong> The judges are now playing through the submissions! Check in
-			later for the announcement of the winners!
+			later for the announcement of the winners! You can try all entries yourself by using the Jam 5
+			mod packs.
 		</p>
+
+		<div class="flex gap-2 flex-col md:flex-row">
+			{#each jamRootMods as mod}
+				<ModCard hideDescription {mod} />
+			{/each}
+		</div>
 	</PageSection>
 	<!--
 	<PageSection title="Results" id="results">
@@ -239,8 +246,8 @@
 			following the theme given below.
 		</p>
 		<p>
-			Like the <a class="link" href="/jam/mar-2024/">third mod jam</a> this mod will have a very specific
-			restriction. You must use
+			Like the <a class="link" href="/jam/mar-2024/">third mod jam</a> this mod will have a very
+			specific restriction. You must use
 			<a class="link" href="/mods/newhorizons">New Horizons</a> to create a story
 			<b>restricted to within a 2500m radius sphere</b>. However, there are no limits on how you use
 			this space! Will you make a mini star system, a single massive planet or space station, a
