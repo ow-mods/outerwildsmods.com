@@ -129,7 +129,7 @@
 	let jamRootMod: Mod | undefined;
 
 	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam3');
+		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam3All');
 	}
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
@@ -174,15 +174,17 @@
 	<PageSection title="Single Planet Jam" id="ow-jam" isNarrow>
 		<p>
 			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system
-			provided by the base <strong>Mod Jam 3</strong> mod!
+			provided by the base <a class="link" href="/mods/modjam3">Mod Jam 3 mod</a>!
 		</p>
-		{#if jamRootMod}
-			<ModCard mod={jamRootMod} />
-		{/if}
 		<p>
 			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
 			voted on them. This concludes the third Outer Wilds Mod Jam!
 		</p>
+		You can try all entries yourself by using the Jam 3 mod pack.
+		<p />
+		{#if jamRootMod}
+			<ModCard mod={jamRootMod} />
+		{/if}
 	</PageSection>
 	<PageSection title="Results" id="results">
 		<div class="flex gap-2 flex-col md:flex-row">
