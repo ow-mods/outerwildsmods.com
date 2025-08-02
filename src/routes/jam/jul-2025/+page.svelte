@@ -161,6 +161,7 @@
 		Hawkbar: 'Hawkbat',
 		ditzy: 'dit-zy',
 		book: 'Nageld',
+		valerylabuzhsky: ''
 	};
 </script>
 
@@ -312,9 +313,9 @@
 			contribute to a jam, let us know on our <a class="link" href="#talk">Discord</a>.
 		</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>$180</strong></span>
-			<span>🥈Second place: <strong>$120</strong></span>
-			<span>🥉Third place: <strong>$60</strong></span>
+			<span>🥇First place: <strong>$210</strong></span>
+			<span>🥈Second place: <strong>$140</strong></span>
+			<span>🥉Third place: <strong>$70</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
