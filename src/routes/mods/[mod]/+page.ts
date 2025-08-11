@@ -8,13 +8,13 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 	const mod = getModBySlug(mods, params.mod);
 
 	if (!mod) {
-		throw error(404, `Could not find mod ${params.mod}.`);
+		error(404, `Could not find mod ${params.mod}.`);
 	}
 
 	const result = await fetch(`/api/${mod.uniqueName}.json`);
 
 	if (!result.ok) {
-		throw error(result.status, `Could not load mod. ${await result.text()}`);
+		error(result.status, `Could not load mod. ${await result.text()}`);
 	}
 
 	const json = await result.json();

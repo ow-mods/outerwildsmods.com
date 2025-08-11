@@ -22,7 +22,7 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 	const mod = modList.find(({ uniqueName }) => uniqueName === modUniqueName);
 
 	if (!mod) {
-		throw error(500, `Failed to find mod ${modUniqueName}`);
+		error(500, `Failed to find mod ${modUniqueName}`);
 	}
 
 	const badgeInfo: Partial<ShieldsEndpointBadge> = {

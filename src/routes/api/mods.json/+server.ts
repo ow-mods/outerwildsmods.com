@@ -6,6 +6,6 @@ export const GET: RequestHandler = async () => {
 		const modList = await getModList();
 		return json(modList);
 	} catch (e) {
-		throw error(500, `Failed to get mod list: ${e}`);
+		error(500, `Failed to get mod list: ${e}`);
 	}
 };
