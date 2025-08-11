@@ -5,7 +5,11 @@
 	import PopupDialog from '../popup-dialog.svelte';
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 
-	export let mod: Mod;
+	interface Props {
+		mod: Mod;
+	}
+
+	let { mod }: Props = $props();
 
 	const modUrl = `${websiteUrl}/mods/${mod.slug}/`;
 	const badgeJsonUrl = `${websiteUrl}/api/${mod.uniqueName}/badge.json`;
@@ -13,7 +17,7 @@
 	const badgeMarkdown = `[![Install ${mod.name}](${badgeImageUrl})](${modUrl})`;
 	const badgeHtml = `<a href="${modUrl}"><img alt="Install ${mod.name}" src="${badgeImageUrl}" /></a>`;
 
-	let isMoreInfoOpen = false;
+	let isMoreInfoOpen = $state(false);
 	const closeDialog = () => {
 		isMoreInfoOpen = false;
 	};
@@ -22,7 +26,7 @@
 	};
 </script>
 
-<button class="link text-sm text-left" on:click={openDialog} on:keydown={openDialog}>
+<button class="link text-sm text-left" onclick={openDialog} onkeydown={openDialog}>
 	📋 Details
 </button>
 

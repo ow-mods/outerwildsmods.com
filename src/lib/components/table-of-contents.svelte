@@ -2,7 +2,11 @@
 	import type { HeadingStructure } from '$lib/helpers/api/get-mod-readme';
 	import HeadingList from './heading-list.svelte';
 
-	export let headings: HeadingStructure[];
+	interface Props {
+		headings: HeadingStructure[];
+	}
+
+	let { headings }: Props = $props();
 </script>
 
 <div class="bg-dark rounded px-4 py-2">

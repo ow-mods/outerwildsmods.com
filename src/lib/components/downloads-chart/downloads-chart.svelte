@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { map, max } from 'lodash-es';
 	import ChartLine from './chart-line.svelte';
 	import ChartTooltip from './chart-point-info.svelte';
@@ -12,10 +14,19 @@
 	import type { FocusEventHandler, MouseEventHandler } from 'svelte/elements';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let historyPoints: HistoryPoint[] = [];
-	export let comparePoints: HistoryPoint[] = [];
-	export let mod: Mod;
-	export let compareWithMod: Mod | null;
+	interface Props {
+		historyPoints?: HistoryPoint[];
+		comparePoints?: HistoryPoint[];
+		mod: Mod;
+		compareWithMod: Mod | null;
+	}
+
+	let {
+		historyPoints = [],
+		comparePoints = [],
+		mod,
+		compareWithMod
+	}: Props = $props();
 
 	const chartSize = {
 		y: 100,
@@ -24,19 +35,19 @@
 
 	const numberFormatter = new Intl.NumberFormat();
 
-	$: firstPoint = getFirstPoint(historyPoints, comparePoints);
-	$: lastPoint = getLastPoint(historyPoints, comparePoints);
-	$: minDownloads = 0;
-	$: maxDownloads = max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0;
-	$: widthMultiplier = chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp);
-	$: heightMultiplier = -chartSize.y / (maxDownloads - minDownloads);
+	let firstPoint = $derived(getFirstPoint(historyPoints, comparePoints));
+	let lastPoint = $derived(getLastPoint(historyPoints, comparePoints));
+	
+	let maxDownloads = $derived(max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0);
+	let widthMultiplier = $derived(chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp));
+	let heightMultiplier = $derived(-chartSize.y / (maxDownloads - minDownloads));
 
-	let mousePosition = {
+	let mousePosition = $state({
 		x: 0,
 		y: 0,
-	};
-	let hoveredPoint: HistoryPoint = historyPoints[0];
-	let hoveredPointCompare: HistoryPoint | null = comparePoints[0];
+	});
+	let hoveredPoint: HistoryPoint = $state(historyPoints[0]);
+	let hoveredPointCompare: HistoryPoint | null = $state(comparePoints[0]);
 
 	const updatePointer = (x: number, y: number, width: number) => {
 		const hoveredXRatio = x / width;
@@ -68,9 +79,9 @@
 		updatePointer(rect.width / 2, rect.height / 2, rect.width);
 	};
 
-	$: {
+	run(() => {
 		hoveredPointCompare = comparePoints[0];
-	}
+	});
 </script>
 
 <div class="bg-dark p-4 rounded text-sm flex flex-col gap-2">
@@ -87,10 +98,10 @@
 			<svg
 				viewBox="0 0 {chartSize.x} {chartSize.y}"
 				class="block overflow-visible"
-				on:mousemove={handleMouseMove}
-				on:focus={handleFocus}
-				on:mouseout={resetPointer}
-				on:blur={resetPointer}
+				onmousemove={handleMouseMove}
+				onfocus={handleFocus}
+				onmouseout={resetPointer}
+				onblur={resetPointer}
 			>
 				<g class="pointer-events-none">
 					<line class="stroke-light opacity-80" stroke-width="1" x1="0" y1="100%" x2="0" y2="0" />

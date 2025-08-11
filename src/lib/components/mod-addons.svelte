@@ -2,9 +2,13 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import ModGrid from './mod-grid/mod-grid.svelte';
 
-	export let mod: Mod;
-	export let modList: Mod[];
-	export let tagList: string[] = [];
+	interface Props {
+		mod: Mod;
+		modList: Mod[];
+		tagList?: string[];
+	}
+
+	let { mod, modList, tagList = [] }: Props = $props();
 	let addons = modList.filter((otherMod) => otherMod.parent === mod?.uniqueName);
 </script>
 

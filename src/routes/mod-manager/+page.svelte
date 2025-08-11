@@ -13,11 +13,15 @@
 	import NixIcon from '$lib/components/icons/nix-icon.svelte';
 	import FlatpakIcon from '$lib/components/icons/flatpak-icon.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	const summaryClass = 'py-2 px-4 rounded link bg-darker justify-center h-full';
 
-	let isLinux = false;
+	let isLinux = $state(false);
 
 	onMount(() => {
 		isLinux = navigator.userAgent.includes('Linux');

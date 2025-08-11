@@ -5,11 +5,15 @@
 	import PageSection from './page-section/page-section.svelte';
 	import { browser } from '$app/environment';
 
-	export let id: string;
+	interface Props {
+		id: string;
+	}
 
-	let isVisible = false;
-	let isLoaded = false;
-	let container: HTMLDivElement;
+	let { id }: Props = $props();
+
+	let isVisible = $state(false);
+	let isLoaded = $state(false);
+	let container: HTMLDivElement = $state();
 
 	function scrollToCommentsIfNeeded() {
 		if ($page.url.searchParams.has('giscus')) {

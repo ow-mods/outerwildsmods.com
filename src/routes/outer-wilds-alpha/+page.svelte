@@ -9,7 +9,11 @@
 	import type { PageData } from './$types';
 	import { websiteUrl } from '$lib/helpers/constants';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList, tagList } = data;
 
 	const mods = modList.filter((mod) => mod.alpha);

@@ -10,14 +10,18 @@
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	const startTimestamp = 1673715600000;
 	const endTimestamp = 1674493200000;
-	let startDateText = '';
-	let endDateText = '';
-	let timeZoneText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
+	let timeZoneText = $state('');
 
 	const getDateString = (epoch: number) => {
 		return new Date(epoch).toLocaleString(new Intl.Locale('en-GB'), {

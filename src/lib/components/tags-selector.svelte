@@ -2,10 +2,19 @@
 	import type { TagStates } from './mod-grid/mod-grid.svelte';
 	import TagToggle from './tag-toggle.svelte';
 
-	export let tagStates: TagStates;
-	export let onToggleTag: (tag: string) => void;
-	export let onClear: () => void;
-	export let tags: string[];
+	interface Props {
+		tagStates: TagStates;
+		onToggleTag: (tag: string) => void;
+		onClear: () => void;
+		tags: string[];
+	}
+
+	let {
+		tagStates,
+		onToggleTag,
+		onClear,
+		tags
+	}: Props = $props();
 </script>
 
 <div class="flex flex-wrap gap-2 mb-2">

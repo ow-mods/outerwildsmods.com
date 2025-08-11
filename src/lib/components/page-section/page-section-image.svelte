@@ -1,11 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let imageUrl: string;
-	export let title: string | undefined;
-	export let height: number | undefined = undefined;
-	export let width: number | undefined = undefined;
-	export let noBorder: boolean = false;
+	interface Props {
+		imageUrl: string;
+		title: string | undefined;
+		height?: number | undefined;
+		width?: number | undefined;
+		noBorder?: boolean;
+	}
+
+	let {
+		imageUrl,
+		title,
+		height = undefined,
+		width = undefined,
+		noBorder = false
+	}: Props = $props();
 
 	const borderClass = noBorder ? '' : 'border border-dark ';
 </script>

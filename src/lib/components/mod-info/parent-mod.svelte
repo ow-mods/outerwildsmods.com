@@ -3,14 +3,16 @@
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';
 
-	export let parentUniqueName: string | undefined;
-	export let modList: Mod[];
-
-	let parentMod: Mod | undefined;
-
-	$: {
-		parentMod = modList.find((otherMod) => otherMod.uniqueName === parentUniqueName);
+	interface Props {
+		parentUniqueName: string | undefined;
+		modList: Mod[];
 	}
+
+	let { parentUniqueName, modList }: Props = $props();
+
+	let parentMod: Mod | undefined = $derived(modList.find((otherMod) => otherMod.uniqueName === parentUniqueName));
+
+	
 </script>
 
 {#if parentMod}

@@ -5,7 +5,7 @@
 
 	const fallbackImage = '/images/header/video-placeholder.webp';
 
-	let imageSource = fallbackImage;
+	let imageSource = $state(fallbackImage);
 	onMount(() => {
 		if ('ImageDecoder' in window) {
 			imageSource = '/images/header/video.avif';
@@ -28,7 +28,7 @@
 					src="/images/header/video-placeholder.webp"
 					alt=""
 					class="mix-blend-screen pointer-events-none absolute top-0 right-0 h-full object-contain -mr-16"
-					on:error={() => {
+					onerror={() => {
 						imageSource = fallbackImage;
 					}}
 				/>

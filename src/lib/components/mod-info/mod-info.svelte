@@ -12,7 +12,11 @@
 	import { modBeingInstalled } from '../mod-install-store';
 	import ModDetails from './mod-details.svelte';
 
-	export let mod: Mod;
+	interface Props {
+		mod: Mod;
+	}
+
+	let { mod }: Props = $props();
 
 	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅', '🧍', '🚶', '🚶‍➡️'];
 	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥', '🧑‍🧒', '🤝'];

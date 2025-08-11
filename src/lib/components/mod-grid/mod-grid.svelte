@@ -1,10 +1,12 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	export type TagStates = Record<string, TagState>;
 	export type TagState = 'included' | 'excluded' | undefined;
 	export const dlcTag = 'requires-dlc';
 </script>
 
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
@@ -22,75 +24,37 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CheckboxInput from '../checkbox-input.svelte';
 
-	export let mods: Mod[] = [];
-	export let tagList: string[] = [];
-	export let defaultSortOrder: SortOrderId = 'hot';
-	export let tagBlockList: string[] = [];
-	export let tagAllowList: string[] = [];
-	export let allowFiltering = true;
+	interface Props {
+		mods?: Mod[];
+		tagList?: string[];
+		defaultSortOrder?: SortOrderId;
+		tagBlockList?: string[];
+		tagAllowList?: string[];
+		allowFiltering?: boolean;
+	}
 
-	let selectedSortOrderId: SortOrderId = defaultSortOrder;
-	let filter = '';
-	let filteredMods: Mod[] = mods;
-	let tagStates: TagStates = {};
-	let selectedTagCount = 0;
-	let showDetails = false;
-	let hideDLC = false;
+	let {
+		mods = [],
+		tagList = [],
+		defaultSortOrder = 'hot',
+		tagBlockList = $bindable([]),
+		tagAllowList = $bindable([]),
+		allowFiltering = true
+	}: Props = $props();
+
+	let selectedSortOrderId: SortOrderId = $state(defaultSortOrder);
+	let filter = $state('');
+	let filteredMods: Mod[] = $state(mods);
+	let tagStates: TagStates = $state({});
+	let selectedTagCount = $state(0);
+	let showDetails = $state(false);
+	let hideDLC = $state(false);
 
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
-	$: {
-		const filterMod = (mod: Mod) => {
-			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
-			const containsAllowedTag =
-				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
 
-			return (
-				containsAllowedTag &&
-				!containsBlockedTag &&
-				anyIncludes(filter, [
-					mod.author,
-					mod.description,
-					mod.name,
-					mod.repo,
-					mod.uniqueName,
-					mod.authorDisplay,
-					...mod.tags,
-				])
-			);
-		};
 
-		filteredMods = sortModList(mods, selectedSortOrderId).filter(filterMod);
-	}
 
-	$: {
-		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
-	}
-
-	$: {
-		hideDLC = tagBlockList.includes(dlcTag);
-	}
-
-	$: if (!import.meta.env.SSR) {
-		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
-		if (isSortOrderId(sortOrderParam)) {
-			selectedSortOrderId = sortOrderParam;
-		}
-
-		tagStates = {};
-		tagAllowList = [];
-		tagBlockList = [];
-		const tagParams = $page.url.searchParams.getAll(modTagParamName);
-		for (const tagParam of tagParams) {
-			tagStates[tagParam] = 'included';
-			tagAllowList.push(tagParam);
-		}
-		const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
-		for (const tagParam of excludedTagParams) {
-			tagStates[tagParam] = 'excluded';
-			tagBlockList.push(tagParam);
-		}
-	}
 
 	const setSortOrder = (sortOrderId: string) => {
 		if (isSortOrderId(sortOrderId)) {
@@ -166,6 +130,57 @@
 	const handleHideDLC = () => {
 		setTagState(dlcTag, !hideDLC ? 'excluded' : undefined);
 	};
+	run(() => {
+		if (!import.meta.env.SSR) {
+			const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
+			if (isSortOrderId(sortOrderParam)) {
+				selectedSortOrderId = sortOrderParam;
+			}
+
+			tagStates = {};
+			tagAllowList = [];
+			tagBlockList = [];
+			const tagParams = $page.url.searchParams.getAll(modTagParamName);
+			for (const tagParam of tagParams) {
+				tagStates[tagParam] = 'included';
+				tagAllowList.push(tagParam);
+			}
+			const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
+			for (const tagParam of excludedTagParams) {
+				tagStates[tagParam] = 'excluded';
+				tagBlockList.push(tagParam);
+			}
+		}
+	});
+	run(() => {
+		const filterMod = (mod: Mod) => {
+			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
+			const containsAllowedTag =
+				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
+
+			return (
+				containsAllowedTag &&
+				!containsBlockedTag &&
+				anyIncludes(filter, [
+					mod.author,
+					mod.description,
+					mod.name,
+					mod.repo,
+					mod.uniqueName,
+					mod.authorDisplay,
+					...mod.tags,
+				])
+			);
+		};
+
+		filteredMods = sortModList(mods, selectedSortOrderId).filter(filterMod);
+	});
+	run(() => {
+		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
+	});
+	run(() => {
+		hideDLC = tagBlockList.includes(dlcTag);
+	});
 </script>
 
 {#if allowFiltering}
@@ -174,7 +189,7 @@
 			aria-label="Sort by"
 			class="input w-60"
 			value={selectedSortOrderId}
-			on:change={(event) => {
+			onchange={(event) => {
 				if (!event || !event.currentTarget) return;
 				setSortOrder(event.currentTarget.value);
 			}}
@@ -195,7 +210,7 @@
 			{#if filter}
 				<button
 					class="absolute right-1 top-1 p-1 leading-none text-xs grayscale bg-dark"
-					on:click={() => (filter = '')}
+					onclick={() => (filter = '')}
 				>
 					❌
 				</button>

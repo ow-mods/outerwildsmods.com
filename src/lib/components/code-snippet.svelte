@@ -5,8 +5,13 @@
 		setTimeout(() => (clicked = false), 500);
 	};
 
-	export let clicked = false;
-	export let title = '';
+	interface Props {
+		clicked?: boolean;
+		title?: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let { clicked = $bindable(false), title = '', children }: Props = $props();
 </script>
 
 <div>
@@ -17,9 +22,9 @@
 	<code
 		class="text-xs text-light bg-darker opacity-60 p-1 rounded cursor-pointer break-words block whitespace-pre-wrap"
 		title="Mod install badge"
-		on:click={copyElementText}
-		on:keydown={copyElementText}
+		onclick={copyElementText}
+		onkeydown={copyElementText}
 	>
-		<slot />
+		{@render children?.()}
 	</code>
 </div>

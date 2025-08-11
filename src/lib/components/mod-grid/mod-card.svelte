@@ -3,20 +3,29 @@
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
 
-	export let mod: Mod;
-	export let lazy = false;
-	export let hideDescription = false;
-	export let showDetails = false;
+	interface Props {
+		mod: Mod;
+		lazy?: boolean;
+		hideDescription?: boolean;
+		showDetails?: boolean;
+	}
 
-	let pointer = false;
-	let touch = false;
+	let {
+		mod,
+		lazy = false,
+		hideDescription = false,
+		showDetails = false
+	}: Props = $props();
+
+	let pointer = $state(false);
+	let touch = $state(false);
 </script>
 
 <div
-	on:pointerenter={() => (pointer = true)}
-	on:pointerleave={() => (pointer = false)}
-	on:touchstart={() => (touch = true)}
-	on:touchend={() => (touch = false)}
+	onpointerenter={() => (pointer = true)}
+	onpointerleave={() => (pointer = false)}
+	ontouchstart={() => (touch = true)}
+	ontouchend={() => (touch = false)}
 	class="group link mx-auto bg-dark w-full h-full rounded overflow-hidden hover:bg-background flex flex-col justify-start max-w-sm"
 >
 	<ModCardImage {mod} {lazy} hover={!hideDescription && (pointer || touch || showDetails)} />

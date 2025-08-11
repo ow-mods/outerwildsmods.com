@@ -11,6 +11,11 @@
 	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
 	import Analytics from '$lib/components/analytics.svelte';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	onMount(() => {
 		if ($page.status == 200 && $page.url.searchParams.has(linkedFromNotificationParamName)) {
@@ -33,7 +38,7 @@
 		<!-- Using the pathname as a key forces components to remount on navigating.
 		This prevents bugs where page content lingers when navigating between two routes that point to the same page component. -->
 		{#key $page.url.pathname}
-			<slot />
+			{@render children?.()}
 		{/key}
 	</span>
 </main>

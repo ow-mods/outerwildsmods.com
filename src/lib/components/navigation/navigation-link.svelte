@@ -1,15 +1,27 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { page, navigating } from '$app/stores';
 
-	export let href: string;
-	export let exact = false;
-	export let label = '';
-	let isActive = false;
-	$: {
+	interface Props {
+		href: string;
+		exact?: boolean;
+		label?: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		href,
+		exact = false,
+		label = '',
+		children
+	}: Props = $props();
+	let isActive = $state(false);
+	run(() => {
 		const url = $navigating?.to?.url ?? $page.url;
 		const pathName: string = url.pathname;
 		isActive = exact ? pathName === href : pathName.startsWith(href);
-	}
+	});
 </script>
 
 <a
@@ -27,5 +39,5 @@
 			{label}
 		</span>
 	{/if}
-	<slot />
+	{@render children?.()}
 </a>

@@ -13,17 +13,21 @@
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	let startTimestamp = 1729357200000;
 	const endTimestamp = 1730768400000;
 	let targetTimestamp = 0;
-	let startDateText = '';
-	let endDateText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
 	let targetDateText = '';
-	let timeZoneText = '';
-	let countdownText = '';
+	let timeZoneText = $state('');
+	let countdownText = $state('');
 	let daysLeft = 0;
 	let hoursLeft = 0;
 	let minutesLeft = 0;

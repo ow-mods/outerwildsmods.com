@@ -4,9 +4,13 @@
 	import { type SortOrderId, sortOrderParamName } from '$lib/helpers/mod-sorting';
 	import ModCard from './mod-grid/mod-card.svelte';
 
-	export let mods: Mod[];
-	export let sortOrder: SortOrderId;
-	export let title: string;
+	interface Props {
+		mods: Mod[];
+		sortOrder: SortOrderId;
+		title: string;
+	}
+
+	let { mods, sortOrder, title }: Props = $props();
 
 	let href = `/mods?${sortOrderParamName}=${sortOrder}`;
 </script>

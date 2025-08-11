@@ -13,17 +13,21 @@
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	let startTimestamp = 1710518400000;
 	const endTimestamp = 1711497540000;
 	let targetTimestamp = 0;
-	let startDateText = '';
-	let endDateText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
 	let targetDateText = '';
-	let timeZoneText = '';
-	let countdownText = '';
+	let timeZoneText = $state('');
+	let countdownText = $state('');
 	let daysLeft = 0;
 	let hoursLeft = 0;
 	let minutesLeft = 0;
@@ -126,11 +130,9 @@
 			mod.uniqueName !== 'xen.ModJam3'
 	);
 
-	let jamRootMod: Mod | undefined;
+	let jamRootMod: Mod | undefined = $derived(modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam3All'));
 
-	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam3All');
-	}
+	
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
 	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
@@ -181,7 +183,7 @@
 			voted on them. This concludes the third Outer Wilds Mod Jam!
 		</p>
 		You can try all entries yourself by using the Jam 3 mod pack.
-		<p />
+		<p></p>
 		{#if jamRootMod}
 			<ModCard mod={jamRootMod} />
 		{/if}
@@ -203,7 +205,7 @@
 					<ModCard mod={thirdPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
-			<div />
+			<div></div>
 		</div>
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">

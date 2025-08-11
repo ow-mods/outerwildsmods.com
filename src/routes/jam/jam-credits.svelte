@@ -1,9 +1,13 @@
 <script lang="ts">
 	import JamCreditColumn from './jam-credit-column.svelte';
 
-	export let organizers: Record<string, string>;
-	export let judges: Record<string, string>;
-	export let donators: Record<string, string>;
+	interface Props {
+		organizers: Record<string, string>;
+		judges: Record<string, string>;
+		donators: Record<string, string>;
+	}
+
+	let { organizers, judges, donators }: Props = $props();
 </script>
 
 <div class="flex flex-col justify-evenly items-center md:flex-row md:items-start gap-8">

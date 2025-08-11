@@ -1,7 +1,11 @@
 <script lang="ts">
-	export let title: string;
-	export let description: string | undefined = undefined;
-	export let imageUrl: string | undefined = undefined;
+	interface Props {
+		title: string;
+		description?: string | undefined;
+		imageUrl?: string | undefined;
+	}
+
+	let { title, description = undefined, imageUrl = undefined }: Props = $props();
 </script>
 
 <span class="flex items-center rounded p-2 hover:bg-dark">
@@ -10,7 +14,7 @@
 			<img class="rounded-full w-full h-full" alt={title} src={imageUrl} width="50" height="50" />
 		</div>
 	{:else}
-		<span class="bullet m-2 bg-dark rounded-full border-2 border-background" />
+		<span class="bullet m-2 bg-dark rounded-full border-2 border-background"></span>
 	{/if}
 	<div class="ml-4">
 		<span>{title}</span>

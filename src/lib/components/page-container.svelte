@@ -2,11 +2,23 @@
 	import { page, navigating } from '$app/stores';
 	import { websiteUrl } from '$lib/helpers/constants';
 
-	export let title: string;
-	export let description: string;
-	export let imageUrl: string | undefined | null = undefined;
-	export let imageWidth: number | undefined = undefined;
-	export let imageHeight: number | undefined = undefined;
+	interface Props {
+		title: string;
+		description: string;
+		imageUrl?: string | undefined | null;
+		imageWidth?: number | undefined;
+		imageHeight?: number | undefined;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		title,
+		description,
+		imageUrl = undefined,
+		imageWidth = undefined,
+		imageHeight = undefined,
+		children
+	}: Props = $props();
 
 	const url = `${websiteUrl}${$page.url.pathname}`;
 </script>
@@ -37,5 +49,5 @@
 </svelte:head>
 
 <div class="max-w-screen-lg p-4 mx-auto">
-	<slot />
+	{@render children?.()}
 </div>

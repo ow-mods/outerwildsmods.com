@@ -1,9 +1,24 @@
 <script lang="ts">
-	export let href: string | undefined = undefined;
-	export let rel: string | undefined = undefined;
-	export let isExternal = false;
-	export let isSmall = false;
-	export let classOverride: string | undefined = undefined;
+	import { createBubbler } from 'svelte/legacy';
+
+	const bubble = createBubbler();
+	interface Props {
+		href?: string | undefined;
+		rel?: string | undefined;
+		isExternal?: boolean;
+		isSmall?: boolean;
+		classOverride?: string | undefined;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		href = undefined,
+		rel = undefined,
+		isExternal = false,
+		isSmall = false,
+		classOverride = undefined,
+		children
+	}: Props = $props();
 
 	const element = href ? 'a' : 'button';
 </script>
@@ -16,7 +31,7 @@
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer external' : undefined)}
-	on:click
+	onclick={bubble('click')}
 >
-	<slot />
+	{@render children?.()}
 </svelte:element>

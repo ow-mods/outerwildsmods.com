@@ -4,7 +4,11 @@
 		href: string;
 	};
 
-	export let links: LinkItem[];
+	interface Props {
+		links: LinkItem[];
+	}
+
+	let { links }: Props = $props();
 </script>
 
 <div class="flex flex-col gap-2 mt-4">

@@ -12,16 +12,20 @@
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	let startTimestamp = 1688227200000;
 	const endTimestamp = 1689526800000;
 	let targetTimestamp = 0;
-	let startDateText = '';
-	let endDateText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
 	let targetDateText = '';
-	let timeZoneText = '';
+	let timeZoneText = $state('');
 	let countdownText = '';
 	let daysLeft = 0;
 	let hoursLeft = 0;
@@ -184,7 +188,7 @@
 					<ModCard mod={thirdPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
-			<div />
+			<div></div>
 		</div>
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">
