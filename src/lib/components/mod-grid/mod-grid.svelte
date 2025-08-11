@@ -39,7 +39,7 @@
 		defaultSortOrder = 'hot',
 		tagBlockList = $bindable([]),
 		tagAllowList = $bindable([]),
-		allowFiltering = true
+		allowFiltering = true,
 	}: Props = $props();
 
 	let selectedSortOrderId: SortOrderId = $state(defaultSortOrder);
@@ -51,10 +51,6 @@
 	let hideDLC = $state(false);
 
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
-
-
-
-
 
 	const setSortOrder = (sortOrderId: string) => {
 		if (isSortOrderId(sortOrderId)) {
