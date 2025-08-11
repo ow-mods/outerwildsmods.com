@@ -147,7 +147,6 @@
 	};
 
 	const judges = {
-		xen: 'xen-42',
 		book: 'Nageld',
 		Idiot: 'Bwc9876',
 		loco: 'loco-choco',
