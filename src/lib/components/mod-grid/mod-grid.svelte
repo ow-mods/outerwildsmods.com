@@ -48,7 +48,6 @@
 	let tagStates: TagStates = $state({});
 	let selectedTagCount = $state(0);
 	let showDetails = $state(false);
-	let hideDLC = $state(false);
 
 	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
 
@@ -123,9 +122,6 @@
 		goto(url.href);
 	};
 
-	const handleHideDLC = () => {
-		setTagState(dlcTag, !hideDLC ? 'excluded' : undefined);
-	};
 	run(() => {
 		if (!import.meta.env.SSR) {
 			const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
@@ -174,9 +170,14 @@
 	run(() => {
 		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
 	});
-	run(() => {
-		hideDLC = tagBlockList.includes(dlcTag);
-	});
+
+	function getHideDlc(): boolean {
+		return tags.includes(dlcTag);
+	}
+
+	function setHideDlc(hideDlc: boolean): void {
+		setTagState(dlcTag, hideDlc ? 'excluded' : undefined);
+	}
 </script>
 
 {#if allowFiltering}
@@ -218,8 +219,7 @@
 		<!-- Relevant for mod addon pages and alpha mods list, only show the checkbox if there are actually mods displayed that require the DLC -->
 		{#if mods.some((x) => x.tags.includes(dlcTag))}
 			<div>
-				<CheckboxInput bind:checked={hideDLC} on:change={handleHideDLC}>Hide DLC mods</CheckboxInput
-				>
+				<CheckboxInput bind:checked={getHideDlc, setHideDlc}>Hide DLC mods</CheckboxInput>
 			</div>
 		{/if}
 		<div>
