@@ -8,6 +8,7 @@
 		isExternal?: boolean;
 		isSmall?: boolean;
 		classOverride?: string | undefined;
+		onclick?: () => void;
 		children?: import('svelte').Snippet;
 	}
 
@@ -17,7 +18,8 @@
 		isExternal = false,
 		isSmall = false,
 		classOverride = undefined,
-		children
+		onclick = undefined,
+		children,
 	}: Props = $props();
 
 	const element = href ? 'a' : 'button';
@@ -29,9 +31,10 @@
 	class:py-1={isSmall}
 	class:text-sm={isSmall}
 	{href}
+	role={href ? 'link' : 'button'}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer external' : undefined)}
-	onclick={bubble('click')}
+	{onclick}
 >
 	{@render children?.()}
 </svelte:element>

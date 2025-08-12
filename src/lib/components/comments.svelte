@@ -13,10 +13,10 @@
 
 	let isVisible = $state(false);
 	let isLoaded = $state(false);
-	let container: HTMLDivElement = $state();
+	let container: HTMLDivElement | undefined = $state();
 
 	function scrollToCommentsIfNeeded() {
-		if ($page.url.searchParams.has('giscus')) {
+		if ($page.url.searchParams.has('giscus') && container) {
 			isVisible = true;
 			container.scrollIntoView();
 		}
@@ -30,6 +30,8 @@
 	}
 
 	onMount(() => {
+		if (!container) return;
+
 		const observer = new IntersectionObserver((entries) => {
 			if (entries.find((entry) => entry.isIntersecting)) {
 				isVisible = true;

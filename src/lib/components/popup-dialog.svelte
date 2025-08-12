@@ -42,19 +42,21 @@
 		onclick={onClose}
 		onkeydown={onClose}
 		class="bg-black bg-opacity-50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center p-4"
+		role="presentation"
 	>
 		<div
 			class="rounded bg-background p-4 flex flex-col gap-4 transition-transform will-change-transform max-w-xl max-h-full overflow-auto"
 			onclick={stopPropagation(bubble('click'))}
 			onkeydown={stopPropagation(bubble('keydown'))}
 			use:focusElement
-			aria-modal
+			aria-modal={true}
 			tabindex="-1"
+			role="dialog"
 		>
 			<div class="flex flex-col gap-4 flex-1 overflow-auto">
 				{@render children?.()}
 			</div>
-			<LinkButton on:click={onClose}>
+			<LinkButton onclick={onClose}>
 				{okWords[Math.floor(Math.random() * okWords.length)]}
 			</LinkButton>
 		</div>
