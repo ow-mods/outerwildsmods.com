@@ -18,13 +18,17 @@
 		minDownloads,
 		heightMultiplier,
 		chartHeight,
-		hoveredPoint = null
+		hoveredPoint = null,
 	}: Props = $props();
 
-	let getX = $derived((historyPoint: HistoryPoint) =>
-		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier);
-	let getY = $derived((historyPoint: HistoryPoint) =>
-		(historyPoint.DownloadCount - minDownloads) * heightMultiplier + chartHeight);
+	let getX = $derived(
+		(historyPoint: HistoryPoint) =>
+			(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier
+	);
+	let getY = $derived(
+		(historyPoint: HistoryPoint) =>
+			(historyPoint.DownloadCount - minDownloads) * heightMultiplier + chartHeight
+	);
 </script>
 
 <polyline

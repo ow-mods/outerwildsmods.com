@@ -21,12 +21,7 @@
 		compareWithMod: Mod | null;
 	}
 
-	let {
-		historyPoints = [],
-		comparePoints = [],
-		mod,
-		compareWithMod
-	}: Props = $props();
+	let { historyPoints = [], comparePoints = [], mod, compareWithMod }: Props = $props();
 
 	const chartSize = {
 		y: 100,
@@ -37,9 +32,12 @@
 
 	let firstPoint = $derived(getFirstPoint(historyPoints, comparePoints));
 	let lastPoint = $derived(getLastPoint(historyPoints, comparePoints));
-	
+
+	let minDownloads = 0;
 	let maxDownloads = $derived(max(map([...historyPoints, ...comparePoints], 'DownloadCount')) || 0);
-	let widthMultiplier = $derived(chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp));
+	let widthMultiplier = $derived(
+		chartSize.x / (lastPoint.UnixTimestamp - firstPoint.UnixTimestamp)
+	);
 	let heightMultiplier = $derived(-chartSize.y / (maxDownloads - minDownloads));
 
 	let mousePosition = $state({
@@ -98,6 +96,7 @@
 			<svg
 				viewBox="0 0 {chartSize.x} {chartSize.y}"
 				class="block overflow-visible"
+				role="img"
 				onmousemove={handleMouseMove}
 				onfocus={handleFocus}
 				onmouseout={resetPointer}
