@@ -1,7 +1,7 @@
 <script module lang="ts">
 	export type TagStates = Record<string, TagState>;
 	export type TagState = 'included' | 'excluded' | undefined;
-	export const dlcTag = 'requires-dlc';
+	export const DLC_TAG = 'requires-dlc';
 </script>
 
 <script lang="ts">
@@ -49,7 +49,9 @@
 	let selectedTagCount = $state(0);
 	let showDetails = $state(false);
 
-	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
+	const tags = $derived(
+		tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1)
+	);
 
 	const setSortOrder = (sortOrderId: string) => {
 		if (isSortOrderId(sortOrderId)) {
@@ -172,11 +174,11 @@
 	});
 
 	function getHideDlc(): boolean {
-		return tags.includes(dlcTag);
+		return tagStates[DLC_TAG] === 'excluded';
 	}
 
 	function setHideDlc(hideDlc: boolean): void {
-		setTagState(dlcTag, hideDlc ? 'excluded' : undefined);
+		setTagState(DLC_TAG, hideDlc ? 'excluded' : undefined);
 	}
 </script>
 
@@ -217,7 +219,7 @@
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
 		</div>
 		<!-- Relevant for mod addon pages and alpha mods list, only show the checkbox if there are actually mods displayed that require the DLC -->
-		{#if mods.some((x) => x.tags.includes(dlcTag))}
+		{#if mods.some((x) => x.tags.includes(DLC_TAG))}
 			<div>
 				<CheckboxInput bind:checked={getHideDlc, setHideDlc}>Hide DLC mods</CheckboxInput>
 			</div>
