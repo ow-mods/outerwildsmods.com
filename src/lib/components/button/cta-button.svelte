@@ -2,13 +2,13 @@
 	import { createBubbler } from 'svelte/legacy';
 
 	const bubble = createBubbler();
-	import type { ComponentType } from 'svelte';
+	import type { Component } from 'svelte';
 
 	interface Props {
 		href?: string | undefined;
 		rel?: string | undefined;
 		isExternal?: boolean;
-		icon?: ComponentType | undefined;
+		icon?: Component | undefined;
 		children?: import('svelte').Snippet;
 	}
 
@@ -17,7 +17,7 @@
 		rel = undefined,
 		isExternal = false,
 		icon = undefined,
-		children
+		children,
 	}: Props = $props();
 </script>
 

@@ -5,7 +5,6 @@
 	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
 	import { websiteUrl } from '$lib/helpers/constants';
-	import { action_destroyer } from 'svelte/internal';
 
 	const jams = [
 		{

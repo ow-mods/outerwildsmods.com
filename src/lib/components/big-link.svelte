@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte';
+	import type { Component } from 'svelte';
 
 	interface Props {
-		icon?: ComponentType | undefined;
+		icon?: Component | undefined;
 		href: string;
 		children?: import('svelte').Snippet;
 	}
