@@ -19,12 +19,18 @@
 		<span>{title}</span>
 		<span class="text-xs opacity-50" class:opacity-100={clicked}>(click text to copy)</span>
 	</div>
-	<code
-		class="text-xs text-light bg-darker opacity-60 p-1 rounded cursor-pointer break-words block whitespace-pre-wrap"
-		title="Mod install badge"
+	<button
+		class="text-xs text-light bg-darker opacity-60 p-1 rounded cursor-pointer break-words block whitespace-pre-wrap text-left w-full font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+		title="Mod install badge - Click to copy"
 		onclick={copyElementText}
-		onkeydown={copyElementText}
+		aria-label="Copy code snippet to clipboard"
+		onkeydown={(event) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				copyElementText(event);
+			}
+		}}
 	>
 		{@render children?.()}
-	</code>
+	</button>
 </div>
