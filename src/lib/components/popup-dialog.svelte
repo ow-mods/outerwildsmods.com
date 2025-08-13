@@ -1,12 +1,9 @@
 <script lang="ts">
-	import { run, createBubbler, stopPropagation } from 'svelte/legacy';
-
-	const bubble = createBubbler();
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { focusElement } from '$lib/helpers/focus-element';
 	import LinkButton from './button/link-button.svelte';
-	import { navigating } from '$app/stores';
+	import { navigating } from '$app/state';
 
 	interface Props {
 		isOpen?: boolean;
@@ -31,13 +28,9 @@
 		if (!browser) return;
 		window.removeEventListener('keyup', onAnyKeyUp);
 	});
-
-	run(() => {
-		if ($navigating) isOpen = false;
-	});
 </script>
 
-{#if isOpen}
+{#if isOpen && !navigating.to}
 	<div
 		onclick={onClose}
 		onkeydown={onClose}
@@ -46,8 +39,6 @@
 	>
 		<div
 			class="rounded bg-background p-4 flex flex-col gap-4 transition-transform will-change-transform max-w-xl max-h-full overflow-auto"
-			onclick={stopPropagation(bubble('click'))}
-			onkeydown={stopPropagation(bubble('keydown'))}
 			use:focusElement
 			aria-modal={true}
 			tabindex="-1"
