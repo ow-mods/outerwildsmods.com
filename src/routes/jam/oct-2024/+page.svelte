@@ -36,7 +36,7 @@
 	let restriction = 'Minimal Text';
 	let restrictionDesc =
 		'To follow the restriction you must use alternatives to regular dialogue and translatable text such as: <u><strong>environmental story telling, slide reels, vision torches, language barriers, and alien symbols</strong></u>. Ship logs are unrestricted. Using a piece or two of dialogue or text to start/end the mod is fine.';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -115,12 +115,12 @@
 		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
-		timer = setInterval(() => setUpCountdown(), 1000);
+		timer = window.setInterval(() => setUpCountdown(), 1000);
 	});
 
 	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
+		if (timer !== undefined) {
+			window.clearInterval(timer);
 		}
 	});
 

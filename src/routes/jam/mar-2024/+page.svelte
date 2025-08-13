@@ -33,7 +33,7 @@
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 	let theme = 'community';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -111,12 +111,12 @@
 		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
-		timer = setInterval(() => setUpCountdown(), 1000);
+		timer = window.setInterval(() => setUpCountdown(), 1000);
 	});
 
 	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
+		if (timer !== undefined) {
+			window.clearInterval(timer);
 		}
 	});
 
@@ -130,9 +130,9 @@
 			mod.uniqueName !== 'xen.ModJam3'
 	);
 
-	let jamRootMod: Mod | undefined = $derived(modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam3All'));
-
-	
+	let jamRootMod: Mod | undefined = $derived(
+		modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam3All')
+	);
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
 	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');

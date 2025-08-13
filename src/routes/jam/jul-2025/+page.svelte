@@ -36,7 +36,7 @@
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 	let theme = 'miniature';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -114,12 +114,12 @@
 		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
-		timer = setInterval(() => setUpCountdown(), 1000);
+		timer = window.setInterval(() => setUpCountdown(), 1000);
 	});
 
 	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
+		if (timer !== undefined) {
+			window.clearInterval(timer);
 		}
 	});
 
@@ -166,7 +166,7 @@
 		Hawkbar: 'Hawkbat',
 		ditzy: 'dit-zy',
 		book: 'Nageld',
-		valerylabuzhsky: ''
+		valerylabuzhsky: '',
 	};
 </script>
 
