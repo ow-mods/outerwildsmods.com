@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { createBubbler } from 'svelte/legacy';
-
-	const bubble = createBubbler();
 	import type { Component } from 'svelte';
 
 	interface Props {
@@ -9,6 +6,7 @@
 		rel?: string | undefined;
 		isExternal?: boolean;
 		icon?: Component | undefined;
+		onclick?: () => void;
 		children?: import('svelte').Snippet;
 	}
 
@@ -17,6 +15,7 @@
 		rel = undefined,
 		isExternal = false,
 		icon = undefined,
+		onclick = undefined,
 		children,
 	}: Props = $props();
 </script>
@@ -26,7 +25,7 @@
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
-	onclick={bubble('click')}
+	{onclick}
 >
 	{#if icon}
 		{@const SvelteComponent = icon}

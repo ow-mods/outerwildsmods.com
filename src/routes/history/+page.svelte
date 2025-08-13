@@ -189,13 +189,6 @@
 		}
 	}
 
-
-
-
-
-
-
-
 	onMount(() => {
 		selectEvent(3);
 	});
@@ -203,26 +196,30 @@
 	// Close enough to easeInOut used in CSS.
 	const easeInOutCubic = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 
-
 	let mods: Mod[] = $state([]);
 	let scrollWrapper: HTMLDivElement | undefined = $state();
 	let lineElement: HTMLDivElement | undefined = $state();
 	const timelineElements: HTMLDivElement[] = $state([]);
 
-
-	let getPositionInTimeline = $derived((date: Date) =>
-		((date.valueOf() - minimumTimestamp) / (maximumTimestamp - minimumTimestamp)) *
-			timelineWidth *
-			scale +
-		timelineMargin);
-	let getMonthWidth = $derived((date: Date) =>
-		getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 1)) -
-		getPositionInTimeline(date) -
-		monthYearMargin * 2);
-	let getYearWidth = $derived((date: Date) =>
-		getPositionInTimeline(new Date(date.getFullYear() + 1, date.getMonth(), 1)) -
-		getPositionInTimeline(date) -
-		monthYearMargin * 2);
+	let getPositionInTimeline = $derived(
+		(date: Date) =>
+			((date.valueOf() - minimumTimestamp) / (maximumTimestamp - minimumTimestamp)) *
+				timelineWidth *
+				scale +
+			timelineMargin
+	);
+	let getMonthWidth = $derived(
+		(date: Date) =>
+			getPositionInTimeline(new Date(date.getFullYear(), date.getMonth() + 1, 1)) -
+			getPositionInTimeline(date) -
+			monthYearMargin * 2
+	);
+	let getYearWidth = $derived(
+		(date: Date) =>
+			getPositionInTimeline(new Date(date.getFullYear() + 1, date.getMonth(), 1)) -
+			getPositionInTimeline(date) -
+			monthYearMargin * 2
+	);
 	let scrollTo = $derived((eventIndex: number, instant = false) => {
 		if (!scrollWrapper) return;
 
@@ -406,7 +403,10 @@
 						</div>
 					</div>
 				{/each}
-				<div bind:this={lineElement} class="bg-accent w-2 mx-4 rounded absolute timeline-line"></div>
+				<div
+					bind:this={lineElement}
+					class="bg-accent w-2 mx-4 rounded absolute timeline-line"
+				></div>
 			</div>
 		</div>
 	</div>

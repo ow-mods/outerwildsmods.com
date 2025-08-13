@@ -9,23 +9,18 @@
 		tags: string[];
 	}
 
-	let {
-		tagStates,
-		onToggleTag,
-		onClear,
-		tags
-	}: Props = $props();
+	let { tagStates, onToggleTag, onClear, tags }: Props = $props();
 </script>
 
 <div class="flex flex-wrap gap-2 mb-2">
 	{#each tags as tag}
-		<TagToggle selected={tagStates[tag]} on:click={() => onToggleTag(tag)}>
+		<TagToggle selected={tagStates[tag]} onclick={() => onToggleTag(tag)}>
 			{tag}
 		</TagToggle>
 	{/each}
 
 	{#if tags.length > 0 && Object.keys(tagStates).length > 0}
-		<TagToggle title="Clear" on:click={onClear}>
+		<TagToggle title="Clear" onclick={onClear}>
 			<div class="text-xs grayscale">❌</div>
 		</TagToggle>
 	{/if}

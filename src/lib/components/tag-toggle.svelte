@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { createBubbler } from 'svelte/legacy';
-
-	const bubble = createBubbler();
 	import type { TagState } from './mod-grid/mod-grid.svelte';
 	interface Props {
 		selected?: TagState;
 		title?: string;
+		onclick?: () => void;
 		children?: import('svelte').Snippet;
 	}
 
-	let { selected = undefined, title = '', children }: Props = $props();
+	let { selected = undefined, title = '', children, onclick }: Props = $props();
 </script>
 
 <button
@@ -20,7 +18,7 @@
 	class:opacity-75={!selected}
 	class:line-through={selected === 'excluded'}
 	{title}
-	onclick={bubble('click')}
+	{onclick}
 	data-nosnippet
 >
 	{@render children?.()}

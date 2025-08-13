@@ -7,7 +7,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import { unified } from 'unified';
-import { getImageInfo, ImageInfo } from './get-image-info';
+import { getImageInfo, type ImageInfo } from './get-image-info';
 import { visit } from 'unist-util-visit';
 import { toString } from 'mdast-util-to-string';
 import GithubSlugger from 'github-slugger';

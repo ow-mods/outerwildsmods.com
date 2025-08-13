@@ -30,18 +30,29 @@
 	const authorLower = author.toLowerCase();
 
 	const packAuthor = 'a bunch of people';
-	const moreThanThreeKeywords = ['the', 'team', 'friends', 'others', 'group', 'studio', 'crew', 'squad', 'people'];
+	const moreThanThreeKeywords = [
+		'the',
+		'team',
+		'friends',
+		'others',
+		'group',
+		'studio',
+		'crew',
+		'squad',
+		'people',
+	];
 
-	const containsMore = moreThanThreeKeywords.some(k => authorLower.startsWith(k) || authorLower.endsWith(k));
+	const containsMore = moreThanThreeKeywords.some(
+		(k) => authorLower.startsWith(k) || authorLower.endsWith(k)
+	);
 
 	const authorCount = authorLower
-		.replace(/\s*&\s*/g, ',')    // Replace " & " with comma
+		.replace(/\s*&\s*/g, ',') // Replace " & " with comma
 		.replace(/\s+and\s+/gi, ',') // Replace "and" with comma
-		.replace(/\s*,\s*/g, ',')    // normalize spacing around commas
-		.split(',')                  // split the string by commas to separate into individual author names
-		.map(s => s.trim())          // remove extra spaces from each name
-		.filter(Boolean)             // remove empty strings (e.g., from double commas)
-		.length;
+		.replace(/\s*,\s*/g, ',') // normalize spacing around commas
+		.split(',') // split the string by commas to separate into individual author names
+		.map((s) => s.trim()) // remove extra spaces from each name
+		.filter(Boolean).length; // remove empty strings (e.g., from double commas)
 
 	if (authorLower === packAuthor) {
 		iconList = everyoneIcons;
@@ -79,7 +90,7 @@
 				<CtaButton
 					icon={DownloadIcon}
 					href="{managerInstallProtocol}/{mod.uniqueName}"
-					on:click={() => modBeingInstalled.set(mod)}
+					onclick={() => modBeingInstalled.set(mod)}
 				>
 					Install Mod
 				</CtaButton>
