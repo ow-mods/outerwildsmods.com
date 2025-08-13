@@ -171,8 +171,9 @@
 	let selectedEventImmediate = $state(0);
 	let revealedEventImmediate = $state(0);
 	let revealedEvent = $state(0);
-	let scale = $state(1);
-	let previousScale = $state(scale);
+	const initialScale = 1;
+	let scale = $state(initialScale);
+	let previousScale = $state(initialScale);
 	let scrollId = $state(0);
 
 	const initialMonth = firstEvent.date.getMonth();
@@ -273,6 +274,13 @@
 		selectedEventImmediate = eventIndex;
 		scrollToEvent(eventIndex);
 	});
+
+	const handleEventKeydown = (event: KeyboardEvent, eventIndex: number) => {
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			selectEvent(eventIndex);
+		}
+	};
 	let selectPreviousEvent = $derived(() => {
 		selectEvent(selectedEventImmediate > 0 ? selectedEventImmediate - 1 : events.length - 1);
 	});
@@ -361,6 +369,8 @@
 						style="top: {getPositionInTimeline(event.date)}px"
 						onclick={() => selectEvent(index)}
 						onkeyup={() => selectEvent(index)}
+						role="button"
+						tabindex="0"
 					>
 						<div class="flex gap-4 m-2 relative items-center">
 							<span
