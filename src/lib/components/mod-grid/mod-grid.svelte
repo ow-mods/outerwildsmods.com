@@ -1,11 +1,10 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	export type TagStates = Record<string, TagState>;
 	export type TagState = 'included' | 'excluded' | undefined;
-	export const dlcTag = 'requires-dlc';
+	export const DLC_TAG = 'requires-dlc';
 </script>
 
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import {
@@ -15,32 +14,48 @@
 		isSortOrderId,
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
-	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
 	import { modExcludeTagParamName } from '$lib/helpers/get-mod-tags';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CheckboxInput from '../checkbox-input.svelte';
+	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 
-	export let mods: Mod[] = [];
-	export let tagList: string[] = [];
-	export let defaultSortOrder: SortOrderId = 'hot';
-	export let tagBlockList: string[] = [];
-	export let tagAllowList: string[] = [];
-	export let allowFiltering = true;
+	interface Props {
+		mods?: Mod[];
+		tagList?: string[];
+		defaultSortOrder?: SortOrderId;
+		tagBlockList?: string[];
+		tagAllowList?: string[];
+		allowFiltering?: boolean;
+	}
 
-	let selectedSortOrderId: SortOrderId = defaultSortOrder;
-	let filter = '';
-	let filteredMods: Mod[] = mods;
-	let tagStates: TagStates = {};
-	let selectedTagCount = 0;
-	let showDetails = false;
-	let hideDLC = false;
+	let {
+		mods = [],
+		tagList = [],
+		defaultSortOrder = 'hot',
+		tagBlockList = $bindable([]),
+		tagAllowList = $bindable([]),
+		allowFiltering = true,
+	}: Props = $props();
 
-	const tags = tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1);
+	let selectedSortOrderId: SortOrderId = $state(defaultSortOrder);
+	let filter = $state('');
 
-	$: {
-		const filterMod = (mod: Mod) => {
+	const anyIncludes = (term: string, list: (string | undefined)[]) => {
+		if (!term) return true;
+
+		for (const listItem of list) {
+			if (!listItem) continue;
+
+			if (cleanUpText(listItem).includes(cleanUpText(term))) return true;
+		}
+		return false;
+	};
+
+	const filteredMods = $derived(
+		sortModList(mods, selectedSortOrderId).filter((mod: Mod) => {
 			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
 			const containsAllowedTag =
 				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
@@ -58,47 +73,22 @@
 					...mod.tags,
 				])
 			);
-		};
+		})
+	);
+	let tagStates: TagStates = $state({});
+	let showDetails = $state(false);
 
-		filteredMods = sortModList(mods, selectedSortOrderId).filter(filterMod);
-	}
-
-	$: {
-		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
-	}
-
-	$: {
-		hideDLC = tagBlockList.includes(dlcTag);
-	}
-
-	$: if (!import.meta.env.SSR) {
-		const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
-		if (isSortOrderId(sortOrderParam)) {
-			selectedSortOrderId = sortOrderParam;
-		}
-
-		tagStates = {};
-		tagAllowList = [];
-		tagBlockList = [];
-		const tagParams = $page.url.searchParams.getAll(modTagParamName);
-		for (const tagParam of tagParams) {
-			tagStates[tagParam] = 'included';
-			tagAllowList.push(tagParam);
-		}
-		const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
-		for (const tagParam of excludedTagParams) {
-			tagStates[tagParam] = 'excluded';
-			tagBlockList.push(tagParam);
-		}
-	}
+	const tags = $derived(
+		tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1)
+	);
 
 	const setSortOrder = (sortOrderId: string) => {
 		if (isSortOrderId(sortOrderId)) {
 			selectedSortOrderId = sortOrderId;
 
-			const url = new URL($page.url);
+			const url = new URL(page.url);
 			url.searchParams.set(sortOrderParamName, sortOrderId);
-			goto(url.href);
+			goto(url.href, { noScroll: true });
 		}
 	};
 
@@ -108,17 +98,6 @@
 			.replace(/\s/g, '')
 			.normalize('NFD') // Decompose combined graphemes (è => e +  ̀)
 			.replace(/[\u0300-\u036f]/g, ''); // Remove the diacritic part (è => e)
-
-	const anyIncludes = (term: string, list: (string | undefined)[]) => {
-		if (!term) return true;
-
-		for (const listItem of list) {
-			if (!listItem) continue;
-
-			if (cleanUpText(listItem).includes(cleanUpText(term))) return true;
-		}
-		return false;
-	};
 
 	const onToggleTag = (tag: string) => {
 		let toggledTag = tagStates[tag];
@@ -141,7 +120,7 @@
 		tagAllowList = [];
 		tagBlockList = [];
 
-		const url = new URL($page.url);
+		const url = new URL(page.url);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
 		for (const [tagName, tagValue] of Object.entries(tagStates)) {
@@ -153,19 +132,47 @@
 				tagBlockList.push(tagName);
 			}
 		}
-		goto(url.href);
+		goto(url.href, { noScroll: true });
 	};
 
 	const onClearTags = () => {
-		const url = new URL($page.url);
+		const url = new URL(page.url);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
-		goto(url.href);
+		tagBlockList = [];
+		tagAllowList = [];
+		tagStates = {};
+		goto(url.href, { noScroll: true });
 	};
 
-	const handleHideDLC = () => {
-		setTagState(dlcTag, !hideDLC ? 'excluded' : undefined);
-	};
+	onMount(() => {
+		const sortOrderParam = page.url.searchParams.get(sortOrderParamName) || '';
+		if (isSortOrderId(sortOrderParam)) {
+			selectedSortOrderId = sortOrderParam;
+		}
+
+		tagStates = {};
+		tagAllowList = [];
+		tagBlockList = [];
+		const tagParams = page.url.searchParams.getAll(modTagParamName);
+		for (const tagParam of tagParams) {
+			tagStates[tagParam] = 'included';
+			tagAllowList.push(tagParam);
+		}
+		const excludedTagParams = page.url.searchParams.getAll(modExcludeTagParamName);
+		for (const tagParam of excludedTagParams) {
+			tagStates[tagParam] = 'excluded';
+			tagBlockList.push(tagParam);
+		}
+	});
+
+	function getHideDlc(): boolean {
+		return tagStates[DLC_TAG] === 'excluded';
+	}
+
+	function setHideDlc(hideDlc: boolean): void {
+		setTagState(DLC_TAG, hideDlc ? 'excluded' : undefined);
+	}
 </script>
 
 {#if allowFiltering}
@@ -174,7 +181,7 @@
 			aria-label="Sort by"
 			class="input w-60"
 			value={selectedSortOrderId}
-			on:change={(event) => {
+			onchange={(event) => {
 				if (!event || !event.currentTarget) return;
 				setSortOrder(event.currentTarget.value);
 			}}
@@ -183,7 +190,9 @@
 				Sort by: {sortOrders[selectedSortOrderId].title}
 			</option>
 			{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
-				<option value={sortOrderId}>{sortOrder.title}</option>
+				{#if sortOrderId !== selectedSortOrderId}
+					<option value={sortOrderId}>{sortOrder.title}</option>
+				{/if}
 			{/each}
 		</select>
 		<div class="relative flex">
@@ -195,7 +204,7 @@
 			{#if filter}
 				<button
 					class="absolute right-1 top-1 p-1 leading-none text-xs grayscale bg-dark"
-					on:click={() => (filter = '')}
+					onclick={() => (filter = '')}
 				>
 					❌
 				</button>
@@ -205,10 +214,9 @@
 			<CheckboxInput bind:checked={showDetails}>Show details</CheckboxInput>
 		</div>
 		<!-- Relevant for mod addon pages and alpha mods list, only show the checkbox if there are actually mods displayed that require the DLC -->
-		{#if mods.some((x) => x.tags.includes(dlcTag))}
+		{#if mods.some((x) => x.tags.includes(DLC_TAG))}
 			<div>
-				<CheckboxInput bind:checked={hideDLC} on:change={handleHideDLC}>Hide DLC mods</CheckboxInput
-				>
+				<CheckboxInput bind:checked={getHideDlc, setHideDlc}>Hide DLC mods</CheckboxInput>
 			</div>
 		{/if}
 		<div>

@@ -8,7 +8,11 @@
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	const mod = getModBySlug(modList, $page.params.mod ?? '');

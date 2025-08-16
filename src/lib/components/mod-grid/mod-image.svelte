@@ -3,15 +3,16 @@
 	import { listedImageSize } from '$lib/helpers/constants';
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
 
-	export let mod: Mod;
-	export let lazy = false;
-	export let hover = false;
-	export let smallText = false;
-
-	let imageSrc = mod.openGraphImageUrl;
-	$: {
-		imageSrc = hover ? mod.imageUrl : mod.openGraphImageUrl;
+	interface Props {
+		mod: Mod;
+		lazy?: boolean;
+		hover?: boolean;
+		smallText?: boolean;
 	}
+
+	let { mod, lazy = false, hover = false, smallText = false }: Props = $props();
+
+	const imageSrc = $derived(hover ? mod.imageUrl : mod.openGraphImageUrl);
 </script>
 
 <div class="relative aspect-thumbnail">

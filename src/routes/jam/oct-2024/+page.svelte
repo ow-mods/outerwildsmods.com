@@ -13,17 +13,21 @@
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	let startTimestamp = 1729357200000;
 	const endTimestamp = 1730768400000;
 	let targetTimestamp = 0;
-	let startDateText = '';
-	let endDateText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
 	let targetDateText = '';
-	let timeZoneText = '';
-	let countdownText = '';
+	let timeZoneText = $state('');
+	let countdownText = $state('');
 	let daysLeft = 0;
 	let hoursLeft = 0;
 	let minutesLeft = 0;
@@ -32,7 +36,7 @@
 	let restriction = 'Minimal Text';
 	let restrictionDesc =
 		'To follow the restriction you must use alternatives to regular dialogue and translatable text such as: <u><strong>environmental story telling, slide reels, vision torches, language barriers, and alien symbols</strong></u>. Ship logs are unrestricted. Using a piece or two of dialogue or text to start/end the mod is fine.';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -111,12 +115,12 @@
 		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
-		timer = setInterval(() => setUpCountdown(), 1000);
+		timer = window.setInterval(() => setUpCountdown(), 1000);
 	});
 
 	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
+		if (timer !== undefined) {
+			window.clearInterval(timer);
 		}
 	});
 

@@ -13,7 +13,11 @@
 
 	const modsPerCategory = 3;
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
 

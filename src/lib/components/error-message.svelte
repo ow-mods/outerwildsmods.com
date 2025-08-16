@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 
-	let linkedFromNotification = false;
+	let linkedFromNotification = $state(false);
 	onMount(() => {
 		linkedFromNotification =
 			Boolean($page.url.searchParams.get(linkedFromNotificationParamName)) &&

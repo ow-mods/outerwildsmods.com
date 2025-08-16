@@ -12,7 +12,11 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import TableOfContents from '$lib/components/table-of-contents.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList, mod, readmeHtml, headingStructure } = data;
 
 	const otherMods = sortModList(
@@ -40,7 +44,7 @@
 			<NavigationMod mod={previousMod} alpha={mod.alpha} isLeft={true} />
 			<div class="flex items-center flex-1 w-0 overflow-hidden gap-1 opacity-30">
 				<hr class="border-dashed border-white border-2 flex-1" />
-				<span class="bg-white rounded-full w-2 h-2" />
+				<span class="bg-white rounded-full w-2 h-2"></span>
 				<hr class="border-dashed border-white border-2 flex-1" />
 			</div>
 			<NavigationMod mod={nextMod} alpha={mod.alpha} isLeft={false} />

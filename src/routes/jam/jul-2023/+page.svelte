@@ -12,23 +12,27 @@
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	let startTimestamp = 1688227200000;
 	const endTimestamp = 1689526800000;
 	let targetTimestamp = 0;
-	let startDateText = '';
-	let endDateText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
 	let targetDateText = '';
-	let timeZoneText = '';
+	let timeZoneText = $state('');
 	let countdownText = '';
 	let daysLeft = 0;
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 	//let theme = '';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -106,12 +110,12 @@
 		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
-		timer = setInterval(() => setUpCountdown(), 1000);
+		timer = window.setInterval(() => setUpCountdown(), 1000);
 	});
 
 	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
+		if (timer !== undefined) {
+			window.clearInterval(timer);
 		}
 	});
 
@@ -184,7 +188,7 @@
 					<ModCard mod={thirdPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
-			<div />
+			<div></div>
 		</div>
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">

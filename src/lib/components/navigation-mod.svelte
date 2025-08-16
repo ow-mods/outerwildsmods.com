@@ -1,9 +1,13 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let mod: Mod | undefined;
-	export let isLeft: boolean;
-	export let alpha: boolean | undefined;
+	interface Props {
+		mod: Mod | undefined;
+		isLeft: boolean;
+		alpha: boolean | undefined;
+	}
+
+	let { mod, isLeft, alpha }: Props = $props();
 </script>
 
 <a

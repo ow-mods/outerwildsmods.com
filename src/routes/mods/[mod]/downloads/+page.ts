@@ -7,7 +7,7 @@ export const load: PageLoad = async ({ fetch, params, parent }) => {
 	const currentMod = mods.find(({ slug }) => params.mod === slug);
 
 	if (!currentMod) {
-		throw error(404, `Could not find mod ${params.mod}`);
+		error(404, `Could not find mod ${params.mod}`);
 	}
 
 	const modDownloadHistoryResponse = await fetch(`/api/${currentMod.uniqueName}/downloads.json`);

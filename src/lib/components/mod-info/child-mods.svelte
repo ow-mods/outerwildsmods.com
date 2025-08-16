@@ -6,8 +6,12 @@
 
 	const maxChildModCount = 5;
 
-	export let mod: Mod;
-	export let modList: Mod[];
+	interface Props {
+		mod: Mod;
+		modList: Mod[];
+	}
+
+	let { mod, modList }: Props = $props();
 
 	let childMods = modList
 		.filter((otherMod) => otherMod.parent === mod.uniqueName)

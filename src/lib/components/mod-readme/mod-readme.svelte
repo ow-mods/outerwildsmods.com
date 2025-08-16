@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let readmeHtml: string;
+	interface Props {
+		readmeHtml: string;
+	}
+
+	let { readmeHtml }: Props = $props();
 </script>
 
 <div class="markdown">

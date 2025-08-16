@@ -1,15 +1,21 @@
 <script lang="ts">
-	import { page, navigating } from '$app/stores';
+	import { navigating, page } from '$app/state';
 
-	export let href: string;
-	export let exact = false;
-	export let label = '';
-	let isActive = false;
-	$: {
-		const url = $navigating?.to?.url ?? $page.url;
-		const pathName: string = url.pathname;
-		isActive = exact ? pathName === href : pathName.startsWith(href);
+	interface Props {
+		href: string;
+		exact?: boolean;
+		label?: string;
+		children?: import('svelte').Snippet;
 	}
+
+	let { href, exact = false, label = '', children }: Props = $props();
+	const isActive = $derived(
+		(() => {
+			const url = navigating.to?.url ?? page.url;
+			const pathName: string = url.pathname;
+			return exact ? pathName === href : pathName.startsWith(href);
+		})()
+	);
 </script>
 
 <a
@@ -27,5 +33,5 @@
 			{label}
 		</span>
 	{/if}
-	<slot />
+	{@render children?.()}
 </a>

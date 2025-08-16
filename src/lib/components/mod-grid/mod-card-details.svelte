@@ -6,11 +6,16 @@
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 	import { modBeingInstalled } from '../mod-install-store';
 
-	export let mod: Mod;
-	export let showInstallButton: boolean;
+	interface Props {
+		mod: Mod;
+		showInstallButton: boolean;
+		children?: import('svelte').Snippet;
+	}
+
+	let { mod, showInstallButton, children }: Props = $props();
 
 	let ready = false;
-	let clickedInstall = false;
+	let clickedInstall = $state(false);
 
 	onMount(() => {
 		ready = true;
@@ -23,7 +28,7 @@
 			{mod.name}
 		</span>
 		<div class="text-light text-xs font-light">
-			<slot />
+			{@render children?.()}
 		</div>
 	</a>
 	{#if showInstallButton && canInstallViaProtocol(mod)}
@@ -32,7 +37,7 @@
 			href="{managerInstallProtocol}/{mod.uniqueName}"
 			class="link p-1 flex items-center bg-darker fill-accent w-7 justify-center"
 			class:fill-light={clickedInstall}
-			on:click={() => {
+			onclick={() => {
 				modBeingInstalled.set(mod);
 				clickedInstall = true;
 			}}

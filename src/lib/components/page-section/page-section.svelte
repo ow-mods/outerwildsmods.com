@@ -5,11 +5,23 @@
 
 	import PageSectionColumns from './page-section-columns.svelte';
 
-	export let id: string;
-	export let title: string | undefined = undefined;
-	export let description: string | undefined = undefined;
-	export let imageUrl: string | undefined = undefined;
-	export let isNarrow = false;
+	interface Props {
+		id: string;
+		title?: string | undefined;
+		description?: string | undefined;
+		imageUrl?: string | undefined;
+		isNarrow?: boolean;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		id,
+		title = undefined,
+		description = undefined,
+		imageUrl = undefined,
+		isNarrow = false,
+		children
+	}: Props = $props();
 </script>
 
 <div class="py-4">
@@ -21,7 +33,7 @@
 			<PageSectionColumns>
 				{#if description}
 					<PageSectionDescription {description}>
-						<slot />
+						{@render children?.()}
 					</PageSectionDescription>
 				{/if}
 				{#if imageUrl}
@@ -29,7 +41,7 @@
 				{/if}
 			</PageSectionColumns>
 		{:else}
-			<slot />
+			{@render children?.()}
 		{/if}
 	</div>
 </div>

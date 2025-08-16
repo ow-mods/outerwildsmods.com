@@ -3,7 +3,7 @@ import type { Mod } from '$lib/helpers/api/get-mod-list';
 export const modTagParamName = 'tag' as const;
 export const modExcludeTagParamName = 'exclude-tag' as const;
 
-export const getModTags = async (modList: Mod[]) => {
+export const getModTags = (modList: Mod[]) => {
 	const tags: Set<string> = new Set(['untagged']);
 	const counts: Record<string, number> = {};
 

@@ -5,8 +5,13 @@
 		setTimeout(() => (clicked = false), 500);
 	};
 
-	export let clicked = false;
-	export let title = '';
+	interface Props {
+		clicked?: boolean;
+		title?: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let { clicked = $bindable(false), title = '', children }: Props = $props();
 </script>
 
 <div>
@@ -14,12 +19,18 @@
 		<span>{title}</span>
 		<span class="text-xs opacity-50" class:opacity-100={clicked}>(click text to copy)</span>
 	</div>
-	<code
-		class="text-xs text-light bg-darker opacity-60 p-1 rounded cursor-pointer break-words block whitespace-pre-wrap"
-		title="Mod install badge"
-		on:click={copyElementText}
-		on:keydown={copyElementText}
+	<button
+		class="text-xs text-light bg-darker opacity-60 p-1 rounded cursor-pointer break-words block whitespace-pre-wrap text-left w-full font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+		title="Mod install badge - Click to copy"
+		onclick={copyElementText}
+		aria-label="Copy code snippet to clipboard"
+		onkeydown={(event) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				copyElementText(event);
+			}
+		}}
 	>
-		<slot />
-	</code>
+		{@render children?.()}
+	</button>
 </div>

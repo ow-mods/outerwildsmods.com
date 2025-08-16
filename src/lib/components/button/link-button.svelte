@@ -1,9 +1,23 @@
 <script lang="ts">
-	export let href: string | undefined = undefined;
-	export let rel: string | undefined = undefined;
-	export let isExternal = false;
-	export let isSmall = false;
-	export let classOverride: string | undefined = undefined;
+	interface Props {
+		href?: string | undefined;
+		rel?: string | undefined;
+		isExternal?: boolean;
+		isSmall?: boolean;
+		classOverride?: string | undefined;
+		onclick?: () => void;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		href = undefined,
+		rel = undefined,
+		isExternal = false,
+		isSmall = false,
+		classOverride = undefined,
+		onclick = undefined,
+		children,
+	}: Props = $props();
 
 	const element = href ? 'a' : 'button';
 </script>
@@ -14,9 +28,10 @@
 	class:py-1={isSmall}
 	class:text-sm={isSmall}
 	{href}
+	role={href ? 'link' : 'button'}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer external' : undefined)}
-	on:click
+	{onclick}
 >
-	<slot />
+	{@render children?.()}
 </svelte:element>

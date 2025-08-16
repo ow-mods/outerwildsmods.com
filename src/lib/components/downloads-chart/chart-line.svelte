@@ -1,18 +1,34 @@
 <script lang="ts">
 	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 
-	export let historyPoints: HistoryPoint[] = [];
-	export let firstPoint: HistoryPoint;
-	export let widthMultiplier: number;
-	export let minDownloads: number;
-	export let heightMultiplier: number;
-	export let chartHeight: number;
-	export let hoveredPoint: HistoryPoint | null = null;
+	interface Props {
+		historyPoints?: HistoryPoint[];
+		firstPoint: HistoryPoint;
+		widthMultiplier: number;
+		minDownloads: number;
+		heightMultiplier: number;
+		chartHeight: number;
+		hoveredPoint?: HistoryPoint | null;
+	}
 
-	$: getX = (historyPoint: HistoryPoint) =>
-		(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier;
-	$: getY = (historyPoint: HistoryPoint) =>
-		(historyPoint.DownloadCount - minDownloads) * heightMultiplier + chartHeight;
+	let {
+		historyPoints = [],
+		firstPoint,
+		widthMultiplier,
+		minDownloads,
+		heightMultiplier,
+		chartHeight,
+		hoveredPoint = null,
+	}: Props = $props();
+
+	let getX = $derived(
+		(historyPoint: HistoryPoint) =>
+			(historyPoint.UnixTimestamp - firstPoint.UnixTimestamp) * widthMultiplier
+	);
+	let getY = $derived(
+		(historyPoint: HistoryPoint) =>
+			(historyPoint.DownloadCount - minDownloads) * heightMultiplier + chartHeight
+	);
 </script>
 
 <polyline

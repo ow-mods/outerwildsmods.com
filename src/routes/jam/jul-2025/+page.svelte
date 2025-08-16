@@ -14,23 +14,27 @@
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import ModCardDetails from '$lib/components/mod-grid/mod-card-details.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modList } = data;
 
 	let startTimestamp = 1751817600000;
 	const endTimestamp = 1753228800000;
 	let targetTimestamp = 0;
-	let startDateText = '';
-	let endDateText = '';
+	let startDateText = $state('');
+	let endDateText = $state('');
 	let targetDateText = '';
-	let timeZoneText = '';
-	let countdownText = '';
+	let timeZoneText = $state('');
+	let countdownText = $state('');
 	let daysLeft = 0;
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 	let theme = 'miniature';
-	let timer: NodeJS.Timer | undefined;
+	let timer: number | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -108,12 +112,12 @@
 		setUpTestTimestamp();
 		setUpTimeValues();
 		setUpCountdown();
-		timer = setInterval(() => setUpCountdown(), 1000);
+		timer = window.setInterval(() => setUpCountdown(), 1000);
 	});
 
 	onDestroy(() => {
-		if (timer) {
-			clearInterval(timer);
+		if (timer !== undefined) {
+			window.clearInterval(timer);
 		}
 	});
 
@@ -129,13 +133,11 @@
 
 	let hasEntries = jamMods.length > 0;
 
-	let jamRootMods: Mod[] = [];
-
-	$: {
-		jamRootMods = modList.filter((otherMod) =>
+	let jamRootMods = $derived(
+		modList.filter((otherMod) =>
 			['xen42.ModJam5Part1', 'xen42.ModJam5Part2'].includes(otherMod.uniqueName)
-		);
-	}
+		)
+	);
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
 	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
@@ -161,7 +163,7 @@
 		ditzy: 'dit-zy',
 		book: 'Nageld',
 		valerylabuzhsky: '',
-		Vambok: 'Vambok'
+		Vambok: 'Vambok',
 	};
 </script>
 

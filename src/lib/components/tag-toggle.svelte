@@ -1,7 +1,13 @@
 <script lang="ts">
 	import type { TagState } from './mod-grid/mod-grid.svelte';
-	export let selected: TagState = undefined;
-	export let title = '';
+	interface Props {
+		selected?: TagState;
+		title?: string;
+		onclick?: () => void;
+		children?: import('svelte').Snippet;
+	}
+
+	let { selected = undefined, title = '', children, onclick }: Props = $props();
 </script>
 
 <button
@@ -12,8 +18,8 @@
 	class:opacity-75={!selected}
 	class:line-through={selected === 'excluded'}
 	{title}
-	on:click
+	{onclick}
 	data-nosnippet
 >
-	<slot />
+	{@render children?.()}
 </button>

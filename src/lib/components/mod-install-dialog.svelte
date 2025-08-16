@@ -3,8 +3,8 @@
 	import { modBeingInstalled } from './mod-install-store';
 	import PopupDialog from './popup-dialog.svelte';
 
-	let dontShowAgainChecked = false;
-	let dontShowAgain = false;
+	let dontShowAgainChecked = $state(false);
+	let dontShowAgain = $state(false);
 
 	const closeDialog = () => {
 		modBeingInstalled.set(undefined);

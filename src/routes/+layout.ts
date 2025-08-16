@@ -16,7 +16,7 @@ export const load: LayoutLoad = async ({ fetch }) => {
 		};
 	}
 
-	throw error(modsResult.status, `Failed to load mods. ${modsResult.statusText}`);
+	error(modsResult.status, `Failed to load mods. ${modsResult.statusText}`);
 };
 
 export const trailingSlash = 'always';

@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { sortBy } from 'lodash-es';
 
-	export let people: Record<string, string>;
-	export let title: string;
+	interface Props {
+		people: Record<string, string>;
+		title: string;
+	}
+
+	let { people, title }: Props = $props();
 
 	const peopleList = sortBy(Object.entries(people), ([displayName]) => displayName.toUpperCase());
 	const avatarSize = 40;

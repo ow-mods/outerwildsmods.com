@@ -1,10 +1,23 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte';
+	import type { Component } from 'svelte';
 
-	export let href: string | undefined = undefined;
-	export let rel: string | undefined = undefined;
-	export let isExternal = false;
-	export let icon: ComponentType | undefined = undefined;
+	interface Props {
+		href?: string | undefined;
+		rel?: string | undefined;
+		isExternal?: boolean;
+		icon?: Component | undefined;
+		onclick?: () => void;
+		children?: import('svelte').Snippet;
+	}
+
+	let {
+		href = undefined,
+		rel = undefined,
+		isExternal = false,
+		icon = undefined,
+		onclick = undefined,
+		children,
+	}: Props = $props();
 </script>
 
 <a
@@ -12,14 +25,15 @@
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
-	on:click
+	{onclick}
 >
 	{#if icon}
+		{@const SvelteComponent = icon}
 		<div class="bg-black bg-opacity-20 p-3 flex justify-center items-center w-12 min-h-12">
-			<svelte:component this={icon} />
+			<SvelteComponent />
 		</div>
 	{/if}
 	<div class="flex-1 text-lg font-normal flex justify-center items-center p-2">
-		<slot />
+		{@render children?.()}
 	</div>
 </a>

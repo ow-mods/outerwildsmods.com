@@ -1,8 +1,15 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte';
+	import type { Component } from 'svelte';
 
-	export let icon: ComponentType | undefined = undefined;
-	export let href: string;
+	interface Props {
+		icon?: Component | undefined;
+		href: string;
+		children?: import('svelte').Snippet;
+	}
+
+	let { icon = undefined, href, children }: Props = $props();
+
+	const SvelteComponent = $derived(icon);
 </script>
 
 <a
@@ -12,7 +19,7 @@
 	rel="noopener noreferrer"
 >
 	<span class="w-16">
-		<svelte:component this={icon} />
+		<SvelteComponent />
 	</span>
-	<slot />
+	{@render children?.()}
 </a>

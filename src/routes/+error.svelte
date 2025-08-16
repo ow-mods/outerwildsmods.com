@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import Comments from '$lib/components/comments.svelte';
 	import { page } from '$app/stores';
 </script>

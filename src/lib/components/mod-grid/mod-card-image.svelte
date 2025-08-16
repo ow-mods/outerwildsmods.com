@@ -3,14 +3,13 @@
 	import TagToggle from '../tag-toggle.svelte';
 	import ModImage from './mod-image.svelte';
 
-	export let mod: Mod;
-	export let lazy = false;
-	export let hover = false;
-
-	let imageSrc = mod.openGraphImageUrl;
-	$: {
-		imageSrc = hover ? mod.imageUrl : mod.openGraphImageUrl;
+	interface Props {
+		mod: Mod;
+		lazy?: boolean;
+		hover?: boolean;
 	}
+
+	let { mod, lazy = false, hover = false }: Props = $props();
 </script>
 
 <a href={`/mods/${mod.slug}/`} class="bg-black aspect-thumbnai relative">

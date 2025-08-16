@@ -7,14 +7,24 @@
 		y: 30,
 	} as const;
 
-	export let mod: Mod;
-	export let compareWithMod: Mod | null;
-	export let mousePosition = {
+	interface Props {
+		mod: Mod;
+		compareWithMod: Mod | null;
+		mousePosition?: any;
+		hoveredPoint?: HistoryPoint | null;
+		hoveredPointCompare?: HistoryPoint | null;
+	}
+
+	let {
+		mod,
+		compareWithMod,
+		mousePosition = {
 		x: 0,
 		y: 0,
-	};
-	export let hoveredPoint: HistoryPoint | null = null;
-	export let hoveredPointCompare: HistoryPoint | null = null;
+	},
+		hoveredPoint = null,
+		hoveredPointCompare = null
+	}: Props = $props();
 	const numberFormatter = new Intl.NumberFormat();
 </script>
 

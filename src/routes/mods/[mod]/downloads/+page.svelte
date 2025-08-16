@@ -3,30 +3,35 @@
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
-	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	const { modDownloadHistory, mod, modList } = data;
 
-	let compareWithMod: Mod | null = null;
-	let compareWithHistory: HistoryPoint[] = [];
+	let compareWithMod: Mod | null = $state(null);
+	let compareWithHistory = $state([]);
 
-	$: (async () => {
-		if (compareWithMod) {
-			const modDownloadhistoryResponse = await fetch(
-				`/api/${compareWithMod.uniqueName}/downloads.json`
-			);
+	$effect(() => {
+		(async () => {
+			if (compareWithMod) {
+				const modDownloadHistoryResponse = await fetch(
+					`/api/${compareWithMod.uniqueName}/downloads.json`
+				);
 
-			if (modDownloadhistoryResponse.ok) {
-				compareWithHistory = await modDownloadhistoryResponse.json();
+				if (modDownloadHistoryResponse.ok) {
+					compareWithHistory = await modDownloadHistoryResponse.json();
+				}
+			} else {
+				compareWithHistory = [];
 			}
-		} else {
-			compareWithHistory = [];
-		}
-	})();
+		})();
+	});
 
 	const modsExceptSelf = modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
 </script>
@@ -47,7 +52,7 @@
 			<span>Compare with:</span>
 			<select
 				class="input w-full py-0"
-				on:change={(event) => {
+				onchange={(event) => {
 					compareWithMod =
 						modsExceptSelf.find((mod) => mod.uniqueName === event.currentTarget.value) || null;
 				}}
