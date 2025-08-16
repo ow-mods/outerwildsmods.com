@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { createBubbler } from 'svelte/legacy';
-
-	const bubble = createBubbler();
 	interface Props {
 		href?: string | undefined;
 		rel?: string | undefined;
