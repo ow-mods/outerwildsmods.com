@@ -88,7 +88,7 @@
 
 			const url = new URL(page.url);
 			url.searchParams.set(sortOrderParamName, sortOrderId);
-			goto(url.href);
+			goto(url.href, { noScroll: true });
 		}
 	};
 
@@ -132,14 +132,17 @@
 				tagBlockList.push(tagName);
 			}
 		}
-		goto(url.href);
+		goto(url.href, { noScroll: true });
 	};
 
 	const onClearTags = () => {
 		const url = new URL(page.url);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
-		goto(url.href);
+		tagBlockList = [];
+		tagAllowList = [];
+		tagStates = {};
+		goto(url.href, { noScroll: true });
 	};
 
 	onMount(() => {
