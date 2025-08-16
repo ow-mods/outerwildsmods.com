@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { getModList, type Mod } from '$lib/helpers/api/get-mod-list';
 	import { sortBy } from 'lodash-es';
 	import { onMount } from 'svelte';
@@ -287,13 +285,13 @@
 	let selectNextEvent = $derived(() => {
 		selectEvent(selectedEventImmediate < events.length - 1 ? selectedEventImmediate + 1 : 0);
 	});
-	run(() => {
+	$effect(() => {
 		(async () => {
 			if (mods.length > 0) return;
 			mods = sortBy(await getModList(), 'firstReleaseDate');
 		})();
 	});
-	run(() => {
+	$effect(() => {
 		if (scale !== previousScale) {
 			previousScale = scale;
 			scrollTo(selectedEventImmediate, true);

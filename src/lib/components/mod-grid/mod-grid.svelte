@@ -5,9 +5,6 @@
 </script>
 
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
 	import {
@@ -17,12 +14,13 @@
 		isSortOrderId,
 		sortOrderParamName,
 	} from '$lib/helpers/mod-sorting';
-	import { onMount } from 'svelte';
 	import TagsSelector from '../tags-selector.svelte';
 	import { modTagParamName } from '$lib/helpers/get-mod-tags';
 	import { modExcludeTagParamName } from '$lib/helpers/get-mod-tags';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import CheckboxInput from '../checkbox-input.svelte';
+	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 
 	interface Props {
 		mods?: Mod[];
@@ -44,31 +42,6 @@
 
 	let selectedSortOrderId: SortOrderId = $state(defaultSortOrder);
 	let filter = $state('');
-	let filteredMods: Mod[] = $state(mods);
-	let tagStates: TagStates = $state({});
-	let selectedTagCount = $state(0);
-	let showDetails = $state(false);
-
-	const tags = $derived(
-		tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1)
-	);
-
-	const setSortOrder = (sortOrderId: string) => {
-		if (isSortOrderId(sortOrderId)) {
-			selectedSortOrderId = sortOrderId;
-
-			const url = new URL($page.url);
-			url.searchParams.set(sortOrderParamName, sortOrderId);
-			goto(url.href);
-		}
-	};
-
-	const cleanUpText = (text: string) =>
-		text
-			.toLowerCase()
-			.replace(/\s/g, '')
-			.normalize('NFD') // Decompose combined graphemes (è => e +  ̀)
-			.replace(/[\u0300-\u036f]/g, ''); // Remove the diacritic part (è => e)
 
 	const anyIncludes = (term: string, list: (string | undefined)[]) => {
 		if (!term) return true;
@@ -80,6 +53,51 @@
 		}
 		return false;
 	};
+
+	const filteredMods = $derived(
+		sortModList(mods, selectedSortOrderId).filter((mod: Mod) => {
+			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
+			const containsAllowedTag =
+				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
+
+			return (
+				containsAllowedTag &&
+				!containsBlockedTag &&
+				anyIncludes(filter, [
+					mod.author,
+					mod.description,
+					mod.name,
+					mod.repo,
+					mod.uniqueName,
+					mod.authorDisplay,
+					...mod.tags,
+				])
+			);
+		})
+	);
+	let tagStates: TagStates = $state({});
+	let showDetails = $state(false);
+
+	const tags = $derived(
+		tagList.filter((tag) => mods.findIndex((mod) => mod.tags.includes(tag)) != -1)
+	);
+
+	const setSortOrder = (sortOrderId: string) => {
+		if (isSortOrderId(sortOrderId)) {
+			selectedSortOrderId = sortOrderId;
+
+			const url = new URL(page.url);
+			url.searchParams.set(sortOrderParamName, sortOrderId);
+			goto(url.href);
+		}
+	};
+
+	const cleanUpText = (text: string) =>
+		text
+			.toLowerCase()
+			.replace(/\s/g, '')
+			.normalize('NFD') // Decompose combined graphemes (è => e +  ̀)
+			.replace(/[\u0300-\u036f]/g, ''); // Remove the diacritic part (è => e)
 
 	const onToggleTag = (tag: string) => {
 		let toggledTag = tagStates[tag];
@@ -102,7 +120,7 @@
 		tagAllowList = [];
 		tagBlockList = [];
 
-		const url = new URL($page.url);
+		const url = new URL(page.url);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
 		for (const [tagName, tagValue] of Object.entries(tagStates)) {
@@ -118,59 +136,31 @@
 	};
 
 	const onClearTags = () => {
-		const url = new URL($page.url);
+		const url = new URL(page.url);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
 		goto(url.href);
 	};
 
-	run(() => {
-		if (!import.meta.env.SSR) {
-			const sortOrderParam = $page.url.searchParams.get(sortOrderParamName) || '';
-			if (isSortOrderId(sortOrderParam)) {
-				selectedSortOrderId = sortOrderParam;
-			}
-
-			tagStates = {};
-			tagAllowList = [];
-			tagBlockList = [];
-			const tagParams = $page.url.searchParams.getAll(modTagParamName);
-			for (const tagParam of tagParams) {
-				tagStates[tagParam] = 'included';
-				tagAllowList.push(tagParam);
-			}
-			const excludedTagParams = $page.url.searchParams.getAll(modExcludeTagParamName);
-			for (const tagParam of excludedTagParams) {
-				tagStates[tagParam] = 'excluded';
-				tagBlockList.push(tagParam);
-			}
+	onMount(() => {
+		const sortOrderParam = page.url.searchParams.get(sortOrderParamName) || '';
+		if (isSortOrderId(sortOrderParam)) {
+			selectedSortOrderId = sortOrderParam;
 		}
-	});
-	run(() => {
-		const filterMod = (mod: Mod) => {
-			const containsBlockedTag = mod.tags.findIndex((tag) => tagBlockList.includes(tag)) != -1;
-			const containsAllowedTag =
-				tagAllowList.length == 0 || mod.tags.findIndex((tag) => tagAllowList.includes(tag)) != -1;
 
-			return (
-				containsAllowedTag &&
-				!containsBlockedTag &&
-				anyIncludes(filter, [
-					mod.author,
-					mod.description,
-					mod.name,
-					mod.repo,
-					mod.uniqueName,
-					mod.authorDisplay,
-					...mod.tags,
-				])
-			);
-		};
-
-		filteredMods = sortModList(mods, selectedSortOrderId).filter(filterMod);
-	});
-	run(() => {
-		selectedTagCount = tags.filter((tag) => tagStates[tag]).length;
+		tagStates = {};
+		tagAllowList = [];
+		tagBlockList = [];
+		const tagParams = page.url.searchParams.getAll(modTagParamName);
+		for (const tagParam of tagParams) {
+			tagStates[tagParam] = 'included';
+			tagAllowList.push(tagParam);
+		}
+		const excludedTagParams = page.url.searchParams.getAll(modExcludeTagParamName);
+		for (const tagParam of excludedTagParams) {
+			tagStates[tagParam] = 'excluded';
+			tagBlockList.push(tagParam);
+		}
 	});
 
 	function getHideDlc(): boolean {
@@ -197,7 +187,9 @@
 				Sort by: {sortOrders[selectedSortOrderId].title}
 			</option>
 			{#each Object.entries(sortOrders) as [sortOrderId, sortOrder]}
-				<option value={sortOrderId}>{sortOrder.title}</option>
+				{#if sortOrderId !== selectedSortOrderId}
+					<option value={sortOrderId}>{sortOrder.title}</option>
+				{/if}
 			{/each}
 		</select>
 		<div class="relative flex">

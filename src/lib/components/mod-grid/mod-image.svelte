@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
@@ -12,17 +10,9 @@
 		smallText?: boolean;
 	}
 
-	let {
-		mod,
-		lazy = false,
-		hover = false,
-		smallText = false
-	}: Props = $props();
+	let { mod, lazy = false, hover = false, smallText = false }: Props = $props();
 
-	let imageSrc = $state(mod.openGraphImageUrl);
-	run(() => {
-		imageSrc = hover ? mod.imageUrl : mod.openGraphImageUrl;
-	});
+	const imageSrc = $derived(hover ? mod.imageUrl : mod.openGraphImageUrl);
 </script>
 
 <div class="relative aspect-thumbnail">

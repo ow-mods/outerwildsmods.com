@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import DiscordLink from '$lib/components/discord-link.svelte';
 	import PageContainer from '$lib/components/page-container.svelte';
 	import PageSection from '$lib/components/page-section/page-section.svelte';
@@ -135,13 +133,11 @@
 
 	let hasEntries = jamMods.length > 0;
 
-	let jamRootMods: Mod[] = $state([]);
-
-	run(() => {
-		jamRootMods = modList.filter((otherMod) =>
+	let jamRootMods = $derived(
+		modList.filter((otherMod) =>
 			['xen42.ModJam5Part1', 'xen42.ModJam5Part2'].includes(otherMod.uniqueName)
-		);
-	});
+		)
+	);
 
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
 	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');

@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import PageContainer from '$lib/components/page-container.svelte';
 	import LinkButton from '$lib/components/button/link-button.svelte';
 	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
 	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
-	import type { HistoryPoint } from '$lib/helpers/api/history-points';
 	import type { PageData } from './$types';
 	import { listedImageSize } from '$lib/helpers/constants';
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
@@ -18,17 +15,17 @@
 	const { modDownloadHistory, mod, modList } = data;
 
 	let compareWithMod: Mod | null = $state(null);
-	let compareWithHistory: HistoryPoint[] = $state([]);
+	let compareWithHistory = $state([]);
 
-	run(() => {
+	$effect(() => {
 		(async () => {
 			if (compareWithMod) {
-				const modDownloadhistoryResponse = await fetch(
+				const modDownloadHistoryResponse = await fetch(
 					`/api/${compareWithMod.uniqueName}/downloads.json`
 				);
 
-				if (modDownloadhistoryResponse.ok) {
-					compareWithHistory = await modDownloadhistoryResponse.json();
+				if (modDownloadHistoryResponse.ok) {
+					compareWithHistory = await modDownloadHistoryResponse.json();
 				}
 			} else {
 				compareWithHistory = [];

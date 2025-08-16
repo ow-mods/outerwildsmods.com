@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import { map, max } from 'lodash-es';
 	import ChartLine from './chart-line.svelte';
 	import ChartTooltip from './chart-point-info.svelte';
@@ -77,7 +75,7 @@
 		updatePointer(rect.width / 2, rect.height / 2, rect.width);
 	};
 
-	run(() => {
+	$effect(() => {
 		hoveredPointCompare = comparePoints[0];
 	});
 </script>
