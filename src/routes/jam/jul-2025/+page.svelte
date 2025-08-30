@@ -139,9 +139,9 @@
 		)
 	);
 
-	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
-	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
-	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
+	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === '2walker2.OWJam5ModProject');
+	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.Terrarium');
+	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TheSignalJammers.FifthModJam');
 
 	const organizers = {
 		xen: 'xen-42',
@@ -149,7 +149,6 @@
 	};
 
 	const judges = {
-		book: 'Nageld',
 		Idiot: 'Bwc9876',
 		loco: 'loco-choco',
 		Samster68: 'Samster68OW',
@@ -184,17 +183,20 @@
 				<strong>The jam is on!</strong> Scroll down to read the theme and restriction for the jam, and how to enter!
 			</p>
 		-->
+
+		<p>
+			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
+			voted on them. This concludes the fifth Outer Wilds Mod Jam! You can try all entries yourself by using the Jam 5
+			mod packs.
+		</p>
+
 		<!--
-			<p>
-				<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
-				voted on them. This concludes the fifth Outer Wilds Mod Jam!
-			</p>
-		-->
 		<p>
 			<strong>The jam is over!</strong> The judges are now playing through the submissions! Check in
 			later for the announcement of the winners! You can try all entries yourself by using the Jam 5
 			mod packs.
 		</p>
+				-->
 
 		<div class="flex gap-2 flex-col md:flex-row">
 			{#each jamRootMods as mod}
@@ -202,28 +204,26 @@
 			{/each}
 		</div>
 	</PageSection>
-	<!--
 	<PageSection title="Results" id="results">
 		<div class="flex gap-2 flex-col md:flex-row">
 			{#if firstPlaceMod}
-				<JamWinnerBlock title="🥇 First place" subtitle="($165 to the team)">
+				<JamWinnerBlock title="🥇 First place" subtitle="($270 to the team)">
 					<ModCard mod={firstPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if secondPlaceMod}
-				<JamWinnerBlock title="🥈 Second place" subtitle="($110 to the team)">
+				<JamWinnerBlock title="🥈 Second place" subtitle="($180 to the team)">
 					<ModCard mod={secondPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if thirdPlaceMod}
-				<JamWinnerBlock title="🥉 Third place" subtitle="($55 to the team)">
+				<JamWinnerBlock title="🥉 Third place" subtitle="($90 to the team)">
 					<ModCard mod={thirdPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
-			<div />
+			<div></div>
 		</div>
 	</PageSection>
-	-->
 	{#if hasEntries}
 		<PageSection title="All Submissions" id="submissions">
 			<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
