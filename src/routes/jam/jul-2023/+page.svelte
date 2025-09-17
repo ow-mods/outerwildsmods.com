@@ -21,12 +21,9 @@
 
 	let startTimestamp = 1688227200000;
 	const endTimestamp = 1689526800000;
-	let targetTimestamp = 0;
 	let startDateText = $state('');
 	let endDateText = $state('');
-	let targetDateText = '';
 	let timeZoneText = $state('');
-	let countdownText = '';
 	let daysLeft = 0;
 	let hoursLeft = 0;
 	let minutesLeft = 0;
@@ -48,15 +45,12 @@
 
 	const isAfterStartDate = () => Date.now() > startTimestamp;
 
-	const getTargetTimestamp = () =>
-		(targetTimestamp = isAfterStartDate() ? endTimestamp : startTimestamp);
+	const getTargetTimestamp = () => (isAfterStartDate() ? endTimestamp : startTimestamp);
 
 	const setUpTimeValues = () => {
 		startDateText = getDateString(startTimestamp);
 		endDateText = getDateString(endTimestamp);
-		targetDateText = getDateString(getTargetTimestamp());
 		timeZoneText = Intl.DateTimeFormat().resolvedOptions().timeZone;
-		countdownText = `${targetDateText} (${timeZoneText})`;
 	};
 
 	const setUpTestTimestamp = () => {
@@ -68,23 +62,6 @@
 			}
 		}
 	};
-
-	const formatTimePart = (unit: string, value: number, aggregate = 0, suffix = '') =>
-		value <= 0 && aggregate <= 0 ? '' : `${value} ${value === 1 ? unit : `${unit}s`}${suffix}`;
-
-	/*const setUpTheme = async () => {
-		const url = new URL(jamThemeUrl);
-		url.search = $page.url.search;
-		const resp = await fetch(url);
-		theme = await resp.text();
-		if (theme) {
-			clearInterval(timer);
-			timer = undefined;
-		} else {
-			theme = '...';
-		}
-	};*/
-
 	const setUpCountdown = () => {
 		const millisecondsLeft = getTargetTimestamp() - Date.now();
 		/*if (startTimestamp - Date.now() < 1000) {
@@ -98,12 +75,6 @@
 		hoursLeft = hoursLeft - daysLeft * 24;
 		minutesLeft = minutesLeft - daysLeft * 24 * 60 - hoursLeft * 60;
 		secondsLeft = secondsLeft - daysLeft * 24 * 60 * 60 - hoursLeft * 60 * 60 - minutesLeft * 60;
-		countdownText = `
-			${formatTimePart('day', daysLeft, 0, ', ')}
-			${formatTimePart('hour', hoursLeft, daysLeft, ', ')}
-			${formatTimePart('minute', minutesLeft, daysLeft + hoursLeft, ', and ')}
-			${formatTimePart('second', secondsLeft, daysLeft + hoursLeft + minutesLeft)}
-		`;
 	};
 
 	onMount(() => {

@@ -29,6 +29,15 @@ module.exports = defineConfig([
 			},
 		},
 
+		rules: {
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					varsIgnorePattern: '^_',
+				},
+			],
+		},
+
 		extends: compat.extends(
 			'eslint:recommended',
 			'plugin:@typescript-eslint/recommended',
@@ -64,5 +73,7 @@ module.exports = defineConfig([
 		'**/pnpm-lock.yaml',
 		'**/package-lock.json',
 		'**/yarn.lock',
+		'src/routes/history/+page.svelte', // old page, dont want to delete but dont want to fix.
+		'**/*.d.ts', // wont usually write these ourselves.
 	]),
 ]);

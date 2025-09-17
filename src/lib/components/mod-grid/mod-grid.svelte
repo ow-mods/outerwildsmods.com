@@ -111,7 +111,7 @@
 	};
 
 	const setTagState = (tag: string, state: TagState) => {
-		const { [tag]: toggledTag, ...currentTagStates } = tagStates;
+		const { [tag]: _DLC_TAGtoggledTag, ...currentTagStates } = tagStates;
 
 		currentTagStates[tag] = state;
 

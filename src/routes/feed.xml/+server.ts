@@ -72,7 +72,6 @@ function weeklyModsRelease(mods: Mod[]) {
 	const releaseWeek: Date = mergeDateInWeek(new Date(mods[0].firstReleaseDate));
 	const date: string = releaseWeek.toDateString();
 	const splitDate: string[] = date.split(' ');
-	const weekDay: string = splitDate[0];
 	const month: string = splitDate[1];
 	const day: string = splitDate[2];
 	const year: string = splitDate[3];

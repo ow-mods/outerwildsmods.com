@@ -22,7 +22,6 @@
 
 	let startTimestamp = 1710518400000;
 	const endTimestamp = 1711497540000;
-	let targetTimestamp = 0;
 	let startDateText = $state('');
 	let endDateText = $state('');
 	let targetDateText = '';
@@ -49,8 +48,7 @@
 
 	const isAfterStartDate = () => Date.now() > startTimestamp;
 
-	const getTargetTimestamp = () =>
-		(targetTimestamp = isAfterStartDate() ? endTimestamp : startTimestamp);
+	const getTargetTimestamp = () => (isAfterStartDate() ? endTimestamp : startTimestamp);
 
 	const setUpTimeValues = () => {
 		startDateText = getDateString(startTimestamp);

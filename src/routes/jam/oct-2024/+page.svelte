@@ -11,7 +11,6 @@
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	interface Props {
 		data: PageData;
@@ -22,7 +21,6 @@
 
 	let startTimestamp = 1729357200000;
 	const endTimestamp = 1730768400000;
-	let targetTimestamp = 0;
 	let startDateText = $state('');
 	let endDateText = $state('');
 	let targetDateText = '';
@@ -53,8 +51,7 @@
 	const isAfterStartDate = () => Date.now() > startTimestamp;
 	const isAfterEndDate = () => Date.now() > endTimestamp;
 
-	const getTargetTimestamp = () =>
-		(targetTimestamp = isAfterStartDate() ? endTimestamp : startTimestamp);
+	const getTargetTimestamp = () => (isAfterStartDate() ? endTimestamp : startTimestamp);
 
 	const setUpTimeValues = () => {
 		startDateText = getDateString(startTimestamp);

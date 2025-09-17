@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page, navigating } from '$app/stores';
+	import { page } from '$app/stores';
 	import { websiteUrl } from '$lib/helpers/constants';
 
 	interface Props {

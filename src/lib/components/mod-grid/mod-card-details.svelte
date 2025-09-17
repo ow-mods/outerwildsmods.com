@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Mod } from '$lib/helpers/api/get-mod-list';
 	import { managerInstallProtocol } from '$lib/helpers/constants';
-	import { onMount } from 'svelte';
 	import DownloadIcon from '../icons/download-icon.svelte';
 	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
 	import { modBeingInstalled } from '../mod-install-store';
@@ -14,12 +13,7 @@
 
 	let { mod, showInstallButton, children }: Props = $props();
 
-	let ready = false;
 	let clickedInstall = $state(false);
-
-	onMount(() => {
-		ready = true;
-	});
 </script>
 
 <div class="flex flex-1">

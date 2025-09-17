@@ -10,7 +10,7 @@
 	interface Props {
 		mod: Mod;
 		compareWithMod: Mod | null;
-		mousePosition?: any;
+		mousePosition?: { x: number; y: number };
 		hoveredPoint?: HistoryPoint | null;
 		hoveredPointCompare?: HistoryPoint | null;
 	}

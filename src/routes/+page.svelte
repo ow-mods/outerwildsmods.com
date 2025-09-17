@@ -32,14 +32,14 @@
 </script>
 
 <svelte:head>
-	{@html `<script type="application/ld+json">
+	<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
 			"@type": "Organization",
 			"url": "${websiteUrl}",
 			"logo": "${websiteUrl}/images/icon-large.png"
 		}
-	</script>`}
+	</script>
 </svelte:head>
 
 <PageContainer

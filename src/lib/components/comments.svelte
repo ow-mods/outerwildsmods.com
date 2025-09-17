@@ -22,6 +22,7 @@
 		}
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	function handleGiscusEvent(event: MessageEvent<any>) {
 		if (event.origin !== 'https://giscus.app' || event.data.giscus.resizeHeight === 0) return;
 
