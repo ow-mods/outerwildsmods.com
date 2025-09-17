@@ -39,23 +39,17 @@
 			/>
 		</PageSectionColumns>
 		<div class="mt-4">
-			<LinkButton
-				href="https://archive.org/details/outer-wilds-alpha-1-2"
-				isExternal
-			>
+			<LinkButton href="https://archive.org/details/outer-wilds-alpha-1-2" isExternal>
 				Download the Outer Wilds Alpha 1.2 via Wayback Machine
 			</LinkButton>
-			<div class="text-center m-4">
-				or
-			</div>
-			<LinkButton
-				href="https://archive.org/details/outer-wilds-alpha-demo-pc"
-				isExternal
-			>
+			<div class="text-center m-4">or</div>
+			<LinkButton href="https://archive.org/details/outer-wilds-alpha-demo-pc" isExternal>
 				Download the Outer Wilds Alpha Demo via Wayback Machine
 			</LinkButton>
 			<div class="text-center m-4">
-				(Tech Demo requires <a class="link" href="/mods/spoilerquarantinerelease">Spoiler Quarantine Release</a>)
+				(Tech Demo requires <a class="link" href="/mods/spoilerquarantinerelease"
+					>Spoiler Quarantine Release</a
+				>)
 			</div>
 		</div>
 	</PageSection>

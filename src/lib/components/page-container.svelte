@@ -17,7 +17,7 @@
 		imageUrl = undefined,
 		imageWidth = undefined,
 		imageHeight = undefined,
-		children
+		children,
 	}: Props = $props();
 
 	const url = `${websiteUrl}${$page.url.pathname}`;

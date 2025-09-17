@@ -24,7 +24,7 @@ export const GET: RequestHandler<Params> = async ({ params, fetch }) => {
 			? {
 					readmeHtml: readmeResult.html,
 					headingStructure: readmeResult.headings,
-			  }
+				}
 			: undefined),
 	});
 };

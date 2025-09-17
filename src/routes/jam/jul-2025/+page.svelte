@@ -186,8 +186,8 @@
 
 		<p>
 			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
-			voted on them. This concludes the fifth Outer Wilds Mod Jam! You can try all entries yourself by using the Jam 5
-			mod packs.
+			voted on them. This concludes the fifth Outer Wilds Mod Jam! You can try all entries yourself by
+			using the Jam 5 mod packs.
 		</p>
 
 		<!--

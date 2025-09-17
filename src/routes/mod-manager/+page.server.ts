@@ -11,7 +11,7 @@ export async function load() {
 
 	// Don't always get latest as it could change and we'd grab the wrong assets
 	const downloadUrl = `${repoUrl}/releases/download/gui_v${managerVersion}`;
-	const productName = "Outer.Wilds.Mod.Manager";
+	const productName = 'Outer.Wilds.Mod.Manager';
 
 	const installerDownloadUrl = `${downloadUrl}/${productName}_${managerVersion}_x64_en-US.msi`;
 	const nsisInstallerDownloadUrl = `${downloadUrl}/${productName}_${managerVersion}_x64-setup.exe`;

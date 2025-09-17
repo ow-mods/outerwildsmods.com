@@ -19,11 +19,11 @@
 		mod,
 		compareWithMod,
 		mousePosition = {
-		x: 0,
-		y: 0,
-	},
+			x: 0,
+			y: 0,
+		},
 		hoveredPoint = null,
-		hoveredPointCompare = null
+		hoveredPointCompare = null,
 	}: Props = $props();
 	const numberFormatter = new Intl.NumberFormat();
 </script>

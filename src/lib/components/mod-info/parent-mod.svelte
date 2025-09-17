@@ -10,9 +10,9 @@
 
 	let { parentUniqueName, modList }: Props = $props();
 
-	let parentMod: Mod | undefined = $derived(modList.find((otherMod) => otherMod.uniqueName === parentUniqueName));
-
-	
+	let parentMod: Mod | undefined = $derived(
+		modList.find((otherMod) => otherMod.uniqueName === parentUniqueName)
+	);
 </script>
 
 {#if parentMod}

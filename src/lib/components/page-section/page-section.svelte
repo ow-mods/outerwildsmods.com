@@ -20,7 +20,7 @@
 		description = undefined,
 		imageUrl = undefined,
 		isNarrow = false,
-		children
+		children,
 	}: Props = $props();
 </script>
 

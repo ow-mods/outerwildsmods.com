@@ -46,7 +46,7 @@ export const GET: RequestHandler<Params> = async ({ params: { modUniqueName } })
 						UnixTimestamp,
 						DownloadCount,
 					};
-			  })
+				})
 			: cleanedUpResults;
 
 		const pointChunks: HistoryPoint[][] = [];

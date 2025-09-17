@@ -14,7 +14,7 @@
 		title,
 		height = undefined,
 		width = undefined,
-		noBorder = false
+		noBorder = false,
 	}: Props = $props();
 
 	const borderClass = noBorder ? '' : 'border border-dark ';

@@ -10,12 +10,7 @@
 		showDetails?: boolean;
 	}
 
-	let {
-		mod,
-		lazy = false,
-		hideDescription = false,
-		showDetails = false
-	}: Props = $props();
+	let { mod, lazy = false, hideDescription = false, showDetails = false }: Props = $props();
 
 	let pointer = $state(false);
 	let touch = $state(false);
