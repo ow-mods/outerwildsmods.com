@@ -67,7 +67,6 @@
 					mod.author,
 					mod.description,
 					mod.name,
-					mod.repo,
 					mod.uniqueName,
 					mod.authorDisplay,
 					...mod.tags,
