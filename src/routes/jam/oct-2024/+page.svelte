@@ -125,7 +125,7 @@
 
 	const jamMods = modList.filter(
 		(mod) =>
-			mod.tags.includes('jam') &&
+			mod.tags.includes('jam4') &&
 			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold * 3 &&
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
 	);
