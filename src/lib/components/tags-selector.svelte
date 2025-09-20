@@ -37,11 +37,11 @@
 				{tag}
 			</TagToggle>
 		{/each}
-	</div>
 
-	{#if tags.length > 0 && Object.keys(tagStates).length > 0}
-		<TagToggle title="Clear" onclick={onClear}>
-			<div class="text-xs grayscale">❌</div>
-		</TagToggle>
-	{/if}
+		{#if tags.length > 0 && Object.keys(tagStates).length > 0}
+			<TagToggle title="Clear" onclick={onClear}>
+				<div class="text-xs">❌</div>
+			</TagToggle>
+		{/if}
+	</div>
 </div>
