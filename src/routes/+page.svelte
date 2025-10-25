@@ -23,11 +23,11 @@
 
 	const filteredModList = modList.filter((mod) => !mod.alpha);
 
-	const hotMods = sortModList(filteredModList, 'hot', modsPerCategory);
-	const newMods = sortModList(filteredModList, 'newest', modsPerCategory, hotMods);
+	const popularMods = sortModList(filteredModList, 'popular', modsPerCategory);
+	const hotNewMods = sortModList(filteredModList, 'popularNew', modsPerCategory, popularMods);
 	const updatedMods = sortModList(filteredModList, 'updated', modsPerCategory, [
-		...hotMods,
-		...newMods,
+		...popularMods,
+		...hotNewMods
 	]);
 </script>
 
@@ -62,8 +62,8 @@
 	</PageSection>
 	<PageSection id="mods" title="Some of our mods">
 		<div class="flex gap-8 text-center md:flex-row flex-col">
-			<FeaturedModSection title="Hot Mods" sortOrder="hot" mods={hotMods} />
-			<FeaturedModSection title="New Mods" sortOrder="newest" mods={newMods} />
+			<FeaturedModSection title="Popular Mods" sortOrder="popular" mods={popularMods} />
+			<FeaturedModSection title="Popular New Mods" sortOrder="popularNew" mods={hotNewMods} />
 			<FeaturedModSection title="Recently Updated" sortOrder="updated" mods={updatedMods} />
 		</div>
 	</PageSection>

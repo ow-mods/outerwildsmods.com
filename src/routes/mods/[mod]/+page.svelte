@@ -21,7 +21,7 @@
 
 	const otherMods = sortModList(
 		modList.filter((otherMod) => otherMod.alpha == mod.alpha),
-		'hot',
+		'popular',
 		0
 	);
 

@@ -4,10 +4,25 @@ import { recentViewsDayCount } from './constants';
 export const sortOrderParamName = 'sortOrder' as const;
 
 export const sortOrders = {
-	hot: {
-		title: 'Hot',
+	popular: {
+		title: 'Popular',
 		compareFunction: (modA: Mod, modB: Mod) => {
 			return modB.installCount - modA.installCount;
+		},
+	},
+	popularNew: {
+		title: 'Popular New',
+		compareFunction: (modA: Mod, modB: Mod) => {
+			let now = new Date();
+			function popularNewScore(mod: Mod) {
+				// A mod needs 2x the views to be hotter than a mod that is half its age
+				// Mods over a year old are ranked by installs
+				var age = (now.valueOf() - new Date(mod.firstReleaseDate).valueOf()) / (1000 * 60 * 60 * 24);
+				var score = age < 365 ? mod.installCount / Math.max(age, 7) : mod.installCount + Number.MIN_SAFE_INTEGER;
+				return score;
+			}
+
+			return popularNewScore(modB) - popularNewScore(modA);
 		},
 	},
 	mostDownloaded: {
