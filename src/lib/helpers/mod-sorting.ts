@@ -4,7 +4,7 @@ import { recentViewsDayCount } from './constants';
 export const sortOrderParamName = 'sortOrder' as const;
 
 export const sortOrders = {
-	popular: {
+	installs: {
 		title: 'Popular',
 		compareFunction: (modA: Mod, modB: Mod) => {
 			return modB.installCount - modA.installCount;
