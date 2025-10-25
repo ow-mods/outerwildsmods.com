@@ -5,13 +5,13 @@ export const sortOrderParamName = 'sortOrder' as const;
 
 export const sortOrders = {
 	installs: {
-		title: 'Popular',
+		title: 'Unique installs',
 		compareFunction: (modA: Mod, modB: Mod) => {
 			return modB.installCount - modA.installCount;
 		},
 	},
 	popularNew: {
-		title: 'Popular New',
+		title: 'Popular new',
 		compareFunction: (modA: Mod, modB: Mod) => {
 			let now = new Date();
 			function popularNewScore(mod: Mod) {
