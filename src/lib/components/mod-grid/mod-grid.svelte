@@ -34,7 +34,7 @@
 	let {
 		mods = [],
 		tagList = [],
-		defaultSortOrder = 'hot',
+		defaultSortOrder = 'installs',
 		tagBlockList = $bindable([]),
 		tagAllowList = $bindable([]),
 		allowFiltering = true,
