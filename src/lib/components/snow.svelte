@@ -48,11 +48,10 @@
 	}
 
 	.snowflake {
-		width: 4px;
-		height: 4px;
+		width: 3px;
+		height: 3px;
 		background: white;
 		border-radius: 50%;
-		filter: blur(1px);
 		animation: sway ease-in-out infinite alternate;
 	}
 
