@@ -10,6 +10,7 @@
 	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
 	import Analytics from '$lib/components/analytics.svelte';
+	import Snow from '$lib/components/snow.svelte';
 	import { navigating, page } from '$app/state';
 	interface Props {
 		children?: import('svelte').Snippet;
@@ -26,6 +27,7 @@
 	});
 </script>
 
+<Snow />
 <Analytics />
 <ModInstallDialog />
 <Header />
