@@ -93,7 +93,6 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 
 	// Handle <img> tags.
 	visit(markdownAst, 'html', (node) => {
-		console.log('html node', node);
 		if (typeof node.value === 'string') {
 			const imgSrcRegex = /<img[^>]+src=["']([^"']+)["']/gi;
 			let match;
