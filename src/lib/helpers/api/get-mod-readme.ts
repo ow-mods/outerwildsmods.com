@@ -172,8 +172,8 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 				if (node.tagName === 'img' && typeof node.properties?.src === 'string') {
 					const src = node.properties.src;
 					if (imageInfos[src]) {
-						node.properties.height = imageInfos[src].height ?? node.properties.height;
-						node.properties.width = imageInfos[src].width ?? node.properties.width;
+						node.properties.height ??= imageInfos[src].height;
+						node.properties.width ??= imageInfos[src].width;
 						node.properties.src = imageInfos[src].url;
 					}
 				}
