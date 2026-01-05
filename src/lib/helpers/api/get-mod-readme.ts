@@ -9,6 +9,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import { unified } from 'unified';
 import { getImageInfo, type ImageInfo } from './get-image-info';
 import { visit } from 'unist-util-visit';
+import { fromHtml } from 'hast-util-from-html';
 import { toString } from 'mdast-util-to-string';
 import GithubSlugger from 'github-slugger';
 
@@ -94,11 +95,12 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 	// Handle <img> tags.
 	visit(markdownAst, 'html', (node) => {
 		if (typeof node.value === 'string') {
-			const imgSrcRegex = /<img[^>]+src=["']([^"']+)["']/gi;
-			let match;
-			while ((match = imgSrcRegex.exec(node.value)) !== null) {
-				imageSources.push(match[1]);
-			}
+			const hast = fromHtml(node.value, { fragment: true });
+			visit(hast, 'element', (el) => {
+				if (el.tagName === 'img' && typeof el.properties?.src === 'string') {
+					imageSources.push(el.properties.src);
+				}
+			});
 		}
 	});
 

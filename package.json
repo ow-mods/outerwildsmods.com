@@ -20,6 +20,7 @@
 		"github-slugger": "2.0.0",
 		"globals": "^16.4.0",
 		"globby": "14.1.0",
+		"hast-util-from-html": "^2.0.3",
 		"lodash-es": "4.17.21",
 		"postcss": "8.5.6",
 		"prettier": "3.6.2",
