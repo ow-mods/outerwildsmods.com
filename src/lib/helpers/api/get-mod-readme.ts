@@ -91,6 +91,18 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 		}
 	});
 
+	// Handle <img> tags.
+	visit(markdownAst, 'html', (node) => {
+		console.log('html node', node);
+		if (typeof node.value === 'string') {
+			const imgSrcRegex = /<img[^>]+src=["']([^"']+)["']/gi;
+			let match;
+			while ((match = imgSrcRegex.exec(node.value)) !== null) {
+				imageSources.push(match[1]);
+			}
+		}
+	});
+
 	const imageInfos: Record<string, ImageInfo> = {};
 	await Promise.all(
 		imageSources.map(async (imageSource, index) => {
@@ -153,6 +165,19 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 			},
 		})
 		.use(rehypeRaw)
+		.use(() => (tree) => {
+			// Handle <img> tags.
+			visit(tree, 'element', (node) => {
+				if (node.tagName === 'img' && typeof node.properties?.src === 'string') {
+					const src = node.properties.src;
+					if (imageInfos[src]) {
+						node.properties.height = imageInfos[src].height ?? node.properties.height;
+						node.properties.width = imageInfos[src].width ?? node.properties.width;
+						node.properties.src = imageInfos[src].url;
+					}
+				}
+			});
+		})
 		.use(rehypeSanitize)
 		.use(rehypeSlug)
 		.use(rehypeStringify)
