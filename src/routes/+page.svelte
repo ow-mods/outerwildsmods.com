@@ -27,7 +27,7 @@
 	const popularNewMods = sortModList(filteredModList, 'popularNew', modsPerCategory, popularMods);
 	const updatedMods = sortModList(filteredModList, 'updated', modsPerCategory, [
 		...popularMods,
-		...popularNewMods
+		...popularNewMods,
 	]);
 </script>
 
