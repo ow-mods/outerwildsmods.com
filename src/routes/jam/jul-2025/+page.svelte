@@ -122,11 +122,11 @@
 	const jamMods = modList.filter(
 		(mod) =>
 			(mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold * 3 &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
-			mod.uniqueName !== 'xen.ModJam5') 
+				Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold * 3 &&
+				Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
+				mod.uniqueName !== 'xen.ModJam5') ||
 			// Solec crashed out and deleted their mod then readded it so it needs to be hardcoded
-			|| mod.uniqueName == 'TeamGeswaldo.Jam5' 
+			mod.uniqueName == 'TeamGeswaldo.Jam5'
 	);
 
 	let hasEntries = jamMods.length > 0;

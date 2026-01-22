@@ -18,6 +18,7 @@ export async function load() {
 	const appImageUrl = `${downloadUrl}/${productName}_${managerVersion}_amd64.AppImage `;
 	const debUrl = `${downloadUrl}/${productName}_${managerVersion}_amd64.deb`;
 	const rpmUrl = `${downloadUrl}/${productName}-${managerVersion}-1.x86_64.rpm `;
+	const dmgUrl = `${downloadUrl}/${productName}_${managerVersion}_x64.dmg`;
 
 	return {
 		repoUrl,
@@ -29,5 +30,6 @@ export async function load() {
 		appImageUrl,
 		debUrl,
 		rpmUrl,
+		dmgUrl,
 	};
 }

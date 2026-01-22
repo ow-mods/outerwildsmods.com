@@ -22,15 +22,17 @@
 	const summaryClass = 'py-2 px-4 rounded link bg-darker justify-center h-full';
 
 	let isLinux = $state(false);
+	let isMac = $state(false);
 
 	onMount(() => {
 		isLinux = navigator.userAgent.includes('Linux');
+		isMac = navigator.userAgent.includes('Macintosh');
 	});
 </script>
 
 <PageContainer
 	title="Outer Wilds Mod Manager - Download Windows/Linux app"
-	description="Download, install, and manage Outer Wilds mods using the Outer Wilds Mod Manager for Windows and Linux."
+	description="Download, install, and manage Outer Wilds mods using the Outer Wilds Mod Manager for Windows, Linux, and MacOS."
 	imageUrl="{websiteUrl}/images/mod-manager.webp"
 	imageWidth={940}
 	imageHeight={760}
@@ -46,15 +48,15 @@
 			/>
 		</div>
 		<div class="flex flex-col gap-4 my-4 rounded">
-			<details name="platform" open={!isLinux}>
+			<details name="platform" open={!isLinux && !isMac}>
 				<summary class={summaryClass}>For Windows</summary>
 				<div class="p-4 flex flex-col gap-4 bg-dark">
-					<CtaButton href={data.installerDownloadUrl} isExternal icon={WindowsIcon}>
+					<CtaButton href={data.nsisInstallerDownloadUrl} isExternal icon={WindowsIcon}>
 						Download the Outer Wilds Mod Manager for Windows
 					</CtaButton>
 					<span>
-						Not Working? Try the <a class="link" href={data.nsisInstallerDownloadUrl}
-							>NSIS Installer for Windows</a
+						Not Working? Try the <a class="link" href={data.installerDownloadUrl}
+							>MSI Installer for Windows</a
 						>.
 					</span>
 				</div>
@@ -110,8 +112,24 @@
 							href="https://www.mono-project.com/"
 							class="link"
 							target="_blank"
-							rel="noopener noreferrer">Mono 6.12.0</a
+							rel="noopener noreferrer">Mono</a
 						> is installed and available on the PATH (excluding AUR, FlatPak, Nix).
+					</span>
+				</div>
+			</details>
+			<details name="platform" open={isMac}>
+				<summary class={summaryClass}>For MacOS (experimental)</summary>
+				<div class="p-4 flex flex-col gap-4 bg-dark">
+					<CtaButton href={data.dmgUrl} isExternal>
+						Download the Outer Wilds Mod Manager for MacOS
+					</CtaButton>
+					<span>
+						Experimental; please check the help documentation for more information.
+						<a
+							class="link"
+							href={'https://github.com/ow-mods/ow-mod-man/blob/main/owmods_gui/HELP.md#how-do-i-use-this-on-mac'}
+							>Help Document</a
+						>.
 					</span>
 				</div>
 			</details>
