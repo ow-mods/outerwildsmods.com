@@ -163,6 +163,7 @@
 		</div>
 	</PageSection>
 	<PageSection title="All Submissions" id="submissions">
+		<p>This jam had a total of {jamMods.length} submissions. This is all of them!</p>
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
