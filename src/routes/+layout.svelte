@@ -27,7 +27,9 @@
 	});
 </script>
 
-<Snow />
+{#if IS_WINTER}
+	<Snow />
+{/if}
 <Analytics />
 <ModInstallDialog />
 <Header />
