@@ -1,5 +1,4 @@
 import type { Mod } from './api/get-mod-list';
-import { recentViewsDayCount } from './constants';
 
 export const sortOrderParamName = 'sortOrder' as const;
 
@@ -52,12 +51,6 @@ export const sortOrders = {
 	leastDownloaded: {
 		title: 'Least downloaded',
 		compareFunction: (modA: Mod, modB: Mod) => modA.downloadCount - modB.downloadCount,
-	},
-	mostViewsXDays: {
-		title: `Recent views (${recentViewsDayCount} days)`,
-		compareFunction: (modA: Mod, modB: Mod) => {
-			return modB.viewCount - modA.viewCount;
-		},
 	},
 	newest: {
 		title: 'Newest',
