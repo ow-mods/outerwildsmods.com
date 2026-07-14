@@ -8,6 +8,12 @@
 
 	const jams = [
 		{
+			title: 'Yet Another Mod Jam',
+			date: 'August 2026',
+			path: 'aug-2026',
+			active: false,
+		},
+		{
 			title: 'Game Jam',
 			date: 'February 2026',
 			path: 'game-jam-2026',
