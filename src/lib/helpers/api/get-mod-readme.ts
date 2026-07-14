@@ -11,6 +11,7 @@ import { getImageInfo, type ImageInfo } from './get-image-info';
 import { visit } from 'unist-util-visit';
 import { fromHtml } from 'hast-util-from-html';
 import { toString } from 'mdast-util-to-string';
+import type { Element } from 'hast';
 import GithubSlugger from 'github-slugger';
 
 export interface HeadingStructure {
@@ -168,7 +169,7 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 		.use(rehypeRaw)
 		.use(() => (tree) => {
 			// Handle <img> tags.
-			visit(tree, 'element', (node) => {
+			visit(tree, 'element', (node: Element) => {
 				if (node.tagName === 'img' && typeof node.properties?.src === 'string') {
 					const src = node.properties.src;
 					if (imageInfos[src]) {
