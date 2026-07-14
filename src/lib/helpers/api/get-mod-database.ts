@@ -9,10 +9,8 @@ export type ModFromDatabase = {
 	repo: string;
 	downloadUrl: string;
 	downloadCount: number;
-	installCount: number;
-	weeklyViewCount: number;
+	installCount: number; // Actually monthly install count.
 	weeklyInstallCount: number;
-	viewCount: number;
 	latestReleaseDate: string;
 	firstReleaseDate: string;
 	repoUpdatedAt: string;
