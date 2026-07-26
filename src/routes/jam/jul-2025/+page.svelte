@@ -322,7 +322,8 @@
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
+		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported. 
+			<b><i>No entry fee is required to participate.</i></b></p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
@@ -391,6 +392,8 @@
 			These guidelines can change depending on how the jam is going. We might also take a shot at
 			community voting, if there are enough submissions to justify it and we can set up a good
 			system for it.
+			<b>Typically, all judges will rank their favourite entries, and these rankings will be combined to get the final result.</b>
+			In the event of a close race for one of the top three places we may announce a tie.
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>

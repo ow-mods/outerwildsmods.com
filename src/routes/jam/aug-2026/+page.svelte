@@ -147,7 +147,10 @@
 	const donators = {
 		xen: 'xen-42',
 		paulschellin: '',
-		PaulTHerbert: ''
+		PaulTHerbert: '',
+		Hawkbar: 'Hawkbat',
+		Epsilon: '',
+		"Callirhoe Starr": ''
 	};
 </script>
 
@@ -257,15 +260,16 @@
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
 			let us know on our <a class="link" href="#talk">Discord</a>.</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>$210</strong></span>
-			<span>🥈Second place: <strong>$140</strong></span>
-			<span>🥉Third place: <strong>$70</strong></span>
+			<span>🥇First place: <strong>$360</strong></span>
+			<span>🥈Second place: <strong>$240</strong></span>
+			<span>🥉Third place: <strong>$120</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.</p>
+		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported. 
+			<b><i>No entry fee is required to participate.</i></b></p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
@@ -316,7 +320,36 @@
 		<p>
 			These guidelines can change depending on how the jam is going. We might also take a shot at
 			community voting, if there are enough submissions to justify it and we can set up a good
-			system for it.
+			system for it. 
+			<b>Typically, all judges will rank their favourite entries, and these rankings will be combined to get the final result.</b>
+			In the event of a close race for one of the top three places we may announce a tie.
+		</p>
+	</PageSection>
+	<PageSection title="Advice" id="advice" isNarrow>
+		<p>Here is some advice on how to make a successful jam entry!</p>
+		<p>
+			<b>Do not overscope!</b> You might feel like you have all the time in the world to make your entry,
+			but remember that a smaller, polished entry is better than a huge, completely broken entry! As
+			a rule of thumb, remember the "Rule of 3". Three tasks to complete a specific objective is usually
+			a good balance of variety and scope. On a macro level, you could have three small mysteries required
+			to solve your main mystery.
+		</p>
+		<p>
+			<b>Remember your ship logs!</b> They are <i>incredibly</i> important, even if you feel your mod
+			is simple enough to not need them. You never know what the player will think is important or will
+			forget. You don't want a judge getting completely lost on where to go in your mod if you want to
+			leave a good impression! Note that ship logs should be one of the last things you do.
+		</p>
+		<p>
+			<b>Remember base game mechanics!</b> If you are putting the player in an area without easy access
+			to the ship, don't forget to give them sources of fuel and oxygen. If you have a timed event happening
+			in your mod, be sure the player has access to a campfire so they can speed up time while waiting
+			for it. These things are super easy to add to your mod, and very noticeable when they aren't there!
+		</p>
+		<p>
+			<b>Get Git set up at the beginning of the jam, not the end.</b> You need to learn how to upload
+			to Git, since this is required for you to enter. Not only that, but you should be using Git the
+			entire time - Always back up your work!
 		</p>
 	</PageSection>
 	<PageSection title="How to participate" id="how-to-participate" isNarrow>
