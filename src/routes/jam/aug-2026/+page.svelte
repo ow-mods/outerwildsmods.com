@@ -145,7 +145,8 @@
 		Samster68: 'Samster68OW',
 		HeroPlays1122: '',
 		Anon: 'SputnikSoyuz',
-		'2walker2': '2walker2' 
+		'2walker2': '2walker2',
+		Vodblink: 'Vodblink'
 	};
 
 	const donators = {
