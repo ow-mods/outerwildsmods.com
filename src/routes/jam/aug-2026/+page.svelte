@@ -128,29 +128,34 @@
 
 	let jamRootMod: Mod | undefined;
 
-	$: {
-		jamRootMod = modList.find((otherMod) => otherMod.uniqueName === 'xen.ModJam3');
-	}
-
 	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
 	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
 	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
 
 	const organizers = {
 		xen: 'xen-42',
+		'2walker2': '2walker2',
+		SBtT: 'StreetlightsBehindTheTrees',
+		Raicuparta: 'Raicuparta',
 	};
 
 	const judges = {
 		xen: 'xen-42',
+		SanBaiMing: '',
+		Samster68: 'Samster68OW',
+		HeroPlays1122: '',
+		Anon: 'SputnikSoyuz',
+		'2walker2': '2walker2' 
 	};
 
 	const donators = {
-		xen: 'xen-42',
-		paulschellin: '',
-		PaulTHerbert: '',
-		Hawkbar: 'Hawkbat',
-		Epsilon: '',
-		"Callirhoe Starr": ''
+		xen: 'xen-42',          
+		paulschellin: '',       
+		PaulTHerbert: '',       
+		Hawkbar: 'Hawkbat',     
+		Epsilon: '',            
+		"Callirhoe Starr": '',  
+		valerylabuzhsky: '',    
 	};
 </script>
 
@@ -260,9 +265,10 @@
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
 			let us know on our <a class="link" href="#talk">Discord</a>.</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>$360</strong></span>
-			<span>🥈Second place: <strong>$240</strong></span>
-			<span>🥉Third place: <strong>$120</strong></span>
+			<span>🥇First place: <strong>$520</strong></span>
+			<span>🥈Second place: <strong>$390</strong></span>
+			<span>🥉Third place: <strong>$260</strong></span>
+			<span>🏅Fourth place: <strong>$130</strong></span>
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
