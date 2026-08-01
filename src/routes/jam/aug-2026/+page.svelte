@@ -28,7 +28,9 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = null;
+	let theme = "Past and Future";
+	let restriction = "Time loop";
+	let restrictionDesc = "To follow the restriction you must use the time loop as a mechanic in your mod in some way. Will you have time-specific events, puzzles that take place over multiple loops, or some other third thing? That's up to you! Just don't forget to include places to doze off and fast-forward the loop if necessary."
 	let timer: NodeJS.Timer | undefined;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
@@ -226,7 +228,7 @@
 			>
 			for
 			<a href="https://store.steampowered.com/app/753640/Outer_Wilds/" class="link">Outer Wilds</a>,
-			following the theme given below.
+			following the theme and restriction given below.
 		</p>
 		<p>
 			You are encouraged to use <a class="link" href="/mods/newhorizons">New Horizons</a> to create your mod! However
@@ -240,7 +242,11 @@
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
 			<p class="text-xl">
-				The theme is <strong>{theme || 'Loading...'}</strong>
+				The themes are <strong>{theme || 'Loading...'}</strong> and the restriction is
+				<strong>{restriction || 'Loading...'}! </strong>
+			</p>
+			<p class="bg-darker p-2 rounded pl-4 pr-4">
+				> {@html restrictionDesc || '...'}
 			</p>
 		{:else}
 			<p>
@@ -248,7 +254,7 @@
 			</p>
 		{/if}
 		<p>
-			You decide how to interpret the theme. Make sure you read the <a class="link" href="#rules"
+			You decide how to interpret the theme, and <u>must</u> follow the restriction. Make sure you read the <a class="link" href="#rules"
 				>rules</a
 			>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your

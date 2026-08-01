@@ -11,7 +11,7 @@
 			title: 'Yet Another Mod Jam',
 			date: 'August 2026',
 			path: 'aug-2026',
-			active: false,
+			active: true,
 		},
 		{
 			title: 'Game Jam',
