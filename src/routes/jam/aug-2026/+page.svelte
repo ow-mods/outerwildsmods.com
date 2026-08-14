@@ -16,8 +16,55 @@
 	export let data: PageData;
 	const { modList } = data;
 
+	// THESE GET REDEFINED FOR NEW JAMS AND THEN WE DON'T HAVE TO MESS AROUND REWRITING THESE PAGES FOREVER
+	const jamRootModId = null;
+	const firstPlaceModId = null;
+	const secondPlaceModId = null;
+	const thirdPlaceModId = null;
+	const fourthPlaceModId = null;
+
+	const firstPlacePrize = 520;
+	const secondPlacePrize = 390;
+	const thirdPlacePrize = 260;
+	const fourthPlacePrize = 130;
+
+	const organizers = {
+		xen: 'xen-42',
+		'2walker2': '2walker2',
+		SBtT: 'StreetlightsBehindTheTrees',
+		Raicuparta: 'Raicuparta',
+	};
+
+	const judges = {
+		xen: 'xen-42',
+		SanBaiMing: 'SanBaiMing',
+		Samster68: 'Samster68OW',
+		HeroPlays1122: '',
+		Anon: 'SputnikSoyuz',
+		'2walker2': '2walker2',
+		Vodblink: 'Vodblink'
+	};
+
+	const donators = {
+		xen: 'xen-42',          
+		paulschellin: '',       
+		PaulTHerbert: '',       
+		Hawkbar: 'Hawkbat',     
+		Epsilon: '',            
+		"Callirhoe Starr": '',  
+		valerylabuzhsky: '',    
+	};
+
+	let theme = "Past and Future";
+	let restriction = "Time loop";
+	let restrictionDesc = "To follow the restriction you must use the time loop as a mechanic in your mod in some way. Will you have time-specific events, puzzles that take place over multiple loops, or some other third thing? That's up to you! Just don't forget to include places to doze off and fast-forward the loop if necessary."
+	let jamSummary = `For the sixth Outer Wilds mod jam, all entries had to follow the themes of <u>${theme}</u> while following the <u>${restriction}</u> restriction!`
+	let jamTitle = `Summer 2026 Story Mod Jam`
+
 	let startTimestamp = 1785600000000;
-	const endTimestamp = 1786752000000;
+	const endTimestamp = 1787011200000;
+
+	// Don't touch this
 	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
@@ -28,10 +75,10 @@
 	let hoursLeft = 0;
 	let minutesLeft = 0;
 	let secondsLeft = 0;
-	let theme = "Past and Future";
-	let restriction = "Time loop";
-	let restrictionDesc = "To follow the restriction you must use the time loop as a mechanic in your mod in some way. Will you have time-specific events, puzzles that take place over multiple loops, or some other third thing? That's up to you! Just don't forget to include places to doze off and fast-forward the loop if necessary."
+
 	let timer: NodeJS.Timer | undefined;
+
+	let jamIsOver = Date.now() > endTimestamp;
 
 	//const jamThemeUrl = 'https://jam.outerwildsmods.workers.dev/';
 
@@ -120,104 +167,97 @@
 
 	setUpTimeValues();
 
+	let jamRootMod = modList.find((mod) => mod.uniqueName === jamRootModId);
+
 	const jamMods = modList.filter(
 		(mod) =>
 			mod.tags.includes('jam') &&
 			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
 			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
-			mod.uniqueName !== 'xen.ModJam3'
+			mod !== jamRootMod
 	);
 
-	let jamRootMod: Mod | undefined;
-
-	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
-	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
-	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
-
-	const organizers = {
-		xen: 'xen-42',
-		'2walker2': '2walker2',
-		SBtT: 'StreetlightsBehindTheTrees',
-		Raicuparta: 'Raicuparta',
-	};
-
-	const judges = {
-		xen: 'xen-42',
-		SanBaiMing: '',
-		Samster68: 'Samster68OW',
-		HeroPlays1122: '',
-		Anon: 'SputnikSoyuz',
-		'2walker2': '2walker2',
-		Vodblink: 'Vodblink'
-	};
-
-	const donators = {
-		xen: 'xen-42',          
-		paulschellin: '',       
-		PaulTHerbert: '',       
-		Hawkbar: 'Hawkbat',     
-		Epsilon: '',            
-		"Callirhoe Starr": '',  
-		valerylabuzhsky: '',    
-	};
+	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === firstPlaceModId);
+	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === secondPlaceModId);
+	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === thirdPlaceModId);
+	const fourthPlaceMod = jamMods.find((mod) => mod.uniqueName === fourthPlaceModId);
 </script>
 
 <PageContainer
-	title="Summer 2026 Mod Jam"
+	title={jamTitle}
 	description="Create a story mod for Outer Wilds and win cash prizes!"
 	imageUrl="{websiteUrl}/images/jam-6.webp"
 	imageWidth={665}
 	imageHeight={416}
 >
-<!--
-	<PageSection title="Summer 2025 Planet Jam" id="ow-jam" isNarrow>
+	{#if jamIsOver}
+	<PageSection title={jamTitle} id="ow-jam" isNarrow>
 		<p>
-			For the third Outer Wilds mod jam, all entries had to take place in a shared solar system
-			provided by the base <strong>Mod Jam 3</strong> mod!
+			{@html jamSummary}
 		</p>
 		{#if jamRootMod}
 			<ModCard mod={jamRootMod} />
 		{/if}
 		<p>
-			<strong>The jam is over!</strong> The judges played through the submissions, discussed them, and
+			<strong>The jam is over!</strong> 
+			{#if firstPlaceMod}
+			The judges played through the submissions, discussed them, and
 			voted on them. This concludes the third Outer Wilds Mod Jam!
+			{:else}
+			The judges are now playing the mods and determining the winners. 
+			Check back soon to find out who won, or wait for the announcement on our <a href="#talk" class="link">Discord server</a>.
+			{/if}
 		</p>
 	</PageSection>
+	{#if firstPlaceMod}
 	<PageSection title="Results" id="results">
 		<div class="flex gap-2 flex-col md:flex-row">
 			{#if firstPlaceMod}
-				<JamWinnerBlock title="🥇 First place" subtitle="($165 to the team)">
+				<JamWinnerBlock title="🥇 First place" subtitle={`(${firstPlacePrize} to the team)`}>
 					<ModCard mod={firstPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if secondPlaceMod}
-				<JamWinnerBlock title="🥈 Second place" subtitle="($110 to the team)">
+				<JamWinnerBlock title="🥈 Second place" subtitle={`(${secondPlacePrize} to the team)`}>
 					<ModCard mod={secondPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if thirdPlaceMod}
-				<JamWinnerBlock title="🥉 Third place" subtitle="($55 to the team)">
+				<JamWinnerBlock title="🥉 Third place" subtitle={`(${thirdPlacePrize} to the team)`}>
 					<ModCard mod={thirdPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
-			<div />
+			{#if fourthPlaceMod}
+			
+				<JamWinnerBlock title="🏅 Fourth place" subtitle={`(${fourthPlacePrize} to the team)`}>
+					<ModCard mod={fourthPlaceMod} />
+				</JamWinnerBlock>
+			{/if}
 		</div>
 	</PageSection>
+	{/if}
 	<PageSection title="All Submissions" id="submissions">
+		{#if jamMods.length == 0}
+		<div class="text-center">
+			<b>Something went wrong, I guess nobody entered the jam! Womp womp!</b>
+		</div>
+		{/if}
 		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
 		<JamCredits {organizers} {judges} {donators} />
 	</PageSection>
-	<PageSection title="Original Jam Page" id="ow-jam-original" isNarrow>
+	{/if}
+	<PageSection title={jamIsOver ? "Original Jam Page" : jamTitle} id="ow-jam-original" isNarrow>
+		{#if jamIsOver}
 		<p>
 			The following sections contain all the information originally included in this jam page, when
 			the jam first started.
 		</p>
-		-->
-	<PageSection title="Summer 2026 Mod Jam" id="ow-jam-original" isNarrow>
+		{/if}
+
 		<PageSectionImage
-			title="Summer 2026 Mod Jam"
+			title={jamTitle}
 			imageUrl="/images/jam-6.webp"
 			width={665}
 			height={416}
@@ -272,17 +312,22 @@
 		<p>The prize pool for each jam is made up of contributions from our community! If you'd like to contribute to a jam, 
 			let us know on our <a class="link" href="#talk">Discord</a>.</p>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<span>🥇First place: <strong>$520</strong></span>
-			<span>🥈Second place: <strong>$390</strong></span>
-			<span>🥉Third place: <strong>$260</strong></span>
-			<span>🏅Fourth place: <strong>$130</strong></span>
+			<span>🥇First place: <strong>${firstPlacePrize}</strong></span>
+			<span>🥈Second place: <strong>${secondPlacePrize}</strong></span>
+			<span>🥉Third place: <strong>${thirdPlacePrize}</strong></span>
+			{#if fourthPlacePrize}
+			<span>🏅Fourth place: <strong>${fourthPlacePrize}</strong></span>
+			{/if}
 		</div>
 		<p>
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported. 
-			<b><i>No entry fee is required to participate.</i></b></p>
+		<p>
+			Note: cash prizes will be given via PayPal only. No other methods will be supported. 
+			<b><i>No entry fee is required to participate, participants are in no way encouraged to donate to the prize pool.</i></b>
+			A tie may be announced at the discretion of the organizers - the total prize pool will remain unchanged but may be allocated differently.
+		</p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
@@ -319,7 +364,7 @@
 			After the jam deadline has ended, we will play each submission and review them based on the
 			following criteria:
 		</p>
-		<p>💭 How well does it follow the theme(s)?</p>
+		<p>💭 How well does it follow the theme(s)? Does it abide by the restriction (if there is one)?</p>
 		<p>
 			💅 How polished is it? We will value quality over quantity. One highly polished feature is
 			better than 20 unrelated mechanics, and one highly polished planet is better than 20 empty
