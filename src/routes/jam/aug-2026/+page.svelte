@@ -59,7 +59,7 @@
 	let restriction = "Time loop";
 	let restrictionDesc = "To follow the restriction you must use the time loop as a mechanic in your mod in some way. Will you have time-specific events, puzzles that take place over multiple loops, or some other third thing? That's up to you! Just don't forget to include places to doze off and fast-forward the loop if necessary."
 	let jamSummary = `For the sixth Outer Wilds mod jam, all entries had to follow the themes of <u>${theme}</u> while following the <u>${restriction}</u> restriction!`
-	let jamTitle = `Summer 2026 Story Mod Jam`
+	let jamTitle = `Time Loop Mod Jam`
 
 	let startTimestamp = 1785600000000;
 	const endTimestamp = 1787011200000;
