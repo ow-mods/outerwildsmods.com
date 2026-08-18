@@ -62,7 +62,7 @@
 	let jamTitle = `Time Loop Mod Jam`
 
 	let startTimestamp = 1785600000000;
-	const endTimestamp = 1787011200000;
+	const endTimestamp = 1787097600000;
 
 	// Don't touch this
 	let targetTimestamp = 0;
@@ -279,6 +279,11 @@
 			<a class="link" href="https://nh.outerwildsmods.com/">New Horizons docs</a> to create your planets, settings, dialogue, etc.
 		</p>
 	</PageSection>
+	{#if !jamIsOver && jamMods.length != 0}
+	<PageSection title="Submissions So Far" id="submissions">
+		<ModGrid mods={jamMods} allowFiltering={false} defaultSortOrder="leastDownloaded" />
+	</PageSection>
+	{/if}
 	<PageSection title="Theme" id="theme" isNarrow>
 		{#if isAfterStartDate() || theme}
 			<p class="text-xl">
@@ -306,6 +311,10 @@
 			<span>🟢 Jam start: <strong>{startDateText}</strong></span>
 			<span>🔴 Jam end: <strong>{endDateText}</strong></span>
 			<small>(Time zone: {timeZoneText})</small>
+		</div>
+		<br/>
+		<div class="text-xl flex flex-col m-auto w-fit gap-4">
+			<small>A two-day extension was granted on August 15, and then another 24 hour extension due to GitHub outages.</small>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
