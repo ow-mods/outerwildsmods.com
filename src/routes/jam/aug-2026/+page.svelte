@@ -314,7 +314,7 @@
 		</div>
 		<br/>
 		<div class="text-xl flex flex-col m-auto w-fit gap-4">
-			<small>A two-day extension was granted on August 15, and then another 24 hour extension due to GitHub outages.</small>
+			<small>A three-day extension was granted on August 14, and then another 24 hour extension due to GitHub outages.</small>
 		</div>
 	</PageSection>
 	<PageSection title="Prizes" id="prizes" isNarrow>
