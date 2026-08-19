@@ -48,7 +48,7 @@
 	const donators = {
 		xen: 'xen-42',          
 		paulschellin: '',       
-		PaulTHerbert: '',       
+		JackTHerbert: 'JackTHerbert',       
 		Hawkbar: 'Hawkbat',     
 		Epsilon: '',            
 		"Callirhoe Starr": '',  
