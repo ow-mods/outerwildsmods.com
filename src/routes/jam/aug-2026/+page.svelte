@@ -18,10 +18,10 @@
 
 	// THESE GET REDEFINED FOR NEW JAMS AND THEN WE DON'T HAVE TO MESS AROUND REWRITING THESE PAGES FOREVER
 	const jamRootModId = null;
-	const firstPlaceModId = null;
-	const secondPlaceModId = null;
-	const thirdPlaceModId = null;
-	const fourthPlaceModId = null;
+	const firstPlaceModId = "Hawkbar.GhostInTheMachine";
+	const secondPlaceModId = "orclecle.EyeWitness";
+	const thirdPlaceModId = "GameWyrm.HotelPenumbra";
+	const fourthPlaceModId = "TeamFred.ThroughTheAges";
 
 	const firstPlacePrize = 520;
 	const secondPlacePrize = 390;
@@ -213,23 +213,23 @@
 	<PageSection title="Results" id="results">
 		<div class="flex gap-2 flex-col md:flex-row">
 			{#if firstPlaceMod}
-				<JamWinnerBlock title="🥇 First place" subtitle={`(${firstPlacePrize} to the team)`}>
+				<JamWinnerBlock title="🥇 First place" subtitle={`($${firstPlacePrize} to the team)`}>
 					<ModCard mod={firstPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if secondPlaceMod}
-				<JamWinnerBlock title="🥈 Second place" subtitle={`(${secondPlacePrize} to the team)`}>
+				<JamWinnerBlock title="🥈 Second place" subtitle={`($${secondPlacePrize} to the team)`}>
 					<ModCard mod={secondPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if thirdPlaceMod}
-				<JamWinnerBlock title="🥉 Third place" subtitle={`(${thirdPlacePrize} to the team)`}>
+				<JamWinnerBlock title="🥉 Third place" subtitle={`($${thirdPlacePrize} to the team)`}>
 					<ModCard mod={thirdPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
 			{#if fourthPlaceMod}
 			
-				<JamWinnerBlock title="🏅 Fourth place" subtitle={`(${fourthPlacePrize} to the team)`}>
+				<JamWinnerBlock title="🏅 Fourth place" subtitle={`($${fourthPlacePrize} to the team)`}>
 					<ModCard mod={fourthPlaceMod} />
 				</JamWinnerBlock>
 			{/if}
@@ -299,11 +299,12 @@
 			</p>
 		{/if}
 		<p>
-			You decide how to interpret the theme, and <u>must</u> follow the restriction. Make sure you read the <a class="link" href="#rules"
+			You decide how to interpret the themes, and <u>must</u> follow the restriction. Make sure you read the <a class="link" href="#rules"
 				>rules</a
 			>
 			and the <a class="link" href="#judging-criteria">judging criteria</a>. Remember that if your
-			entry does not implement the theme your entry cannot be considered for judging.
+			entry does not implement at least one of the themes your entry cannot be considered for
+			judging.
 		</p>
 	</PageSection>
 	<PageSection title="Duration" id="duration" isNarrow>
@@ -383,6 +384,11 @@
 			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
+		</p>
+		<p>
+			🚢 Please consider using shiplogs, especially one granted upon finishing the mod! If a judge
+			gets lost while playing your mod, shiplogs can allow them to easily get back on track without
+			frustration, which can otherwise negatively affect your score.
 		</p>
 		<p>
 			These guidelines can change depending on how the jam is going. We might also take a shot at

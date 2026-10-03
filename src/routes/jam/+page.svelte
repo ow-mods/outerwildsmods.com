@@ -11,7 +11,7 @@
 			title: 'Time Loop Mod Jam',
 			date: 'August 2026',
 			path: 'aug-2026',
-			active: true,
+			active: false,
 		},
 		{
 			title: 'Game Jam',
