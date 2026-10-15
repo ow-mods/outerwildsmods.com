@@ -1,5 +1,4 @@
 {
-
   inputs = {
     nixpkgs = { # for utility functions like mkShell
       url = "github:NixOS/nixpkgs";
@@ -19,9 +18,6 @@
             [
               pkgs.nodejs
             ];
-            shellHook = ''
-              npm run dev
-            '';
           };
-    });
+      });
 }
