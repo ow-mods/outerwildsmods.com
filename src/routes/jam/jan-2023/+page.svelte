@@ -15,7 +15,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList } = data;
+	const modList = $derived(data.modList);
 
 	const startTimestamp = 1673715600000;
 	const endTimestamp = 1674493200000;
@@ -45,16 +45,22 @@
 
 	setUpTimeValues();
 
-	const jamMods = modList.filter(
-		(mod) =>
-			mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold
+	const jamMods = $derived(
+		modList.filter(
+			(mod) =>
+				mod.tags.includes('jam') &&
+				Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold
+		)
 	);
-	const firstPlaceMods = jamMods.filter((mod) =>
-		['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
+	const firstPlaceMods = $derived(
+		jamMods.filter((mod) =>
+			['Hawkbar.ArcanumAdrift', '2walker2.Evacuation'].includes(mod.uniqueName)
+		)
 	);
-	const secondPlaceMods = jamMods.filter((mod) =>
-		['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
+	const secondPlaceMods = $derived(
+		jamMods.filter((mod) =>
+			['CantAffordaName.Archipelago', 'smallbug.NHJam1'].includes(mod.uniqueName)
+		)
 	);
 
 	const organizers = {
@@ -95,9 +101,9 @@
 	<PageSection title="New Horizons Jam" id="nh-jam" isNarrow>
 		<p>
 			<strong>The jam is over!</strong> After playing through them all, the judges voted on the submissions,
-			and in the end some of the results were tied. We decided to make a last minute change. Instead
-			of offering three different prizes for first, second, and third places, we increased the prize
-			pool and are instead having four winners: two submissions in first place, and two in second!
+			and in the end some of the results were tied. We decided to make a last minute change. Instead of
+			offering three different prizes for first, second, and third places, we increased the prize pool
+			and are instead having four winners: two submissions in first place, and two in second!
 		</p>
 	</PageSection>
 	<PageSection title="Results" id="results" isNarrow>
@@ -180,8 +186,10 @@
 			</a>. There will also be some extra Steam keys for winners or other participants, still to be
 			decided.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported.
-						<b><i>No entry fee is required to participate.</i></b></p>
+		<p>
+			Note: cash prizes will be given via PayPal only. No other methods will be supported.
+			<b><i>No entry fee is required to participate.</i></b>
+		</p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
@@ -208,8 +216,8 @@
 			<u>Do not to overwrite releases, as this will change the upload date of that release.</u>
 		</p>
 		<p>
-			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
-			or submit one mod solo and one in a team, or participate in multiple teams.
+			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods, or
+			submit one mod solo and one in a team, or participate in multiple teams.
 		</p>
 		<p>
 			👮 <strong>
@@ -232,27 +240,27 @@
 			following criteria:
 		</p>
 		<p>
-			<strong>💭 How well does it follow the themes?</strong> There are two themes. You can chose to
-			follow one of the themes, or both. You won't be penalized for only following one theme. A submission
-			that only follows one theme really well can be as good as a submission that follows both themes
-			kinda well.
+			<strong>💭 How well does it follow the themes?</strong> There are two themes. You can chose to follow
+			one of the themes, or both. You won't be penalized for only following one theme. A submission that
+			only follows one theme really well can be as good as a submission that follows both themes kinda
+			well.
 		</p>
 		<p>
 			<strong>💅 How polished is it?</strong> We will value quality over quantity. One highly polished
 			planet is better than 20 empty planets.
 		</p>
 		<p>
-			<strong>🌑 How well does it leverage New Horizons?</strong> The point of the jam is to take NH
-			to its limits, so we will prefer submissions that take full advantage of what NH has to offer and
-			use it in creative ways. But again, quality over quantity: it's better to use a few features really
+			<strong>🌑 How well does it leverage New Horizons?</strong> The point of the jam is to take NH to
+			its limits, so we will prefer submissions that take full advantage of what NH has to offer and use
+			it in creative ways. But again, quality over quantity: it's better to use a few features really
 			well, than trying to cramp all the features in there with no need for them.
 		</p>
 		<p>
 			<strong>🖼️ How well are the assets used?</strong> Whether you add your own custom assets (models,
-			textures, sounds, etc), or reuse the ones included in the game, they should fit the world they
-			are used in. We'll take into account the overall quality of the visuals/audio and how it all fits
-			together. So a highly detailed custom model with high resolution textures doesn't really mean anything
-			if everything around it doesn't follow the same standards.
+			textures, sounds, etc), or reuse the ones included in the game, they should fit the world they are
+			used in. We'll take into account the overall quality of the visuals/audio and how it all fits together.
+			So a highly detailed custom model with high resolution textures doesn't really mean anything if
+			everything around it doesn't follow the same standards.
 		</p>
 		<p>
 			<strong>👤 Overall opinion.</strong> The judges are (allegedly) people, so the review process will
@@ -263,7 +271,10 @@
 			These guidelines can change depending on how the jam is going. We might also take a shot at
 			community voting, if there are enough submissions to justify it and we can set up a good
 			system for it.
-			<b>Typically, all judges will rank their favourite entries, and these rankings will be combined to get the final result.</b>
+			<b
+				>Typically, all judges will rank their favourite entries, and these rankings will be
+				combined to get the final result.</b
+			>
 			In the event of a close race for one of the top three places we may announce a tie.
 		</p>
 	</PageSection>
@@ -350,16 +361,15 @@
 			get half the prize if you're on a two person team.
 		</p>
 		<p>
-			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around
-			there.
+			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around there.
 		</p>
 	</PageSection>
 	<PageSection title="Talk to us" id="talk" isNarrow>
 		<p>
 			Join our Discord server if you have more questions, or just wanna discuss anything related to
 			the jam, modding, etc. We have a <code>#nh-jam</code> channel specifically for this. Also make
-			sure to go to the <code>#get-roles</code> channel and get the Jam role, so you can be notified
-			of jam updates.
+			sure to go to the <code>#get-roles</code> channel and get the Jam role, so you can be notified of
+			jam updates.
 		</p>
 		<DiscordLink />
 	</PageSection>

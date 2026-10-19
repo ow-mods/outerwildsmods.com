@@ -17,7 +17,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList } = data;
+	const modList = $derived(data.modList);
 
 	let startTimestamp = 1688227200000;
 	const endTimestamp = 1689526800000;
@@ -92,17 +92,23 @@
 
 	setUpTimeValues();
 
-	const jamMods = modList.filter(
-		(mod) =>
-			mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
+	const jamMods = $derived(
+		modList.filter(
+			(mod) =>
+				mod.tags.includes('jam') &&
+				Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
+				Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
+		)
 	);
-	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor');
-	const secondPlaceMod = jamMods.find(
-		(mod) => mod.uniqueName === 'CantAffordaName.TesseractsSecret'
+	const firstPlaceMod = $derived(
+		jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor')
 	);
-	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'coderCleric.Mindscapes');
+	const secondPlaceMod = $derived(
+		jamMods.find((mod) => mod.uniqueName === 'CantAffordaName.TesseractsSecret')
+	);
+	const thirdPlaceMod = $derived(
+		jamMods.find((mod) => mod.uniqueName === 'coderCleric.Mindscapes')
+	);
 
 	const organizers = {
 		xen: 'xen-42',
@@ -224,8 +230,10 @@
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported. 
-			<b><i>No entry fee is required to participate.</i></b></p>
+		<p>
+			Note: cash prizes will be given via PayPal only. No other methods will be supported.
+			<b><i>No entry fee is required to participate.</i></b>
+		</p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
@@ -240,8 +248,8 @@
 			<u>Do not to overwrite releases, as this will change the upload date of that release.</u>
 		</p>
 		<p>
-			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
-			or submit one mod solo and one in a team, or participate in multiple teams.
+			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods, or
+			submit one mod solo and one in a team, or participate in multiple teams.
 		</p>
 		<p>
 			👮 All submissions must follow the <a
@@ -272,7 +280,10 @@
 			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
-			<b>Typically, all judges will rank their favourite entries, and these rankings will be combined to get the final result.</b>
+			<b
+				>Typically, all judges will rank their favourite entries, and these rankings will be
+				combined to get the final result.</b
+			>
 			In the event of a close race for one of the top three places we may announce a tie.
 		</p>
 		<p>
@@ -345,8 +356,7 @@
 			get half the prize if you're on a two person team.
 		</p>
 		<p>
-			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around
-			there.
+			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around there.
 		</p>
 	</PageSection>
 	<PageSection title="Talk to us" id="talk" isNarrow>

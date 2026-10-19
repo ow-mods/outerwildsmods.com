@@ -18,17 +18,18 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList } = data;
-	const newHorizons = modList.find((mod) => mod.uniqueName === 'xen.NewHorizons');
+	const modList = $derived(data.modList);
+	const newHorizons = $derived(modList.find((mod) => mod.uniqueName === 'xen.NewHorizons'));
 
-	const filteredModList = modList.filter((mod) => !mod.alpha);
+	const filteredModList = $derived(modList.filter((mod) => !mod.alpha));
 
-	const popularMods = sortModList(filteredModList, 'installs', modsPerCategory);
-	const popularNewMods = sortModList(filteredModList, 'popularNew', modsPerCategory, popularMods);
-	const updatedMods = sortModList(filteredModList, 'updated', modsPerCategory, [
-		...popularMods,
-		...popularNewMods,
-	]);
+	const popularMods = $derived(sortModList(filteredModList, 'installs', modsPerCategory));
+	const popularNewMods = $derived(
+		sortModList(filteredModList, 'popularNew', modsPerCategory, popularMods)
+	);
+	const updatedMods = $derived(
+		sortModList(filteredModList, 'updated', modsPerCategory, [...popularMods, ...popularNewMods])
+	);
 </script>
 
 <svelte:head>

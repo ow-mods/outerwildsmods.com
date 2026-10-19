@@ -42,6 +42,7 @@
 		x: 0,
 		y: 0,
 	});
+	// These are mutable hover state, seeded from the initial data.
 	let hoveredPoint: HistoryPoint = $state(historyPoints[0]);
 	let hoveredPointCompare: HistoryPoint | null = $state(comparePoints[0]);
 

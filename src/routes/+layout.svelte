@@ -14,6 +14,10 @@
 	}
 
 	let { children }: Props = $props();
+
+	const isPageNavigation = $derived(
+		navigating.to !== null && navigating.to.url.pathname !== page.url.pathname
+	);
 </script>
 
 {#if IS_WINTER}
@@ -24,8 +28,8 @@
 <Header />
 <main class="bg-background overflow-hidden highlight" data-sveltekit-preload-data="hover">
 	<span
-		class:opacity-20={navigating.to}
-		class:pointer-events-none={navigating.to}
+		class:opacity-20={isPageNavigation}
+		class:pointer-events-none={isPageNavigation}
 		class="transition-opacity"
 	>
 		<!-- Using the pathname as a key forces components to remount on navigating.

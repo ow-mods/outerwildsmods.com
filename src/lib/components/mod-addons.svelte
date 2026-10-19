@@ -9,7 +9,7 @@
 	}
 
 	let { mod, modList, tagList = [] }: Props = $props();
-	let addons = modList.filter((otherMod) => otherMod.parent === mod?.uniqueName);
+	const addons = $derived(modList.filter((otherMod) => otherMod.parent === mod?.uniqueName));
 </script>
 
 {#if addons.length > 0}

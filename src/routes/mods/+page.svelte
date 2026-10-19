@@ -10,9 +10,10 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList, tagList } = data;
+	const modList = $derived(data.modList);
+	const tagList = $derived(data.tagList);
 
-	const mods = modList.filter((mod) => !mod.alpha);
+	const mods = $derived(modList.filter((mod) => !mod.alpha));
 </script>
 
 <PageContainer

@@ -18,7 +18,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList } = data;
+	const modList = $derived(data.modList);
 
 	let startTimestamp = 1710518400000;
 	const endTimestamp = 1711497540000;
@@ -120,21 +120,27 @@
 
 	setUpTimeValues();
 
-	const jamMods = modList.filter(
-		(mod) =>
-			mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
-			mod.uniqueName !== 'xen.ModJam3'
+	const jamMods = $derived(
+		modList.filter(
+			(mod) =>
+				mod.tags.includes('jam') &&
+				Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold &&
+				Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold &&
+				mod.uniqueName !== 'xen.ModJam3'
+		)
 	);
 
 	let jamRootMod: Mod | undefined = $derived(
 		modList.find((otherMod) => otherMod.uniqueName === 'xen-42.ModJam3All')
 	);
 
-	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2');
-	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject');
-	const thirdPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers');
+	const firstPlaceMod = $derived(
+		jamMods.find((mod) => mod.uniqueName === 'GameWyrm.HearthsNeighbor2')
+	);
+	const secondPlaceMod = $derived(
+		jamMods.find((mod) => mod.uniqueName === 'TeamErnesto.OWJam3ModProject')
+	);
+	const thirdPlaceMod = $derived(jamMods.find((mod) => mod.uniqueName === 'Hawkbar.SolarRangers'));
 
 	const organizers = {
 		xen: 'xen-42',
@@ -283,16 +289,18 @@
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported. 
-			<b><i>No entry fee is required to participate.</i></b></p>
+		<p>
+			Note: cash prizes will be given via PayPal only. No other methods will be supported.
+			<b><i>No entry fee is required to participate.</i></b>
+		</p>
 	</PageSection>
 	<PageSection title="Rules" id="rules" isNarrow>
 		<p>
 			❔ Your mod must depend on the <a class="link" href="https://outerwildsmods.com/mods/modjam3/"
 				>Jam 3 base mod</a
 			> for compatibility. While this will handle the most obvious issues, you should keep compatibility
-			in mind when implementing your mods features. For example, you cannot change the length of the
-			time loop.
+			in mind when implementing your mods features. For example, you cannot change the length of the time
+			loop.
 		</p>
 		<p>
 			🪐 <strong
@@ -303,8 +311,8 @@
 			<u>If unsure about what counts as another planet, ask a jam organizer!</u>
 		</p>
 		<p>
-			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - Slate’s
-			Shipyard, VanillaFix, etc.
+			🛤️ <strong>Your mod can only have utility mods as dependencies.</strong> For example - Slate’s Shipyard,
+			VanillaFix, etc.
 		</p>
 		<p>
 			⏱️ <strong>
@@ -314,8 +322,8 @@
 			<u>Do not overwrite releases, as this will change the upload date of that release.</u>
 		</p>
 		<p>
-			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
-			or submit one mod solo and one in a team, or participate in multiple teams.
+			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods, or
+			submit one mod solo and one in a team, or participate in multiple teams.
 		</p>
 		<p>
 			👮 All submissions must follow the <a
@@ -346,7 +354,10 @@
 			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
-			<b>Typically, all judges will rank their favourite entries, and these rankings will be combined to get the final result.</b>
+			<b
+				>Typically, all judges will rank their favourite entries, and these rankings will be
+				combined to get the final result.</b
+			>
 			In the event of a close race for one of the top three places we may announce a tie.
 		</p>
 		<p>
@@ -425,8 +436,7 @@
 			get half the prize if you're on a two person team.
 		</p>
 		<p>
-			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around
-			there.
+			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around there.
 		</p>
 	</PageSection>
 	<PageSection title="Talk to us" id="talk" isNarrow>

@@ -40,6 +40,7 @@
 		allowFiltering = true,
 	}: Props = $props();
 
+	// Only use the initial default; later changes to the prop should not reset the selection.
 	let selectedSortOrderId: SortOrderId = $state(defaultSortOrder);
 	let filter = $state('');
 

@@ -14,3 +14,70 @@
 		@apply bg-dark p-1 rounded h-7;
 	}
 }
+
+/* Rendered mod readme */
+
+.markdown h1 {
+	margin: 0;
+}
+
+/* If the first thing in the markdown is a p, we don't want the margin since ugly */
+.markdown > p:first-child {
+	margin: 0;
+}
+
+.markdown pre {
+	padding: theme('spacing.4');
+	overflow: auto;
+}
+
+.markdown pre,
+.markdown code {
+	background: theme('colors.dark');
+	border-radius: theme('borderRadius.DEFAULT');
+	padding: theme('spacing.1');
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.markdown table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.markdown table,
+.markdown th,
+.markdown td {
+	border: 1px solid theme('colors.light');
+}
+
+.markdown td {
+	padding: theme('spacing.2');
+}
+
+.markdown li {
+	padding: theme('spacing.1') 0;
+}
+
+.markdown img {
+	display: inline-block;
+	height: auto;
+}
+
+.markdown a,
+.markdown summary {
+	color: theme('colors.accent');
+	cursor: pointer;
+	word-break: break-word;
+	font-weight: normal;
+
+	&:hover {
+		filter: brightness(1.25);
+	}
+}
+
+.markdown details {
+	background-color: theme('colors.dark');
+	border-radius: theme('borderRadius.DEFAULT');
+	padding: 0 theme('spacing.2');
+}
