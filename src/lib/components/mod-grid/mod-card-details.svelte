@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import { managerInstallProtocol } from '$lib/helpers/constants';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
+	import { managerInstallProtocol } from '#lib/helpers/constants';
 	import DownloadIcon from '../icons/download-icon.svelte';
-	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
+	import { canInstallViaProtocol } from '#lib/helpers/can-install-via-protocol';
 	import { modBeingInstalled } from '../mod-install-store';
 
 	interface Props {

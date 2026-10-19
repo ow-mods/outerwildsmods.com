@@ -6,18 +6,18 @@
 
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
+	import ModCard from '#lib/components/mod-grid/mod-card.svelte';
 	import {
 		type SortOrderId,
 		sortModList,
 		sortOrders,
 		isSortOrderId,
 		sortOrderParamName,
-	} from '$lib/helpers/mod-sorting';
+	} from '#lib/helpers/mod-sorting';
 	import TagsSelector from '../tags-selector.svelte';
-	import { modTagParamName } from '$lib/helpers/get-mod-tags';
-	import { modExcludeTagParamName } from '$lib/helpers/get-mod-tags';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import { modTagParamName } from '#lib/helpers/get-mod-tags';
+	import { modExcludeTagParamName } from '#lib/helpers/get-mod-tags';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 	import CheckboxInput from '../checkbox-input.svelte';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
@@ -85,9 +85,9 @@
 		if (isSortOrderId(sortOrderId)) {
 			selectedSortOrderId = sortOrderId;
 
-			const url = new URL(page.url);
+			const url = new URL(page.url.href);
 			url.searchParams.set(sortOrderParamName, sortOrderId);
-			goto(url.href, { noScroll: true });
+			goto(url.href, { reset: false });
 		}
 	};
 
@@ -119,7 +119,7 @@
 		tagAllowList = [];
 		tagBlockList = [];
 
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
 		for (const [tagName, tagValue] of Object.entries(tagStates)) {
@@ -131,17 +131,17 @@
 				tagBlockList.push(tagName);
 			}
 		}
-		goto(url.href, { noScroll: true });
+		goto(url.href, { reset: false });
 	};
 
 	const onClearTags = () => {
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		url.searchParams.delete(modTagParamName);
 		url.searchParams.delete(modExcludeTagParamName);
 		tagBlockList = [];
 		tagAllowList = [];
 		tagStates = {};
-		goto(url.href, { noScroll: true });
+		goto(url.href, { reset: false });
 	};
 
 	onMount(() => {

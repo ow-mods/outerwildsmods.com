@@ -1,14 +1,14 @@
 <script lang="ts">
-	import DiscordLink from '$lib/components/discord-link.svelte';
-	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { jamTimestampThreshold, websiteUrl } from '$lib/helpers/constants';
+	import DiscordLink from '#lib/components/discord-link.svelte';
+	import ModGrid from '#lib/components/mod-grid/mod-grid.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import { jamTimestampThreshold, websiteUrl } from '#lib/helpers/constants';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
-	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
+	import ModCard from '#lib/components/mod-grid/mod-card.svelte';
 
 	interface Props {
 		data: PageData;

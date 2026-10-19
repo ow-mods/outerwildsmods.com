@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { commentsSectionId } from '$lib/helpers/constants';
+	import { page } from '$app/state';
+	import { commentsSectionId } from '#lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
 	import PageSection from './page-section/page-section.svelte';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 
 	interface Props {
 		id: string;
@@ -16,13 +16,13 @@
 	let container: HTMLDivElement | undefined = $state();
 
 	function scrollToCommentsIfNeeded() {
-		if ($page.url.searchParams.has('giscus') && container) {
+		if (page.url.searchParams.has('giscus') && container) {
 			isVisible = true;
 			container.scrollIntoView();
 		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// oxlint-disable-next-line typescript/no-explicit-any
 	function handleGiscusEvent(event: MessageEvent<any>) {
 		if (event.origin !== 'https://giscus.app' || event.data.giscus.resizeHeight === 0) return;
 
@@ -74,7 +74,7 @@
 						data-category-id="DIC_kwDOGfoiNc4CabnK"
 						data-mapping="specific"
 						data-term={id}
-						data-theme="{$page.url.origin}/styles/giscus.css"
+						data-theme="{page.url.origin}/styles/giscus.css"
 						data-strict="1"
 						data-reactions-enabled="0"
 						data-emit-metadata="1"

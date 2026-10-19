@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import { error } from '@sveltejs/kit';
 import type { Mod } from './api/get-mod-list';
 import type { HeadingStructure } from './api/get-mod-readme';

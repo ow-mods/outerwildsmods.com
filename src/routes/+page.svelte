@@ -1,15 +1,15 @@
 <script lang="ts">
-	import LinkList from '$lib/components/link-list.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { sortModList } from '$lib/helpers/mod-sorting';
-	import FeaturedModSection from '$lib/components/featured-mod-section.svelte';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import LinkList from '#lib/components/link-list.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import { sortModList } from '#lib/helpers/mod-sorting';
+	import FeaturedModSection from '#lib/components/featured-mod-section.svelte';
+	import { websiteUrl } from '#lib/helpers/constants';
 	import type { PageData } from './$types';
-	import DiscordLink from '$lib/components/discord-link.svelte';
-	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import BigLink from '$lib/components/big-link.svelte';
-	import GithubIcon from '$lib/components/icons/github-icon.svelte';
+	import DiscordLink from '#lib/components/discord-link.svelte';
+	import ModCard from '#lib/components/mod-grid/mod-card.svelte';
+	import BigLink from '#lib/components/big-link.svelte';
+	import GithubIcon from '#lib/components/icons/github-icon.svelte';
 
 	const modsPerCategory = 3;
 

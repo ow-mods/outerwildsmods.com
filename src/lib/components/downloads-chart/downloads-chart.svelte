@@ -10,7 +10,7 @@
 		type HistoryPoint,
 	} from '../../helpers/api/history-points';
 	import type { FocusEventHandler, MouseEventHandler } from 'svelte/elements';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 
 	interface Props {
 		historyPoints?: HistoryPoint[];

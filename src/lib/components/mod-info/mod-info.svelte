@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { stringToNumber } from '$lib/helpers/string-to-number';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import { stringToNumber } from '#lib/helpers/string-to-number';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 	import CtaButton from '../button/cta-button.svelte';
 	import DownloadIcon from '../icons/download-icon.svelte';
 	import {
 		commentsSectionId,
 		managerInstallProtocol,
 		owmlUniqueName,
-	} from '$lib/helpers/constants';
-	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
+	} from '#lib/helpers/constants';
+	import { canInstallViaProtocol } from '#lib/helpers/can-install-via-protocol';
 	import { modBeingInstalled } from '../mod-install-store';
 	import ModDetails from './mod-details.svelte';
 

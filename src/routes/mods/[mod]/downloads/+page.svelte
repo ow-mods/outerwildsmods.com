@@ -1,11 +1,11 @@
 <script lang="ts">
-	import PageContainer from '$lib/components/page-container.svelte';
-	import LinkButton from '$lib/components/button/link-button.svelte';
-	import PageSectionTitle from '$lib/components/page-section/page-section-title.svelte';
-	import DownloadsChart from '$lib/components/downloads-chart/downloads-chart.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import LinkButton from '#lib/components/button/link-button.svelte';
+	import PageSectionTitle from '#lib/components/page-section/page-section-title.svelte';
+	import DownloadsChart from '#lib/components/downloads-chart/downloads-chart.svelte';
 	import type { PageData } from './$types';
-	import { listedImageSize } from '$lib/helpers/constants';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import { listedImageSize } from '#lib/helpers/constants';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 
 	interface Props {
 		data: PageData;

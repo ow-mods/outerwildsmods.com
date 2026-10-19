@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 
 	interface Props {
 		mod: Mod | undefined;

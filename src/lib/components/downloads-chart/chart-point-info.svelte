@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import { getDateText, type HistoryPoint } from '$lib/helpers/api/history-points';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
+	import { getDateText, type HistoryPoint } from '#lib/helpers/api/history-points';
 
 	const tooltipOffset = {
 		x: -200,
@@ -29,7 +29,7 @@
 </script>
 
 <div
-	class="text-center bg-darker bg-opacity-60 p-2 rounded z-10 min-w-max"
+	class="text-center bg-darker/60 p-2 rounded z-10 min-w-max"
 	style="left: {mousePosition.x + tooltipOffset.x}px; top: {mousePosition.y + tooltipOffset.y}px"
 >
 	<div class="justify-center">

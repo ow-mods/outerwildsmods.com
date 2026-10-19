@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	const googleId = 'G-2QQN7V5WE1';
 
 	if (browser) {

@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import CtaButton from '$lib/components/button/cta-button.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import WindowsIcon from '$lib/components/icons/windows-icon.svelte';
-	import { websiteUrl } from '$lib/helpers/constants';
-	import DebianIcon from '$lib/components/icons/debian-icon.svelte';
-	import ArchIcon from '$lib/components/icons/arch-icon.svelte';
-	import AppImageIcon from '$lib/components/icons/app-image-icon.svelte';
+	import CtaButton from '#lib/components/button/cta-button.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSectionImage from '#lib/components/page-section/page-section-image.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import WindowsIcon from '#lib/components/icons/windows-icon.svelte';
+	import { websiteUrl } from '#lib/helpers/constants';
+	import DebianIcon from '#lib/components/icons/debian-icon.svelte';
+	import ArchIcon from '#lib/components/icons/arch-icon.svelte';
+	import AppImageIcon from '#lib/components/icons/app-image-icon.svelte';
 	import type { PageData } from './$types';
-	import NixIcon from '$lib/components/icons/nix-icon.svelte';
-	import FlatpakIcon from '$lib/components/icons/flatpak-icon.svelte';
+	import NixIcon from '#lib/components/icons/nix-icon.svelte';
+	import FlatpakIcon from '#lib/components/icons/flatpak-icon.svelte';
 
 	interface Props {
 		data: PageData;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 	import TagToggle from '../tag-toggle.svelte';
 	import ModImage from './mod-image.svelte';
 

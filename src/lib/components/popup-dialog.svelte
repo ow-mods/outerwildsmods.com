@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import { browser } from '$app/environment';
-	import { focusElement } from '$lib/helpers/focus-element';
+	import { browser } from '$app/env';
+	import { focusElement } from '#lib/helpers/focus-element';
 	import LinkButton from './button/link-button.svelte';
 	import { navigating } from '$app/state';
 
@@ -34,7 +34,7 @@
 	<div
 		onclick={onClose}
 		onkeydown={onClose}
-		class="bg-black bg-opacity-50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center p-4"
+		class="bg-black/50 w-full h-full z-50 top-0 left-0 fixed flex items-center justify-center p-4"
 		role="presentation"
 	>
 		<div

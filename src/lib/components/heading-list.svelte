@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Heading_list from './heading-list.svelte';
-	import type { HeadingStructure } from '$lib/helpers/api/get-mod-readme';
+	import type { HeadingStructure } from '#lib/helpers/api/get-mod-readme';
 
 	interface Props {
 		headings: HeadingStructure[];

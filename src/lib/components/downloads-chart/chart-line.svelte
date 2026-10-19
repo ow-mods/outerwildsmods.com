@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { HistoryPoint } from '$lib/helpers/api/history-points';
+	import type { HistoryPoint } from '#lib/helpers/api/history-points';
 
 	interface Props {
 		historyPoints?: HistoryPoint[];

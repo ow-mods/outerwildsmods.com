@@ -1,5 +1,5 @@
 import { type RequestHandler, error, json } from '@sveltejs/kit';
-import { getModList } from '$lib/helpers/api/get-mod-list';
+import { getModList } from '#lib/helpers/api/get-mod-list';
 
 export const GET: RequestHandler = async () => {
 	try {

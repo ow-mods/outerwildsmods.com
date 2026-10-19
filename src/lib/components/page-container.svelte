@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import { page } from '$app/state';
+	import { websiteUrl } from '#lib/helpers/constants';
 
 	interface Props {
 		title: string;
@@ -20,7 +20,7 @@
 		children,
 	}: Props = $props();
 
-	const url = `${websiteUrl}${$page.url.pathname}`;
+	const url = `${websiteUrl}${page.url.pathname}`;
 </script>
 
 <svelte:head>

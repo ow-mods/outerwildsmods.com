@@ -1,6 +1,6 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
-import { getModReadme } from '$lib/helpers/api/get-mod-readme';
-import type { Mod } from '$lib/helpers/api/get-mod-list';
+import { getModReadme } from '#lib/helpers/api/get-mod-readme';
+import type { Mod } from '#lib/helpers/api/get-mod-list';
 
 type Params = {
 	modUniqueName: string;

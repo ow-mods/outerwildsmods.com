@@ -1,3 +1,5 @@
+@reference "./base.css";
+
 body {
 	@apply text-light
 	font-light
@@ -5,8 +7,7 @@ body {
 	bg-darker
 	overflow-y-scroll
 	selection:text-dark
-	selection:bg-accent
-	selection:bg-opacity-60;
+	selection:bg-accent/60;
 
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
 }

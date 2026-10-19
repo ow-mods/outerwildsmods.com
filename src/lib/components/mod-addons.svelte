@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 	import ModGrid from './mod-grid/mod-grid.svelte';
 
 	interface Props {

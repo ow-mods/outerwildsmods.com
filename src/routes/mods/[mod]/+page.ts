@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
-import { getModPageData } from '$lib/helpers/get-mod-page-data';
+import { getModPageData } from '#lib/helpers/get-mod-page-data';
 
 export const load: PageLoad = async ({ fetch, params, parent }) => {
 	const modList = (await parent()).modList;

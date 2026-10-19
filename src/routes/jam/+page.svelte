@@ -1,10 +1,10 @@
 <script lang="ts">
-	import LinkButton from '$lib/components/button/link-button.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import LinkButton from '#lib/components/button/link-button.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSectionColumns from '#lib/components/page-section/page-section-columns.svelte';
+	import PageSectionImage from '#lib/components/page-section/page-section-image.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import { websiteUrl } from '#lib/helpers/constants';
 
 	const jams = [
 		{

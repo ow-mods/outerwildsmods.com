@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { getModList } from '$lib/helpers/api/get-mod-list';
-import { websiteUrl } from '$lib/helpers/constants';
+import { getModList } from '#lib/helpers/api/get-mod-list';
+import { websiteUrl } from '#lib/helpers/constants';
 
 export const prerender = true;
 

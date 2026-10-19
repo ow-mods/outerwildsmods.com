@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 	import ModCardDetails from './mod-card-details.svelte';
 	import ModCardImage from './mod-card-image.svelte';
 

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import ModGrid from '#lib/components/mod-grid/mod-grid.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import { websiteUrl } from '#lib/helpers/constants';
 	import type { PageData } from './$types';
 
 	interface Props {

@@ -1,5 +1,5 @@
-import { getModDownloadHistory } from '$lib/helpers/api/get-download-history';
-import type { HistoryPoint } from '$lib/helpers/api/history-points';
+import { getModDownloadHistory } from '#lib/helpers/api/get-download-history';
+import type { HistoryPoint } from '#lib/helpers/api/history-points';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 type Params = {

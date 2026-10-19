@@ -1,8 +1,8 @@
 <script lang="ts">
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
-	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
+	import PageSectionImage from '#lib/components/page-section/page-section-image.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import PageSectionColumns from '#lib/components/page-section/page-section-columns.svelte';
+	import PageSectionDescription from '#lib/components/page-section/page-section-description.svelte';
 </script>
 
 <PageSection id="not-found" title="Page not found">

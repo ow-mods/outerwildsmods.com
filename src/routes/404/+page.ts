@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import { getModPageData } from '$lib/helpers/get-mod-page-data';
+import { getModPageData } from '#lib/helpers/get-mod-page-data';
 
 export const trailingSlash = 'never';
 
