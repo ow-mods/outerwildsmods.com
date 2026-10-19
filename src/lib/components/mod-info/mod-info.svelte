@@ -19,7 +19,7 @@
 	let { mod }: Props = $props();
 
 	const singleIcons = ['🙆', '💁', '🙋', '🤷', '💆', '🤦', '🙇', '🙎', '🙅', '🧍', '🚶', '🚶‍➡️'];
-	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥', '🧑‍🧒', '🤝'];
+	const duoIcons = ['🤼', '👯', '🧑‍🤝‍🧑', '🫂', '👥', '🤝'];
 	const trioIcons = ['🧑‍🧑‍🧒', '🧑‍🧒‍🧒'];
 	const moreIcons = ['🧑‍🧑‍🧒‍🧒'];
 	const everyoneIcons = ['🌐'];
