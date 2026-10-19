@@ -3,6 +3,7 @@ import fs, { promises as fsp } from 'fs';
 import path from 'path';
 import { getRawContentUrl } from '../get-raw-content-url';
 import { type ModFromDatabase } from './get-mod-database';
+import { getFullImageUrl } from './get-full-image-url';
 
 const getPath = (relativePath: string) => path.join(process.cwd(), relativePath);
 
@@ -95,15 +96,4 @@ export const downloadImage = async (
 		console.error(`Error downloading image ${imageUrl}: ${error}`);
 		return null;
 	}
-};
-
-const getFullImageUrl = (rawContentUrl: string, imageUrl: string) => {
-	return imageUrl.startsWith('http')
-		? // GitHub allows embedding images that actually point to webpages on github.com, so we have to replace the URLs here
-			imageUrl.replace(
-				/^https?:\/\/github.com\/(.+)\/(.+)\/blob\/(.+)\//gm,
-				'https://raw.githubusercontent.com/$1/$2/$3/'
-			)
-		: // For relative URLs we also have to resolve them
-			`${rawContentUrl}/${imageUrl}`;
 };

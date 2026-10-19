@@ -1,76 +1,14 @@
 import type { ModFromDatabase } from './get-mod-database';
-import rehypeStringify from 'rehype-stringify';
-import remarkGfm from 'remark-gfm';
-import remarkParse from 'remark-parse';
-import remarkRehype, { defaultHandlers } from 'remark-rehype';
-import rehypeSlug from 'rehype-slug';
-import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
-import { unified } from 'unified';
 import { getImageInfo, type ImageInfo } from './get-image-info';
+import { renderModReadme } from './render-mod-readme';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
 import { fromHtml } from 'hast-util-from-html';
-import { toString } from 'mdast-util-to-string';
-import type { Element } from 'hast';
-import GithubSlugger from 'github-slugger';
 
-export interface HeadingStructure {
-	text: string;
-	slug: string;
-	level: number;
-	children: HeadingStructure[];
-}
+export type { HeadingStructure, ModReadmeResult } from './render-mod-readme';
 
-export interface ModReadmeResult {
-	html: string;
-	headings: HeadingStructure[];
-}
-
-function buildHeadingStructure(
-	headings: Array<{ text: string; level: number }>
-): HeadingStructure[] {
-	const result: HeadingStructure[] = [];
-	const stack: HeadingStructure[] = [];
-
-	// This is what rehype-slug uses internally.
-	// Important to use the same thing to keep TOC and readme titles in sync.
-	const slugger = new GithubSlugger();
-
-	for (const heading of headings) {
-		const slug = slugger.slug(heading.text);
-		const headingNode: HeadingStructure = {
-			text: heading.text,
-			slug,
-			level: heading.level,
-			children: [],
-		};
-
-		while (stack.length > 0 && stack[stack.length - 1].level >= heading.level) {
-			stack.pop();
-		}
-
-		if (stack.length === 0) {
-			result.push(headingNode);
-		} else {
-			stack[stack.length - 1].children.push(headingNode);
-		}
-
-		stack.push(headingNode);
-	}
-
-	if (result.length === 1 && result[0].children.length > 0) {
-		// Special case for when there's a top level heading that contains everything else.
-		// In this case we flatten the top level to be in line with its direct children,
-		// too avoid too much nesting. We don't have much horizontal space here.
-		const topLevelHeading = result[0];
-		const flattenedResult = [{ ...topLevelHeading, children: [] }, ...topLevelHeading.children];
-		return flattenedResult;
-	}
-
-	return result;
-}
-
-export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResult | null> => {
+export const getModReadme = async (mod: ModFromDatabase) => {
 	if (!mod.readme) return null;
 
 	const response = await fetch(mod.readme.downloadUrl);
@@ -119,76 +57,5 @@ export const getModReadme = async (mod: ModFromDatabase): Promise<ModReadmeResul
 		})
 	);
 
-	const headings: Array<{ text: string; level: number }> = [];
-
-	const file = await unified()
-		.use(remarkParse)
-		.use(remarkGfm)
-		.use(remarkRehype, {
-			allowDangerousHtml: true,
-			handlers: {
-				link: (state, node) => {
-					const element = defaultHandlers.link(state, node);
-
-					if (!('href' in element.properties) || typeof element.properties.href !== 'string')
-						return element;
-
-					if (
-						!/^(https?:)?\/\//i.test(element.properties.href) &&
-						!element.properties.href.startsWith('#')
-					) {
-						const original = element.properties.href;
-						element.properties.href = `${mod.repo}/blob/HEAD/${original.replace(/^\.\//, '')}`;
-					}
-					return element;
-				},
-				image: (state, node) => {
-					const element = defaultHandlers.image(state, node);
-					if (!('src' in element.properties) || typeof element.properties.src !== 'string')
-						return element;
-
-					const src = element.properties.src;
-					element.properties.height = imageInfos[src]?.height;
-					element.properties.width = imageInfos[src]?.width;
-					element.properties.src = imageInfos[src]?.url;
-					return element;
-				},
-				heading: (state, node) => {
-					if (node.children?.[0]?.type === 'text') {
-						const text = toString(node);
-						headings.push({
-							text,
-							level: node.depth,
-						});
-					}
-
-					return defaultHandlers.heading(state, node);
-				},
-			},
-		})
-		.use(rehypeRaw)
-		.use(() => (tree) => {
-			// Handle <img> tags.
-			visit(tree, 'element', (node: Element) => {
-				if (node.tagName === 'img' && typeof node.properties?.src === 'string') {
-					const src = node.properties.src;
-					if (imageInfos[src]) {
-						node.properties.height ??= imageInfos[src].height;
-						node.properties.width ??= imageInfos[src].width;
-						node.properties.src = imageInfos[src].url;
-					}
-				}
-			});
-		})
-		.use(rehypeSanitize)
-		.use(rehypeSlug)
-		.use(rehypeStringify)
-		.process(markdown);
-
-	const headingStructure = buildHeadingStructure(headings);
-
-	return {
-		html: file.toString(),
-		headings: headingStructure,
-	};
+	return renderModReadme(markdown, mod, imageInfos);
 };
