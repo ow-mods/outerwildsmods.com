@@ -1,4 +1,4 @@
-import type { Mod } from '$lib/helpers/api/get-mod-list';
+import type { Mod } from '#lib/helpers/api/get-mod-list';
 
 export const modTagParamName = 'tag' as const;
 export const modExcludeTagParamName = 'exclude-tag' as const;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
 	import LinkButton from '../button/link-button.svelte';
 	import ModCard from '../mod-grid/mod-card.svelte';
 	import PageSectionTitle from '../page-section/page-section-title.svelte';

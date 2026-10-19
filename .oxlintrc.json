@@ -1,0 +1,37 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "unicorn", "oxc"],
+	"categories": {
+		"correctness": "error"
+	},
+	"env": {
+		"builtin": true,
+		"browser": true,
+		"node": true,
+		"svelte": true
+	},
+	"rules": {
+		"no-unused-vars": [
+			"error",
+			{
+				"varsIgnorePattern": "^_"
+			}
+		]
+	},
+	"ignorePatterns": [
+		"**/.DS_Store",
+		"**/node_modules",
+		"build",
+		".svelte-kit",
+		"package",
+		"tmp",
+		".direnv",
+		"**/.env",
+		"**/.env.*",
+		"!**/.env.example",
+		"**/package-lock.json",
+		"**/*.d.ts",
+		"src/routes/history/+page.svelte",
+		"src/routes/+page.svelte"
+	]
+}

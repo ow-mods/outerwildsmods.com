@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ModPage from '$lib/components/mod-page/mod-page.svelte';
+	import ModPage from '#lib/components/mod-page/mod-page.svelte';
 	import type { PageData } from './$types';
 
 	interface Props {

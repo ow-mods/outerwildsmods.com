@@ -1,13 +1,13 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
-	import Footer from '$lib/components/footer.svelte';
+	import Header from '#lib/components/header.svelte';
+	import Footer from '#lib/components/footer.svelte';
 	import '../styles/base.css';
 	import '../styles/components.css';
 	import '../styles/utilities.css';
 	import '../styles/app.css';
-	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
-	import Analytics from '$lib/components/analytics.svelte';
-	import Snow from '$lib/components/snow.svelte';
+	import ModInstallDialog from '#lib/components/mod-install-dialog.svelte';
+	import Analytics from '#lib/components/analytics.svelte';
+	import Snow from '#lib/components/snow.svelte';
 	import { navigating, page } from '$app/state';
 	interface Props {
 		children?: import('svelte').Snippet;

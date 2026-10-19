@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getModList, type Mod } from '$lib/helpers/api/get-mod-list';
+	import { getModList, type Mod } from '#lib/helpers/api/get-mod-list';
 	import { sortBy } from 'lodash-es';
 	import { onMount } from 'svelte';
 

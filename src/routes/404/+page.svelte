@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Comments from '$lib/components/comments.svelte';
-	import ErrorMessage from '$lib/components/error-message.svelte';
-	import ModPage from '$lib/components/mod-page/mod-page.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
+	import Comments from '#lib/components/comments.svelte';
+	import ErrorMessage from '#lib/components/error-message.svelte';
+	import ModPage from '#lib/components/mod-page/mod-page.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
 	import type { PageData } from './$types';
 
 	interface Props {

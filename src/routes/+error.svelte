@@ -1,11 +1,11 @@
 <script lang="ts" module>
-	import Comments from '$lib/components/comments.svelte';
-	import { page } from '$app/stores';
+	import Comments from '#lib/components/comments.svelte';
+	import { page } from '$app/state';
 </script>
 
 <script lang="ts">
-	import PageContainer from '$lib/components/page-container.svelte';
-	import ErrorMessage from '$lib/components/error-message.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import ErrorMessage from '#lib/components/error-message.svelte';
 </script>
 
 <PageContainer
@@ -13,7 +13,7 @@
 	description="Something went wrong on the Outer Wilds Mods website"
 >
 	<ErrorMessage />
-	<code class="whitespace-pre-wrap break-words">{$page.status}: {$page.error?.message}</code>
+	<code class="whitespace-pre-wrap break-words">{page.status}: {page.error?.message}</code>
 
 	<Comments id="page: Error" />
 </PageContainer>

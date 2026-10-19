@@ -1,16 +1,16 @@
 <script lang="ts">
-	import PageContainer from '$lib/components/page-container.svelte';
-	import ModInfo from '$lib/components/mod-info/mod-info.svelte';
-	import ModReadme from '$lib/components/mod-readme/mod-readme.svelte';
-	import ParentMod from '$lib/components/mod-info/parent-mod.svelte';
-	import ChildMods from '$lib/components/mod-info/child-mods.svelte';
-	import { listedImageSize } from '$lib/helpers/constants';
-	import Comments from '$lib/components/comments.svelte';
-	import { sortModList } from '$lib/helpers/mod-sorting';
-	import NavigationMod from '$lib/components/navigation-mod.svelte';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import type { HeadingStructure } from '$lib/helpers/api/get-mod-readme';
-	import TableOfContents from '$lib/components/table-of-contents.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import ModInfo from '#lib/components/mod-info/mod-info.svelte';
+	import ModReadme from '#lib/components/mod-readme/mod-readme.svelte';
+	import ParentMod from '#lib/components/mod-info/parent-mod.svelte';
+	import ChildMods from '#lib/components/mod-info/child-mods.svelte';
+	import { listedImageSize } from '#lib/helpers/constants';
+	import Comments from '#lib/components/comments.svelte';
+	import { sortModList } from '#lib/helpers/mod-sorting';
+	import NavigationMod from '#lib/components/navigation-mod.svelte';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
+	import type { HeadingStructure } from '#lib/helpers/api/get-mod-readme';
+	import TableOfContents from '#lib/components/table-of-contents.svelte';
 
 	interface Props {
 		mod: Mod;
@@ -68,7 +68,7 @@
 				</p>
 			{/if}
 		</div>
-		<div class="flex-0 md:w-52 mx-auto">
+		<div class="shrink-0 md:w-52 mx-auto">
 			<div class="hidden md:block mb-4">
 				<ModInfo {mod} />
 				{#if headingStructure && headingStructure.length > 1}

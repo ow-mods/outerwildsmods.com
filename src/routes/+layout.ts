@@ -1,9 +1,9 @@
 import type { LayoutLoad } from './$types';
-import { getModTags } from '$lib/helpers/get-mod-tags';
+import { getModTags } from '#lib/helpers/get-mod-tags';
 import { error } from '@sveltejs/kit';
-import type { Mod } from '$lib/helpers/api/get-mod-list';
-import { browser } from '$app/environment';
-import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
+import type { Mod } from '#lib/helpers/api/get-mod-list';
+import { browser } from '$app/env';
+import { getModBySlug } from '#lib/helpers/get-mod-by-slug';
 
 export const load: LayoutLoad = async ({ fetch, url }) => {
 	const modsResult = await fetch('/api/mods.json');
@@ -22,7 +22,7 @@ export const load: LayoutLoad = async ({ fetch, url }) => {
 		if (isUnknownMod) {
 			try {
 				// Keep the live-database code out of the initial bundle; it's only needed here.
-				const { getLiveModList } = await import('$lib/helpers/api/mod-from-database');
+				const { getLiveModList } = await import('#lib/helpers/api/mod-from-database');
 				const liveModList = await getLiveModList();
 				const knownUniqueNames = new Set(modList.map((mod) => mod.uniqueName));
 				const newMods = liveModList.filter((mod) => !knownUniqueNames.has(mod.uniqueName));

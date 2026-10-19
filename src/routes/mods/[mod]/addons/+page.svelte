@@ -1,12 +1,12 @@
 <script lang="ts">
-	import PageContainer from '$lib/components/page-container.svelte';
-	import { page } from '$app/stores';
-	import ModAddons from '$lib/components/mod-addons.svelte';
-	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { getModBySlug } from '$lib/helpers/get-mod-by-slug';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import { page } from '$app/state';
+	import ModAddons from '#lib/components/mod-addons.svelte';
+	import ModCard from '#lib/components/mod-grid/mod-card.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import { getModBySlug } from '#lib/helpers/get-mod-by-slug';
 	import type { PageData } from './$types';
-	import { listedImageSize } from '$lib/helpers/constants';
+	import { listedImageSize } from '#lib/helpers/constants';
 
 	interface Props {
 		data: PageData;
@@ -15,7 +15,7 @@
 	let { data }: Props = $props();
 	const { modList } = data;
 
-	const mod = getModBySlug(modList, $page.params.mod ?? '');
+	const mod = getModBySlug(modList, page.params.mod ?? '');
 </script>
 
 {#if mod}

@@ -1,16 +1,16 @@
 <script lang="ts">
-	import DiscordLink from '$lib/components/discord-link.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import { jamTimestampThreshold, websiteUrl } from '$lib/helpers/constants';
+	import DiscordLink from '#lib/components/discord-link.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import { jamTimestampThreshold, websiteUrl } from '#lib/helpers/constants';
 	import { onDestroy, onMount } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { PageData } from './$types';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
+	import PageSectionImage from '#lib/components/page-section/page-section-image.svelte';
+	import ModGrid from '#lib/components/mod-grid/mod-grid.svelte';
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
-	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
+	import ModCard from '#lib/components/mod-grid/mod-card.svelte';
 
 	interface Props {
 		data: PageData;
@@ -54,7 +54,7 @@
 	};
 
 	const setUpTestTimestamp = () => {
-		const testTimestampText = $page.url.searchParams.get('testtimestamp');
+		const testTimestampText = page.url.searchParams.get('testtimestamp');
 		if (testTimestampText) {
 			const testTimestamp = parseInt(testTimestampText);
 			if (!Number.isNaN(testTimestamp)) {

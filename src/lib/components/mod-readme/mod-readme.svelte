@@ -12,6 +12,8 @@
 </div>
 
 <style>
+	@reference "../../../styles/base.css";
+
 	.markdown :global(h1) {
 		margin: 0;
 	}

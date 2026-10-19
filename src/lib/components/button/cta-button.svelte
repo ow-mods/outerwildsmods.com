@@ -21,7 +21,7 @@
 </script>
 
 <a
-	class="rounded flex bg-cta fill-white text-white bg-opacity-80 hover:bg-opacity-100"
+	class="rounded flex bg-cta/80 fill-white text-white hover:bg-cta"
 	{href}
 	target={isExternal ? '_blank' : undefined}
 	rel={rel ?? (isExternal ? 'noopener noreferrer' : undefined)}
@@ -29,7 +29,7 @@
 >
 	{#if icon}
 		{@const SvelteComponent = icon}
-		<div class="bg-black bg-opacity-20 p-3 flex justify-center items-center w-12 min-h-12">
+		<div class="bg-black/20 p-3 flex justify-center items-center w-12 min-h-12">
 			<SvelteComponent />
 		</div>
 	{/if}

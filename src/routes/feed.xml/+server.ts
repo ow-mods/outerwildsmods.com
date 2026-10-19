@@ -1,6 +1,6 @@
-import { getModList, type Mod } from '$lib/helpers/api/get-mod-list';
-import { thumbnailUrlBase, websiteUrl } from '$lib/helpers/constants';
-import { sortOrders } from '$lib/helpers/mod-sorting';
+import { getModList, type Mod } from '#lib/helpers/api/get-mod-list';
+import { thumbnailUrlBase, websiteUrl } from '#lib/helpers/constants';
+import { sortOrders } from '#lib/helpers/mod-sorting';
 
 export const GET = async () => {
 	const modList = await getModList();
@@ -50,7 +50,7 @@ function splitModsByReleaseDate(mods: Mod[]) {
 		mapOfMods[key].push(mod);
 		return mapOfMods;
 	});
-	return [...Object.values(mapOfMods)];
+	return Object.values(mapOfMods);
 }
 
 function renderModRelease(mod: Mod) {

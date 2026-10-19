@@ -1,4 +1,4 @@
-@tailwind components;
+@reference "./base.css";
 
 @layer components {
 	.link {

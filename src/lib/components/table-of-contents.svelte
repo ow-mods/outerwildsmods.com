@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { HeadingStructure } from '$lib/helpers/api/get-mod-readme';
+	import type { HeadingStructure } from '#lib/helpers/api/get-mod-readme';
 	import HeadingList from './heading-list.svelte';
 
 	interface Props {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HorizontalLine from '$lib/components/line/horizontal-line.svelte';
+	import HorizontalLine from '#lib/components/line/horizontal-line.svelte';
 
 	interface Props {
 		id: string;

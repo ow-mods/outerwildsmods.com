@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
+	import { websiteUrl } from '#lib/helpers/constants';
 	import CodeSnippet from '../code-snippet.svelte';
 	import PopupDialog from '../popup-dialog.svelte';
-	import { canInstallViaProtocol } from '$lib/helpers/can-install-via-protocol';
+	import { canInstallViaProtocol } from '#lib/helpers/can-install-via-protocol';
 
 	interface Props {
 		mod: Mod;

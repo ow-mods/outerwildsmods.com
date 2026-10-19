@@ -1,13 +1,13 @@
 <script lang="ts">
-	import LinkButton from '$lib/components/button/link-button.svelte';
-	import PageContainer from '$lib/components/page-container.svelte';
-	import PageSectionColumns from '$lib/components/page-section/page-section-columns.svelte';
-	import PageSectionDescription from '$lib/components/page-section/page-section-description.svelte';
-	import PageSectionImage from '$lib/components/page-section/page-section-image.svelte';
-	import PageSection from '$lib/components/page-section/page-section.svelte';
-	import ModGrid from '$lib/components/mod-grid/mod-grid.svelte';
+	import LinkButton from '#lib/components/button/link-button.svelte';
+	import PageContainer from '#lib/components/page-container.svelte';
+	import PageSectionColumns from '#lib/components/page-section/page-section-columns.svelte';
+	import PageSectionDescription from '#lib/components/page-section/page-section-description.svelte';
+	import PageSectionImage from '#lib/components/page-section/page-section-image.svelte';
+	import PageSection from '#lib/components/page-section/page-section.svelte';
+	import ModGrid from '#lib/components/mod-grid/mod-grid.svelte';
 	import type { PageData } from './$types';
-	import { websiteUrl } from '$lib/helpers/constants';
+	import { websiteUrl } from '#lib/helpers/constants';
 
 	interface Props {
 		data: PageData;

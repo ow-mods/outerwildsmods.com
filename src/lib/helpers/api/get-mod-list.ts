@@ -1,6 +1,6 @@
-import { getModDatabase } from '$lib/helpers/api/get-mod-database';
-import type { ModFromDatabase } from '$lib/helpers/api/get-mod-database';
-import { modFromDatabase } from '$lib/helpers/api/mod-from-database';
+import { getModDatabase } from '#lib/helpers/api/get-mod-database';
+import type { ModFromDatabase } from '#lib/helpers/api/get-mod-database';
+import { modFromDatabase } from '#lib/helpers/api/mod-from-database';
 
 export interface Mod extends ModFromDatabase {
 	imageUrl: string | null;

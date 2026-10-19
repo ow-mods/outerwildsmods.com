@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
-	import { listedImageSize } from '$lib/helpers/constants';
-	import { getHueFromText } from '$lib/helpers/get-hue-from-name';
+	import type { Mod } from '#lib/helpers/api/get-mod-list';
+	import { listedImageSize } from '#lib/helpers/constants';
+	import { getHueFromText } from '#lib/helpers/get-hue-from-name';
 
 	interface Props {
 		mod: Mod;
@@ -28,7 +28,7 @@
 		</div>
 	{/if}
 	<img
-		class="block object-contain w-full h-full text-white text-opacity-30"
+		class="block object-contain w-full h-full text-white/30"
 		alt={imageSrc ? mod.name : ''}
 		src={imageSrc || '/images/placeholder.webp'}
 		loading={imageSrc && lazy ? 'lazy' : 'eager'}

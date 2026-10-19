@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Navigation from '$lib/components/navigation/navigation.svelte';
+	import Navigation from '#lib/components/navigation/navigation.svelte';
 	import { onMount } from 'svelte';
 	import NavigationLink from './navigation/navigation-link.svelte';
 
