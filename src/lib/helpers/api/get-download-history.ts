@@ -1,60 +1,42 @@
-import { flatten } from 'lodash-es';
 import type { HistoryPoint } from './history-points';
-import { getModList } from './get-mod-list';
 import { downloadHistoryUrl } from '../constants';
 
-export type DownloadHistory = {
-	Repo: string;
-	Updates: HistoryPoint[];
-}[];
+export type DownloadHistoryPoint = [unixTimestamp: number, downloadCount: number];
 
-let downloadHistoryCache: DownloadHistory | undefined;
+export type DownloadHistory = DownloadHistoryPoint[];
 
-const getDownloadHistory = async () => {
+const downloadHistoryCache = new Map<string, DownloadHistory>();
+
+const getDownloadHistory = async (modUniqueName: string) => {
 	try {
-		if (downloadHistoryCache) return downloadHistoryCache;
+		const cachedHistory = downloadHistoryCache.get(modUniqueName);
+		if (cachedHistory) return cachedHistory;
 
-		const result = await fetch(downloadHistoryUrl);
+		const result = await fetch(`${downloadHistoryUrl}/${modUniqueName}.json`);
 
 		if (!result.ok) {
 			throw new Error(`Response not OK: ${result.status}`);
 		}
 
 		const resultJson: DownloadHistory = await result.json();
-		downloadHistoryCache = resultJson;
+		downloadHistoryCache.set(modUniqueName, resultJson);
 
 		return resultJson;
 	} catch (error) {
-		console.error(`Error getting download history: ${error}`);
+		console.error(`Error getting download history for ${modUniqueName}: ${error}`);
 		return null;
 	}
 };
 
 export const getModDownloadHistory = async (modUniqueName: string) => {
-	const mods = await getModList();
-	const mod = mods.find((mod) => mod.uniqueName === modUniqueName);
-	const repoUrl = mod?.repo.toLocaleLowerCase();
-	// Some repos changed names, and the downloads history json uses the repos for IDs.
-	const repoUrlVariations = mod?.repoVariations || [];
-
-	if (!repoUrl) {
-		throw new Error(`Could not find repoUrl for mod ${modUniqueName}`);
-	}
-
-	const downloadHistory = await getDownloadHistory();
+	const downloadHistory = await getDownloadHistory(modUniqueName);
 
 	if (!downloadHistory) {
 		throw new Error(`Could not load downloads chart`);
 	}
 
-	return flatten(
-		[repoUrl, ...repoUrlVariations].map(
-			(repo) =>
-				downloadHistory.find(
-					(historyItem) => historyItem.Repo.toLocaleLowerCase() === repo.toLocaleLowerCase()
-				)?.Updates
-		)
-	)
+	return downloadHistory
+		.map(([UnixTimestamp, DownloadCount]) => ({ UnixTimestamp, DownloadCount }))
 		.filter(filterHistoryPoint)
 		.sort((a, b) => b.UnixTimestamp - a.UnixTimestamp);
 };

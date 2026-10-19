@@ -12,8 +12,7 @@ export const jamTimestampThreshold = 3600000;
 const databaseUrlBase = 'https://ow-mods.github.io/ow-mod-db';
 export const thumbnailUrlBase = `${databaseUrlBase}/thumbnails`;
 export const modDatabaseUrl = `${databaseUrlBase}/database.json`;
-export const downloadHistoryUrl =
-	'https://ow-mods.github.io/ow-mod-download-history/download-history.json';
+export const downloadHistoryUrl = `${databaseUrlBase}/download-history`;
 export const managerInstallProtocol = 'owmods://install-mod';
 export const owmlUniqueName = 'Alek.OWML';
 export const commentsSectionId = 'page-comments';
