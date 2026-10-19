@@ -5,9 +5,6 @@
 	import '../styles/components.css';
 	import '../styles/utilities.css';
 	import '../styles/app.css';
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	import { linkedFromNotificationParamName } from '$lib/helpers/constants';
 	import ModInstallDialog from '$lib/components/mod-install-dialog.svelte';
 	import Analytics from '$lib/components/analytics.svelte';
 	import Snow from '$lib/components/snow.svelte';
@@ -17,14 +14,6 @@
 	}
 
 	let { children }: Props = $props();
-
-	onMount(() => {
-		if (page.status == 200 && page.url.searchParams.has(linkedFromNotificationParamName)) {
-			const url = new URL(page.url);
-			url.searchParams.delete(linkedFromNotificationParamName);
-			goto(url.href);
-		}
-	});
 </script>
 
 {#if IS_WINTER}
