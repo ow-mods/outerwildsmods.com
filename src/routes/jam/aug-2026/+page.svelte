@@ -11,7 +11,6 @@
 	import JamCredits from '../jam-credits.svelte';
 	import JamWinnerBlock from '../jam-winner-block.svelte';
 	import ModCard from '$lib/components/mod-grid/mod-card.svelte';
-	import type { Mod } from '$lib/helpers/api/get-mod-list';
 
 	export let data: PageData;
 	const { modList } = data;
@@ -65,7 +64,6 @@
 	const endTimestamp = 1787097600000;
 
 	// Don't touch this
-	let targetTimestamp = 0;
 	let startDateText = '';
 	let endDateText = '';
 	let targetDateText = '';
@@ -76,7 +74,7 @@
 	let minutesLeft = 0;
 	let secondsLeft = 0;
 
-	let timer: NodeJS.Timer | undefined;
+	let timer: ReturnType<typeof setInterval> | undefined;
 
 	let jamIsOver = Date.now() > endTimestamp;
 
@@ -94,8 +92,7 @@
 
 	const isAfterStartDate = () => Date.now() > startTimestamp;
 
-	const getTargetTimestamp = () =>
-		(targetTimestamp = isAfterStartDate() ? endTimestamp : startTimestamp);
+	const getTargetTimestamp = () => (isAfterStartDate() ? endTimestamp : startTimestamp);
 
 	const setUpTimeValues = () => {
 		startDateText = getDateString(startTimestamp);
