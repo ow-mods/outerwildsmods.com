@@ -13,9 +13,9 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList } = data;
+	const modList = $derived(data.modList);
 
-	const mod = getModBySlug(modList, page.params.mod ?? '');
+	const mod = $derived(getModBySlug(modList, page.params.mod ?? ''));
 </script>
 
 {#if mod}

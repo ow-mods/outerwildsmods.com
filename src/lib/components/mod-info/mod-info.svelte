@@ -24,48 +24,49 @@
 	const moreIcons = ['🧑‍🧑‍🧒‍🧒'];
 	const everyoneIcons = ['🌐'];
 
-	let iconList = singleIcons;
+	const modIcon = $derived.by(() => {
+		const author = mod.authorDisplay?.trim() || mod.author?.trim() || '';
+		const authorLower = author.toLowerCase();
 
-	const author = mod.authorDisplay?.trim() || mod.author?.trim() || '';
-	const authorLower = author.toLowerCase();
+		const packAuthor = 'a bunch of people';
+		const moreThanThreeKeywords = [
+			'the',
+			'team',
+			'friends',
+			'others',
+			'group',
+			'studio',
+			'crew',
+			'squad',
+			'people',
+		];
 
-	const packAuthor = 'a bunch of people';
-	const moreThanThreeKeywords = [
-		'the',
-		'team',
-		'friends',
-		'others',
-		'group',
-		'studio',
-		'crew',
-		'squad',
-		'people',
-	];
+		const containsMore = moreThanThreeKeywords.some(
+			(k) => authorLower.startsWith(k) || authorLower.endsWith(k)
+		);
 
-	const containsMore = moreThanThreeKeywords.some(
-		(k) => authorLower.startsWith(k) || authorLower.endsWith(k)
-	);
+		const authorCount = authorLower
+			.replace(/\s*&\s*/g, ',') // Replace " & " with comma
+			.replace(/\s+and\s+/gi, ',') // Replace "and" with comma
+			.replace(/\s*,\s*/g, ',') // normalize spacing around commas
+			.split(',') // split the string by commas to separate into individual author names
+			.map((s) => s.trim()) // remove extra spaces from each name
+			.filter(Boolean).length; // remove empty strings (e.g., from double commas)
 
-	const authorCount = authorLower
-		.replace(/\s*&\s*/g, ',') // Replace " & " with comma
-		.replace(/\s+and\s+/gi, ',') // Replace "and" with comma
-		.replace(/\s*,\s*/g, ',') // normalize spacing around commas
-		.split(',') // split the string by commas to separate into individual author names
-		.map((s) => s.trim()) // remove extra spaces from each name
-		.filter(Boolean).length; // remove empty strings (e.g., from double commas)
+		let iconList = singleIcons;
 
-	if (authorLower === packAuthor) {
-		iconList = everyoneIcons;
-	} else if (authorCount > 3 || containsMore) {
-		iconList = moreIcons;
-	} else if (authorCount === 3) {
-		iconList = trioIcons;
-	} else if (authorCount === 2) {
-		iconList = duoIcons;
-	}
+		if (authorLower === packAuthor) {
+			iconList = everyoneIcons;
+		} else if (authorCount > 3 || containsMore) {
+			iconList = moreIcons;
+		} else if (authorCount === 3) {
+			iconList = trioIcons;
+		} else if (authorCount === 2) {
+			iconList = duoIcons;
+		}
 
-	const iconIndex = stringToNumber(author) % iconList.length;
-	const modIcon = iconList[iconIndex];
+		return iconList[stringToNumber(author) % iconList.length];
+	});
 </script>
 
 <div

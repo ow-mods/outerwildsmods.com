@@ -12,7 +12,9 @@
 	}
 
 	let { data }: Props = $props();
-	const { modDownloadHistory, mod, modList } = data;
+	const modDownloadHistory = $derived(data.modDownloadHistory);
+	const mod = $derived(data.mod);
+	const modList = $derived(data.modList);
 
 	let compareWithMod: Mod | null = $state(null);
 	let compareWithHistory = $state([]);
@@ -33,7 +35,9 @@
 		})();
 	});
 
-	const modsExceptSelf = modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName);
+	const modsExceptSelf = $derived(
+		modList.filter(({ uniqueName }) => uniqueName !== mod.uniqueName)
+	);
 </script>
 
 <PageContainer

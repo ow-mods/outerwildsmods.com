@@ -17,7 +17,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { modList } = data;
+	const modList = $derived(data.modList);
 
 	let startTimestamp = 1729357200000;
 	const endTimestamp = 1730768400000;
@@ -123,17 +123,23 @@
 
 	setUpTimeValues();
 
-	const jamMods = modList.filter(
-		(mod) =>
-			mod.tags.includes('jam') &&
-			Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold * 3 &&
-			Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
+	const jamMods = $derived(
+		modList.filter(
+			(mod) =>
+				mod.tags.includes('jam') &&
+				Date.parse(mod.firstReleaseDate) <= endTimestamp + jamTimestampThreshold * 3 &&
+				Date.parse(mod.firstReleaseDate) >= startTimestamp - jamTimestampThreshold
+		)
 	);
 
-	const firstPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Hawkbar.GreenFlameBlade');
-	const secondPlaceMod = jamMods.find((mod) => mod.uniqueName === 'Etherpod.LuminaTerra');
-	const thirdPlaceMods = jamMods.filter((mod) =>
-		['2walker2.OWJam4ModProject', 'Echatsum.MisfiredJump'].includes(mod.uniqueName)
+	const firstPlaceMod = $derived(
+		jamMods.find((mod) => mod.uniqueName === 'Hawkbar.GreenFlameBlade')
+	);
+	const secondPlaceMod = $derived(jamMods.find((mod) => mod.uniqueName === 'Etherpod.LuminaTerra'));
+	const thirdPlaceMods = $derived(
+		jamMods.filter((mod) =>
+			['2walker2.OWJam4ModProject', 'Echatsum.MisfiredJump'].includes(mod.uniqueName)
+		)
 	);
 
 	const organizers = {
@@ -298,8 +304,10 @@
 			Amounts in USD. All winners will also get a special role on
 			<a class="link" href="#talk">our Discord server</a>.
 		</p>
-		<p>Note: cash prizes will be given via PayPal only. No other methods will be supported. 
-			<b><i>No entry fee is required to participate.</i></b></p>
+		<p>
+			Note: cash prizes will be given via PayPal only. No other methods will be supported.
+			<b><i>No entry fee is required to participate.</i></b>
+		</p>
 	</PageSection>
 	<PageSection title="Credits" id="credits" isNarrow>
 		<JamCredits {organizers} {judges} {donators} />
@@ -317,8 +325,8 @@
 			<u>Do not overwrite releases, as this will change the upload date of that release.</u>
 		</p>
 		<p>
-			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods,
-			or submit one mod solo and one in a team, or participate in multiple teams.
+			🙋 <strong>You can only contribute to one submission.</strong> You can't submit multiple mods, or
+			submit one mod solo and one in a team, or participate in multiple teams.
 		</p>
 		<p>
 			👮 All submissions must follow the <a
@@ -354,7 +362,10 @@
 			👤 Overall opinion. The judges are (allegedly) people, so the review process will be mostly
 			driven by personal opinion. The judging criteria are guidelines we&#39;ll use while reviewing
 			the submissions, they&#39;re not strict rules or values to be fed into a formula.
-			<b>Typically, all judges will rank their favourite entries, and these rankings will be combined to get the final result.</b>
+			<b
+				>Typically, all judges will rank their favourite entries, and these rankings will be
+				combined to get the final result.</b
+			>
 			In the event of a close race for one of the top three places we may announce a tie.
 		</p>
 		<p>These guidelines can change depending on how the jam is going.</p>
@@ -363,8 +374,8 @@
 		<p>Here is some advice on how to make a successful jam entry!</p>
 		<p>
 			<b>Do not overscope!</b> You might feel like you have all the time in the world to make your entry,
-			but remember that a smaller, polished entry is better than a huge, completely broken entry! As
-			a rule of thumb, remember the "Rule of 3". Three tasks to complete a specific objective is usually
+			but remember that a smaller, polished entry is better than a huge, completely broken entry! As a
+			rule of thumb, remember the "Rule of 3". Three tasks to complete a specific objective is usually
 			a good balance of variety and scope. On a macro level, you could three small mysteries required
 			to solve your main mystery.
 		</p>
@@ -450,8 +461,7 @@
 			prize if you're on a two person team.
 		</p>
 		<p>
-			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around
-			there.
+			If you're looking for a team, <a class="link" href="#talk">join our Discord</a> and ask around there.
 		</p>
 	</PageSection>
 	<PageSection title="Talk to us" id="talk" isNarrow>

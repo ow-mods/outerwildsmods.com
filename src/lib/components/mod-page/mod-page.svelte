@@ -21,17 +21,23 @@
 
 	let { mod, modList, readmeHtml, headingStructure }: Props = $props();
 
-	const otherMods = sortModList(
-		modList.filter((otherMod) => otherMod.alpha == mod.alpha),
-		'installs',
-		0
+	const otherMods = $derived(
+		sortModList(
+			modList.filter((otherMod) => otherMod.alpha == mod.alpha),
+			'installs',
+			0
+		)
 	);
 
-	const currentModIndex = otherMods.findIndex((otherMod) => otherMod.uniqueName === mod.uniqueName);
-	const nextMod: Mod | undefined =
-		currentModIndex === -1 ? undefined : otherMods[currentModIndex + 1];
-	const previousMod: Mod | undefined =
-		currentModIndex === -1 ? undefined : otherMods[currentModIndex - 1];
+	const currentModIndex = $derived(
+		otherMods.findIndex((otherMod) => otherMod.uniqueName === mod.uniqueName)
+	);
+	const nextMod: Mod | undefined = $derived(
+		currentModIndex === -1 ? undefined : otherMods[currentModIndex + 1]
+	);
+	const previousMod: Mod | undefined = $derived(
+		currentModIndex === -1 ? undefined : otherMods[currentModIndex - 1]
+	);
 </script>
 
 <PageContainer

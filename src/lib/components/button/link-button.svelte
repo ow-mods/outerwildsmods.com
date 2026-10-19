@@ -19,7 +19,7 @@
 		children,
 	}: Props = $props();
 
-	const element = href ? 'a' : 'button';
+	const element = $derived(href ? 'a' : 'button');
 </script>
 
 <svelte:element

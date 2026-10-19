@@ -15,7 +15,7 @@
 		noBorder = false,
 	}: Props = $props();
 
-	const borderClass = noBorder ? '' : 'border border-dark ';
+	const borderClass = $derived(noBorder ? '' : 'border border-dark ');
 </script>
 
 <div class="flex-1">

@@ -8,7 +8,9 @@
 
 	let { people, title }: Props = $props();
 
-	const peopleList = sortBy(Object.entries(people), ([displayName]) => displayName.toUpperCase());
+	const peopleList = $derived(
+		sortBy(Object.entries(people), ([displayName]) => displayName.toUpperCase())
+	);
 	const avatarSize = 40;
 </script>
 

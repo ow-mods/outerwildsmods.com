@@ -12,7 +12,7 @@
 
 	let { mods, sortOrder, title }: Props = $props();
 
-	let href = `/mods?${sortOrderParamName}=${sortOrder}`;
+	const href = $derived(`/mods?${sortOrderParamName}=${sortOrder}`);
 </script>
 
 <div class="m-auto md:w-0 flex-1 flex flex-col gap-2 w-full">

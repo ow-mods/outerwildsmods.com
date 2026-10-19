@@ -13,11 +13,11 @@
 
 	let { mod, modList }: Props = $props();
 
-	let childMods = modList
-		.filter((otherMod) => otherMod.parent === mod.uniqueName)
-		.slice(0, maxChildModCount);
+	const childMods = $derived(
+		modList.filter((otherMod) => otherMod.parent === mod.uniqueName).slice(0, maxChildModCount)
+	);
 
-	let addonsPath = `/mods/${mod.slug}/addons `;
+	const addonsPath = $derived(`/mods/${mod.slug}/addons `);
 </script>
 
 {#if childMods.length > 0}

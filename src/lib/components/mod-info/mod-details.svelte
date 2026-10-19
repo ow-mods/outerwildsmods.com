@@ -11,11 +11,15 @@
 
 	let { mod }: Props = $props();
 
-	const modUrl = `${websiteUrl}/mods/${mod.slug}/`;
-	const badgeJsonUrl = `${websiteUrl}/api/${mod.uniqueName}/badge.json`;
-	const badgeImageUrl = `https://img.shields.io/endpoint?url=${encodeURIComponent(badgeJsonUrl)}`;
-	const badgeMarkdown = `[![Install ${mod.name}](${badgeImageUrl})](${modUrl})`;
-	const badgeHtml = `<a href="${modUrl}"><img alt="Install ${mod.name}" src="${badgeImageUrl}" /></a>`;
+	const modUrl = $derived(`${websiteUrl}/mods/${mod.slug}/`);
+	const badgeJsonUrl = $derived(`${websiteUrl}/api/${mod.uniqueName}/badge.json`);
+	const badgeImageUrl = $derived(
+		`https://img.shields.io/endpoint?url=${encodeURIComponent(badgeJsonUrl)}`
+	);
+	const badgeMarkdown = $derived(`[![Install ${mod.name}](${badgeImageUrl})](${modUrl})`);
+	const badgeHtml = $derived(
+		`<a href="${modUrl}"><img alt="Install ${mod.name}" src="${badgeImageUrl}" /></a>`
+	);
 
 	let isMoreInfoOpen = $state(false);
 	const closeDialog = () => {

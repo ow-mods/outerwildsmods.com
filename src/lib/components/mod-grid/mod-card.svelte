@@ -17,6 +17,7 @@
 </script>
 
 <div
+	role="group"
 	onpointerenter={() => (pointer = true)}
 	onpointerleave={() => (pointer = false)}
 	ontouchstart={() => (touch = true)}
