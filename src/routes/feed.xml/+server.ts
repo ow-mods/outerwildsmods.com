@@ -111,7 +111,7 @@ const xml = (mods: Mod[]) => `<?xml version="1.0" encoding="utf-8"?>
    <link>${escapeXml(websiteUrl)}</link>
    <atom:link href="${escapeXml(websiteUrl)}/feed.xml"
      rel="self" type="application/rss+xml" />
-  <image>${escapeXml(websiteUrl)}/images/icon-large.png</image>
+  <image>${escapeXml(websiteUrl)}/favicon/web-app-manifest-192x192.png</image>
 ${splitModsByReleaseDate(mods)
 	.map((splitMods: Mod[]) => weeklyModsRelease(splitMods))
 	.join('')}

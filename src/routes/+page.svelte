@@ -38,7 +38,7 @@
 			"@context": "https://schema.org",
 			"@type": "Organization",
 			"url": "${websiteUrl}",
-			"logo": "${websiteUrl}/images/icon-large.png"
+			"logo": "${websiteUrl}/favicon/web-app-manifest-192x192.png"
 		}
 	</script>
 </svelte:head>
