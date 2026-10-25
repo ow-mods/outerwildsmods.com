@@ -1,36 +1,29 @@
 <script lang="ts">
 	import PageContainer from '#lib/components/page-container.svelte';
-	import { page } from '$app/state';
-	import ModAddons from '#lib/components/mod-addons.svelte';
 	import ModCard from '#lib/components/mod-grid/mod-card.svelte';
+	import ModGrid from '#lib/components/mod-grid/mod-grid.svelte';
 	import PageSection from '#lib/components/page-section/page-section.svelte';
-	import { getModBySlug } from '#lib/helpers/get-mod-by-slug';
-	import type { PageData } from './$types';
 	import { listedImageSize } from '#lib/helpers/constants';
+	import type { PageData } from './$types';
 
 	interface Props {
 		data: PageData;
 	}
 
 	let { data }: Props = $props();
-	const modList = $derived(data.modList);
-
-	const mod = $derived(getModBySlug(modList, page.params.mod ?? ''));
+	const mod = $derived(data.mod);
+	const relatedMods = $derived(data.relatedMods);
 </script>
 
-{#if mod}
-	<PageContainer
-		title="Addons for {mod.name} - Outer Wilds Mods"
-		description="List of addons for the Outer Wilds mod '{mod.name}'"
-		imageUrl={mod.openGraphImageUrl ?? mod.imageUrl}
-		imageWidth={listedImageSize.width}
-		imageHeight={listedImageSize.height}
-	>
-		<ModCard {mod} />
-		<PageSection title="Addons for {mod.name}" id="addons-{mod.uniqueName}">
-			<ModAddons {mod} {modList} />
-		</PageSection>
-	</PageContainer>
-{:else}
-	<div>Mod not found</div>
-{/if}
+<PageContainer
+	title="Mods related to {mod.name} - Outer Wilds Mods"
+	description="List of mods related to the Outer Wilds mod '{mod.name}'"
+	imageUrl={mod.openGraphImageUrl ?? mod.imageUrl}
+	imageWidth={listedImageSize.width}
+	imageHeight={listedImageSize.height}
+>
+	<ModCard {mod} />
+	<PageSection title="Mods related to {mod.name}" id="related-mods-{mod.uniqueName}">
+		<ModGrid mods={relatedMods} />
+	</PageSection>
+</PageContainer>

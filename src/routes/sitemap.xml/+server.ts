@@ -1,5 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { getModList } from '#lib/helpers/api/get-mod-list';
+import { getRelatedMods, MAX_RELATED_MODS } from '#lib/helpers/get-related-mods';
 import { websiteUrl } from '#lib/helpers/constants';
 
 export const prerender = true;
@@ -16,13 +17,15 @@ const getStaticPaths = () =>
 
 export const GET: RequestHandler = async () => {
 	const modList = await getModList();
-	const modsWithAddons = new Set(
-		modList.map((mod) => mod.parent).filter((parent): parent is string => Boolean(parent))
+	const modsWithRelatedModsPage = new Set(
+		modList
+			.filter((mod) => getRelatedMods(mod, modList).length > MAX_RELATED_MODS)
+			.map((mod) => mod.uniqueName)
 	);
 	const modPaths = modList.flatMap((mod) => {
 		const paths = [`/mods/${mod.slug}/`];
 
-		if (modsWithAddons.has(mod.uniqueName)) {
+		if (modsWithRelatedModsPage.has(mod.uniqueName)) {
 			paths.push(`/mods/${mod.slug}/addons/`);
 		}
 

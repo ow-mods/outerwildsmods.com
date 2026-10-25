@@ -20,6 +20,7 @@ export type ModFromDatabase = {
 	required?: boolean;
 	utility?: boolean;
 	parent?: string;
+	recommendedMods?: string[];
 	readme?: {
 		htmlUrl: string;
 		downloadUrl: string;

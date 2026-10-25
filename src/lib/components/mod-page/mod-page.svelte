@@ -2,8 +2,7 @@
 	import PageContainer from '#lib/components/page-container.svelte';
 	import ModInfo from '#lib/components/mod-info/mod-info.svelte';
 	import ModReadme from '#lib/components/mod-readme/mod-readme.svelte';
-	import ParentMod from '#lib/components/mod-info/parent-mod.svelte';
-	import ChildMods from '#lib/components/mod-info/child-mods.svelte';
+	import RelatedMods from '#lib/components/mod-info/related-mods.svelte';
 	import { listedImageSize } from '#lib/helpers/constants';
 	import Comments from '#lib/components/comments.svelte';
 	import { sortModList } from '#lib/helpers/mod-sorting';
@@ -81,8 +80,7 @@
 					<TableOfContents headings={headingStructure} />
 				{/if}
 			</div>
-			<ChildMods {mod} {modList} />
-			<ParentMod parentUniqueName={mod.parent} {modList} />
+			<RelatedMods {mod} {modList} />
 		</div>
 	</div>
 	<Comments id="mod: {mod.uniqueName}" />
